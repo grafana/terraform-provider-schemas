@@ -1,4 +1,4 @@
-module github.com/grafana/terraform-provider-hackathon
+module github.com/grafana/terraform-provider-grafana-schemas
 
 go 1.19
 

@@ -5,7 +5,7 @@ import (
 	"flag"
 	"log"
 
-	"github.com/grafana/terraform-provider-hackathon/internal/provider"
+	"github.com/grafana/terraform-provider-grafana-schemas/internal/provider"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 )
 
@@ -35,8 +35,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		// TODO: Update this string with the published name of your provider.
-		Address: "registry.terraform.io/hashicorp/scaffolding",
+		Address: "registry.terraform.io/grafana/grafanaschemas",
 		Debug:   debug,
 	}
 
