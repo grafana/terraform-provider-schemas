@@ -22,38 +22,40 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &serviceaccountDataSource{}
-	_ datasource.DataSourceWithConfigure = &serviceaccountDataSource{}
+	_ datasource.DataSource              = &ServiceaccountDataSource{}
+	_ datasource.DataSourceWithConfigure = &ServiceaccountDataSource{}
 )
 
-func NewserviceaccountDataSource() datasource.DataSource {
-	return &serviceaccountDataSource{}
+func NewServiceaccountDataSource() datasource.DataSource {
+	return &ServiceaccountDataSource{}
 }
 
-// serviceaccountDataSource defines the data source implementation.
-type serviceaccountDataSource struct {
+// ServiceaccountDataSource defines the data source implementation.
+type ServiceaccountDataSource struct{}
+
+// ServiceaccountDataSourceModel describes the data source data model.
+type ServiceaccountDataSourceModel struct {
+	Id            types.Int64  `tfsdk:"id" json:"id"`
+	OrgId         types.Int64  `tfsdk:"org_id" json:"orgId"`
+	Name          types.String `tfsdk:"name" json:"name"`
+	Login         types.String `tfsdk:"login" json:"login"`
+	IsDisabled    types.Bool   `tfsdk:"is_disabled" json:"isDisabled"`
+	Role          types.String `tfsdk:"role" json:"role"`
+	Tokens        types.Int64  `tfsdk:"tokens" json:"tokens"`
+	AvatarUrl     types.String `tfsdk:"avatar_url" json:"avatarUrl"`
+	AccessControl *struct {
+	} `tfsdk:"access_control" json:"accessControl"`
+	Teams   types.List   `tfsdk:"teams" json:"teams"`
+	Created types.Int64  `tfsdk:"created" json:"created"`
+	Updated types.Int64  `tfsdk:"updated" json:"updated"`
+	ToJSON  types.String `tfsdk:"to_json"`
 }
 
-// serviceaccountDataSourceModel describes the data source data model.
-type serviceaccountDataSourceModel struct {
-	Id         types.Int64  `tfsdk:"id" json:"id"`
-	OrgId      types.Int64  `tfsdk:"org_id" json:"orgId"`
-	Name       types.String `tfsdk:"name" json:"name"`
-	Login      types.String `tfsdk:"login" json:"login"`
-	IsDisabled types.Bool   `tfsdk:"is_disabled" json:"isDisabled"`
-	Role       types.String `tfsdk:"role" json:"role"`
-	Tokens     types.Int64  `tfsdk:"tokens" json:"tokens"`
-	AvatarUrl  types.String `tfsdk:"avatar_url" json:"avatarUrl"`
-	Created    types.Int64  `tfsdk:"created" json:"created"`
-	Updated    types.Int64  `tfsdk:"updated" json:"updated"`
-	ToJSON     types.String `tfsdk:"to_json"`
-}
-
-func (d *serviceaccountDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+func (d *ServiceaccountDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_serviceaccount"
 }
 
-func (d *serviceaccountDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *ServiceaccountDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
@@ -117,6 +119,21 @@ of the service account.`,
 				Required: true,
 			},
 
+			"access_control": schema.SingleNestedAttribute{
+				MarkdownDescription: `AccessControl metadata associated with a given resource.`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+			},
+
+			"teams": schema.ListAttribute{
+				MarkdownDescription: `Teams is a list of teams the service account belongs to.`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+				ElementType:         types.StringType,
+			},
+
 			"created": schema.Int64Attribute{
 				MarkdownDescription: `Created indicates when the service account was created.`,
 				Computed:            false,
@@ -139,11 +156,11 @@ of the service account.`,
 	}
 }
 
-func (d *serviceaccountDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *ServiceaccountDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *serviceaccountDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data serviceaccountDataSourceModel
+func (d *ServiceaccountDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data ServiceaccountDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

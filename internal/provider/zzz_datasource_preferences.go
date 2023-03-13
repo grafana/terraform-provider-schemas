@@ -22,33 +22,35 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &preferencesDataSource{}
-	_ datasource.DataSourceWithConfigure = &preferencesDataSource{}
+	_ datasource.DataSource              = &PreferencesDataSource{}
+	_ datasource.DataSourceWithConfigure = &PreferencesDataSource{}
 )
 
-func NewpreferencesDataSource() datasource.DataSource {
-	return &preferencesDataSource{}
+func NewPreferencesDataSource() datasource.DataSource {
+	return &PreferencesDataSource{}
 }
 
-// preferencesDataSource defines the data source implementation.
-type preferencesDataSource struct {
-}
+// PreferencesDataSource defines the data source implementation.
+type PreferencesDataSource struct{}
 
-// preferencesDataSourceModel describes the data source data model.
-type preferencesDataSourceModel struct {
+// PreferencesDataSourceModel describes the data source data model.
+type PreferencesDataSourceModel struct {
 	HomeDashboardUID types.String `tfsdk:"home_dashboard_uid" json:"homeDashboardUID"`
 	Timezone         types.String `tfsdk:"timezone" json:"timezone"`
 	WeekStart        types.String `tfsdk:"week_start" json:"weekStart"`
 	Theme            types.String `tfsdk:"theme" json:"theme"`
 	Language         types.String `tfsdk:"language" json:"language"`
-	ToJSON           types.String `tfsdk:"to_json"`
+	QueryHistory     *struct {
+		HomeTab types.String `tfsdk:"home_tab" json:"homeTab"`
+	} `tfsdk:"query_history" json:"queryHistory"`
+	ToJSON types.String `tfsdk:"to_json"`
 }
 
-func (d *preferencesDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+func (d *PreferencesDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_preferences"
 }
 
-func (d *preferencesDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *PreferencesDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
@@ -90,6 +92,21 @@ TODO: this should use the timezone defined in common`,
 				Required:            false,
 			},
 
+			"query_history": schema.SingleNestedAttribute{
+				MarkdownDescription: `Explore query history preferences`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"home_tab": schema.StringAttribute{
+						MarkdownDescription: `one of: '' | 'query' | 'starred';`,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+					},
+				},
+			},
+
 			"to_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
@@ -98,11 +115,11 @@ TODO: this should use the timezone defined in common`,
 	}
 }
 
-func (d *preferencesDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *PreferencesDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *preferencesDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data preferencesDataSourceModel
+func (d *PreferencesDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data PreferencesDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

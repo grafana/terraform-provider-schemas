@@ -22,31 +22,35 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &playlistDataSource{}
-	_ datasource.DataSourceWithConfigure = &playlistDataSource{}
+	_ datasource.DataSource              = &PlaylistDataSource{}
+	_ datasource.DataSourceWithConfigure = &PlaylistDataSource{}
 )
 
-func NewplaylistDataSource() datasource.DataSource {
-	return &playlistDataSource{}
+func NewPlaylistDataSource() datasource.DataSource {
+	return &PlaylistDataSource{}
 }
 
-// playlistDataSource defines the data source implementation.
-type playlistDataSource struct {
-}
+// PlaylistDataSource defines the data source implementation.
+type PlaylistDataSource struct{}
 
-// playlistDataSourceModel describes the data source data model.
-type playlistDataSourceModel struct {
+// PlaylistDataSourceModel describes the data source data model.
+type PlaylistDataSourceModel struct {
 	Uid      types.String `tfsdk:"uid" json:"uid"`
 	Name     types.String `tfsdk:"name" json:"name"`
 	Interval types.String `tfsdk:"interval" json:"interval"`
-	ToJSON   types.String `tfsdk:"to_json"`
+	Items    []struct {
+		Type  types.String `tfsdk:"type" json:"type"`
+		Value types.String `tfsdk:"value" json:"value"`
+		Title types.String `tfsdk:"title" json:"title"`
+	} `tfsdk:"items" json:"items"`
+	ToJSON types.String `tfsdk:"to_json"`
 }
 
-func (d *playlistDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+func (d *PlaylistDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_playlist"
 }
 
-func (d *playlistDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *PlaylistDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
@@ -75,6 +79,45 @@ FIXME: Is this based on a standardized format or what options are available? Can
 				Required: true,
 			},
 
+			"items": schema.ListNestedAttribute{
+				MarkdownDescription: `The ordered list of items that the playlist will iterate over.
+FIXME! This should not be optional, but changing it makes the godegen awkward`,
+				Computed: false,
+				Optional: true,
+				Required: false,
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"type": schema.StringAttribute{
+							MarkdownDescription: `Type of the item.`,
+							Computed:            false,
+							Optional:            false,
+							Required:            true,
+						},
+
+						"value": schema.StringAttribute{
+							MarkdownDescription: `Value depends on type and describes the playlist item.
+
+ - dashboard_by_id: The value is an internal numerical identifier set by Grafana. This
+ is not portable as the numerical identifier is non-deterministic between different instances.
+ Will be replaced by dashboard_by_uid in the future. (deprecated)
+ - dashboard_by_tag: The value is a tag which is set on any number of dashboards. All
+ dashboards behind the tag will be added to the playlist.
+ - dashboard_by_uid: The value is the dashboard UID`,
+							Computed: false,
+							Optional: false,
+							Required: true,
+						},
+
+						"title": schema.StringAttribute{
+							MarkdownDescription: `Title is an unused property -- it will be removed in the future`,
+							Computed:            false,
+							Optional:            true,
+							Required:            false,
+						},
+					},
+				},
+			},
+
 			"to_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
@@ -83,11 +126,11 @@ FIXME: Is this based on a standardized format or what options are available? Can
 	}
 }
 
-func (d *playlistDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *PlaylistDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *playlistDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data playlistDataSourceModel
+func (d *PlaylistDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data PlaylistDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

@@ -22,36 +22,37 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &teamDataSource{}
-	_ datasource.DataSourceWithConfigure = &teamDataSource{}
+	_ datasource.DataSource              = &TeamDataSource{}
+	_ datasource.DataSourceWithConfigure = &TeamDataSource{}
 )
 
-func NewteamDataSource() datasource.DataSource {
-	return &teamDataSource{}
+func NewTeamDataSource() datasource.DataSource {
+	return &TeamDataSource{}
 }
 
-// teamDataSource defines the data source implementation.
-type teamDataSource struct {
+// TeamDataSource defines the data source implementation.
+type TeamDataSource struct{}
+
+// TeamDataSourceModel describes the data source data model.
+type TeamDataSourceModel struct {
+	OrgId         types.Int64  `tfsdk:"org_id" json:"orgId"`
+	Name          types.String `tfsdk:"name" json:"name"`
+	Email         types.String `tfsdk:"email" json:"email"`
+	AvatarUrl     types.String `tfsdk:"avatar_url" json:"avatarUrl"`
+	MemberCount   types.Int64  `tfsdk:"member_count" json:"memberCount"`
+	Permission    types.Int64  `tfsdk:"permission" json:"permission"`
+	AccessControl *struct {
+	} `tfsdk:"access_control" json:"accessControl"`
+	Created types.Int64  `tfsdk:"created" json:"created"`
+	Updated types.Int64  `tfsdk:"updated" json:"updated"`
+	ToJSON  types.String `tfsdk:"to_json"`
 }
 
-// teamDataSourceModel describes the data source data model.
-type teamDataSourceModel struct {
-	OrgId       types.Int64  `tfsdk:"org_id" json:"orgId"`
-	Name        types.String `tfsdk:"name" json:"name"`
-	Email       types.String `tfsdk:"email" json:"email"`
-	AvatarUrl   types.String `tfsdk:"avatar_url" json:"avatarUrl"`
-	MemberCount types.Int64  `tfsdk:"member_count" json:"memberCount"`
-	Permission  types.Int64  `tfsdk:"permission" json:"permission"`
-	Created     types.Int64  `tfsdk:"created" json:"created"`
-	Updated     types.Int64  `tfsdk:"updated" json:"updated"`
-	ToJSON      types.String `tfsdk:"to_json"`
-}
-
-func (d *teamDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+func (d *TeamDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_team"
 }
 
-func (d *teamDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *TeamDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
@@ -99,6 +100,13 @@ func (d *teamDataSource) Schema(ctx context.Context, req datasource.SchemaReques
 				Required:            true,
 			},
 
+			"access_control": schema.SingleNestedAttribute{
+				MarkdownDescription: `AccessControl metadata associated with a given resource.`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+			},
+
 			"created": schema.Int64Attribute{
 				MarkdownDescription: `Created indicates when the team was created.`,
 				Computed:            false,
@@ -121,11 +129,11 @@ func (d *teamDataSource) Schema(ctx context.Context, req datasource.SchemaReques
 	}
 }
 
-func (d *teamDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *TeamDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *teamDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data teamDataSourceModel
+func (d *TeamDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data TeamDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

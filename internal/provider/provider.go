@@ -60,7 +60,7 @@ func (p *GrafanaSchemasProvider) Resources(ctx context.Context) []func() resourc
 
 func (p *GrafanaSchemasProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
-		NewdashboardDataSource,
+		NewDashboardDataSource,
 	}
 }
 

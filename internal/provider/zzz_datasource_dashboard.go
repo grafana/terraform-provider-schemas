@@ -22,43 +22,122 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &dashboardDataSource{}
-	_ datasource.DataSourceWithConfigure = &dashboardDataSource{}
+	_ datasource.DataSource              = &DashboardDataSource{}
+	_ datasource.DataSourceWithConfigure = &DashboardDataSource{}
 )
 
-func NewdashboardDataSource() datasource.DataSource {
-	return &dashboardDataSource{}
+func NewDashboardDataSource() datasource.DataSource {
+	return &DashboardDataSource{}
 }
 
-// dashboardDataSource defines the data source implementation.
-type dashboardDataSource struct {
-}
+// DashboardDataSource defines the data source implementation.
+type DashboardDataSource struct{}
 
-// dashboardDataSourceModel describes the data source data model.
-type dashboardDataSourceModel struct {
-	Id                   types.Int64  `tfsdk:"id" json:"id"`
-	Uid                  types.String `tfsdk:"uid" json:"uid"`
-	Title                types.String `tfsdk:"title" json:"title"`
-	Description          types.String `tfsdk:"description" json:"description"`
-	Revision             types.Int64  `tfsdk:"revision" json:"revision"`
-	GnetId               types.String `tfsdk:"gnet_id" json:"gnetId"`
-	Style                types.String `tfsdk:"style" json:"style"`
-	Timezone             types.String `tfsdk:"timezone" json:"timezone"`
-	Editable             types.Bool   `tfsdk:"editable" json:"editable"`
-	GraphTooltip         types.Int64  `tfsdk:"graph_tooltip" json:"graphTooltip"`
+// DashboardDataSourceModel describes the data source data model.
+type DashboardDataSourceModel struct {
+	Id           types.Int64  `tfsdk:"id" json:"id"`
+	Uid          types.String `tfsdk:"uid" json:"uid"`
+	Title        types.String `tfsdk:"title" json:"title"`
+	Description  types.String `tfsdk:"description" json:"description"`
+	Revision     types.Int64  `tfsdk:"revision" json:"revision"`
+	GnetId       types.String `tfsdk:"gnet_id" json:"gnetId"`
+	Tags         types.List   `tfsdk:"tags" json:"tags"`
+	Style        types.String `tfsdk:"style" json:"style"`
+	Timezone     types.String `tfsdk:"timezone" json:"timezone"`
+	Editable     types.Bool   `tfsdk:"editable" json:"editable"`
+	GraphTooltip types.Int64  `tfsdk:"graph_tooltip" json:"graphTooltip"`
+	Time         *struct {
+		From types.String `tfsdk:"from" json:"from"`
+		To   types.String `tfsdk:"to" json:"to"`
+	} `tfsdk:"time" json:"time"`
+	Timepicker *struct {
+		Collapse         types.Bool `tfsdk:"collapse" json:"collapse"`
+		Enable           types.Bool `tfsdk:"enable" json:"enable"`
+		Hidden           types.Bool `tfsdk:"hidden" json:"hidden"`
+		RefreshIntervals types.List `tfsdk:"refresh_intervals" json:"refresh_intervals"`
+		TimeOptions      types.List `tfsdk:"time_options" json:"time_options"`
+	} `tfsdk:"timepicker" json:"timepicker"`
 	FiscalYearStartMonth types.Int64  `tfsdk:"fiscal_year_start_month" json:"fiscalYearStartMonth"`
 	LiveNow              types.Bool   `tfsdk:"live_now" json:"liveNow"`
 	WeekStart            types.String `tfsdk:"week_start" json:"weekStart"`
 	SchemaVersion        types.Int64  `tfsdk:"schema_version" json:"schemaVersion"`
 	Version              types.Int64  `tfsdk:"version" json:"version"`
-	ToJSON               types.String `tfsdk:"to_json"`
+	Templating           *struct {
+		List []struct {
+			Id           types.String `tfsdk:"id" json:"id"`
+			Type         types.String `tfsdk:"type" json:"type"`
+			Name         types.String `tfsdk:"name" json:"name"`
+			Label        types.String `tfsdk:"label" json:"label"`
+			RootStateKey types.String `tfsdk:"root_state_key" json:"rootStateKey"`
+			Global       types.Bool   `tfsdk:"global" json:"global"`
+			Hide         types.Int64  `tfsdk:"hide" json:"hide"`
+			SkipUrlSync  types.Bool   `tfsdk:"skip_url_sync" json:"skipUrlSync"`
+			Index        types.Int64  `tfsdk:"index" json:"index"`
+			State        types.String `tfsdk:"state" json:"state"`
+			Error        *struct {
+			} `tfsdk:"error" json:"error"`
+			Description types.String `tfsdk:"description" json:"description"`
+			Datasource  *struct {
+				Type types.String `tfsdk:"type" json:"type"`
+				Uid  types.String `tfsdk:"uid" json:"uid"`
+			} `tfsdk:"datasource" json:"datasource"`
+		} `tfsdk:"list" json:"list"`
+	} `tfsdk:"templating" json:"templating"`
+	Annotations *struct {
+		List []struct {
+			Datasource *struct {
+				Type types.String `tfsdk:"type" json:"type"`
+				Uid  types.String `tfsdk:"uid" json:"uid"`
+			} `tfsdk:"datasource" json:"datasource"`
+			Enable    types.Bool   `tfsdk:"enable" json:"enable"`
+			Name      types.String `tfsdk:"name" json:"name"`
+			BuiltIn   types.Int64  `tfsdk:"built_in" json:"builtIn"`
+			Hide      types.Bool   `tfsdk:"hide" json:"hide"`
+			IconColor types.String `tfsdk:"icon_color" json:"iconColor"`
+			Type      types.String `tfsdk:"type" json:"type"`
+			RawQuery  types.String `tfsdk:"raw_query" json:"rawQuery"`
+			ShowIn    types.Int64  `tfsdk:"show_in" json:"showIn"`
+			Target    *struct {
+				Limit    types.Int64  `tfsdk:"limit" json:"limit"`
+				MatchAny types.Bool   `tfsdk:"match_any" json:"matchAny"`
+				Tags     types.List   `tfsdk:"tags" json:"tags"`
+				Type     types.String `tfsdk:"type" json:"type"`
+			} `tfsdk:"target" json:"target"`
+		} `tfsdk:"list" json:"list"`
+	} `tfsdk:"annotations" json:"annotations"`
+	Links []struct {
+		Title       types.String `tfsdk:"title" json:"title"`
+		Type        types.String `tfsdk:"type" json:"type"`
+		Icon        types.String `tfsdk:"icon" json:"icon"`
+		Tooltip     types.String `tfsdk:"tooltip" json:"tooltip"`
+		Url         types.String `tfsdk:"url" json:"url"`
+		Tags        types.List   `tfsdk:"tags" json:"tags"`
+		AsDropdown  types.Bool   `tfsdk:"as_dropdown" json:"asDropdown"`
+		TargetBlank types.Bool   `tfsdk:"target_blank" json:"targetBlank"`
+		IncludeVars types.Bool   `tfsdk:"include_vars" json:"includeVars"`
+		KeepTime    types.Bool   `tfsdk:"keep_time" json:"keepTime"`
+	} `tfsdk:"links" json:"links"`
+	Snapshot *struct {
+		Created     types.String `tfsdk:"created" json:"created"`
+		Expires     types.String `tfsdk:"expires" json:"expires"`
+		External    types.Bool   `tfsdk:"external" json:"external"`
+		ExternalUrl types.String `tfsdk:"external_url" json:"externalUrl"`
+		Id          types.Int64  `tfsdk:"id" json:"id"`
+		Key         types.String `tfsdk:"key" json:"key"`
+		Name        types.String `tfsdk:"name" json:"name"`
+		OrgId       types.Int64  `tfsdk:"org_id" json:"orgId"`
+		Updated     types.String `tfsdk:"updated" json:"updated"`
+		Url         types.String `tfsdk:"url" json:"url"`
+		UserId      types.Int64  `tfsdk:"user_id" json:"userId"`
+	} `tfsdk:"snapshot" json:"snapshot"`
+	ToJSON types.String `tfsdk:"to_json"`
 }
 
-func (d *dashboardDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+func (d *DashboardDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_dashboard"
 }
 
-func (d *dashboardDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *DashboardDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
@@ -107,6 +186,14 @@ TODO must isolate or remove identifiers local to a Grafana instance...?`,
 				Required:            false,
 			},
 
+			"tags": schema.ListAttribute{
+				MarkdownDescription: `Tags associated with dashboard.`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+				ElementType:         types.StringType,
+			},
+
 			"style": schema.StringAttribute{
 				MarkdownDescription: `Theme of dashboard.`,
 				Computed:            false,
@@ -133,6 +220,74 @@ TODO must isolate or remove identifiers local to a Grafana instance...?`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
+			},
+
+			"time": schema.SingleNestedAttribute{
+				MarkdownDescription: `Time range for dashboard, e.g. last 6 hours, last 7 days, etc`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"from": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"to": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+				},
+			},
+
+			"timepicker": schema.SingleNestedAttribute{
+				MarkdownDescription: `TODO docs
+TODO this appears to be spread all over in the frontend. Concepts will likely need tidying in tandem with schema changes`,
+				Computed: false,
+				Optional: true,
+				Required: false,
+				Attributes: map[string]schema.Attribute{
+					"collapse": schema.BoolAttribute{
+						MarkdownDescription: `Whether timepicker is collapsed or not.`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"enable": schema.BoolAttribute{
+						MarkdownDescription: `Whether timepicker is enabled or not.`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"hidden": schema.BoolAttribute{
+						MarkdownDescription: `Whether timepicker is visible or not.`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"refresh_intervals": schema.ListAttribute{
+						MarkdownDescription: `Selectable intervals for auto-refresh.`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+						ElementType:         types.StringType,
+					},
+
+					"time_options": schema.ListAttribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+						ElementType:         types.StringType,
+					},
+				},
 			},
 
 			"fiscal_year_start_month": schema.Int64Attribute{
@@ -172,6 +327,429 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 				Required:            false,
 			},
 
+			"templating": schema.SingleNestedAttribute{
+				MarkdownDescription: `TODO docs`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"list": schema.ListNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+						NestedObject: schema.NestedAttributeObject{
+							Attributes: map[string]schema.Attribute{
+								"id": schema.StringAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"type": schema.StringAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"name": schema.StringAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"label": schema.StringAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+
+								"root_state_key": schema.StringAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+
+								"global": schema.BoolAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"hide": schema.Int64Attribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"skip_url_sync": schema.BoolAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"index": schema.Int64Attribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"state": schema.StringAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"error": schema.SingleNestedAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+
+								"description": schema.StringAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+
+								"datasource": schema.SingleNestedAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+									Attributes: map[string]schema.Attribute{
+										"type": schema.StringAttribute{
+											MarkdownDescription: `The plugin type-id`,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+
+										"uid": schema.StringAttribute{
+											MarkdownDescription: `Specific datasource instance`,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+
+			"annotations": schema.SingleNestedAttribute{
+				MarkdownDescription: `TODO docs`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"list": schema.ListNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+						NestedObject: schema.NestedAttributeObject{
+							Attributes: map[string]schema.Attribute{
+								"datasource": schema.SingleNestedAttribute{
+									MarkdownDescription: `Datasource to use for annotation.`,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+									Attributes: map[string]schema.Attribute{
+										"type": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+
+										"uid": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+									},
+								},
+
+								"enable": schema.BoolAttribute{
+									MarkdownDescription: `Whether annotation is enabled.`,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"name": schema.StringAttribute{
+									MarkdownDescription: `Name of annotation.`,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+
+								"built_in": schema.Int64Attribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"hide": schema.BoolAttribute{
+									MarkdownDescription: `Whether to hide annotation.`,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+
+								"icon_color": schema.StringAttribute{
+									MarkdownDescription: `Annotation icon color.`,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+
+								"type": schema.StringAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"raw_query": schema.StringAttribute{
+									MarkdownDescription: `Query for annotation data.`,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+
+								"show_in": schema.Int64Attribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+
+								"target": schema.SingleNestedAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+									Attributes: map[string]schema.Attribute{
+										"limit": schema.Int64Attribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            false,
+											Required:            true,
+										},
+
+										"match_any": schema.BoolAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            false,
+											Required:            true,
+										},
+
+										"tags": schema.ListAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            false,
+											Required:            true,
+											ElementType:         types.StringType,
+										},
+
+										"type": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            false,
+											Required:            true,
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+
+			"links": schema.ListNestedAttribute{
+				MarkdownDescription: `TODO docs`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"title": schema.StringAttribute{
+							MarkdownDescription: ``,
+							Computed:            false,
+							Optional:            false,
+							Required:            true,
+						},
+
+						"type": schema.StringAttribute{
+							MarkdownDescription: ``,
+							Computed:            false,
+							Optional:            false,
+							Required:            true,
+						},
+
+						"icon": schema.StringAttribute{
+							MarkdownDescription: ``,
+							Computed:            false,
+							Optional:            false,
+							Required:            true,
+						},
+
+						"tooltip": schema.StringAttribute{
+							MarkdownDescription: ``,
+							Computed:            false,
+							Optional:            false,
+							Required:            true,
+						},
+
+						"url": schema.StringAttribute{
+							MarkdownDescription: ``,
+							Computed:            false,
+							Optional:            false,
+							Required:            true,
+						},
+
+						"tags": schema.ListAttribute{
+							MarkdownDescription: ``,
+							Computed:            false,
+							Optional:            false,
+							Required:            true,
+							ElementType:         types.StringType,
+						},
+
+						"as_dropdown": schema.BoolAttribute{
+							MarkdownDescription: ``,
+							Computed:            false,
+							Optional:            false,
+							Required:            true,
+						},
+
+						"target_blank": schema.BoolAttribute{
+							MarkdownDescription: ``,
+							Computed:            false,
+							Optional:            false,
+							Required:            true,
+						},
+
+						"include_vars": schema.BoolAttribute{
+							MarkdownDescription: ``,
+							Computed:            false,
+							Optional:            false,
+							Required:            true,
+						},
+
+						"keep_time": schema.BoolAttribute{
+							MarkdownDescription: ``,
+							Computed:            false,
+							Optional:            false,
+							Required:            true,
+						},
+					},
+				},
+			},
+
+			"snapshot": schema.SingleNestedAttribute{
+				MarkdownDescription: ``,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"created": schema.StringAttribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"expires": schema.StringAttribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"external": schema.BoolAttribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"external_url": schema.StringAttribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"id": schema.Int64Attribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"key": schema.StringAttribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"name": schema.StringAttribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"org_id": schema.Int64Attribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"updated": schema.StringAttribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"url": schema.StringAttribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+					},
+
+					"user_id": schema.Int64Attribute{
+						MarkdownDescription: `TODO docs`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+				},
+			},
+
 			"to_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
@@ -180,11 +758,11 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 	}
 }
 
-func (d *dashboardDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *DashboardDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *dashboardDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data dashboardDataSourceModel
+func (d *DashboardDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data DashboardDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

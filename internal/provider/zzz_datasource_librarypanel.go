@@ -22,20 +22,19 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &librarypanelDataSource{}
-	_ datasource.DataSourceWithConfigure = &librarypanelDataSource{}
+	_ datasource.DataSource              = &LibrarypanelDataSource{}
+	_ datasource.DataSourceWithConfigure = &LibrarypanelDataSource{}
 )
 
-func NewlibrarypanelDataSource() datasource.DataSource {
-	return &librarypanelDataSource{}
+func NewLibrarypanelDataSource() datasource.DataSource {
+	return &LibrarypanelDataSource{}
 }
 
-// librarypanelDataSource defines the data source implementation.
-type librarypanelDataSource struct {
-}
+// LibrarypanelDataSource defines the data source implementation.
+type LibrarypanelDataSource struct{}
 
-// librarypanelDataSourceModel describes the data source data model.
-type librarypanelDataSourceModel struct {
+// LibrarypanelDataSourceModel describes the data source data model.
+type LibrarypanelDataSourceModel struct {
 	FolderUid     types.String `tfsdk:"folder_uid" json:"folderUid"`
 	Uid           types.String `tfsdk:"uid" json:"uid"`
 	Name          types.String `tfsdk:"name" json:"name"`
@@ -43,14 +42,33 @@ type librarypanelDataSourceModel struct {
 	Type          types.String `tfsdk:"type" json:"type"`
 	SchemaVersion types.Int64  `tfsdk:"schema_version" json:"schemaVersion"`
 	Version       types.Int64  `tfsdk:"version" json:"version"`
-	ToJSON        types.String `tfsdk:"to_json"`
+	Model         *struct {
+	} `tfsdk:"model" json:"model"`
+	Meta *struct {
+		FolderName          types.String `tfsdk:"folder_name" json:"folderName"`
+		FolderUid           types.String `tfsdk:"folder_uid" json:"folderUid"`
+		ConnectedDashboards types.Int64  `tfsdk:"connected_dashboards" json:"connectedDashboards"`
+		Created             types.String `tfsdk:"created" json:"created"`
+		Updated             types.String `tfsdk:"updated" json:"updated"`
+		CreatedBy           *struct {
+			Id        types.Int64  `tfsdk:"id" json:"id"`
+			Name      types.String `tfsdk:"name" json:"name"`
+			AvatarUrl types.String `tfsdk:"avatar_url" json:"avatarUrl"`
+		} `tfsdk:"created_by" json:"createdBy"`
+		UpdatedBy *struct {
+			Id        types.Int64  `tfsdk:"id" json:"id"`
+			Name      types.String `tfsdk:"name" json:"name"`
+			AvatarUrl types.String `tfsdk:"avatar_url" json:"avatarUrl"`
+		} `tfsdk:"updated_by" json:"updatedBy"`
+	} `tfsdk:"meta" json:"meta"`
+	ToJSON types.String `tfsdk:"to_json"`
 }
 
-func (d *librarypanelDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+func (d *LibrarypanelDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_librarypanel"
 }
 
-func (d *librarypanelDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *LibrarypanelDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
@@ -105,6 +123,115 @@ func (d *librarypanelDataSource) Schema(ctx context.Context, req datasource.Sche
 				Required:            true,
 			},
 
+			"model": schema.SingleNestedAttribute{
+				MarkdownDescription: `TODO: should be the same panel schema defined in dashboard
+Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
+				Computed: false,
+				Optional: false,
+				Required: true,
+			},
+
+			"meta": schema.SingleNestedAttribute{
+				MarkdownDescription: `Object storage metadata`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"folder_name": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"folder_uid": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"connected_dashboards": schema.Int64Attribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"created": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"updated": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+
+					"created_by": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+						Attributes: map[string]schema.Attribute{
+							"id": schema.Int64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+
+							"name": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+
+							"avatar_url": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+						},
+					},
+
+					"updated_by": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+						Attributes: map[string]schema.Attribute{
+							"id": schema.Int64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+
+							"name": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+
+							"avatar_url": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+						},
+					},
+				},
+			},
+
 			"to_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
@@ -113,11 +240,11 @@ func (d *librarypanelDataSource) Schema(ctx context.Context, req datasource.Sche
 	}
 }
 
-func (d *librarypanelDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *LibrarypanelDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *librarypanelDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data librarypanelDataSourceModel
+func (d *LibrarypanelDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data LibrarypanelDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

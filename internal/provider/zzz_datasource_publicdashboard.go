@@ -22,20 +22,19 @@ import (
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &publicdashboardDataSource{}
-	_ datasource.DataSourceWithConfigure = &publicdashboardDataSource{}
+	_ datasource.DataSource              = &PublicdashboardDataSource{}
+	_ datasource.DataSourceWithConfigure = &PublicdashboardDataSource{}
 )
 
-func NewpublicdashboardDataSource() datasource.DataSource {
-	return &publicdashboardDataSource{}
+func NewPublicdashboardDataSource() datasource.DataSource {
+	return &PublicdashboardDataSource{}
 }
 
-// publicdashboardDataSource defines the data source implementation.
-type publicdashboardDataSource struct {
-}
+// PublicdashboardDataSource defines the data source implementation.
+type PublicdashboardDataSource struct{}
 
-// publicdashboardDataSourceModel describes the data source data model.
-type publicdashboardDataSourceModel struct {
+// PublicdashboardDataSourceModel describes the data source data model.
+type PublicdashboardDataSourceModel struct {
 	Uid                  types.String `tfsdk:"uid" json:"uid"`
 	DashboardUid         types.String `tfsdk:"dashboard_uid" json:"dashboardUid"`
 	AccessToken          types.String `tfsdk:"access_token" json:"accessToken"`
@@ -45,11 +44,11 @@ type publicdashboardDataSourceModel struct {
 	ToJSON               types.String `tfsdk:"to_json"`
 }
 
-func (d *publicdashboardDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+func (d *PublicdashboardDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_publicdashboard"
 }
 
-func (d *publicdashboardDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *PublicdashboardDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
@@ -105,11 +104,11 @@ func (d *publicdashboardDataSource) Schema(ctx context.Context, req datasource.S
 	}
 }
 
-func (d *publicdashboardDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *PublicdashboardDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *publicdashboardDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data publicdashboardDataSourceModel
+func (d *PublicdashboardDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data PublicdashboardDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
