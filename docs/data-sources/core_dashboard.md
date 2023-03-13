@@ -35,6 +35,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 TODO must isolate or remove identifiers local to a Grafana instance...?
 - `links` (Attributes List) TODO docs (see [below for nested schema](#nestedatt--links))
 - `live_now` (Boolean) TODO docs
+- `panels` (List of String)
 - `snapshot` (Attributes) (see [below for nested schema](#nestedatt--snapshot))
 - `tags` (List of String) Tags associated with dashboard.
 - `templating` (Attributes) TODO docs (see [below for nested schema](#nestedatt--templating))

@@ -62,6 +62,7 @@ type CoreDashboardDataSourceModel struct {
 	WeekStart            types.String `tfsdk:"week_start" json:"weekStart"`
 	SchemaVersion        types.Int64  `tfsdk:"schema_version" json:"schemaVersion"`
 	Version              types.Int64  `tfsdk:"version" json:"version"`
+	Panels               types.List   `tfsdk:"panels" json:"panels"`
 	Templating           *struct {
 		List []struct {
 			Id           types.String `tfsdk:"id" json:"id"`
@@ -325,6 +326,14 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
+			},
+
+			"panels": schema.ListAttribute{
+				MarkdownDescription: ``,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+				ElementType:         types.StringType,
 			},
 
 			"templating": schema.SingleNestedAttribute{
@@ -776,6 +785,29 @@ func (d *CoreDashboardDataSource) Read(ctx context.Context, req datasource.ReadR
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
 		return
 	}
+
+	// fix up the panel Attribute
+	// Read into a map[string]interface{} and then marshal it back to JSON
+	// This is a workaround for the fact that the panel attribute should be a list of maps but is a list of json strings
+	dataMap := make(map[string]interface{})
+	err = json.Unmarshal(JSONConfig, &dataMap)
+	if err != nil {
+		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
+		return
+	}
+	panels := data.Panels.Elements()
+	panelsMaps := make([]map[string]interface{}, len(panels))
+	for i, panel := range panels {
+		panelMap := make(map[string]interface{})
+		err = json.Unmarshal([]byte(panel.String()), &panelMap)
+		if err != nil {
+			resp.Diagnostics.AddError("JSON marshalling error", err.Error())
+			return
+		}
+		panelsMaps[i] = panelMap
+	}
+
+	dataMap["panels"] = panelsMaps
 
 	// Not sure about that
 	data.ToJSON = types.StringValue(string(JSONConfig))
