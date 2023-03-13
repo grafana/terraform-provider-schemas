@@ -10,34 +10,34 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 )
 
-// Ensure GrafanaSchemasProvider satisfies various provider interfaces.
-var _ provider.Provider = &GrafanaSchemasProvider{}
+// Ensure schemasProvider satisfies various provider interfaces.
+var _ provider.Provider = &schemasProvider{}
 
-// GrafanaSchemasProvider defines the provider implementation.
-type GrafanaSchemasProvider struct {
+// schemasProvider defines the provider implementation.
+type schemasProvider struct {
 	// version is set to the provider version on release, "dev" when the
 	// provider is built and ran locally, and "test" when running acceptance
 	// testing.
 	version string
 }
 
-// GrafanaSchemasProviderModel describes the provider data model.
-type GrafanaSchemasProviderModel struct {
+// schemasProviderModel describes the provider data model.
+type schemasProviderModel struct {
 }
 
-func (p *GrafanaSchemasProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "grafanaschemas"
+func (p *schemasProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
+	resp.TypeName = "schemas"
 	resp.Version = p.version
 }
 
-func (p *GrafanaSchemasProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
+func (p *schemasProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{},
 	}
 }
 
-func (p *GrafanaSchemasProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
-	var data GrafanaSchemasProviderModel
+func (p *schemasProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
+	var data schemasProviderModel
 
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
 
@@ -54,17 +54,17 @@ func (p *GrafanaSchemasProvider) Configure(ctx context.Context, req provider.Con
 	resp.ResourceData = client
 }
 
-func (p *GrafanaSchemasProvider) Resources(ctx context.Context) []func() resource.Resource {
+func (p *schemasProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{}
 }
 
-func (p *GrafanaSchemasProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
+func (p *schemasProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return datasources
 }
 
 func New(version string) func() provider.Provider {
 	return func() provider.Provider {
-		return &GrafanaSchemasProvider{
+		return &schemasProvider{
 			version: version,
 		}
 	}

@@ -1,1 +1,1 @@
-provider "grafana-schemas" {}
+provider "schemas" {}

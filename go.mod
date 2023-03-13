@@ -1,4 +1,4 @@
-module github.com/grafana/terraform-provider-grafana-schemas
+module github.com/grafana/terraform-provider-schemas
 
 go 1.19
 

@@ -5,7 +5,7 @@ import (
 	"flag"
 	"log"
 
-	"github.com/grafana/terraform-provider-grafana-schemas/internal/provider"
+	"github.com/grafana/terraform-provider-schemas/internal/provider"
 	"github.com/hashicorp/terraform-plugin-framework/providerserver"
 )
 
@@ -35,7 +35,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		Address: "registry.terraform.io/grafana/grafanaschemas",
+		Address: "registry.terraform.io/grafana/schemas",
 		Debug:   debug,
 	}
 
