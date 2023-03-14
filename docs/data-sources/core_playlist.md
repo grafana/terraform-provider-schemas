@@ -17,14 +17,14 @@ TODO description
 
 ### Required
 
-- `interval` (String) Interval sets the time between switching views in a playlist.
-FIXME: Is this based on a standardized format or what options are available? Can datemath be used?
 - `name` (String) Name of the playlist.
 - `uid` (String) Unique playlist identifier. Generated on creation, either by the
 creator of the playlist of by the application.
 
 ### Optional
 
+- `interval` (String) Interval sets the time between switching views in a playlist.
+FIXME: Is this based on a standardized format or what options are available? Can datemath be used?
 - `items` (Attributes List) The ordered list of items that the playlist will iterate over.
 FIXME! This should not be optional, but changing it makes the godegen awkward (see [below for nested schema](#nestedatt--items))
 

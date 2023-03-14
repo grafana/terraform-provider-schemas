@@ -54,7 +54,7 @@ type QueryTestDataDataSourceModel struct {
 		OffValue types.Number `tfsdk:"off_value" json:"offValue"`
 	} `tfsdk:"pulse_wave" json:"pulseWave"`
 	Sim *struct {
-		Key *struct {
+		Key struct {
 			Type types.String `tfsdk:"type" json:"type"`
 			Tick types.Number `tfsdk:"tick" json:"tick"`
 			Uid  types.String `tfsdk:"uid" json:"uid"`
@@ -105,7 +105,6 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"alias": schema.StringAttribute{
 				MarkdownDescription: ``,
@@ -113,21 +112,18 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 				Optional:            true,
 				Required:            false,
 			},
-
 			"scenario_id": schema.StringAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"string_input": schema.StringAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"stream": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -140,35 +136,30 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 						Optional:            false,
 						Required:            true,
 					},
-
 					"speed": schema.Int64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
-
 					"spread": schema.Int64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
-
 					"noise": schema.Int64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
-
 					"bands": schema.Int64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"url": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -177,7 +168,6 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 					},
 				},
 			},
-
 			"pulse_wave": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -190,28 +180,24 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 						Optional:            true,
 						Required:            false,
 					},
-
 					"on_count": schema.Int64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"off_count": schema.Int64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"on_value": schema.NumberAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"off_value": schema.NumberAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -220,7 +206,6 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 					},
 				},
 			},
-
 			"sim": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -239,14 +224,12 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 								Optional:            false,
 								Required:            true,
 							},
-
 							"tick": schema.NumberAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"uid": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -255,21 +238,18 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 							},
 						},
 					},
-
 					"config": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"stream": schema.BoolAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"last": schema.BoolAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -278,7 +258,6 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 					},
 				},
 			},
-
 			"csv_wave": schema.ListNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -292,21 +271,18 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 							Optional:            true,
 							Required:            false,
 						},
-
 						"name": schema.StringAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
 							Optional:            true,
 							Required:            false,
 						},
-
 						"values_csv": schema.StringAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
 							Optional:            true,
 							Required:            false,
 						},
-
 						"labels": schema.StringAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
@@ -316,35 +292,30 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 					},
 				},
 			},
-
 			"labels": schema.StringAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"lines": schema.Int64Attribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"level_column": schema.BoolAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"channel": schema.StringAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"nodes": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -357,7 +328,6 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 						Optional:            true,
 						Required:            false,
 					},
-
 					"count": schema.Int64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -366,35 +336,30 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 					},
 				},
 			},
-
 			"csv_file_name": schema.StringAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"csv_content": schema.StringAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"raw_frame_content": schema.StringAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"series_count": schema.Int64Attribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"usa": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -407,14 +372,12 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 						Optional:            true,
 						Required:            false,
 					},
-
 					"period": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"fields": schema.ListAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -422,7 +385,6 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 						Required:            false,
 						ElementType:         types.StringType,
 					},
-
 					"states": schema.ListAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -432,42 +394,36 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 					},
 				},
 			},
-
 			"error_type": schema.StringAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"span_count": schema.Int64Attribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"ref_id": schema.StringAttribute{
 				MarkdownDescription: `A - Z`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"hide": schema.BoolAttribute{
 				MarkdownDescription: `true if query is disabled (ie should not be returned to the dashboard)`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"key": schema.StringAttribute{
 				MarkdownDescription: `Unique, guid like, string used in explore mode`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"query_type": schema.StringAttribute{
 				MarkdownDescription: `Specify the query flavor
 TODO make this required and give it a default`,
@@ -497,6 +453,7 @@ func (d *QueryTestDataDataSource) Read(ctx context.Context, req datasource.ReadR
 		return
 	}
 
+	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -512,4 +469,10 @@ func (d *QueryTestDataDataSource) Read(ctx context.Context, req datasource.ReadR
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d *QueryTestDataDataSource) applyDefaults(data *QueryTestDataDataSourceModel) {
+	if data.ScenarioId.IsNull() {
+		data.ScenarioId = types.StringValue(`random_walk`)
+	}
 }

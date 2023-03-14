@@ -52,7 +52,6 @@ func (d *CorePublicDashboardDataSource) Schema(ctx context.Context, req datasour
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"uid": schema.StringAttribute{
 				MarkdownDescription: `Unique public dashboard identifier`,
@@ -60,35 +59,30 @@ func (d *CorePublicDashboardDataSource) Schema(ctx context.Context, req datasour
 				Optional:            false,
 				Required:            true,
 			},
-
 			"dashboard_uid": schema.StringAttribute{
 				MarkdownDescription: `Dashboard unique identifier referenced by this public dashboard`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"access_token": schema.StringAttribute{
 				MarkdownDescription: `Unique public access token`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"is_enabled": schema.BoolAttribute{
 				MarkdownDescription: `Flag that indicates if the public dashboard is enabled`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"annotations_enabled": schema.BoolAttribute{
 				MarkdownDescription: `Flag that indicates if annotations are enabled`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"time_selection_enabled": schema.BoolAttribute{
 				MarkdownDescription: `Flag that indicates if the time range picker is enabled`,
 				Computed:            false,

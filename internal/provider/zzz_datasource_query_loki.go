@@ -57,7 +57,6 @@ func (d *QueryLokiDataSource) Schema(ctx context.Context, req datasource.SchemaR
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"expr": schema.StringAttribute{
 				MarkdownDescription: `The LogQL query.`,
@@ -65,70 +64,60 @@ func (d *QueryLokiDataSource) Schema(ctx context.Context, req datasource.SchemaR
 				Optional:            false,
 				Required:            true,
 			},
-
 			"legend_format": schema.StringAttribute{
 				MarkdownDescription: `Used to override the name of the series.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"max_lines": schema.Int64Attribute{
 				MarkdownDescription: `Used to limit the number of log rows returned.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"resolution": schema.Int64Attribute{
 				MarkdownDescription: `Used to scale the interval value.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"editor_mode": schema.StringAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"range": schema.BoolAttribute{
 				MarkdownDescription: `@deprecated, now use queryType.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"instant": schema.BoolAttribute{
 				MarkdownDescription: `@deprecated, now use queryType.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"ref_id": schema.StringAttribute{
 				MarkdownDescription: `A - Z`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"hide": schema.BoolAttribute{
 				MarkdownDescription: `true if query is disabled (ie should not be returned to the dashboard)`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"key": schema.StringAttribute{
 				MarkdownDescription: `Unique, guid like, string used in explore mode`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"query_type": schema.StringAttribute{
 				MarkdownDescription: `Specify the query flavor
 TODO make this required and give it a default`,

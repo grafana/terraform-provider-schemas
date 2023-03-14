@@ -54,7 +54,6 @@ func (d *CorePlaylistDataSource) Schema(ctx context.Context, req datasource.Sche
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"uid": schema.StringAttribute{
 				MarkdownDescription: `Unique playlist identifier. Generated on creation, either by the
@@ -63,22 +62,19 @@ creator of the playlist of by the application.`,
 				Optional: false,
 				Required: true,
 			},
-
 			"name": schema.StringAttribute{
 				MarkdownDescription: `Name of the playlist.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"interval": schema.StringAttribute{
 				MarkdownDescription: `Interval sets the time between switching views in a playlist.
 FIXME: Is this based on a standardized format or what options are available? Can datemath be used?`,
-				Computed: false,
-				Optional: false,
-				Required: true,
+				Computed: true,
+				Optional: true,
+				Required: false,
 			},
-
 			"items": schema.ListNestedAttribute{
 				MarkdownDescription: `The ordered list of items that the playlist will iterate over.
 FIXME! This should not be optional, but changing it makes the godegen awkward`,
@@ -93,7 +89,6 @@ FIXME! This should not be optional, but changing it makes the godegen awkward`,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"value": schema.StringAttribute{
 							MarkdownDescription: `Value depends on type and describes the playlist item.
 
@@ -107,7 +102,6 @@ FIXME! This should not be optional, but changing it makes the godegen awkward`,
 							Optional: false,
 							Required: true,
 						},
-
 						"title": schema.StringAttribute{
 							MarkdownDescription: `Title is an unused property -- it will be removed in the future`,
 							Computed:            false,
@@ -139,6 +133,7 @@ func (d *CorePlaylistDataSource) Read(ctx context.Context, req datasource.ReadRe
 		return
 	}
 
+	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -154,4 +149,10 @@ func (d *CorePlaylistDataSource) Read(ctx context.Context, req datasource.ReadRe
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d *CorePlaylistDataSource) applyDefaults(data *CorePlaylistDataSourceModel) {
+	if data.Interval.IsNull() {
+		data.Interval = types.StringValue(`5m`)
+	}
 }

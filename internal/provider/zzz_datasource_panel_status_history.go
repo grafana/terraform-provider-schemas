@@ -13,6 +13,7 @@ package provider
 import (
 	"context"
 	"encoding/json"
+	"math/big"
 
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
@@ -35,10 +36,10 @@ type PanelStatusHistoryDataSource struct{}
 
 // PanelStatusHistoryDataSourceModel describes the data source data model.
 type PanelStatusHistoryDataSourceModel struct {
-	PanelOptions *struct {
+	PanelOptions struct {
 		RowHeight types.Number `tfsdk:"row_height" json:"rowHeight"`
 		ShowValue types.String `tfsdk:"show_value" json:"showValue"`
-		Legend    *struct {
+		Legend    struct {
 			DisplayMode types.String `tfsdk:"display_mode" json:"displayMode"`
 			Placement   types.String `tfsdk:"placement" json:"placement"`
 			ShowLegend  types.Bool   `tfsdk:"show_legend" json:"showLegend"`
@@ -49,14 +50,14 @@ type PanelStatusHistoryDataSourceModel struct {
 			Width       types.Number `tfsdk:"width" json:"width"`
 			Calcs       types.List   `tfsdk:"calcs" json:"calcs"`
 		} `tfsdk:"legend" json:"legend"`
-		Tooltip *struct {
+		Tooltip struct {
 			Mode types.String `tfsdk:"mode" json:"mode"`
 			Sort types.String `tfsdk:"sort" json:"sort"`
 		} `tfsdk:"tooltip" json:"tooltip"`
 		Timezone types.List    `tfsdk:"timezone" json:"timezone"`
 		ColWidth types.Float64 `tfsdk:"col_width" json:"colWidth"`
 	} `tfsdk:"panel_options" json:"PanelOptions"`
-	PanelFieldConfig *struct {
+	PanelFieldConfig struct {
 		LineWidth types.Int64 `tfsdk:"line_width" json:"lineWidth"`
 		HideFrom  *struct {
 			Tooltip types.Bool `tfsdk:"tooltip" json:"tooltip"`
@@ -119,10 +120,10 @@ type PanelStatusHistoryDataSourceModel struct {
 		Name types.String `tfsdk:"name" json:"name"`
 		Uid  types.String `tfsdk:"uid" json:"uid"`
 	} `tfsdk:"library_panel" json:"libraryPanel"`
-	Options *struct {
+	Options struct {
 	} `tfsdk:"options" json:"options"`
-	FieldConfig *struct {
-		Defaults *struct {
+	FieldConfig struct {
+		Defaults struct {
 			DisplayName       types.String `tfsdk:"display_name" json:"displayName"`
 			DisplayNameFromDS types.String `tfsdk:"display_name_from_ds" json:"displayNameFromDS"`
 			Description       types.String `tfsdk:"description" json:"description"`
@@ -133,9 +134,7 @@ type PanelStatusHistoryDataSourceModel struct {
 			Decimals          types.Number `tfsdk:"decimals" json:"decimals"`
 			Min               types.Number `tfsdk:"min" json:"min"`
 			Max               types.Number `tfsdk:"max" json:"max"`
-			Mappings          []struct {
-			} `tfsdk:"mappings" json:"mappings"`
-			Thresholds *struct {
+			Thresholds        *struct {
 				Mode  types.String `tfsdk:"mode" json:"mode"`
 				Steps []struct {
 					Value types.Number `tfsdk:"value" json:"value"`
@@ -155,7 +154,7 @@ type PanelStatusHistoryDataSourceModel struct {
 			} `tfsdk:"custom" json:"custom"`
 		} `tfsdk:"defaults" json:"defaults"`
 		Overrides []struct {
-			Matcher *struct {
+			Matcher struct {
 				Id types.String `tfsdk:"id" json:"id"`
 			} `tfsdk:"matcher" json:"matcher"`
 			Properties []struct {
@@ -174,7 +173,6 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"panel_options": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -184,18 +182,16 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 				Attributes: map[string]schema.Attribute{
 					"row_height": schema.NumberAttribute{
 						MarkdownDescription: `Set the height of the rows`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 					},
-
 					"show_value": schema.StringAttribute{
 						MarkdownDescription: `Show values on the columns`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 					},
-
 					"legend": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -208,56 +204,48 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 								Optional:            false,
 								Required:            true,
 							},
-
 							"placement": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"show_legend": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"as_table": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"is_visible": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"sort_by": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"sort_desc": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"width": schema.NumberAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"calcs": schema.ListAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -267,7 +255,6 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 							},
 						},
 					},
-
 					"tooltip": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -280,7 +267,6 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 								Optional:            false,
 								Required:            true,
 							},
-
 							"sort": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -289,7 +275,6 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 							},
 						},
 					},
-
 					"timezone": schema.ListAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -297,16 +282,14 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 						Required:            false,
 						ElementType:         types.StringType,
 					},
-
 					"col_width": schema.Float64Attribute{
 						MarkdownDescription: `Controls the column width`,
-						Computed:            false,
+						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 				},
 			},
-
 			"panel_field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -315,11 +298,10 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 				Attributes: map[string]schema.Attribute{
 					"line_width": schema.Int64Attribute{
 						MarkdownDescription: ``,
-						Computed:            false,
+						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"hide_from": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -332,14 +314,12 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 								Optional:            false,
 								Required:            true,
 							},
-
 							"legend": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"viz": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -348,37 +328,32 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 							},
 						},
 					},
-
 					"fill_opacity": schema.Int64Attribute{
 						MarkdownDescription: ``,
-						Computed:            false,
+						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 				},
 			},
-
 			"type": schema.StringAttribute{
 				MarkdownDescription: `The panel plugin type id. May not be empty.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"id": schema.Int64Attribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"plugin_version": schema.StringAttribute{
 				MarkdownDescription: `FIXME this almost certainly has to be changed in favor of scuemata versions`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"tags": schema.ListAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
@@ -386,35 +361,30 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 				Required:            false,
 				ElementType:         types.StringType,
 			},
-
 			"targets": schema.ListNestedAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"title": schema.StringAttribute{
 				MarkdownDescription: `Panel title.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"description": schema.StringAttribute{
 				MarkdownDescription: `Description.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"transparent": schema.BoolAttribute{
 				MarkdownDescription: `Whether to display the panel without a background.`,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 			},
-
 			"datasource": schema.SingleNestedAttribute{
 				MarkdownDescription: `The datasource used in all targets.`,
 				Computed:            false,
@@ -427,7 +397,6 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 						Optional:            true,
 						Required:            false,
 					},
-
 					"uid": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -436,7 +405,6 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 					},
 				},
 			},
-
 			"grid_pos": schema.SingleNestedAttribute{
 				MarkdownDescription: `Grid position.`,
 				Computed:            false,
@@ -445,32 +413,28 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 				Attributes: map[string]schema.Attribute{
 					"h": schema.Int64Attribute{
 						MarkdownDescription: `Panel`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 					},
-
 					"w": schema.Int64Attribute{
 						MarkdownDescription: `Panel`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 					},
-
 					"x": schema.Int64Attribute{
 						MarkdownDescription: `Panel x`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 					},
-
 					"y": schema.Int64Attribute{
 						MarkdownDescription: `Panel y`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 					},
-
 					"static": schema.BoolAttribute{
 						MarkdownDescription: `true if fixed`,
 						Computed:            false,
@@ -479,7 +443,6 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 					},
 				},
 			},
-
 			"links": schema.ListNestedAttribute{
 				MarkdownDescription: `Panel links.
 TODO fill this out - seems there are a couple variants?`,
@@ -494,35 +457,30 @@ TODO fill this out - seems there are a couple variants?`,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"type": schema.StringAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"icon": schema.StringAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"tooltip": schema.StringAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"url": schema.StringAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"tags": schema.ListAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
@@ -530,82 +488,71 @@ TODO fill this out - seems there are a couple variants?`,
 							Required:            true,
 							ElementType:         types.StringType,
 						},
-
 						"as_dropdown": schema.BoolAttribute{
 							MarkdownDescription: ``,
-							Computed:            false,
-							Optional:            false,
-							Required:            true,
+							Computed:            true,
+							Optional:            true,
+							Required:            false,
 						},
-
 						"target_blank": schema.BoolAttribute{
 							MarkdownDescription: ``,
-							Computed:            false,
-							Optional:            false,
-							Required:            true,
+							Computed:            true,
+							Optional:            true,
+							Required:            false,
 						},
-
 						"include_vars": schema.BoolAttribute{
 							MarkdownDescription: ``,
-							Computed:            false,
-							Optional:            false,
-							Required:            true,
+							Computed:            true,
+							Optional:            true,
+							Required:            false,
 						},
-
 						"keep_time": schema.BoolAttribute{
 							MarkdownDescription: ``,
-							Computed:            false,
-							Optional:            false,
-							Required:            true,
+							Computed:            true,
+							Optional:            true,
+							Required:            false,
 						},
 					},
 				},
 			},
-
 			"repeat": schema.StringAttribute{
 				MarkdownDescription: `Name of template variable to repeat for.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"repeat_direction": schema.StringAttribute{
 				MarkdownDescription: `Direction to repeat in if 'repeat' is set.
 "h" for horizontal, "v" for vertical.
 TODO this is probably optional`,
-				Computed: false,
-				Optional: false,
-				Required: true,
+				Computed: true,
+				Optional: true,
+				Required: false,
 			},
-
 			"repeat_panel_id": schema.Int64Attribute{
 				MarkdownDescription: `Id of the repeating panel.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"max_data_points": schema.NumberAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"thresholds": schema.ListNestedAttribute{
 				MarkdownDescription: `TODO docs - seems to be an old field from old dashboard alerts?`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"time_regions": schema.ListNestedAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"transformations": schema.ListNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -619,14 +566,12 @@ TODO this is probably optional`,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"disabled": schema.BoolAttribute{
 							MarkdownDescription: `Disabled transformations are skipped`,
 							Computed:            false,
 							Optional:            true,
 							Required:            false,
 						},
-
 						"filter": schema.SingleNestedAttribute{
 							MarkdownDescription: `Optional frame matcher.  When missing it will be applied to all results`,
 							Computed:            false,
@@ -635,16 +580,15 @@ TODO this is probably optional`,
 							Attributes: map[string]schema.Attribute{
 								"id": schema.StringAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
 								},
 							},
 						},
 					},
 				},
 			},
-
 			"interval": schema.StringAttribute{
 				MarkdownDescription: `TODO docs
 TODO tighter constraint`,
@@ -652,7 +596,6 @@ TODO tighter constraint`,
 				Optional: true,
 				Required: false,
 			},
-
 			"time_from": schema.StringAttribute{
 				MarkdownDescription: `TODO docs
 TODO tighter constraint`,
@@ -660,7 +603,6 @@ TODO tighter constraint`,
 				Optional: true,
 				Required: false,
 			},
-
 			"time_shift": schema.StringAttribute{
 				MarkdownDescription: `TODO docs
 TODO tighter constraint`,
@@ -668,7 +610,6 @@ TODO tighter constraint`,
 				Optional: true,
 				Required: false,
 			},
-
 			"library_panel": schema.SingleNestedAttribute{
 				MarkdownDescription: `Dynamically load the panel`,
 				Computed:            false,
@@ -681,7 +622,6 @@ TODO tighter constraint`,
 						Optional:            false,
 						Required:            true,
 					},
-
 					"uid": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -690,7 +630,6 @@ TODO tighter constraint`,
 					},
 				},
 			},
-
 			"options": schema.SingleNestedAttribute{
 				MarkdownDescription: `options is specified by the PanelOptions field in panel
 plugin schemas.`,
@@ -698,7 +637,6 @@ plugin schemas.`,
 				Optional: false,
 				Required: true,
 			},
-
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -717,7 +655,6 @@ plugin schemas.`,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"display_name_from_ds": schema.StringAttribute{
 								MarkdownDescription: `This can be used by data sources that return and explicit naming structure for values and labels
 When this property is configured, this value is used rather than the default naming strategy.`,
@@ -725,14 +662,12 @@ When this property is configured, this value is used rather than the default nam
 								Optional: true,
 								Required: false,
 							},
-
 							"description": schema.StringAttribute{
 								MarkdownDescription: `Human readable field metadata`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"path": schema.StringAttribute{
 								MarkdownDescription: `An explicit path to the field in the datasource.  When the frame meta includes a path,
 This will default to ${frame.meta.path}/${field.name}
@@ -743,56 +678,42 @@ may be used to update the results`,
 								Optional: true,
 								Required: false,
 							},
-
 							"writeable": schema.BoolAttribute{
 								MarkdownDescription: `True if data source can write a value to the path.  Auth/authz are supported separately`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"filterable": schema.BoolAttribute{
 								MarkdownDescription: `True if data source field supports ad-hoc filters`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"unit": schema.StringAttribute{
 								MarkdownDescription: `Numeric Options`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"decimals": schema.NumberAttribute{
 								MarkdownDescription: `Significant digits (for display)`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"min": schema.NumberAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"max": schema.NumberAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
-							"mappings": schema.ListNestedAttribute{
-								MarkdownDescription: `Convert input values into a display string`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-
 							"thresholds": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map numeric values to states`,
 								Computed:            false,
@@ -805,7 +726,6 @@ may be used to update the results`,
 										Optional:            false,
 										Required:            true,
 									},
-
 									"steps": schema.ListNestedAttribute{
 										MarkdownDescription: `Must be sorted by 'value', first value is always -Infinity`,
 										Computed:            false,
@@ -820,14 +740,12 @@ FIXME the corresponding typescript field is required/non-optional, but nulls cur
 													Optional: true,
 													Required: false,
 												},
-
 												"color": schema.StringAttribute{
 													MarkdownDescription: `TODO docs`,
 													Computed:            false,
 													Optional:            false,
 													Required:            true,
 												},
-
 												"state": schema.StringAttribute{
 													MarkdownDescription: `TODO docs
 TODO are the values here enumerable into a disjunction?
@@ -841,7 +759,6 @@ Some seem to be listed in typescript comment`,
 									},
 								},
 							},
-
 							"color": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map values to a display color`,
 								Computed:            false,
@@ -854,14 +771,12 @@ Some seem to be listed in typescript comment`,
 										Optional:            false,
 										Required:            true,
 									},
-
 									"fixed_color": schema.StringAttribute{
 										MarkdownDescription: `Stores the fixed color value if mode is fixed`,
 										Computed:            false,
 										Optional:            true,
 										Required:            false,
 									},
-
 									"series_by": schema.StringAttribute{
 										MarkdownDescription: `Some visualizations need to know how to assign a series color from by value color schemes`,
 										Computed:            false,
@@ -870,21 +785,18 @@ Some seem to be listed in typescript comment`,
 									},
 								},
 							},
-
 							"links": schema.ListNestedAttribute{
 								MarkdownDescription: `The behavior when clicking on a result`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"no_value": schema.StringAttribute{
 								MarkdownDescription: `Alternative to empty string`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"custom": schema.SingleNestedAttribute{
 								MarkdownDescription: `custom is specified by the PanelFieldConfig field
 in panel plugin schemas.`,
@@ -894,7 +806,6 @@ in panel plugin schemas.`,
 							},
 						},
 					},
-
 					"overrides": schema.ListNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -910,13 +821,12 @@ in panel plugin schemas.`,
 									Attributes: map[string]schema.Attribute{
 										"id": schema.StringAttribute{
 											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
+											Computed:            true,
+											Optional:            true,
+											Required:            false,
 										},
 									},
 								},
-
 								"properties": schema.ListNestedAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
@@ -926,9 +836,9 @@ in panel plugin schemas.`,
 										Attributes: map[string]schema.Attribute{
 											"id": schema.StringAttribute{
 												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
+												Computed:            true,
+												Optional:            true,
+												Required:            false,
 											},
 										},
 									},
@@ -960,6 +870,7 @@ func (d *PanelStatusHistoryDataSource) Read(ctx context.Context, req datasource.
 		return
 	}
 
+	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -975,4 +886,40 @@ func (d *PanelStatusHistoryDataSource) Read(ctx context.Context, req datasource.
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d *PanelStatusHistoryDataSource) applyDefaults(data *PanelStatusHistoryDataSourceModel) {
+	if data.PanelOptions.RowHeight.IsNull() {
+		data.PanelOptions.RowHeight = types.NumberValue(new(big.Float).SetFloat64(0.900000))
+	}
+	if data.PanelOptions.ShowValue.IsNull() {
+		data.PanelOptions.ShowValue = types.StringValue(`auto`)
+	}
+	if data.PanelOptions.ColWidth.IsNull() {
+		data.PanelOptions.ColWidth = types.Float64Value(0.900000)
+	}
+	if data.PanelFieldConfig.LineWidth.IsNull() {
+		data.PanelFieldConfig.LineWidth = types.Int64Value(1)
+	}
+	if data.PanelFieldConfig.FillOpacity.IsNull() {
+		data.PanelFieldConfig.FillOpacity = types.Int64Value(70)
+	}
+	if data.Transparent.IsNull() {
+		data.Transparent = types.BoolValue(false)
+	}
+	if data.GridPos != nil && data.GridPos.H.IsNull() {
+		data.GridPos.H = types.Int64Value(9)
+	}
+	if data.GridPos != nil && data.GridPos.W.IsNull() {
+		data.GridPos.W = types.Int64Value(12)
+	}
+	if data.GridPos != nil && data.GridPos.X.IsNull() {
+		data.GridPos.X = types.Int64Value(0)
+	}
+	if data.GridPos != nil && data.GridPos.Y.IsNull() {
+		data.GridPos.Y = types.Int64Value(0)
+	}
+	if data.RepeatDirection.IsNull() {
+		data.RepeatDirection = types.StringValue(`h`)
+	}
 }

@@ -53,7 +53,6 @@ func (d *QueryElasticsearchDataSource) Schema(ctx context.Context, req datasourc
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"alias": schema.StringAttribute{
 				MarkdownDescription: `Alias pattern`,
@@ -61,42 +60,36 @@ func (d *QueryElasticsearchDataSource) Schema(ctx context.Context, req datasourc
 				Optional:            true,
 				Required:            false,
 			},
-
 			"query": schema.StringAttribute{
 				MarkdownDescription: `Lucene query`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"time_field": schema.StringAttribute{
 				MarkdownDescription: `Name of time field`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"ref_id": schema.StringAttribute{
 				MarkdownDescription: `A - Z`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"hide": schema.BoolAttribute{
 				MarkdownDescription: `true if query is disabled (ie should not be returned to the dashboard)`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"key": schema.StringAttribute{
 				MarkdownDescription: `Unique, guid like, string used in explore mode`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"query_type": schema.StringAttribute{
 				MarkdownDescription: `Specify the query flavor
 TODO make this required and give it a default`,

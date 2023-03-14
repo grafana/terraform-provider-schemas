@@ -53,22 +53,19 @@ func (d *QueryPhlareDataSource) Schema(ctx context.Context, req datasource.Schem
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"label_selector": schema.StringAttribute{
 				MarkdownDescription: `Specifies the query label selectors.`,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 			},
-
 			"profile_type_id": schema.StringAttribute{
 				MarkdownDescription: `Specifies the type of profile to query.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"group_by": schema.ListAttribute{
 				MarkdownDescription: `Allows to group the results.`,
 				Computed:            false,
@@ -76,28 +73,24 @@ func (d *QueryPhlareDataSource) Schema(ctx context.Context, req datasource.Schem
 				Required:            true,
 				ElementType:         types.StringType,
 			},
-
 			"ref_id": schema.StringAttribute{
 				MarkdownDescription: `A - Z`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"hide": schema.BoolAttribute{
 				MarkdownDescription: `true if query is disabled (ie should not be returned to the dashboard)`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"key": schema.StringAttribute{
 				MarkdownDescription: `Unique, guid like, string used in explore mode`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"query_type": schema.StringAttribute{
 				MarkdownDescription: `Specify the query flavor
 TODO make this required and give it a default`,
@@ -127,6 +120,7 @@ func (d *QueryPhlareDataSource) Read(ctx context.Context, req datasource.ReadReq
 		return
 	}
 
+	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -142,4 +136,10 @@ func (d *QueryPhlareDataSource) Read(ctx context.Context, req datasource.ReadReq
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d *QueryPhlareDataSource) applyDefaults(data *QueryPhlareDataSourceModel) {
+	if data.LabelSelector.IsNull() {
+		data.LabelSelector = types.StringValue(`{}`)
+	}
 }

@@ -54,7 +54,6 @@ func (d *CorePreferencesDataSource) Schema(ctx context.Context, req datasource.S
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"home_dashboard_uid": schema.StringAttribute{
 				MarkdownDescription: `UID for the home dashboard`,
@@ -62,7 +61,6 @@ func (d *CorePreferencesDataSource) Schema(ctx context.Context, req datasource.S
 				Optional:            true,
 				Required:            false,
 			},
-
 			"timezone": schema.StringAttribute{
 				MarkdownDescription: `The timezone selection
 TODO: this should use the timezone defined in common`,
@@ -70,28 +68,24 @@ TODO: this should use the timezone defined in common`,
 				Optional: true,
 				Required: false,
 			},
-
 			"week_start": schema.StringAttribute{
 				MarkdownDescription: `day of the week (sunday, monday, etc)`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"theme": schema.StringAttribute{
 				MarkdownDescription: `light, dark, empty is default`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"language": schema.StringAttribute{
 				MarkdownDescription: `Selected language (beta)`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"query_history": schema.SingleNestedAttribute{
 				MarkdownDescription: `Explore query history preferences`,
 				Computed:            false,

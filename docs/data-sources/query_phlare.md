@@ -18,7 +18,6 @@ TODO description
 ### Required
 
 - `group_by` (List of String) Allows to group the results.
-- `label_selector` (String) Specifies the query label selectors.
 - `profile_type_id` (String) Specifies the type of profile to query.
 - `ref_id` (String) A - Z
 
@@ -26,6 +25,7 @@ TODO description
 
 - `hide` (Boolean) true if query is disabled (ie should not be returned to the dashboard)
 - `key` (String) Unique, guid like, string used in explore mode
+- `label_selector` (String) Specifies the query label selectors.
 - `query_type` (String) Specify the query flavor
 TODO make this required and give it a default
 

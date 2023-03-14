@@ -59,7 +59,6 @@ func (d *CoreServiceAccountDataSource) Schema(ctx context.Context, req datasourc
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"id": schema.Int64Attribute{
 				MarkdownDescription: `ID is the unique identifier of the service account in the database.`,
@@ -67,42 +66,36 @@ func (d *CoreServiceAccountDataSource) Schema(ctx context.Context, req datasourc
 				Optional:            false,
 				Required:            true,
 			},
-
 			"org_id": schema.Int64Attribute{
 				MarkdownDescription: `OrgId is the ID of an organisation the service account belongs to.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"name": schema.StringAttribute{
 				MarkdownDescription: `Name of the service account.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"login": schema.StringAttribute{
 				MarkdownDescription: `Login of the service account.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"is_disabled": schema.BoolAttribute{
 				MarkdownDescription: `IsDisabled indicates if the service account is disabled.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"role": schema.StringAttribute{
 				MarkdownDescription: `Role is the Grafana organization role of the service account which can be 'Viewer', 'Editor', 'Admin'.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"tokens": schema.Int64Attribute{
 				MarkdownDescription: `Tokens is the number of active tokens for the service account.
 Tokens are used to authenticate the service account against Grafana.`,
@@ -110,7 +103,6 @@ Tokens are used to authenticate the service account against Grafana.`,
 				Optional: false,
 				Required: true,
 			},
-
 			"avatar_url": schema.StringAttribute{
 				MarkdownDescription: `AvatarUrl is the service account's avatar URL. It allows the frontend to display a picture in front
 of the service account.`,
@@ -118,14 +110,12 @@ of the service account.`,
 				Optional: false,
 				Required: true,
 			},
-
 			"access_control": schema.SingleNestedAttribute{
 				MarkdownDescription: `AccessControl metadata associated with a given resource.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"teams": schema.ListAttribute{
 				MarkdownDescription: `Teams is a list of teams the service account belongs to.`,
 				Computed:            false,
@@ -133,14 +123,12 @@ of the service account.`,
 				Required:            false,
 				ElementType:         types.StringType,
 			},
-
 			"created": schema.Int64Attribute{
 				MarkdownDescription: `Created indicates when the service account was created.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"updated": schema.Int64Attribute{
 				MarkdownDescription: `Updated indicates when the service account was updated.`,
 				Computed:            false,

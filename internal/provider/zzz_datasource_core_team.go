@@ -56,7 +56,6 @@ func (d *CoreTeamDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"org_id": schema.Int64Attribute{
 				MarkdownDescription: `OrgId is the ID of an organisation the team belongs to.`,
@@ -64,56 +63,48 @@ func (d *CoreTeamDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 				Optional:            false,
 				Required:            true,
 			},
-
 			"name": schema.StringAttribute{
 				MarkdownDescription: `Name of the team.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"email": schema.StringAttribute{
 				MarkdownDescription: `Email of the team.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"avatar_url": schema.StringAttribute{
 				MarkdownDescription: `AvatarUrl is the team's avatar URL.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"member_count": schema.Int64Attribute{
 				MarkdownDescription: `MemberCount is the number of the team members.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"permission": schema.Int64Attribute{
 				MarkdownDescription: `TODO - it seems it's a team_member.permission, unlikely it should belong to the team kind`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"access_control": schema.SingleNestedAttribute{
 				MarkdownDescription: `AccessControl metadata associated with a given resource.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"created": schema.Int64Attribute{
 				MarkdownDescription: `Created indicates when the team was created.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"updated": schema.Int64Attribute{
 				MarkdownDescription: `Updated indicates when the team was updated.`,
 				Computed:            false,

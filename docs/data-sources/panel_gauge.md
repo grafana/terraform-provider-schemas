@@ -21,11 +21,7 @@ TODO description
 - `options` (Attributes) options is specified by the PanelOptions field in panel
 plugin schemas. (see [below for nested schema](#nestedatt--options))
 - `panel_options` (Attributes) (see [below for nested schema](#nestedatt--panel_options))
-- `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
-"h" for horizontal, "v" for vertical.
-TODO this is probably optional
 - `transformations` (Attributes List) (see [below for nested schema](#nestedatt--transformations))
-- `transparent` (Boolean) Whether to display the panel without a background.
 - `type` (String) The panel plugin type id. May not be empty.
 
 ### Optional
@@ -42,6 +38,9 @@ TODO fill this out - seems there are a couple variants? (see [below for nested s
 - `max_data_points` (Number) TODO docs
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
+- `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
+"h" for horizontal, "v" for vertical.
+TODO this is probably optional
 - `repeat_panel_id` (Number) Id of the repeating panel.
 - `tags` (List of String) TODO docs
 - `targets` (Attributes List) TODO docs (see [below for nested schema](#nestedatt--targets))
@@ -52,6 +51,7 @@ TODO tighter constraint
 - `time_shift` (String) TODO docs
 TODO tighter constraint
 - `title` (String) Panel title.
+- `transparent` (Boolean) Whether to display the panel without a background.
 
 ### Read-Only
 
@@ -80,7 +80,6 @@ in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config
 When this property is configured, this value is used rather than the default naming strategy.
 - `filterable` (Boolean) True if data source field supports ad-hoc filters
 - `links` (Attributes List) The behavior when clicking on a result (see [below for nested schema](#nestedatt--field_config--defaults--links))
-- `mappings` (Attributes List) Convert input values into a display string (see [below for nested schema](#nestedatt--field_config--defaults--mappings))
 - `max` (Number)
 - `min` (Number)
 - `no_value` (String) Alternative to empty string
@@ -112,10 +111,6 @@ Optional:
 
 <a id="nestedatt--field_config--defaults--links"></a>
 ### Nested Schema for `field_config.defaults.links`
-
-
-<a id="nestedatt--field_config--defaults--mappings"></a>
-### Nested Schema for `field_config.defaults.mappings`
 
 
 <a id="nestedatt--field_config--defaults--thresholds"></a>
@@ -155,7 +150,7 @@ Required:
 <a id="nestedatt--field_config--overrides--matcher"></a>
 ### Nested Schema for `field_config.overrides.matcher`
 
-Required:
+Optional:
 
 - `id` (String)
 
@@ -163,7 +158,7 @@ Required:
 <a id="nestedatt--field_config--overrides--properties"></a>
 ### Nested Schema for `field_config.overrides.properties`
 
-Required:
+Optional:
 
 - `id` (String)
 
@@ -181,11 +176,11 @@ Required:
 
 - `orientation` (String)
 - `reduce_options` (Attributes) (see [below for nested schema](#nestedatt--panel_options--reduce_options))
-- `show_threshold_labels` (Boolean)
-- `show_threshold_markers` (Boolean)
 
 Optional:
 
+- `show_threshold_labels` (Boolean)
+- `show_threshold_markers` (Boolean)
 - `text` (Attributes) (see [below for nested schema](#nestedatt--panel_options--text))
 
 <a id="nestedatt--panel_options--reduce_options"></a>
@@ -227,7 +222,7 @@ Optional:
 <a id="nestedatt--transformations--filter"></a>
 ### Nested Schema for `transformations.filter`
 
-Required:
+Optional:
 
 - `id` (String)
 
@@ -245,16 +240,13 @@ Optional:
 <a id="nestedatt--grid_pos"></a>
 ### Nested Schema for `grid_pos`
 
-Required:
+Optional:
 
 - `h` (Number) Panel
+- `static` (Boolean) true if fixed
 - `w` (Number) Panel
 - `x` (Number) Panel x
 - `y` (Number) Panel y
-
-Optional:
-
-- `static` (Boolean) true if fixed
 
 
 <a id="nestedatt--library_panel"></a>
@@ -271,16 +263,19 @@ Required:
 
 Required:
 
-- `as_dropdown` (Boolean)
 - `icon` (String)
-- `include_vars` (Boolean)
-- `keep_time` (Boolean)
 - `tags` (List of String)
-- `target_blank` (Boolean)
 - `title` (String)
 - `tooltip` (String)
 - `type` (String)
 - `url` (String)
+
+Optional:
+
+- `as_dropdown` (Boolean)
+- `include_vars` (Boolean)
+- `keep_time` (Boolean)
+- `target_blank` (Boolean)
 
 
 <a id="nestedatt--targets"></a>

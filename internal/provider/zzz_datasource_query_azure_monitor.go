@@ -46,7 +46,6 @@ func (d *QueryAzureMonitorDataSource) Schema(ctx context.Context, req datasource
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 
 			"to_json": schema.StringAttribute{

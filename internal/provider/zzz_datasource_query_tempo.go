@@ -58,7 +58,6 @@ func (d *QueryTempoDataSource) Schema(ctx context.Context, req datasource.Schema
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"query": schema.StringAttribute{
 				MarkdownDescription: `TraceQL query or trace ID`,
@@ -66,77 +65,66 @@ func (d *QueryTempoDataSource) Schema(ctx context.Context, req datasource.Schema
 				Optional:            false,
 				Required:            true,
 			},
-
 			"search": schema.StringAttribute{
 				MarkdownDescription: `Logfmt query to filter traces by their tags. Example: http.status_code=200 error=true`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"service_name": schema.StringAttribute{
 				MarkdownDescription: `Query traces by service name`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"span_name": schema.StringAttribute{
 				MarkdownDescription: `Query traces by span name`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"min_duration": schema.StringAttribute{
 				MarkdownDescription: `Define the minimum duration to select traces. Use duration format, for example: 1.2s, 100ms`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"max_duration": schema.StringAttribute{
 				MarkdownDescription: `Define the maximum duration to select traces. Use duration format, for example: 1.2s, 100ms`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"service_map_query": schema.StringAttribute{
 				MarkdownDescription: `Filters to be included in a PromQL query to select data for the service graph. Example: {client="app",service="app"}`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"limit": schema.Int64Attribute{
 				MarkdownDescription: `Defines the maximum number of traces that are returned from Tempo`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"ref_id": schema.StringAttribute{
 				MarkdownDescription: `A - Z`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"hide": schema.BoolAttribute{
 				MarkdownDescription: `true if query is disabled (ie should not be returned to the dashboard)`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"key": schema.StringAttribute{
 				MarkdownDescription: `Unique, guid like, string used in explore mode`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"query_type": schema.StringAttribute{
 				MarkdownDescription: `Specify the query flavor
 TODO make this required and give it a default`,

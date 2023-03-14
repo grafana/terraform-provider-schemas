@@ -37,12 +37,12 @@ type PanelXYChartDataSource struct{}
 type PanelXYChartDataSourceModel struct {
 	SeriesMapping     types.String `tfsdk:"series_mapping" json:"SeriesMapping"`
 	ScatterShow       types.String `tfsdk:"scatter_show" json:"ScatterShow"`
-	XYDimensionConfig *struct {
+	XYDimensionConfig struct {
 		Frame   types.Int64  `tfsdk:"frame" json:"frame"`
 		X       types.String `tfsdk:"x" json:"x"`
 		Exclude types.List   `tfsdk:"exclude" json:"exclude"`
 	} `tfsdk:"xy_dimension_config" json:"XYDimensionConfig"`
-	ScatterFieldConfig *struct {
+	ScatterFieldConfig struct {
 		Show      types.String `tfsdk:"show" json:"show"`
 		PointSize *struct {
 			Min   types.Int64  `tfsdk:"min" json:"min"`
@@ -84,7 +84,7 @@ type PanelXYChartDataSourceModel struct {
 		Label            types.String `tfsdk:"label" json:"label"`
 		AxisCenteredZero types.Bool   `tfsdk:"axis_centered_zero" json:"axisCenteredZero"`
 	} `tfsdk:"scatter_field_config" json:"ScatterFieldConfig"`
-	ScatterSeriesConfig *struct {
+	ScatterSeriesConfig struct {
 		X         types.String `tfsdk:"x" json:"x"`
 		Y         types.String `tfsdk:"y" json:"y"`
 		Show      types.String `tfsdk:"show" json:"show"`
@@ -129,14 +129,14 @@ type PanelXYChartDataSourceModel struct {
 		Label            types.String `tfsdk:"label" json:"label"`
 		AxisCenteredZero types.Bool   `tfsdk:"axis_centered_zero" json:"axisCenteredZero"`
 	} `tfsdk:"scatter_series_config" json:"ScatterSeriesConfig"`
-	PanelOptions *struct {
+	PanelOptions struct {
 		SeriesMapping types.String `tfsdk:"series_mapping" json:"seriesMapping"`
-		Dims          *struct {
+		Dims          struct {
 			Frame   types.Int64  `tfsdk:"frame" json:"frame"`
 			X       types.String `tfsdk:"x" json:"x"`
 			Exclude types.List   `tfsdk:"exclude" json:"exclude"`
 		} `tfsdk:"dims" json:"dims"`
-		Legend *struct {
+		Legend struct {
 			DisplayMode types.String `tfsdk:"display_mode" json:"displayMode"`
 			Placement   types.String `tfsdk:"placement" json:"placement"`
 			ShowLegend  types.Bool   `tfsdk:"show_legend" json:"showLegend"`
@@ -147,7 +147,7 @@ type PanelXYChartDataSourceModel struct {
 			Width       types.Number `tfsdk:"width" json:"width"`
 			Calcs       types.List   `tfsdk:"calcs" json:"calcs"`
 		} `tfsdk:"legend" json:"legend"`
-		Tooltip *struct {
+		Tooltip struct {
 			Mode types.String `tfsdk:"mode" json:"mode"`
 			Sort types.String `tfsdk:"sort" json:"sort"`
 		} `tfsdk:"tooltip" json:"tooltip"`
@@ -251,10 +251,10 @@ type PanelXYChartDataSourceModel struct {
 		Name types.String `tfsdk:"name" json:"name"`
 		Uid  types.String `tfsdk:"uid" json:"uid"`
 	} `tfsdk:"library_panel" json:"libraryPanel"`
-	Options *struct {
+	Options struct {
 	} `tfsdk:"options" json:"options"`
-	FieldConfig *struct {
-		Defaults *struct {
+	FieldConfig struct {
+		Defaults struct {
 			DisplayName       types.String `tfsdk:"display_name" json:"displayName"`
 			DisplayNameFromDS types.String `tfsdk:"display_name_from_ds" json:"displayNameFromDS"`
 			Description       types.String `tfsdk:"description" json:"description"`
@@ -265,9 +265,7 @@ type PanelXYChartDataSourceModel struct {
 			Decimals          types.Number `tfsdk:"decimals" json:"decimals"`
 			Min               types.Number `tfsdk:"min" json:"min"`
 			Max               types.Number `tfsdk:"max" json:"max"`
-			Mappings          []struct {
-			} `tfsdk:"mappings" json:"mappings"`
-			Thresholds *struct {
+			Thresholds        *struct {
 				Mode  types.String `tfsdk:"mode" json:"mode"`
 				Steps []struct {
 					Value types.Number `tfsdk:"value" json:"value"`
@@ -287,7 +285,7 @@ type PanelXYChartDataSourceModel struct {
 			} `tfsdk:"custom" json:"custom"`
 		} `tfsdk:"defaults" json:"defaults"`
 		Overrides []struct {
-			Matcher *struct {
+			Matcher struct {
 				Id types.String `tfsdk:"id" json:"id"`
 			} `tfsdk:"matcher" json:"matcher"`
 			Properties []struct {
@@ -306,7 +304,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"series_mapping": schema.StringAttribute{
 				MarkdownDescription: ``,
@@ -314,14 +311,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 				Optional:            false,
 				Required:            true,
 			},
-
 			"scatter_show": schema.StringAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"xy_dimension_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -334,14 +329,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 						Optional:            false,
 						Required:            true,
 					},
-
 					"x": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"exclude": schema.ListAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -351,7 +344,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 					},
 				},
 			},
-
 			"scatter_field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -360,11 +352,10 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 				Attributes: map[string]schema.Attribute{
 					"show": schema.StringAttribute{
 						MarkdownDescription: ``,
-						Computed:            false,
+						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"point_size": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -377,14 +368,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-
 							"field": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"max": schema.Int64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -393,7 +382,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"line_color": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -408,7 +396,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"point_color": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -423,7 +410,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"label_value": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -436,7 +422,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-
 							"field": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -445,14 +430,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"line_width": schema.Int64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"line_style": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -465,7 +448,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            true,
 								Required:            false,
 							},
-
 							"dash": schema.ListAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -475,7 +457,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"hide_from": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -488,14 +469,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-
 							"legend": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"viz": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -504,56 +483,48 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"axis_placement": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_color_mode": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_label": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_width": schema.NumberAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_soft_min": schema.NumberAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_soft_max": schema.NumberAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_grid_show": schema.BoolAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"scale_distribution": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -566,14 +537,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-
 							"log": schema.NumberAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"linear_threshold": schema.NumberAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -582,14 +551,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"label": schema.StringAttribute{
 						MarkdownDescription: ``,
-						Computed:            false,
+						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_centered_zero": schema.BoolAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -598,7 +565,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 					},
 				},
 			},
-
 			"scatter_series_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -611,21 +577,18 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 						Optional:            true,
 						Required:            false,
 					},
-
 					"y": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"show": schema.StringAttribute{
 						MarkdownDescription: ``,
-						Computed:            false,
+						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"point_size": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -638,14 +601,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-
 							"field": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"max": schema.Int64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -654,7 +615,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"line_color": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -669,7 +629,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"point_color": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -684,7 +643,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"label_value": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -697,7 +655,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-
 							"field": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -706,14 +663,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"line_width": schema.Int64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"line_style": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -726,7 +681,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            true,
 								Required:            false,
 							},
-
 							"dash": schema.ListAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -736,7 +690,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"hide_from": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -749,14 +702,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-
 							"legend": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"viz": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -765,56 +716,48 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"axis_placement": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_color_mode": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_label": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_width": schema.NumberAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_soft_min": schema.NumberAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_soft_max": schema.NumberAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_grid_show": schema.BoolAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"scale_distribution": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -827,14 +770,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-
 							"log": schema.NumberAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"linear_threshold": schema.NumberAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -843,21 +784,18 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"name": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"label": schema.StringAttribute{
 						MarkdownDescription: ``,
-						Computed:            false,
+						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
-
 					"axis_centered_zero": schema.BoolAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -866,7 +804,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 					},
 				},
 			},
-
 			"panel_options": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -879,7 +816,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 						Optional:            true,
 						Required:            false,
 					},
-
 					"dims": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -892,14 +828,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-
 							"x": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"exclude": schema.ListAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -909,7 +843,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"legend": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -922,56 +855,48 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-
 							"placement": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"show_legend": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"as_table": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"is_visible": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"sort_by": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"sort_desc": schema.BoolAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"width": schema.NumberAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"calcs": schema.ListAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -981,7 +906,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"tooltip": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -994,7 +918,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-
 							"sort": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -1003,7 +926,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 							},
 						},
 					},
-
 					"series": schema.ListNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -1017,21 +939,18 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 									Optional:            true,
 									Required:            false,
 								},
-
 								"y": schema.StringAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"show": schema.StringAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
+									Computed:            true,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"point_size": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
@@ -1044,14 +963,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 											Optional:            false,
 											Required:            true,
 										},
-
 										"field": schema.StringAttribute{
 											MarkdownDescription: ``,
 											Computed:            false,
 											Optional:            true,
 											Required:            false,
 										},
-
 										"max": schema.Int64Attribute{
 											MarkdownDescription: ``,
 											Computed:            false,
@@ -1060,7 +977,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 										},
 									},
 								},
-
 								"line_color": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
@@ -1075,7 +991,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 										},
 									},
 								},
-
 								"point_color": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
@@ -1090,7 +1005,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 										},
 									},
 								},
-
 								"label_value": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
@@ -1103,7 +1017,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 											Optional:            false,
 											Required:            true,
 										},
-
 										"field": schema.StringAttribute{
 											MarkdownDescription: ``,
 											Computed:            false,
@@ -1112,14 +1025,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 										},
 									},
 								},
-
 								"line_width": schema.Int64Attribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"line_style": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
@@ -1132,7 +1043,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 											Optional:            true,
 											Required:            false,
 										},
-
 										"dash": schema.ListAttribute{
 											MarkdownDescription: ``,
 											Computed:            false,
@@ -1142,7 +1052,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 										},
 									},
 								},
-
 								"hide_from": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
@@ -1155,14 +1064,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 											Optional:            false,
 											Required:            true,
 										},
-
 										"legend": schema.BoolAttribute{
 											MarkdownDescription: ``,
 											Computed:            false,
 											Optional:            false,
 											Required:            true,
 										},
-
 										"viz": schema.BoolAttribute{
 											MarkdownDescription: ``,
 											Computed:            false,
@@ -1171,56 +1078,48 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 										},
 									},
 								},
-
 								"axis_placement": schema.StringAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"axis_color_mode": schema.StringAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"axis_label": schema.StringAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"axis_width": schema.NumberAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"axis_soft_min": schema.NumberAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"axis_soft_max": schema.NumberAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"axis_grid_show": schema.BoolAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"scale_distribution": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
@@ -1233,14 +1132,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 											Optional:            false,
 											Required:            true,
 										},
-
 										"log": schema.NumberAttribute{
 											MarkdownDescription: ``,
 											Computed:            false,
 											Optional:            true,
 											Required:            false,
 										},
-
 										"linear_threshold": schema.NumberAttribute{
 											MarkdownDescription: ``,
 											Computed:            false,
@@ -1249,21 +1146,18 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 										},
 									},
 								},
-
 								"name": schema.StringAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"label": schema.StringAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
+									Computed:            true,
 									Optional:            true,
 									Required:            false,
 								},
-
 								"axis_centered_zero": schema.BoolAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
@@ -1275,28 +1169,24 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 					},
 				},
 			},
-
 			"type": schema.StringAttribute{
 				MarkdownDescription: `The panel plugin type id. May not be empty.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"id": schema.Int64Attribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"plugin_version": schema.StringAttribute{
 				MarkdownDescription: `FIXME this almost certainly has to be changed in favor of scuemata versions`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"tags": schema.ListAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
@@ -1304,35 +1194,30 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 				Required:            false,
 				ElementType:         types.StringType,
 			},
-
 			"targets": schema.ListNestedAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"title": schema.StringAttribute{
 				MarkdownDescription: `Panel title.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"description": schema.StringAttribute{
 				MarkdownDescription: `Description.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"transparent": schema.BoolAttribute{
 				MarkdownDescription: `Whether to display the panel without a background.`,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 			},
-
 			"datasource": schema.SingleNestedAttribute{
 				MarkdownDescription: `The datasource used in all targets.`,
 				Computed:            false,
@@ -1345,7 +1230,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 						Optional:            true,
 						Required:            false,
 					},
-
 					"uid": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -1354,7 +1238,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 					},
 				},
 			},
-
 			"grid_pos": schema.SingleNestedAttribute{
 				MarkdownDescription: `Grid position.`,
 				Computed:            false,
@@ -1363,32 +1246,28 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 				Attributes: map[string]schema.Attribute{
 					"h": schema.Int64Attribute{
 						MarkdownDescription: `Panel`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 					},
-
 					"w": schema.Int64Attribute{
 						MarkdownDescription: `Panel`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 					},
-
 					"x": schema.Int64Attribute{
 						MarkdownDescription: `Panel x`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 					},
-
 					"y": schema.Int64Attribute{
 						MarkdownDescription: `Panel y`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 					},
-
 					"static": schema.BoolAttribute{
 						MarkdownDescription: `true if fixed`,
 						Computed:            false,
@@ -1397,7 +1276,6 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 					},
 				},
 			},
-
 			"links": schema.ListNestedAttribute{
 				MarkdownDescription: `Panel links.
 TODO fill this out - seems there are a couple variants?`,
@@ -1412,35 +1290,30 @@ TODO fill this out - seems there are a couple variants?`,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"type": schema.StringAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"icon": schema.StringAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"tooltip": schema.StringAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"url": schema.StringAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"tags": schema.ListAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
@@ -1448,82 +1321,71 @@ TODO fill this out - seems there are a couple variants?`,
 							Required:            true,
 							ElementType:         types.StringType,
 						},
-
 						"as_dropdown": schema.BoolAttribute{
 							MarkdownDescription: ``,
-							Computed:            false,
-							Optional:            false,
-							Required:            true,
+							Computed:            true,
+							Optional:            true,
+							Required:            false,
 						},
-
 						"target_blank": schema.BoolAttribute{
 							MarkdownDescription: ``,
-							Computed:            false,
-							Optional:            false,
-							Required:            true,
+							Computed:            true,
+							Optional:            true,
+							Required:            false,
 						},
-
 						"include_vars": schema.BoolAttribute{
 							MarkdownDescription: ``,
-							Computed:            false,
-							Optional:            false,
-							Required:            true,
+							Computed:            true,
+							Optional:            true,
+							Required:            false,
 						},
-
 						"keep_time": schema.BoolAttribute{
 							MarkdownDescription: ``,
-							Computed:            false,
-							Optional:            false,
-							Required:            true,
+							Computed:            true,
+							Optional:            true,
+							Required:            false,
 						},
 					},
 				},
 			},
-
 			"repeat": schema.StringAttribute{
 				MarkdownDescription: `Name of template variable to repeat for.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"repeat_direction": schema.StringAttribute{
 				MarkdownDescription: `Direction to repeat in if 'repeat' is set.
 "h" for horizontal, "v" for vertical.
 TODO this is probably optional`,
-				Computed: false,
-				Optional: false,
-				Required: true,
+				Computed: true,
+				Optional: true,
+				Required: false,
 			},
-
 			"repeat_panel_id": schema.Int64Attribute{
 				MarkdownDescription: `Id of the repeating panel.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"max_data_points": schema.NumberAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"thresholds": schema.ListNestedAttribute{
 				MarkdownDescription: `TODO docs - seems to be an old field from old dashboard alerts?`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"time_regions": schema.ListNestedAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"transformations": schema.ListNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -1537,14 +1399,12 @@ TODO this is probably optional`,
 							Optional:            false,
 							Required:            true,
 						},
-
 						"disabled": schema.BoolAttribute{
 							MarkdownDescription: `Disabled transformations are skipped`,
 							Computed:            false,
 							Optional:            true,
 							Required:            false,
 						},
-
 						"filter": schema.SingleNestedAttribute{
 							MarkdownDescription: `Optional frame matcher.  When missing it will be applied to all results`,
 							Computed:            false,
@@ -1553,16 +1413,15 @@ TODO this is probably optional`,
 							Attributes: map[string]schema.Attribute{
 								"id": schema.StringAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
 								},
 							},
 						},
 					},
 				},
 			},
-
 			"interval": schema.StringAttribute{
 				MarkdownDescription: `TODO docs
 TODO tighter constraint`,
@@ -1570,7 +1429,6 @@ TODO tighter constraint`,
 				Optional: true,
 				Required: false,
 			},
-
 			"time_from": schema.StringAttribute{
 				MarkdownDescription: `TODO docs
 TODO tighter constraint`,
@@ -1578,7 +1436,6 @@ TODO tighter constraint`,
 				Optional: true,
 				Required: false,
 			},
-
 			"time_shift": schema.StringAttribute{
 				MarkdownDescription: `TODO docs
 TODO tighter constraint`,
@@ -1586,7 +1443,6 @@ TODO tighter constraint`,
 				Optional: true,
 				Required: false,
 			},
-
 			"library_panel": schema.SingleNestedAttribute{
 				MarkdownDescription: `Dynamically load the panel`,
 				Computed:            false,
@@ -1599,7 +1455,6 @@ TODO tighter constraint`,
 						Optional:            false,
 						Required:            true,
 					},
-
 					"uid": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -1608,7 +1463,6 @@ TODO tighter constraint`,
 					},
 				},
 			},
-
 			"options": schema.SingleNestedAttribute{
 				MarkdownDescription: `options is specified by the PanelOptions field in panel
 plugin schemas.`,
@@ -1616,7 +1470,6 @@ plugin schemas.`,
 				Optional: false,
 				Required: true,
 			},
-
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
@@ -1635,7 +1488,6 @@ plugin schemas.`,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"display_name_from_ds": schema.StringAttribute{
 								MarkdownDescription: `This can be used by data sources that return and explicit naming structure for values and labels
 When this property is configured, this value is used rather than the default naming strategy.`,
@@ -1643,14 +1495,12 @@ When this property is configured, this value is used rather than the default nam
 								Optional: true,
 								Required: false,
 							},
-
 							"description": schema.StringAttribute{
 								MarkdownDescription: `Human readable field metadata`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"path": schema.StringAttribute{
 								MarkdownDescription: `An explicit path to the field in the datasource.  When the frame meta includes a path,
 This will default to ${frame.meta.path}/${field.name}
@@ -1661,56 +1511,42 @@ may be used to update the results`,
 								Optional: true,
 								Required: false,
 							},
-
 							"writeable": schema.BoolAttribute{
 								MarkdownDescription: `True if data source can write a value to the path.  Auth/authz are supported separately`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"filterable": schema.BoolAttribute{
 								MarkdownDescription: `True if data source field supports ad-hoc filters`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"unit": schema.StringAttribute{
 								MarkdownDescription: `Numeric Options`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"decimals": schema.NumberAttribute{
 								MarkdownDescription: `Significant digits (for display)`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"min": schema.NumberAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"max": schema.NumberAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
-							"mappings": schema.ListNestedAttribute{
-								MarkdownDescription: `Convert input values into a display string`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-
 							"thresholds": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map numeric values to states`,
 								Computed:            false,
@@ -1723,7 +1559,6 @@ may be used to update the results`,
 										Optional:            false,
 										Required:            true,
 									},
-
 									"steps": schema.ListNestedAttribute{
 										MarkdownDescription: `Must be sorted by 'value', first value is always -Infinity`,
 										Computed:            false,
@@ -1738,14 +1573,12 @@ FIXME the corresponding typescript field is required/non-optional, but nulls cur
 													Optional: true,
 													Required: false,
 												},
-
 												"color": schema.StringAttribute{
 													MarkdownDescription: `TODO docs`,
 													Computed:            false,
 													Optional:            false,
 													Required:            true,
 												},
-
 												"state": schema.StringAttribute{
 													MarkdownDescription: `TODO docs
 TODO are the values here enumerable into a disjunction?
@@ -1759,7 +1592,6 @@ Some seem to be listed in typescript comment`,
 									},
 								},
 							},
-
 							"color": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map values to a display color`,
 								Computed:            false,
@@ -1772,14 +1604,12 @@ Some seem to be listed in typescript comment`,
 										Optional:            false,
 										Required:            true,
 									},
-
 									"fixed_color": schema.StringAttribute{
 										MarkdownDescription: `Stores the fixed color value if mode is fixed`,
 										Computed:            false,
 										Optional:            true,
 										Required:            false,
 									},
-
 									"series_by": schema.StringAttribute{
 										MarkdownDescription: `Some visualizations need to know how to assign a series color from by value color schemes`,
 										Computed:            false,
@@ -1788,21 +1618,18 @@ Some seem to be listed in typescript comment`,
 									},
 								},
 							},
-
 							"links": schema.ListNestedAttribute{
 								MarkdownDescription: `The behavior when clicking on a result`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"no_value": schema.StringAttribute{
 								MarkdownDescription: `Alternative to empty string`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-
 							"custom": schema.SingleNestedAttribute{
 								MarkdownDescription: `custom is specified by the PanelFieldConfig field
 in panel plugin schemas.`,
@@ -1812,7 +1639,6 @@ in panel plugin schemas.`,
 							},
 						},
 					},
-
 					"overrides": schema.ListNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -1828,13 +1654,12 @@ in panel plugin schemas.`,
 									Attributes: map[string]schema.Attribute{
 										"id": schema.StringAttribute{
 											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
+											Computed:            true,
+											Optional:            true,
+											Required:            false,
 										},
 									},
 								},
-
 								"properties": schema.ListNestedAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
@@ -1844,9 +1669,9 @@ in panel plugin schemas.`,
 										Attributes: map[string]schema.Attribute{
 											"id": schema.StringAttribute{
 												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
+												Computed:            true,
+												Optional:            true,
+												Required:            false,
 											},
 										},
 									},
@@ -1878,6 +1703,7 @@ func (d *PanelXYChartDataSource) Read(ctx context.Context, req datasource.ReadRe
 		return
 	}
 
+	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -1893,4 +1719,37 @@ func (d *PanelXYChartDataSource) Read(ctx context.Context, req datasource.ReadRe
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d *PanelXYChartDataSource) applyDefaults(data *PanelXYChartDataSourceModel) {
+	if data.ScatterFieldConfig.Show.IsNull() {
+		data.ScatterFieldConfig.Show = types.StringValue(`points`)
+	}
+	if data.ScatterFieldConfig.Label.IsNull() {
+		data.ScatterFieldConfig.Label = types.StringValue(`auto`)
+	}
+	if data.ScatterSeriesConfig.Show.IsNull() {
+		data.ScatterSeriesConfig.Show = types.StringValue(`points`)
+	}
+	if data.ScatterSeriesConfig.Label.IsNull() {
+		data.ScatterSeriesConfig.Label = types.StringValue(`auto`)
+	}
+	if data.Transparent.IsNull() {
+		data.Transparent = types.BoolValue(false)
+	}
+	if data.GridPos != nil && data.GridPos.H.IsNull() {
+		data.GridPos.H = types.Int64Value(9)
+	}
+	if data.GridPos != nil && data.GridPos.W.IsNull() {
+		data.GridPos.W = types.Int64Value(12)
+	}
+	if data.GridPos != nil && data.GridPos.X.IsNull() {
+		data.GridPos.X = types.Int64Value(0)
+	}
+	if data.GridPos != nil && data.GridPos.Y.IsNull() {
+		data.GridPos.Y = types.Int64Value(0)
+	}
+	if data.RepeatDirection.IsNull() {
+		data.RepeatDirection = types.StringValue(`h`)
+	}
 }

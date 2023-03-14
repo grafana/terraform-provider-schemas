@@ -42,7 +42,7 @@ type CoreLibraryPanelDataSourceModel struct {
 	Type          types.String `tfsdk:"type" json:"type"`
 	SchemaVersion types.Int64  `tfsdk:"schema_version" json:"schemaVersion"`
 	Version       types.Int64  `tfsdk:"version" json:"version"`
-	Model         *struct {
+	Model         struct {
 	} `tfsdk:"model" json:"model"`
 	Meta *struct {
 		FolderName          types.String `tfsdk:"folder_name" json:"folderName"`
@@ -50,12 +50,12 @@ type CoreLibraryPanelDataSourceModel struct {
 		ConnectedDashboards types.Int64  `tfsdk:"connected_dashboards" json:"connectedDashboards"`
 		Created             types.String `tfsdk:"created" json:"created"`
 		Updated             types.String `tfsdk:"updated" json:"updated"`
-		CreatedBy           *struct {
+		CreatedBy           struct {
 			Id        types.Int64  `tfsdk:"id" json:"id"`
 			Name      types.String `tfsdk:"name" json:"name"`
 			AvatarUrl types.String `tfsdk:"avatar_url" json:"avatarUrl"`
 		} `tfsdk:"created_by" json:"createdBy"`
-		UpdatedBy *struct {
+		UpdatedBy struct {
 			Id        types.Int64  `tfsdk:"id" json:"id"`
 			Name      types.String `tfsdk:"name" json:"name"`
 			AvatarUrl types.String `tfsdk:"avatar_url" json:"avatarUrl"`
@@ -72,7 +72,6 @@ func (d *CoreLibraryPanelDataSource) Schema(ctx context.Context, req datasource.
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
-
 		Attributes: map[string]schema.Attribute{
 			"folder_uid": schema.StringAttribute{
 				MarkdownDescription: `Folder UID`,
@@ -80,49 +79,42 @@ func (d *CoreLibraryPanelDataSource) Schema(ctx context.Context, req datasource.
 				Optional:            true,
 				Required:            false,
 			},
-
 			"uid": schema.StringAttribute{
 				MarkdownDescription: `Library element UID`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"name": schema.StringAttribute{
 				MarkdownDescription: `Panel name (also saved in the model)`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"description": schema.StringAttribute{
 				MarkdownDescription: `Panel description`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"type": schema.StringAttribute{
 				MarkdownDescription: `The panel type (from inside the model)`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"schema_version": schema.Int64Attribute{
 				MarkdownDescription: `Dashboard version when this was saved (zero if unknown)`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-
 			"version": schema.Int64Attribute{
 				MarkdownDescription: `panel version, incremented each time the dashboard is updated.`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-
 			"model": schema.SingleNestedAttribute{
 				MarkdownDescription: `TODO: should be the same panel schema defined in dashboard
 Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
@@ -130,7 +122,6 @@ Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
 				Optional: false,
 				Required: true,
 			},
-
 			"meta": schema.SingleNestedAttribute{
 				MarkdownDescription: `Object storage metadata`,
 				Computed:            false,
@@ -143,35 +134,30 @@ Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
 						Optional:            false,
 						Required:            true,
 					},
-
 					"folder_uid": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
-
 					"connected_dashboards": schema.Int64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
-
 					"created": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
-
 					"updated": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
-
 					"created_by": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -184,14 +170,12 @@ Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"name": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"avatar_url": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -200,7 +184,6 @@ Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
 							},
 						},
 					},
-
 					"updated_by": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
@@ -213,14 +196,12 @@ Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"name": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-
 							"avatar_url": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
