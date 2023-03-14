@@ -35,33 +35,63 @@ type CoreLibraryPanelDataSource struct{}
 
 // CoreLibraryPanelDataSourceModel describes the data source data model.
 type CoreLibraryPanelDataSourceModel struct {
-	FolderUid     types.String `tfsdk:"folder_uid" json:"folderUid"`
-	Uid           types.String `tfsdk:"uid" json:"uid"`
-	Name          types.String `tfsdk:"name" json:"name"`
-	Description   types.String `tfsdk:"description" json:"description"`
-	Type          types.String `tfsdk:"type" json:"type"`
-	SchemaVersion types.Int64  `tfsdk:"schema_version" json:"schemaVersion"`
-	Version       types.Int64  `tfsdk:"version" json:"version"`
+	FolderUid     types.String `tfsdk:"folder_uid"`
+	Uid           types.String `tfsdk:"uid"`
+	Name          types.String `tfsdk:"name"`
+	Description   types.String `tfsdk:"description"`
+	Type          types.String `tfsdk:"type"`
+	SchemaVersion types.Int64  `tfsdk:"schema_version"`
+	Version       types.Int64  `tfsdk:"version"`
 	Model         struct {
-	} `tfsdk:"model" json:"model"`
+	} `tfsdk:"model"`
 	Meta *struct {
-		FolderName          types.String `tfsdk:"folder_name" json:"folderName"`
-		FolderUid           types.String `tfsdk:"folder_uid" json:"folderUid"`
-		ConnectedDashboards types.Int64  `tfsdk:"connected_dashboards" json:"connectedDashboards"`
-		Created             types.String `tfsdk:"created" json:"created"`
-		Updated             types.String `tfsdk:"updated" json:"updated"`
+		FolderName          types.String `tfsdk:"folder_name"`
+		FolderUid           types.String `tfsdk:"folder_uid"`
+		ConnectedDashboards types.Int64  `tfsdk:"connected_dashboards"`
+		Created             types.String `tfsdk:"created"`
+		Updated             types.String `tfsdk:"updated"`
 		CreatedBy           struct {
-			Id        types.Int64  `tfsdk:"id" json:"id"`
-			Name      types.String `tfsdk:"name" json:"name"`
-			AvatarUrl types.String `tfsdk:"avatar_url" json:"avatarUrl"`
-		} `tfsdk:"created_by" json:"createdBy"`
+			Id        types.Int64  `tfsdk:"id"`
+			Name      types.String `tfsdk:"name"`
+			AvatarUrl types.String `tfsdk:"avatar_url"`
+		} `tfsdk:"created_by"`
 		UpdatedBy struct {
-			Id        types.Int64  `tfsdk:"id" json:"id"`
-			Name      types.String `tfsdk:"name" json:"name"`
-			AvatarUrl types.String `tfsdk:"avatar_url" json:"avatarUrl"`
-		} `tfsdk:"updated_by" json:"updatedBy"`
-	} `tfsdk:"meta" json:"meta"`
+			Id        types.Int64  `tfsdk:"id"`
+			Name      types.String `tfsdk:"name"`
+			AvatarUrl types.String `tfsdk:"avatar_url"`
+		} `tfsdk:"updated_by"`
+	} `tfsdk:"meta"`
 	ToJSON types.String `tfsdk:"to_json"`
+}
+
+// CoreLibraryPanelDataSourceModelJSON describes the data source data model when exported to json.
+type CoreLibraryPanelDataSourceModelJSON struct {
+	FolderUid     *string `json:"folderUid,omitempty"`
+	Uid           string  `json:"uid"`
+	Name          string  `json:"name"`
+	Description   *string `json:"description,omitempty"`
+	Type          string  `json:"type"`
+	SchemaVersion *int64  `json:"schemaVersion,omitempty"`
+	Version       int64   `json:"version"`
+	Model         struct {
+	} `json:"model"`
+	Meta *struct {
+		FolderName          string `json:"folderName"`
+		FolderUid           string `json:"folderUid"`
+		ConnectedDashboards int64  `json:"connectedDashboards"`
+		Created             string `json:"created"`
+		Updated             string `json:"updated"`
+		CreatedBy           struct {
+			Id        int64  `json:"id"`
+			Name      string `json:"name"`
+			AvatarUrl string `json:"avatarUrl"`
+		} `json:"createdBy"`
+		UpdatedBy struct {
+			Id        int64  `json:"id"`
+			Name      string `json:"name"`
+			AvatarUrl string `json:"avatarUrl"`
+		} `json:"updatedBy"`
+	} `json:"meta,omitempty"`
 }
 
 func (d *CoreLibraryPanelDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -249,4 +279,25 @@ func (d *CoreLibraryPanelDataSource) Read(ctx context.Context, req datasource.Re
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d CoreLibraryPanelDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_folderuid := d.FolderUid.ValueString()
+	attr_uid := d.Uid.ValueString()
+	attr_name := d.Name.ValueString()
+	attr_description := d.Description.ValueString()
+	attr_type := d.Type.ValueString()
+	attr_schemaversion := d.SchemaVersion.ValueInt64()
+	attr_version := d.Version.ValueInt64()
+
+	model := &CoreLibraryPanelDataSourceModelJSON{
+		FolderUid:     &attr_folderuid,
+		Uid:           attr_uid,
+		Name:          attr_name,
+		Description:   &attr_description,
+		Type:          attr_type,
+		SchemaVersion: &attr_schemaversion,
+		Version:       attr_version,
+	}
+	return json.Marshal(model)
 }

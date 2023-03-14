@@ -35,265 +35,527 @@ type PanelXYChartDataSource struct{}
 
 // PanelXYChartDataSourceModel describes the data source data model.
 type PanelXYChartDataSourceModel struct {
-	SeriesMapping     types.String `tfsdk:"series_mapping" json:"SeriesMapping"`
-	ScatterShow       types.String `tfsdk:"scatter_show" json:"ScatterShow"`
+	SeriesMapping     types.String `tfsdk:"series_mapping"`
+	ScatterShow       types.String `tfsdk:"scatter_show"`
 	XYDimensionConfig struct {
-		Frame   types.Int64  `tfsdk:"frame" json:"frame"`
-		X       types.String `tfsdk:"x" json:"x"`
-		Exclude types.List   `tfsdk:"exclude" json:"exclude"`
-	} `tfsdk:"xy_dimension_config" json:"XYDimensionConfig"`
+		Frame   types.Int64  `tfsdk:"frame"`
+		X       types.String `tfsdk:"x"`
+		Exclude types.List   `tfsdk:"exclude"`
+	} `tfsdk:"xy_dimension_config"`
 	ScatterFieldConfig struct {
-		Show      types.String `tfsdk:"show" json:"show"`
+		Show      types.String `tfsdk:"show"`
 		PointSize *struct {
-			Min   types.Int64  `tfsdk:"min" json:"min"`
-			Field types.String `tfsdk:"field" json:"field"`
-			Max   types.Int64  `tfsdk:"max" json:"max"`
-		} `tfsdk:"point_size" json:"pointSize"`
+			Min   types.Int64  `tfsdk:"min"`
+			Field types.String `tfsdk:"field"`
+			Max   types.Int64  `tfsdk:"max"`
+		} `tfsdk:"point_size"`
 		LineColor *struct {
-			Field types.String `tfsdk:"field" json:"field"`
-		} `tfsdk:"line_color" json:"lineColor"`
+			Field types.String `tfsdk:"field"`
+		} `tfsdk:"line_color"`
 		PointColor *struct {
-			Field types.String `tfsdk:"field" json:"field"`
-		} `tfsdk:"point_color" json:"pointColor"`
+			Field types.String `tfsdk:"field"`
+		} `tfsdk:"point_color"`
 		LabelValue *struct {
-			Mode  types.String `tfsdk:"mode" json:"mode"`
-			Field types.String `tfsdk:"field" json:"field"`
-		} `tfsdk:"label_value" json:"labelValue"`
-		LineWidth types.Int64 `tfsdk:"line_width" json:"lineWidth"`
+			Mode  types.String `tfsdk:"mode"`
+			Field types.String `tfsdk:"field"`
+		} `tfsdk:"label_value"`
+		LineWidth types.Int64 `tfsdk:"line_width"`
 		LineStyle *struct {
-			Fill types.String `tfsdk:"fill" json:"fill"`
-			Dash types.List   `tfsdk:"dash" json:"dash"`
-		} `tfsdk:"line_style" json:"lineStyle"`
+			Fill types.String `tfsdk:"fill"`
+			Dash types.List   `tfsdk:"dash"`
+		} `tfsdk:"line_style"`
 		HideFrom *struct {
-			Tooltip types.Bool `tfsdk:"tooltip" json:"tooltip"`
-			Legend  types.Bool `tfsdk:"legend" json:"legend"`
-			Viz     types.Bool `tfsdk:"viz" json:"viz"`
-		} `tfsdk:"hide_from" json:"hideFrom"`
-		AxisPlacement     types.String `tfsdk:"axis_placement" json:"axisPlacement"`
-		AxisColorMode     types.String `tfsdk:"axis_color_mode" json:"axisColorMode"`
-		AxisLabel         types.String `tfsdk:"axis_label" json:"axisLabel"`
-		AxisWidth         types.Number `tfsdk:"axis_width" json:"axisWidth"`
-		AxisSoftMin       types.Number `tfsdk:"axis_soft_min" json:"axisSoftMin"`
-		AxisSoftMax       types.Number `tfsdk:"axis_soft_max" json:"axisSoftMax"`
-		AxisGridShow      types.Bool   `tfsdk:"axis_grid_show" json:"axisGridShow"`
+			Tooltip types.Bool `tfsdk:"tooltip"`
+			Legend  types.Bool `tfsdk:"legend"`
+			Viz     types.Bool `tfsdk:"viz"`
+		} `tfsdk:"hide_from"`
+		AxisPlacement     types.String  `tfsdk:"axis_placement"`
+		AxisColorMode     types.String  `tfsdk:"axis_color_mode"`
+		AxisLabel         types.String  `tfsdk:"axis_label"`
+		AxisWidth         types.Float64 `tfsdk:"axis_width"`
+		AxisSoftMin       types.Float64 `tfsdk:"axis_soft_min"`
+		AxisSoftMax       types.Float64 `tfsdk:"axis_soft_max"`
+		AxisGridShow      types.Bool    `tfsdk:"axis_grid_show"`
 		ScaleDistribution *struct {
-			Type            types.String `tfsdk:"type" json:"type"`
-			Log             types.Number `tfsdk:"log" json:"log"`
-			LinearThreshold types.Number `tfsdk:"linear_threshold" json:"linearThreshold"`
-		} `tfsdk:"scale_distribution" json:"scaleDistribution"`
-		Label            types.String `tfsdk:"label" json:"label"`
-		AxisCenteredZero types.Bool   `tfsdk:"axis_centered_zero" json:"axisCenteredZero"`
-	} `tfsdk:"scatter_field_config" json:"ScatterFieldConfig"`
+			Type            types.String  `tfsdk:"type"`
+			Log             types.Float64 `tfsdk:"log"`
+			LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+		} `tfsdk:"scale_distribution"`
+		Label            types.String `tfsdk:"label"`
+		AxisCenteredZero types.Bool   `tfsdk:"axis_centered_zero"`
+	} `tfsdk:"scatter_field_config"`
 	ScatterSeriesConfig struct {
-		X         types.String `tfsdk:"x" json:"x"`
-		Y         types.String `tfsdk:"y" json:"y"`
-		Show      types.String `tfsdk:"show" json:"show"`
+		X         types.String `tfsdk:"x"`
+		Y         types.String `tfsdk:"y"`
+		Show      types.String `tfsdk:"show"`
 		PointSize *struct {
-			Min   types.Int64  `tfsdk:"min" json:"min"`
-			Field types.String `tfsdk:"field" json:"field"`
-			Max   types.Int64  `tfsdk:"max" json:"max"`
-		} `tfsdk:"point_size" json:"pointSize"`
+			Min   types.Int64  `tfsdk:"min"`
+			Field types.String `tfsdk:"field"`
+			Max   types.Int64  `tfsdk:"max"`
+		} `tfsdk:"point_size"`
 		LineColor *struct {
-			Field types.String `tfsdk:"field" json:"field"`
-		} `tfsdk:"line_color" json:"lineColor"`
+			Field types.String `tfsdk:"field"`
+		} `tfsdk:"line_color"`
 		PointColor *struct {
-			Field types.String `tfsdk:"field" json:"field"`
-		} `tfsdk:"point_color" json:"pointColor"`
+			Field types.String `tfsdk:"field"`
+		} `tfsdk:"point_color"`
 		LabelValue *struct {
-			Mode  types.String `tfsdk:"mode" json:"mode"`
-			Field types.String `tfsdk:"field" json:"field"`
-		} `tfsdk:"label_value" json:"labelValue"`
-		LineWidth types.Int64 `tfsdk:"line_width" json:"lineWidth"`
+			Mode  types.String `tfsdk:"mode"`
+			Field types.String `tfsdk:"field"`
+		} `tfsdk:"label_value"`
+		LineWidth types.Int64 `tfsdk:"line_width"`
 		LineStyle *struct {
-			Fill types.String `tfsdk:"fill" json:"fill"`
-			Dash types.List   `tfsdk:"dash" json:"dash"`
-		} `tfsdk:"line_style" json:"lineStyle"`
+			Fill types.String `tfsdk:"fill"`
+			Dash types.List   `tfsdk:"dash"`
+		} `tfsdk:"line_style"`
 		HideFrom *struct {
-			Tooltip types.Bool `tfsdk:"tooltip" json:"tooltip"`
-			Legend  types.Bool `tfsdk:"legend" json:"legend"`
-			Viz     types.Bool `tfsdk:"viz" json:"viz"`
-		} `tfsdk:"hide_from" json:"hideFrom"`
-		AxisPlacement     types.String `tfsdk:"axis_placement" json:"axisPlacement"`
-		AxisColorMode     types.String `tfsdk:"axis_color_mode" json:"axisColorMode"`
-		AxisLabel         types.String `tfsdk:"axis_label" json:"axisLabel"`
-		AxisWidth         types.Number `tfsdk:"axis_width" json:"axisWidth"`
-		AxisSoftMin       types.Number `tfsdk:"axis_soft_min" json:"axisSoftMin"`
-		AxisSoftMax       types.Number `tfsdk:"axis_soft_max" json:"axisSoftMax"`
-		AxisGridShow      types.Bool   `tfsdk:"axis_grid_show" json:"axisGridShow"`
+			Tooltip types.Bool `tfsdk:"tooltip"`
+			Legend  types.Bool `tfsdk:"legend"`
+			Viz     types.Bool `tfsdk:"viz"`
+		} `tfsdk:"hide_from"`
+		AxisPlacement     types.String  `tfsdk:"axis_placement"`
+		AxisColorMode     types.String  `tfsdk:"axis_color_mode"`
+		AxisLabel         types.String  `tfsdk:"axis_label"`
+		AxisWidth         types.Float64 `tfsdk:"axis_width"`
+		AxisSoftMin       types.Float64 `tfsdk:"axis_soft_min"`
+		AxisSoftMax       types.Float64 `tfsdk:"axis_soft_max"`
+		AxisGridShow      types.Bool    `tfsdk:"axis_grid_show"`
 		ScaleDistribution *struct {
-			Type            types.String `tfsdk:"type" json:"type"`
-			Log             types.Number `tfsdk:"log" json:"log"`
-			LinearThreshold types.Number `tfsdk:"linear_threshold" json:"linearThreshold"`
-		} `tfsdk:"scale_distribution" json:"scaleDistribution"`
-		Name             types.String `tfsdk:"name" json:"name"`
-		Label            types.String `tfsdk:"label" json:"label"`
-		AxisCenteredZero types.Bool   `tfsdk:"axis_centered_zero" json:"axisCenteredZero"`
-	} `tfsdk:"scatter_series_config" json:"ScatterSeriesConfig"`
+			Type            types.String  `tfsdk:"type"`
+			Log             types.Float64 `tfsdk:"log"`
+			LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+		} `tfsdk:"scale_distribution"`
+		Name             types.String `tfsdk:"name"`
+		Label            types.String `tfsdk:"label"`
+		AxisCenteredZero types.Bool   `tfsdk:"axis_centered_zero"`
+	} `tfsdk:"scatter_series_config"`
 	PanelOptions struct {
-		SeriesMapping types.String `tfsdk:"series_mapping" json:"seriesMapping"`
+		SeriesMapping types.String `tfsdk:"series_mapping"`
 		Dims          struct {
-			Frame   types.Int64  `tfsdk:"frame" json:"frame"`
-			X       types.String `tfsdk:"x" json:"x"`
-			Exclude types.List   `tfsdk:"exclude" json:"exclude"`
-		} `tfsdk:"dims" json:"dims"`
+			Frame   types.Int64  `tfsdk:"frame"`
+			X       types.String `tfsdk:"x"`
+			Exclude types.List   `tfsdk:"exclude"`
+		} `tfsdk:"dims"`
 		Legend struct {
-			DisplayMode types.String `tfsdk:"display_mode" json:"displayMode"`
-			Placement   types.String `tfsdk:"placement" json:"placement"`
-			ShowLegend  types.Bool   `tfsdk:"show_legend" json:"showLegend"`
-			AsTable     types.Bool   `tfsdk:"as_table" json:"asTable"`
-			IsVisible   types.Bool   `tfsdk:"is_visible" json:"isVisible"`
-			SortBy      types.String `tfsdk:"sort_by" json:"sortBy"`
-			SortDesc    types.Bool   `tfsdk:"sort_desc" json:"sortDesc"`
-			Width       types.Number `tfsdk:"width" json:"width"`
-			Calcs       types.List   `tfsdk:"calcs" json:"calcs"`
-		} `tfsdk:"legend" json:"legend"`
+			DisplayMode types.String  `tfsdk:"display_mode"`
+			Placement   types.String  `tfsdk:"placement"`
+			ShowLegend  types.Bool    `tfsdk:"show_legend"`
+			AsTable     types.Bool    `tfsdk:"as_table"`
+			IsVisible   types.Bool    `tfsdk:"is_visible"`
+			SortBy      types.String  `tfsdk:"sort_by"`
+			SortDesc    types.Bool    `tfsdk:"sort_desc"`
+			Width       types.Float64 `tfsdk:"width"`
+			Calcs       types.List    `tfsdk:"calcs"`
+		} `tfsdk:"legend"`
 		Tooltip struct {
-			Mode types.String `tfsdk:"mode" json:"mode"`
-			Sort types.String `tfsdk:"sort" json:"sort"`
-		} `tfsdk:"tooltip" json:"tooltip"`
+			Mode types.String `tfsdk:"mode"`
+			Sort types.String `tfsdk:"sort"`
+		} `tfsdk:"tooltip"`
 		Series []struct {
-			X         types.String `tfsdk:"x" json:"x"`
-			Y         types.String `tfsdk:"y" json:"y"`
-			Show      types.String `tfsdk:"show" json:"show"`
+			X         types.String `tfsdk:"x"`
+			Y         types.String `tfsdk:"y"`
+			Show      types.String `tfsdk:"show"`
 			PointSize *struct {
-				Min   types.Int64  `tfsdk:"min" json:"min"`
-				Field types.String `tfsdk:"field" json:"field"`
-				Max   types.Int64  `tfsdk:"max" json:"max"`
-			} `tfsdk:"point_size" json:"pointSize"`
+				Min   types.Int64  `tfsdk:"min"`
+				Field types.String `tfsdk:"field"`
+				Max   types.Int64  `tfsdk:"max"`
+			} `tfsdk:"point_size"`
 			LineColor *struct {
-				Field types.String `tfsdk:"field" json:"field"`
-			} `tfsdk:"line_color" json:"lineColor"`
+				Field types.String `tfsdk:"field"`
+			} `tfsdk:"line_color"`
 			PointColor *struct {
-				Field types.String `tfsdk:"field" json:"field"`
-			} `tfsdk:"point_color" json:"pointColor"`
+				Field types.String `tfsdk:"field"`
+			} `tfsdk:"point_color"`
 			LabelValue *struct {
-				Mode  types.String `tfsdk:"mode" json:"mode"`
-				Field types.String `tfsdk:"field" json:"field"`
-			} `tfsdk:"label_value" json:"labelValue"`
-			LineWidth types.Int64 `tfsdk:"line_width" json:"lineWidth"`
+				Mode  types.String `tfsdk:"mode"`
+				Field types.String `tfsdk:"field"`
+			} `tfsdk:"label_value"`
+			LineWidth types.Int64 `tfsdk:"line_width"`
 			LineStyle *struct {
-				Fill types.String `tfsdk:"fill" json:"fill"`
-				Dash types.List   `tfsdk:"dash" json:"dash"`
-			} `tfsdk:"line_style" json:"lineStyle"`
+				Fill types.String `tfsdk:"fill"`
+				Dash types.List   `tfsdk:"dash"`
+			} `tfsdk:"line_style"`
 			HideFrom *struct {
-				Tooltip types.Bool `tfsdk:"tooltip" json:"tooltip"`
-				Legend  types.Bool `tfsdk:"legend" json:"legend"`
-				Viz     types.Bool `tfsdk:"viz" json:"viz"`
-			} `tfsdk:"hide_from" json:"hideFrom"`
-			AxisPlacement     types.String `tfsdk:"axis_placement" json:"axisPlacement"`
-			AxisColorMode     types.String `tfsdk:"axis_color_mode" json:"axisColorMode"`
-			AxisLabel         types.String `tfsdk:"axis_label" json:"axisLabel"`
-			AxisWidth         types.Number `tfsdk:"axis_width" json:"axisWidth"`
-			AxisSoftMin       types.Number `tfsdk:"axis_soft_min" json:"axisSoftMin"`
-			AxisSoftMax       types.Number `tfsdk:"axis_soft_max" json:"axisSoftMax"`
-			AxisGridShow      types.Bool   `tfsdk:"axis_grid_show" json:"axisGridShow"`
+				Tooltip types.Bool `tfsdk:"tooltip"`
+				Legend  types.Bool `tfsdk:"legend"`
+				Viz     types.Bool `tfsdk:"viz"`
+			} `tfsdk:"hide_from"`
+			AxisPlacement     types.String  `tfsdk:"axis_placement"`
+			AxisColorMode     types.String  `tfsdk:"axis_color_mode"`
+			AxisLabel         types.String  `tfsdk:"axis_label"`
+			AxisWidth         types.Float64 `tfsdk:"axis_width"`
+			AxisSoftMin       types.Float64 `tfsdk:"axis_soft_min"`
+			AxisSoftMax       types.Float64 `tfsdk:"axis_soft_max"`
+			AxisGridShow      types.Bool    `tfsdk:"axis_grid_show"`
 			ScaleDistribution *struct {
-				Type            types.String `tfsdk:"type" json:"type"`
-				Log             types.Number `tfsdk:"log" json:"log"`
-				LinearThreshold types.Number `tfsdk:"linear_threshold" json:"linearThreshold"`
-			} `tfsdk:"scale_distribution" json:"scaleDistribution"`
-			Name             types.String `tfsdk:"name" json:"name"`
-			Label            types.String `tfsdk:"label" json:"label"`
-			AxisCenteredZero types.Bool   `tfsdk:"axis_centered_zero" json:"axisCenteredZero"`
-		} `tfsdk:"series" json:"series"`
-	} `tfsdk:"panel_options" json:"PanelOptions"`
-	Type          types.String `tfsdk:"type" json:"type"`
-	Id            types.Int64  `tfsdk:"id" json:"id"`
-	PluginVersion types.String `tfsdk:"plugin_version" json:"pluginVersion"`
-	Tags          types.List   `tfsdk:"tags" json:"tags"`
+				Type            types.String  `tfsdk:"type"`
+				Log             types.Float64 `tfsdk:"log"`
+				LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+			} `tfsdk:"scale_distribution"`
+			Name             types.String `tfsdk:"name"`
+			Label            types.String `tfsdk:"label"`
+			AxisCenteredZero types.Bool   `tfsdk:"axis_centered_zero"`
+		} `tfsdk:"series"`
+	} `tfsdk:"panel_options"`
+	Type          types.String `tfsdk:"type"`
+	Id            types.Int64  `tfsdk:"id"`
+	PluginVersion types.String `tfsdk:"plugin_version"`
+	Tags          types.List   `tfsdk:"tags"`
 	Targets       []struct {
-	} `tfsdk:"targets" json:"targets"`
-	Title       types.String `tfsdk:"title" json:"title"`
-	Description types.String `tfsdk:"description" json:"description"`
-	Transparent types.Bool   `tfsdk:"transparent" json:"transparent"`
+	} `tfsdk:"targets"`
+	Title       types.String `tfsdk:"title"`
+	Description types.String `tfsdk:"description"`
+	Transparent types.Bool   `tfsdk:"transparent"`
 	Datasource  *struct {
-		Type types.String `tfsdk:"type" json:"type"`
-		Uid  types.String `tfsdk:"uid" json:"uid"`
-	} `tfsdk:"datasource" json:"datasource"`
+		Type types.String `tfsdk:"type"`
+		Uid  types.String `tfsdk:"uid"`
+	} `tfsdk:"datasource"`
 	GridPos *struct {
-		H      types.Int64 `tfsdk:"h" json:"h"`
-		W      types.Int64 `tfsdk:"w" json:"w"`
-		X      types.Int64 `tfsdk:"x" json:"x"`
-		Y      types.Int64 `tfsdk:"y" json:"y"`
-		Static types.Bool  `tfsdk:"static" json:"static"`
-	} `tfsdk:"grid_pos" json:"gridPos"`
+		H      types.Int64 `tfsdk:"h"`
+		W      types.Int64 `tfsdk:"w"`
+		X      types.Int64 `tfsdk:"x"`
+		Y      types.Int64 `tfsdk:"y"`
+		Static types.Bool  `tfsdk:"static"`
+	} `tfsdk:"grid_pos"`
 	Links []struct {
-		Title       types.String `tfsdk:"title" json:"title"`
-		Type        types.String `tfsdk:"type" json:"type"`
-		Icon        types.String `tfsdk:"icon" json:"icon"`
-		Tooltip     types.String `tfsdk:"tooltip" json:"tooltip"`
-		Url         types.String `tfsdk:"url" json:"url"`
-		Tags        types.List   `tfsdk:"tags" json:"tags"`
-		AsDropdown  types.Bool   `tfsdk:"as_dropdown" json:"asDropdown"`
-		TargetBlank types.Bool   `tfsdk:"target_blank" json:"targetBlank"`
-		IncludeVars types.Bool   `tfsdk:"include_vars" json:"includeVars"`
-		KeepTime    types.Bool   `tfsdk:"keep_time" json:"keepTime"`
-	} `tfsdk:"links" json:"links"`
-	Repeat          types.String `tfsdk:"repeat" json:"repeat"`
-	RepeatDirection types.String `tfsdk:"repeat_direction" json:"repeatDirection"`
-	RepeatPanelId   types.Int64  `tfsdk:"repeat_panel_id" json:"repeatPanelId"`
-	MaxDataPoints   types.Number `tfsdk:"max_data_points" json:"maxDataPoints"`
+		Title       types.String `tfsdk:"title"`
+		Type        types.String `tfsdk:"type"`
+		Icon        types.String `tfsdk:"icon"`
+		Tooltip     types.String `tfsdk:"tooltip"`
+		Url         types.String `tfsdk:"url"`
+		Tags        types.List   `tfsdk:"tags"`
+		AsDropdown  types.Bool   `tfsdk:"as_dropdown"`
+		TargetBlank types.Bool   `tfsdk:"target_blank"`
+		IncludeVars types.Bool   `tfsdk:"include_vars"`
+		KeepTime    types.Bool   `tfsdk:"keep_time"`
+	} `tfsdk:"links"`
+	Repeat          types.String  `tfsdk:"repeat"`
+	RepeatDirection types.String  `tfsdk:"repeat_direction"`
+	RepeatPanelId   types.Int64   `tfsdk:"repeat_panel_id"`
+	MaxDataPoints   types.Float64 `tfsdk:"max_data_points"`
 	Thresholds      []struct {
-	} `tfsdk:"thresholds" json:"thresholds"`
+	} `tfsdk:"thresholds"`
 	TimeRegions []struct {
-	} `tfsdk:"time_regions" json:"timeRegions"`
+	} `tfsdk:"time_regions"`
 	Transformations []struct {
-		Id       types.String `tfsdk:"id" json:"id"`
-		Disabled types.Bool   `tfsdk:"disabled" json:"disabled"`
+		Id       types.String `tfsdk:"id"`
+		Disabled types.Bool   `tfsdk:"disabled"`
 		Filter   *struct {
-			Id types.String `tfsdk:"id" json:"id"`
-		} `tfsdk:"filter" json:"filter"`
-	} `tfsdk:"transformations" json:"transformations"`
-	Interval     types.String `tfsdk:"interval" json:"interval"`
-	TimeFrom     types.String `tfsdk:"time_from" json:"timeFrom"`
-	TimeShift    types.String `tfsdk:"time_shift" json:"timeShift"`
+			Id types.String `tfsdk:"id"`
+		} `tfsdk:"filter"`
+	} `tfsdk:"transformations"`
+	Interval     types.String `tfsdk:"interval"`
+	TimeFrom     types.String `tfsdk:"time_from"`
+	TimeShift    types.String `tfsdk:"time_shift"`
 	LibraryPanel *struct {
-		Name types.String `tfsdk:"name" json:"name"`
-		Uid  types.String `tfsdk:"uid" json:"uid"`
-	} `tfsdk:"library_panel" json:"libraryPanel"`
+		Name types.String `tfsdk:"name"`
+		Uid  types.String `tfsdk:"uid"`
+	} `tfsdk:"library_panel"`
 	Options struct {
-	} `tfsdk:"options" json:"options"`
+	} `tfsdk:"options"`
 	FieldConfig struct {
 		Defaults struct {
-			DisplayName       types.String `tfsdk:"display_name" json:"displayName"`
-			DisplayNameFromDS types.String `tfsdk:"display_name_from_ds" json:"displayNameFromDS"`
-			Description       types.String `tfsdk:"description" json:"description"`
-			Path              types.String `tfsdk:"path" json:"path"`
-			Writeable         types.Bool   `tfsdk:"writeable" json:"writeable"`
-			Filterable        types.Bool   `tfsdk:"filterable" json:"filterable"`
-			Unit              types.String `tfsdk:"unit" json:"unit"`
-			Decimals          types.Number `tfsdk:"decimals" json:"decimals"`
-			Min               types.Number `tfsdk:"min" json:"min"`
-			Max               types.Number `tfsdk:"max" json:"max"`
+			DisplayName       types.String  `tfsdk:"display_name"`
+			DisplayNameFromDS types.String  `tfsdk:"display_name_from_ds"`
+			Description       types.String  `tfsdk:"description"`
+			Path              types.String  `tfsdk:"path"`
+			Writeable         types.Bool    `tfsdk:"writeable"`
+			Filterable        types.Bool    `tfsdk:"filterable"`
+			Unit              types.String  `tfsdk:"unit"`
+			Decimals          types.Float64 `tfsdk:"decimals"`
+			Min               types.Float64 `tfsdk:"min"`
+			Max               types.Float64 `tfsdk:"max"`
 			Thresholds        *struct {
-				Mode  types.String `tfsdk:"mode" json:"mode"`
+				Mode  types.String `tfsdk:"mode"`
 				Steps []struct {
-					Value types.Number `tfsdk:"value" json:"value"`
-					Color types.String `tfsdk:"color" json:"color"`
-					State types.String `tfsdk:"state" json:"state"`
-				} `tfsdk:"steps" json:"steps"`
-			} `tfsdk:"thresholds" json:"thresholds"`
+					Value types.Float64 `tfsdk:"value"`
+					Color types.String  `tfsdk:"color"`
+					State types.String  `tfsdk:"state"`
+				} `tfsdk:"steps"`
+			} `tfsdk:"thresholds"`
 			Color *struct {
-				Mode       types.String `tfsdk:"mode" json:"mode"`
-				FixedColor types.String `tfsdk:"fixed_color" json:"fixedColor"`
-				SeriesBy   types.String `tfsdk:"series_by" json:"seriesBy"`
-			} `tfsdk:"color" json:"color"`
+				Mode       types.String `tfsdk:"mode"`
+				FixedColor types.String `tfsdk:"fixed_color"`
+				SeriesBy   types.String `tfsdk:"series_by"`
+			} `tfsdk:"color"`
 			Links []struct {
-			} `tfsdk:"links" json:"links"`
-			NoValue types.String `tfsdk:"no_value" json:"noValue"`
+			} `tfsdk:"links"`
+			NoValue types.String `tfsdk:"no_value"`
 			Custom  *struct {
-			} `tfsdk:"custom" json:"custom"`
-		} `tfsdk:"defaults" json:"defaults"`
+			} `tfsdk:"custom"`
+		} `tfsdk:"defaults"`
 		Overrides []struct {
 			Matcher struct {
-				Id types.String `tfsdk:"id" json:"id"`
-			} `tfsdk:"matcher" json:"matcher"`
+				Id types.String `tfsdk:"id"`
+			} `tfsdk:"matcher"`
 			Properties []struct {
-				Id types.String `tfsdk:"id" json:"id"`
-			} `tfsdk:"properties" json:"properties"`
-		} `tfsdk:"overrides" json:"overrides"`
-	} `tfsdk:"field_config" json:"fieldConfig"`
+				Id types.String `tfsdk:"id"`
+			} `tfsdk:"properties"`
+		} `tfsdk:"overrides"`
+	} `tfsdk:"field_config"`
 	ToJSON types.String `tfsdk:"to_json"`
+}
+
+// PanelXYChartDataSourceModelJSON describes the data source data model when exported to json.
+type PanelXYChartDataSourceModelJSON struct {
+	SeriesMapping     string `json:"SeriesMapping"`
+	ScatterShow       string `json:"ScatterShow"`
+	XYDimensionConfig struct {
+		Frame   int64    `json:"frame"`
+		X       *string  `json:"x,omitempty"`
+		Exclude []string `json:"exclude,omitempty"`
+	} `json:"XYDimensionConfig"`
+	ScatterFieldConfig struct {
+		Show      *string `json:"show,omitempty"`
+		PointSize *struct {
+			Min   int64   `json:"min"`
+			Field *string `json:"field,omitempty"`
+			Max   int64   `json:"max"`
+		} `json:"pointSize,omitempty"`
+		LineColor *struct {
+			Field *string `json:"field,omitempty"`
+		} `json:"lineColor,omitempty"`
+		PointColor *struct {
+			Field *string `json:"field,omitempty"`
+		} `json:"pointColor,omitempty"`
+		LabelValue *struct {
+			Mode  string  `json:"mode"`
+			Field *string `json:"field,omitempty"`
+		} `json:"labelValue,omitempty"`
+		LineWidth *int64 `json:"lineWidth,omitempty"`
+		LineStyle *struct {
+			Fill *string   `json:"fill,omitempty"`
+			Dash []float64 `json:"dash,omitempty"`
+		} `json:"lineStyle,omitempty"`
+		HideFrom *struct {
+			Tooltip bool `json:"tooltip"`
+			Legend  bool `json:"legend"`
+			Viz     bool `json:"viz"`
+		} `json:"hideFrom,omitempty"`
+		AxisPlacement     *string  `json:"axisPlacement,omitempty"`
+		AxisColorMode     *string  `json:"axisColorMode,omitempty"`
+		AxisLabel         *string  `json:"axisLabel,omitempty"`
+		AxisWidth         *float64 `json:"axisWidth,omitempty"`
+		AxisSoftMin       *float64 `json:"axisSoftMin,omitempty"`
+		AxisSoftMax       *float64 `json:"axisSoftMax,omitempty"`
+		AxisGridShow      *bool    `json:"axisGridShow,omitempty"`
+		ScaleDistribution *struct {
+			Type            string   `json:"type"`
+			Log             *float64 `json:"log,omitempty"`
+			LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+		} `json:"scaleDistribution,omitempty"`
+		Label            *string `json:"label,omitempty"`
+		AxisCenteredZero *bool   `json:"axisCenteredZero,omitempty"`
+	} `json:"ScatterFieldConfig"`
+	ScatterSeriesConfig struct {
+		X         *string `json:"x,omitempty"`
+		Y         *string `json:"y,omitempty"`
+		Show      *string `json:"show,omitempty"`
+		PointSize *struct {
+			Min   int64   `json:"min"`
+			Field *string `json:"field,omitempty"`
+			Max   int64   `json:"max"`
+		} `json:"pointSize,omitempty"`
+		LineColor *struct {
+			Field *string `json:"field,omitempty"`
+		} `json:"lineColor,omitempty"`
+		PointColor *struct {
+			Field *string `json:"field,omitempty"`
+		} `json:"pointColor,omitempty"`
+		LabelValue *struct {
+			Mode  string  `json:"mode"`
+			Field *string `json:"field,omitempty"`
+		} `json:"labelValue,omitempty"`
+		LineWidth *int64 `json:"lineWidth,omitempty"`
+		LineStyle *struct {
+			Fill *string   `json:"fill,omitempty"`
+			Dash []float64 `json:"dash,omitempty"`
+		} `json:"lineStyle,omitempty"`
+		HideFrom *struct {
+			Tooltip bool `json:"tooltip"`
+			Legend  bool `json:"legend"`
+			Viz     bool `json:"viz"`
+		} `json:"hideFrom,omitempty"`
+		AxisPlacement     *string  `json:"axisPlacement,omitempty"`
+		AxisColorMode     *string  `json:"axisColorMode,omitempty"`
+		AxisLabel         *string  `json:"axisLabel,omitempty"`
+		AxisWidth         *float64 `json:"axisWidth,omitempty"`
+		AxisSoftMin       *float64 `json:"axisSoftMin,omitempty"`
+		AxisSoftMax       *float64 `json:"axisSoftMax,omitempty"`
+		AxisGridShow      *bool    `json:"axisGridShow,omitempty"`
+		ScaleDistribution *struct {
+			Type            string   `json:"type"`
+			Log             *float64 `json:"log,omitempty"`
+			LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+		} `json:"scaleDistribution,omitempty"`
+		Name             *string `json:"name,omitempty"`
+		Label            *string `json:"label,omitempty"`
+		AxisCenteredZero *bool   `json:"axisCenteredZero,omitempty"`
+	} `json:"ScatterSeriesConfig"`
+	PanelOptions struct {
+		SeriesMapping *string `json:"seriesMapping,omitempty"`
+		Dims          struct {
+			Frame   int64    `json:"frame"`
+			X       *string  `json:"x,omitempty"`
+			Exclude []string `json:"exclude,omitempty"`
+		} `json:"dims"`
+		Legend struct {
+			DisplayMode string   `json:"displayMode"`
+			Placement   string   `json:"placement"`
+			ShowLegend  bool     `json:"showLegend"`
+			AsTable     *bool    `json:"asTable,omitempty"`
+			IsVisible   *bool    `json:"isVisible,omitempty"`
+			SortBy      *string  `json:"sortBy,omitempty"`
+			SortDesc    *bool    `json:"sortDesc,omitempty"`
+			Width       *float64 `json:"width,omitempty"`
+			Calcs       []string `json:"calcs"`
+		} `json:"legend"`
+		Tooltip struct {
+			Mode string `json:"mode"`
+			Sort string `json:"sort"`
+		} `json:"tooltip"`
+		Series []struct {
+			X         *string `json:"x,omitempty"`
+			Y         *string `json:"y,omitempty"`
+			Show      *string `json:"show,omitempty"`
+			PointSize *struct {
+				Min   int64   `json:"min"`
+				Field *string `json:"field,omitempty"`
+				Max   int64   `json:"max"`
+			} `json:"pointSize,omitempty"`
+			LineColor *struct {
+				Field *string `json:"field,omitempty"`
+			} `json:"lineColor,omitempty"`
+			PointColor *struct {
+				Field *string `json:"field,omitempty"`
+			} `json:"pointColor,omitempty"`
+			LabelValue *struct {
+				Mode  string  `json:"mode"`
+				Field *string `json:"field,omitempty"`
+			} `json:"labelValue,omitempty"`
+			LineWidth *int64 `json:"lineWidth,omitempty"`
+			LineStyle *struct {
+				Fill *string   `json:"fill,omitempty"`
+				Dash []float64 `json:"dash,omitempty"`
+			} `json:"lineStyle,omitempty"`
+			HideFrom *struct {
+				Tooltip bool `json:"tooltip"`
+				Legend  bool `json:"legend"`
+				Viz     bool `json:"viz"`
+			} `json:"hideFrom,omitempty"`
+			AxisPlacement     *string  `json:"axisPlacement,omitempty"`
+			AxisColorMode     *string  `json:"axisColorMode,omitempty"`
+			AxisLabel         *string  `json:"axisLabel,omitempty"`
+			AxisWidth         *float64 `json:"axisWidth,omitempty"`
+			AxisSoftMin       *float64 `json:"axisSoftMin,omitempty"`
+			AxisSoftMax       *float64 `json:"axisSoftMax,omitempty"`
+			AxisGridShow      *bool    `json:"axisGridShow,omitempty"`
+			ScaleDistribution *struct {
+				Type            string   `json:"type"`
+				Log             *float64 `json:"log,omitempty"`
+				LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+			} `json:"scaleDistribution,omitempty"`
+			Name             *string `json:"name,omitempty"`
+			Label            *string `json:"label,omitempty"`
+			AxisCenteredZero *bool   `json:"axisCenteredZero,omitempty"`
+		} `json:"series"`
+	} `json:"PanelOptions"`
+	Type          string   `json:"type"`
+	Id            *int64   `json:"id,omitempty"`
+	PluginVersion *string  `json:"pluginVersion,omitempty"`
+	Tags          []string `json:"tags,omitempty"`
+	Targets       []struct {
+	} `json:"targets,omitempty"`
+	Title       *string `json:"title,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Transparent bool    `json:"transparent"`
+	Datasource  *struct {
+		Type *string `json:"type,omitempty"`
+		Uid  *string `json:"uid,omitempty"`
+	} `json:"datasource,omitempty"`
+	GridPos *struct {
+		H      int64 `json:"h"`
+		W      int64 `json:"w"`
+		X      int64 `json:"x"`
+		Y      int64 `json:"y"`
+		Static *bool `json:"static,omitempty"`
+	} `json:"gridPos,omitempty"`
+	Links []struct {
+		Title       string   `json:"title"`
+		Type        string   `json:"type"`
+		Icon        string   `json:"icon"`
+		Tooltip     string   `json:"tooltip"`
+		Url         string   `json:"url"`
+		Tags        []string `json:"tags"`
+		AsDropdown  bool     `json:"asDropdown"`
+		TargetBlank bool     `json:"targetBlank"`
+		IncludeVars bool     `json:"includeVars"`
+		KeepTime    bool     `json:"keepTime"`
+	} `json:"links,omitempty"`
+	Repeat          *string  `json:"repeat,omitempty"`
+	RepeatDirection string   `json:"repeatDirection"`
+	RepeatPanelId   *int64   `json:"repeatPanelId,omitempty"`
+	MaxDataPoints   *float64 `json:"maxDataPoints,omitempty"`
+	Thresholds      []struct {
+	} `json:"thresholds,omitempty"`
+	TimeRegions []struct {
+	} `json:"timeRegions,omitempty"`
+	Transformations []struct {
+		Id       string `json:"id"`
+		Disabled *bool  `json:"disabled,omitempty"`
+		Filter   *struct {
+			Id string `json:"id"`
+		} `json:"filter,omitempty"`
+	} `json:"transformations"`
+	Interval     *string `json:"interval,omitempty"`
+	TimeFrom     *string `json:"timeFrom,omitempty"`
+	TimeShift    *string `json:"timeShift,omitempty"`
+	LibraryPanel *struct {
+		Name string `json:"name"`
+		Uid  string `json:"uid"`
+	} `json:"libraryPanel,omitempty"`
+	Options struct {
+	} `json:"options"`
+	FieldConfig struct {
+		Defaults struct {
+			DisplayName       *string  `json:"displayName,omitempty"`
+			DisplayNameFromDS *string  `json:"displayNameFromDS,omitempty"`
+			Description       *string  `json:"description,omitempty"`
+			Path              *string  `json:"path,omitempty"`
+			Writeable         *bool    `json:"writeable,omitempty"`
+			Filterable        *bool    `json:"filterable,omitempty"`
+			Unit              *string  `json:"unit,omitempty"`
+			Decimals          *float64 `json:"decimals,omitempty"`
+			Min               *float64 `json:"min,omitempty"`
+			Max               *float64 `json:"max,omitempty"`
+			Thresholds        *struct {
+				Mode  string `json:"mode"`
+				Steps []struct {
+					Value *float64 `json:"value,omitempty"`
+					Color string   `json:"color"`
+					State *string  `json:"state,omitempty"`
+				} `json:"steps"`
+			} `json:"thresholds,omitempty"`
+			Color *struct {
+				Mode       string  `json:"mode"`
+				FixedColor *string `json:"fixedColor,omitempty"`
+				SeriesBy   *string `json:"seriesBy,omitempty"`
+			} `json:"color,omitempty"`
+			Links []struct {
+			} `json:"links,omitempty"`
+			NoValue *string `json:"noValue,omitempty"`
+			Custom  *struct {
+			} `json:"custom,omitempty"`
+		} `json:"defaults"`
+		Overrides []struct {
+			Matcher struct {
+				Id string `json:"id"`
+			} `json:"matcher"`
+			Properties []struct {
+				Id string `json:"id"`
+			} `json:"properties"`
+		} `json:"overrides"`
+	} `json:"fieldConfig"`
 }
 
 func (d *PanelXYChartDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -453,7 +715,7 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
-								ElementType:         types.NumberType,
+								ElementType:         types.Float64Type,
 							},
 						},
 					},
@@ -501,19 +763,19 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 						Optional:            true,
 						Required:            false,
 					},
-					"axis_width": schema.NumberAttribute{
+					"axis_width": schema.Float64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-					"axis_soft_min": schema.NumberAttribute{
+					"axis_soft_min": schema.Float64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-					"axis_soft_max": schema.NumberAttribute{
+					"axis_soft_max": schema.Float64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
@@ -537,13 +799,13 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-							"log": schema.NumberAttribute{
+							"log": schema.Float64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-							"linear_threshold": schema.NumberAttribute{
+							"linear_threshold": schema.Float64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
@@ -686,7 +948,7 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
-								ElementType:         types.NumberType,
+								ElementType:         types.Float64Type,
 							},
 						},
 					},
@@ -734,19 +996,19 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 						Optional:            true,
 						Required:            false,
 					},
-					"axis_width": schema.NumberAttribute{
+					"axis_width": schema.Float64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-					"axis_soft_min": schema.NumberAttribute{
+					"axis_soft_min": schema.Float64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
-					"axis_soft_max": schema.NumberAttribute{
+					"axis_soft_max": schema.Float64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
@@ -770,13 +1032,13 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            false,
 								Required:            true,
 							},
-							"log": schema.NumberAttribute{
+							"log": schema.Float64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-							"linear_threshold": schema.NumberAttribute{
+							"linear_threshold": schema.Float64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
@@ -891,7 +1153,7 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 								Optional:            true,
 								Required:            false,
 							},
-							"width": schema.NumberAttribute{
+							"width": schema.Float64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
@@ -1048,7 +1310,7 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 											Computed:            false,
 											Optional:            true,
 											Required:            false,
-											ElementType:         types.NumberType,
+											ElementType:         types.Float64Type,
 										},
 									},
 								},
@@ -1096,19 +1358,19 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 									Optional:            true,
 									Required:            false,
 								},
-								"axis_width": schema.NumberAttribute{
+								"axis_width": schema.Float64Attribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-								"axis_soft_min": schema.NumberAttribute{
+								"axis_soft_min": schema.Float64Attribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
-								"axis_soft_max": schema.NumberAttribute{
+								"axis_soft_max": schema.Float64Attribute{
 									MarkdownDescription: ``,
 									Computed:            false,
 									Optional:            true,
@@ -1132,13 +1394,13 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 											Optional:            false,
 											Required:            true,
 										},
-										"log": schema.NumberAttribute{
+										"log": schema.Float64Attribute{
 											MarkdownDescription: ``,
 											Computed:            false,
 											Optional:            true,
 											Required:            false,
 										},
-										"linear_threshold": schema.NumberAttribute{
+										"linear_threshold": schema.Float64Attribute{
 											MarkdownDescription: ``,
 											Computed:            false,
 											Optional:            true,
@@ -1368,7 +1630,7 @@ TODO this is probably optional`,
 				Optional:            true,
 				Required:            false,
 			},
-			"max_data_points": schema.NumberAttribute{
+			"max_data_points": schema.Float64Attribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
@@ -1529,19 +1791,19 @@ may be used to update the results`,
 								Optional:            true,
 								Required:            false,
 							},
-							"decimals": schema.NumberAttribute{
+							"decimals": schema.Float64Attribute{
 								MarkdownDescription: `Significant digits (for display)`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-							"min": schema.NumberAttribute{
+							"min": schema.Float64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-							"max": schema.NumberAttribute{
+							"max": schema.Float64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
@@ -1566,7 +1828,7 @@ may be used to update the results`,
 										Required:            true,
 										NestedObject: schema.NestedAttributeObject{
 											Attributes: map[string]schema.Attribute{
-												"value": schema.NumberAttribute{
+												"value": schema.Float64Attribute{
 													MarkdownDescription: `TODO docs
 FIXME the corresponding typescript field is required/non-optional, but nulls currently appear here when serializing -Infinity to JSON`,
 													Computed: false,
@@ -1752,4 +2014,41 @@ func (d *PanelXYChartDataSource) applyDefaults(data *PanelXYChartDataSourceModel
 	if data.RepeatDirection.IsNull() {
 		data.RepeatDirection = types.StringValue(`h`)
 	}
+}
+
+func (d PanelXYChartDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_seriesmapping := d.SeriesMapping.ValueString()
+	attr_scattershow := d.ScatterShow.ValueString()
+	attr_type := d.Type.ValueString()
+	attr_id := d.Id.ValueInt64()
+	attr_pluginversion := d.PluginVersion.ValueString()
+	attr_title := d.Title.ValueString()
+	attr_description := d.Description.ValueString()
+	attr_transparent := d.Transparent.ValueBool()
+	attr_repeat := d.Repeat.ValueString()
+	attr_repeatdirection := d.RepeatDirection.ValueString()
+	attr_repeatpanelid := d.RepeatPanelId.ValueInt64()
+	attr_maxdatapoints := d.MaxDataPoints.ValueFloat64()
+	attr_interval := d.Interval.ValueString()
+	attr_timefrom := d.TimeFrom.ValueString()
+	attr_timeshift := d.TimeShift.ValueString()
+
+	model := &PanelXYChartDataSourceModelJSON{
+		SeriesMapping:   attr_seriesmapping,
+		ScatterShow:     attr_scattershow,
+		Type:            attr_type,
+		Id:              &attr_id,
+		PluginVersion:   &attr_pluginversion,
+		Title:           &attr_title,
+		Description:     &attr_description,
+		Transparent:     attr_transparent,
+		Repeat:          &attr_repeat,
+		RepeatDirection: attr_repeatdirection,
+		RepeatPanelId:   &attr_repeatpanelid,
+		MaxDataPoints:   &attr_maxdatapoints,
+		Interval:        &attr_interval,
+		TimeFrom:        &attr_timefrom,
+		TimeShift:       &attr_timeshift,
+	}
+	return json.Marshal(model)
 }

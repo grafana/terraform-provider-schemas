@@ -35,20 +35,37 @@ type CoreServiceAccountDataSource struct{}
 
 // CoreServiceAccountDataSourceModel describes the data source data model.
 type CoreServiceAccountDataSourceModel struct {
-	Id            types.Int64  `tfsdk:"id" json:"id"`
-	OrgId         types.Int64  `tfsdk:"org_id" json:"orgId"`
-	Name          types.String `tfsdk:"name" json:"name"`
-	Login         types.String `tfsdk:"login" json:"login"`
-	IsDisabled    types.Bool   `tfsdk:"is_disabled" json:"isDisabled"`
-	Role          types.String `tfsdk:"role" json:"role"`
-	Tokens        types.Int64  `tfsdk:"tokens" json:"tokens"`
-	AvatarUrl     types.String `tfsdk:"avatar_url" json:"avatarUrl"`
+	Id            types.Int64  `tfsdk:"id"`
+	OrgId         types.Int64  `tfsdk:"org_id"`
+	Name          types.String `tfsdk:"name"`
+	Login         types.String `tfsdk:"login"`
+	IsDisabled    types.Bool   `tfsdk:"is_disabled"`
+	Role          types.String `tfsdk:"role"`
+	Tokens        types.Int64  `tfsdk:"tokens"`
+	AvatarUrl     types.String `tfsdk:"avatar_url"`
 	AccessControl *struct {
-	} `tfsdk:"access_control" json:"accessControl"`
-	Teams   types.List   `tfsdk:"teams" json:"teams"`
-	Created types.Int64  `tfsdk:"created" json:"created"`
-	Updated types.Int64  `tfsdk:"updated" json:"updated"`
+	} `tfsdk:"access_control"`
+	Teams   types.List   `tfsdk:"teams"`
+	Created types.Int64  `tfsdk:"created"`
+	Updated types.Int64  `tfsdk:"updated"`
 	ToJSON  types.String `tfsdk:"to_json"`
+}
+
+// CoreServiceAccountDataSourceModelJSON describes the data source data model when exported to json.
+type CoreServiceAccountDataSourceModelJSON struct {
+	Id            int64  `json:"id"`
+	OrgId         int64  `json:"orgId"`
+	Name          string `json:"name"`
+	Login         string `json:"login"`
+	IsDisabled    bool   `json:"isDisabled"`
+	Role          string `json:"role"`
+	Tokens        int64  `json:"tokens"`
+	AvatarUrl     string `json:"avatarUrl"`
+	AccessControl *struct {
+	} `json:"accessControl,omitempty"`
+	Teams   []string `json:"teams,omitempty"`
+	Created *int64   `json:"created,omitempty"`
+	Updated *int64   `json:"updated,omitempty"`
 }
 
 func (d *CoreServiceAccountDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -172,4 +189,31 @@ func (d *CoreServiceAccountDataSource) Read(ctx context.Context, req datasource.
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d CoreServiceAccountDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_id := d.Id.ValueInt64()
+	attr_orgid := d.OrgId.ValueInt64()
+	attr_name := d.Name.ValueString()
+	attr_login := d.Login.ValueString()
+	attr_isdisabled := d.IsDisabled.ValueBool()
+	attr_role := d.Role.ValueString()
+	attr_tokens := d.Tokens.ValueInt64()
+	attr_avatarurl := d.AvatarUrl.ValueString()
+	attr_created := d.Created.ValueInt64()
+	attr_updated := d.Updated.ValueInt64()
+
+	model := &CoreServiceAccountDataSourceModelJSON{
+		Id:         attr_id,
+		OrgId:      attr_orgid,
+		Name:       attr_name,
+		Login:      attr_login,
+		IsDisabled: attr_isdisabled,
+		Role:       attr_role,
+		Tokens:     attr_tokens,
+		AvatarUrl:  attr_avatarurl,
+		Created:    &attr_created,
+		Updated:    &attr_updated,
+	}
+	return json.Marshal(model)
 }

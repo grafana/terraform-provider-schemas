@@ -1,0 +1,51 @@
+{
+  "description": "",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "gnetId": "",
+  "graphTooltip": 0,
+  "id": 0,
+  "liveNow": false,
+  "panels": [
+    {
+      "CodeLanguage": "plaintext",
+      "CodeOptions": {
+        "language": "",
+        "showLineNumbers": false,
+        "showMiniMap": false
+      },
+      "PanelOptions": {
+        "content": "",
+        "mode": ""
+      },
+      "TextMode": "markdown",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": null
+      },
+      "id": 0,
+      "interval": "",
+      "maxDataPoints": 0,
+      "options": {},
+      "pluginVersion": "",
+      "repeat": "",
+      "repeatDirection": "h",
+      "repeatPanelId": 0,
+      "timeFrom": "",
+      "timeShift": "",
+      "title": "test title",
+      "transformations": null,
+      "transparent": false,
+      "type": "text"
+    }
+  ],
+  "revision": -1,
+  "schemaVersion": 36,
+  "style": "dark",
+  "timezone": "browser",
+  "title": "test",
+  "uid": "test",
+  "version": 0,
+  "weekStart": ""
+}

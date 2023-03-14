@@ -35,13 +35,23 @@ type CorePublicDashboardDataSource struct{}
 
 // CorePublicDashboardDataSourceModel describes the data source data model.
 type CorePublicDashboardDataSourceModel struct {
-	Uid                  types.String `tfsdk:"uid" json:"uid"`
-	DashboardUid         types.String `tfsdk:"dashboard_uid" json:"dashboardUid"`
-	AccessToken          types.String `tfsdk:"access_token" json:"accessToken"`
-	IsEnabled            types.Bool   `tfsdk:"is_enabled" json:"isEnabled"`
-	AnnotationsEnabled   types.Bool   `tfsdk:"annotations_enabled" json:"annotationsEnabled"`
-	TimeSelectionEnabled types.Bool   `tfsdk:"time_selection_enabled" json:"timeSelectionEnabled"`
+	Uid                  types.String `tfsdk:"uid"`
+	DashboardUid         types.String `tfsdk:"dashboard_uid"`
+	AccessToken          types.String `tfsdk:"access_token"`
+	IsEnabled            types.Bool   `tfsdk:"is_enabled"`
+	AnnotationsEnabled   types.Bool   `tfsdk:"annotations_enabled"`
+	TimeSelectionEnabled types.Bool   `tfsdk:"time_selection_enabled"`
 	ToJSON               types.String `tfsdk:"to_json"`
+}
+
+// CorePublicDashboardDataSourceModelJSON describes the data source data model when exported to json.
+type CorePublicDashboardDataSourceModelJSON struct {
+	Uid                  string  `json:"uid"`
+	DashboardUid         string  `json:"dashboardUid"`
+	AccessToken          *string `json:"accessToken,omitempty"`
+	IsEnabled            bool    `json:"isEnabled"`
+	AnnotationsEnabled   bool    `json:"annotationsEnabled"`
+	TimeSelectionEnabled bool    `json:"timeSelectionEnabled"`
 }
 
 func (d *CorePublicDashboardDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -126,4 +136,23 @@ func (d *CorePublicDashboardDataSource) Read(ctx context.Context, req datasource
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d CorePublicDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_uid := d.Uid.ValueString()
+	attr_dashboarduid := d.DashboardUid.ValueString()
+	attr_accesstoken := d.AccessToken.ValueString()
+	attr_isenabled := d.IsEnabled.ValueBool()
+	attr_annotationsenabled := d.AnnotationsEnabled.ValueBool()
+	attr_timeselectionenabled := d.TimeSelectionEnabled.ValueBool()
+
+	model := &CorePublicDashboardDataSourceModelJSON{
+		Uid:                  attr_uid,
+		DashboardUid:         attr_dashboarduid,
+		AccessToken:          &attr_accesstoken,
+		IsEnabled:            attr_isenabled,
+		AnnotationsEnabled:   attr_annotationsenabled,
+		TimeSelectionEnabled: attr_timeselectionenabled,
+	}
+	return json.Marshal(model)
 }

@@ -35,156 +35,309 @@ type PanelPieChartDataSource struct{}
 
 // PanelPieChartDataSourceModel describes the data source data model.
 type PanelPieChartDataSourceModel struct {
-	PieChartType          types.String `tfsdk:"pie_chart_type" json:"PieChartType"`
-	PieChartLabels        types.String `tfsdk:"pie_chart_labels" json:"PieChartLabels"`
-	PieChartLegendValues  types.String `tfsdk:"pie_chart_legend_values" json:"PieChartLegendValues"`
+	PieChartType          types.String `tfsdk:"pie_chart_type"`
+	PieChartLabels        types.String `tfsdk:"pie_chart_labels"`
+	PieChartLegendValues  types.String `tfsdk:"pie_chart_legend_values"`
 	PieChartLegendOptions struct {
-		Values      types.List   `tfsdk:"values" json:"values"`
-		DisplayMode types.String `tfsdk:"display_mode" json:"displayMode"`
-		Placement   types.String `tfsdk:"placement" json:"placement"`
-		ShowLegend  types.Bool   `tfsdk:"show_legend" json:"showLegend"`
-		AsTable     types.Bool   `tfsdk:"as_table" json:"asTable"`
-		IsVisible   types.Bool   `tfsdk:"is_visible" json:"isVisible"`
-		SortBy      types.String `tfsdk:"sort_by" json:"sortBy"`
-		SortDesc    types.Bool   `tfsdk:"sort_desc" json:"sortDesc"`
-		Width       types.Number `tfsdk:"width" json:"width"`
-		Calcs       types.List   `tfsdk:"calcs" json:"calcs"`
-	} `tfsdk:"pie_chart_legend_options" json:"PieChartLegendOptions"`
+		Values      types.List    `tfsdk:"values"`
+		DisplayMode types.String  `tfsdk:"display_mode"`
+		Placement   types.String  `tfsdk:"placement"`
+		ShowLegend  types.Bool    `tfsdk:"show_legend"`
+		AsTable     types.Bool    `tfsdk:"as_table"`
+		IsVisible   types.Bool    `tfsdk:"is_visible"`
+		SortBy      types.String  `tfsdk:"sort_by"`
+		SortDesc    types.Bool    `tfsdk:"sort_desc"`
+		Width       types.Float64 `tfsdk:"width"`
+		Calcs       types.List    `tfsdk:"calcs"`
+	} `tfsdk:"pie_chart_legend_options"`
 	PanelOptions struct {
-		PieType       types.String `tfsdk:"pie_type" json:"pieType"`
-		DisplayLabels types.List   `tfsdk:"display_labels" json:"displayLabels"`
+		PieType       types.String `tfsdk:"pie_type"`
+		DisplayLabels types.List   `tfsdk:"display_labels"`
 		Tooltip       struct {
-			Mode types.String `tfsdk:"mode" json:"mode"`
-			Sort types.String `tfsdk:"sort" json:"sort"`
-		} `tfsdk:"tooltip" json:"tooltip"`
+			Mode types.String `tfsdk:"mode"`
+			Sort types.String `tfsdk:"sort"`
+		} `tfsdk:"tooltip"`
 		ReduceOptions struct {
-			Values types.Bool   `tfsdk:"values" json:"values"`
-			Limit  types.Number `tfsdk:"limit" json:"limit"`
-			Calcs  types.List   `tfsdk:"calcs" json:"calcs"`
-			Fields types.String `tfsdk:"fields" json:"fields"`
-		} `tfsdk:"reduce_options" json:"reduceOptions"`
+			Values types.Bool    `tfsdk:"values"`
+			Limit  types.Float64 `tfsdk:"limit"`
+			Calcs  types.List    `tfsdk:"calcs"`
+			Fields types.String  `tfsdk:"fields"`
+		} `tfsdk:"reduce_options"`
 		Text *struct {
-			TitleSize types.Number `tfsdk:"title_size" json:"titleSize"`
-			ValueSize types.Number `tfsdk:"value_size" json:"valueSize"`
-		} `tfsdk:"text" json:"text"`
+			TitleSize types.Float64 `tfsdk:"title_size"`
+			ValueSize types.Float64 `tfsdk:"value_size"`
+		} `tfsdk:"text"`
 		Legend struct {
-			Values      types.List   `tfsdk:"values" json:"values"`
-			DisplayMode types.String `tfsdk:"display_mode" json:"displayMode"`
-			Placement   types.String `tfsdk:"placement" json:"placement"`
-			ShowLegend  types.Bool   `tfsdk:"show_legend" json:"showLegend"`
-			AsTable     types.Bool   `tfsdk:"as_table" json:"asTable"`
-			IsVisible   types.Bool   `tfsdk:"is_visible" json:"isVisible"`
-			SortBy      types.String `tfsdk:"sort_by" json:"sortBy"`
-			SortDesc    types.Bool   `tfsdk:"sort_desc" json:"sortDesc"`
-			Width       types.Number `tfsdk:"width" json:"width"`
-			Calcs       types.List   `tfsdk:"calcs" json:"calcs"`
-		} `tfsdk:"legend" json:"legend"`
-		Orientation types.String `tfsdk:"orientation" json:"orientation"`
-	} `tfsdk:"panel_options" json:"PanelOptions"`
+			Values      types.List    `tfsdk:"values"`
+			DisplayMode types.String  `tfsdk:"display_mode"`
+			Placement   types.String  `tfsdk:"placement"`
+			ShowLegend  types.Bool    `tfsdk:"show_legend"`
+			AsTable     types.Bool    `tfsdk:"as_table"`
+			IsVisible   types.Bool    `tfsdk:"is_visible"`
+			SortBy      types.String  `tfsdk:"sort_by"`
+			SortDesc    types.Bool    `tfsdk:"sort_desc"`
+			Width       types.Float64 `tfsdk:"width"`
+			Calcs       types.List    `tfsdk:"calcs"`
+		} `tfsdk:"legend"`
+		Orientation types.String `tfsdk:"orientation"`
+	} `tfsdk:"panel_options"`
 	PanelFieldConfig struct {
 		HideFrom *struct {
-			Tooltip types.Bool `tfsdk:"tooltip" json:"tooltip"`
-			Legend  types.Bool `tfsdk:"legend" json:"legend"`
-			Viz     types.Bool `tfsdk:"viz" json:"viz"`
-		} `tfsdk:"hide_from" json:"hideFrom"`
-	} `tfsdk:"panel_field_config" json:"PanelFieldConfig"`
-	Type          types.String `tfsdk:"type" json:"type"`
-	Id            types.Int64  `tfsdk:"id" json:"id"`
-	PluginVersion types.String `tfsdk:"plugin_version" json:"pluginVersion"`
-	Tags          types.List   `tfsdk:"tags" json:"tags"`
+			Tooltip types.Bool `tfsdk:"tooltip"`
+			Legend  types.Bool `tfsdk:"legend"`
+			Viz     types.Bool `tfsdk:"viz"`
+		} `tfsdk:"hide_from"`
+	} `tfsdk:"panel_field_config"`
+	Type          types.String `tfsdk:"type"`
+	Id            types.Int64  `tfsdk:"id"`
+	PluginVersion types.String `tfsdk:"plugin_version"`
+	Tags          types.List   `tfsdk:"tags"`
 	Targets       []struct {
-	} `tfsdk:"targets" json:"targets"`
-	Title       types.String `tfsdk:"title" json:"title"`
-	Description types.String `tfsdk:"description" json:"description"`
-	Transparent types.Bool   `tfsdk:"transparent" json:"transparent"`
+	} `tfsdk:"targets"`
+	Title       types.String `tfsdk:"title"`
+	Description types.String `tfsdk:"description"`
+	Transparent types.Bool   `tfsdk:"transparent"`
 	Datasource  *struct {
-		Type types.String `tfsdk:"type" json:"type"`
-		Uid  types.String `tfsdk:"uid" json:"uid"`
-	} `tfsdk:"datasource" json:"datasource"`
+		Type types.String `tfsdk:"type"`
+		Uid  types.String `tfsdk:"uid"`
+	} `tfsdk:"datasource"`
 	GridPos *struct {
-		H      types.Int64 `tfsdk:"h" json:"h"`
-		W      types.Int64 `tfsdk:"w" json:"w"`
-		X      types.Int64 `tfsdk:"x" json:"x"`
-		Y      types.Int64 `tfsdk:"y" json:"y"`
-		Static types.Bool  `tfsdk:"static" json:"static"`
-	} `tfsdk:"grid_pos" json:"gridPos"`
+		H      types.Int64 `tfsdk:"h"`
+		W      types.Int64 `tfsdk:"w"`
+		X      types.Int64 `tfsdk:"x"`
+		Y      types.Int64 `tfsdk:"y"`
+		Static types.Bool  `tfsdk:"static"`
+	} `tfsdk:"grid_pos"`
 	Links []struct {
-		Title       types.String `tfsdk:"title" json:"title"`
-		Type        types.String `tfsdk:"type" json:"type"`
-		Icon        types.String `tfsdk:"icon" json:"icon"`
-		Tooltip     types.String `tfsdk:"tooltip" json:"tooltip"`
-		Url         types.String `tfsdk:"url" json:"url"`
-		Tags        types.List   `tfsdk:"tags" json:"tags"`
-		AsDropdown  types.Bool   `tfsdk:"as_dropdown" json:"asDropdown"`
-		TargetBlank types.Bool   `tfsdk:"target_blank" json:"targetBlank"`
-		IncludeVars types.Bool   `tfsdk:"include_vars" json:"includeVars"`
-		KeepTime    types.Bool   `tfsdk:"keep_time" json:"keepTime"`
-	} `tfsdk:"links" json:"links"`
-	Repeat          types.String `tfsdk:"repeat" json:"repeat"`
-	RepeatDirection types.String `tfsdk:"repeat_direction" json:"repeatDirection"`
-	RepeatPanelId   types.Int64  `tfsdk:"repeat_panel_id" json:"repeatPanelId"`
-	MaxDataPoints   types.Number `tfsdk:"max_data_points" json:"maxDataPoints"`
+		Title       types.String `tfsdk:"title"`
+		Type        types.String `tfsdk:"type"`
+		Icon        types.String `tfsdk:"icon"`
+		Tooltip     types.String `tfsdk:"tooltip"`
+		Url         types.String `tfsdk:"url"`
+		Tags        types.List   `tfsdk:"tags"`
+		AsDropdown  types.Bool   `tfsdk:"as_dropdown"`
+		TargetBlank types.Bool   `tfsdk:"target_blank"`
+		IncludeVars types.Bool   `tfsdk:"include_vars"`
+		KeepTime    types.Bool   `tfsdk:"keep_time"`
+	} `tfsdk:"links"`
+	Repeat          types.String  `tfsdk:"repeat"`
+	RepeatDirection types.String  `tfsdk:"repeat_direction"`
+	RepeatPanelId   types.Int64   `tfsdk:"repeat_panel_id"`
+	MaxDataPoints   types.Float64 `tfsdk:"max_data_points"`
 	Thresholds      []struct {
-	} `tfsdk:"thresholds" json:"thresholds"`
+	} `tfsdk:"thresholds"`
 	TimeRegions []struct {
-	} `tfsdk:"time_regions" json:"timeRegions"`
+	} `tfsdk:"time_regions"`
 	Transformations []struct {
-		Id       types.String `tfsdk:"id" json:"id"`
-		Disabled types.Bool   `tfsdk:"disabled" json:"disabled"`
+		Id       types.String `tfsdk:"id"`
+		Disabled types.Bool   `tfsdk:"disabled"`
 		Filter   *struct {
-			Id types.String `tfsdk:"id" json:"id"`
-		} `tfsdk:"filter" json:"filter"`
-	} `tfsdk:"transformations" json:"transformations"`
-	Interval     types.String `tfsdk:"interval" json:"interval"`
-	TimeFrom     types.String `tfsdk:"time_from" json:"timeFrom"`
-	TimeShift    types.String `tfsdk:"time_shift" json:"timeShift"`
+			Id types.String `tfsdk:"id"`
+		} `tfsdk:"filter"`
+	} `tfsdk:"transformations"`
+	Interval     types.String `tfsdk:"interval"`
+	TimeFrom     types.String `tfsdk:"time_from"`
+	TimeShift    types.String `tfsdk:"time_shift"`
 	LibraryPanel *struct {
-		Name types.String `tfsdk:"name" json:"name"`
-		Uid  types.String `tfsdk:"uid" json:"uid"`
-	} `tfsdk:"library_panel" json:"libraryPanel"`
+		Name types.String `tfsdk:"name"`
+		Uid  types.String `tfsdk:"uid"`
+	} `tfsdk:"library_panel"`
 	Options struct {
-	} `tfsdk:"options" json:"options"`
+	} `tfsdk:"options"`
 	FieldConfig struct {
 		Defaults struct {
-			DisplayName       types.String `tfsdk:"display_name" json:"displayName"`
-			DisplayNameFromDS types.String `tfsdk:"display_name_from_ds" json:"displayNameFromDS"`
-			Description       types.String `tfsdk:"description" json:"description"`
-			Path              types.String `tfsdk:"path" json:"path"`
-			Writeable         types.Bool   `tfsdk:"writeable" json:"writeable"`
-			Filterable        types.Bool   `tfsdk:"filterable" json:"filterable"`
-			Unit              types.String `tfsdk:"unit" json:"unit"`
-			Decimals          types.Number `tfsdk:"decimals" json:"decimals"`
-			Min               types.Number `tfsdk:"min" json:"min"`
-			Max               types.Number `tfsdk:"max" json:"max"`
+			DisplayName       types.String  `tfsdk:"display_name"`
+			DisplayNameFromDS types.String  `tfsdk:"display_name_from_ds"`
+			Description       types.String  `tfsdk:"description"`
+			Path              types.String  `tfsdk:"path"`
+			Writeable         types.Bool    `tfsdk:"writeable"`
+			Filterable        types.Bool    `tfsdk:"filterable"`
+			Unit              types.String  `tfsdk:"unit"`
+			Decimals          types.Float64 `tfsdk:"decimals"`
+			Min               types.Float64 `tfsdk:"min"`
+			Max               types.Float64 `tfsdk:"max"`
 			Thresholds        *struct {
-				Mode  types.String `tfsdk:"mode" json:"mode"`
+				Mode  types.String `tfsdk:"mode"`
 				Steps []struct {
-					Value types.Number `tfsdk:"value" json:"value"`
-					Color types.String `tfsdk:"color" json:"color"`
-					State types.String `tfsdk:"state" json:"state"`
-				} `tfsdk:"steps" json:"steps"`
-			} `tfsdk:"thresholds" json:"thresholds"`
+					Value types.Float64 `tfsdk:"value"`
+					Color types.String  `tfsdk:"color"`
+					State types.String  `tfsdk:"state"`
+				} `tfsdk:"steps"`
+			} `tfsdk:"thresholds"`
 			Color *struct {
-				Mode       types.String `tfsdk:"mode" json:"mode"`
-				FixedColor types.String `tfsdk:"fixed_color" json:"fixedColor"`
-				SeriesBy   types.String `tfsdk:"series_by" json:"seriesBy"`
-			} `tfsdk:"color" json:"color"`
+				Mode       types.String `tfsdk:"mode"`
+				FixedColor types.String `tfsdk:"fixed_color"`
+				SeriesBy   types.String `tfsdk:"series_by"`
+			} `tfsdk:"color"`
 			Links []struct {
-			} `tfsdk:"links" json:"links"`
-			NoValue types.String `tfsdk:"no_value" json:"noValue"`
+			} `tfsdk:"links"`
+			NoValue types.String `tfsdk:"no_value"`
 			Custom  *struct {
-			} `tfsdk:"custom" json:"custom"`
-		} `tfsdk:"defaults" json:"defaults"`
+			} `tfsdk:"custom"`
+		} `tfsdk:"defaults"`
 		Overrides []struct {
 			Matcher struct {
-				Id types.String `tfsdk:"id" json:"id"`
-			} `tfsdk:"matcher" json:"matcher"`
+				Id types.String `tfsdk:"id"`
+			} `tfsdk:"matcher"`
 			Properties []struct {
-				Id types.String `tfsdk:"id" json:"id"`
-			} `tfsdk:"properties" json:"properties"`
-		} `tfsdk:"overrides" json:"overrides"`
-	} `tfsdk:"field_config" json:"fieldConfig"`
+				Id types.String `tfsdk:"id"`
+			} `tfsdk:"properties"`
+		} `tfsdk:"overrides"`
+	} `tfsdk:"field_config"`
 	ToJSON types.String `tfsdk:"to_json"`
+}
+
+// PanelPieChartDataSourceModelJSON describes the data source data model when exported to json.
+type PanelPieChartDataSourceModelJSON struct {
+	PieChartType          string `json:"PieChartType"`
+	PieChartLabels        string `json:"PieChartLabels"`
+	PieChartLegendValues  string `json:"PieChartLegendValues"`
+	PieChartLegendOptions struct {
+		Values      []string `json:"values"`
+		DisplayMode string   `json:"displayMode"`
+		Placement   string   `json:"placement"`
+		ShowLegend  bool     `json:"showLegend"`
+		AsTable     *bool    `json:"asTable,omitempty"`
+		IsVisible   *bool    `json:"isVisible,omitempty"`
+		SortBy      *string  `json:"sortBy,omitempty"`
+		SortDesc    *bool    `json:"sortDesc,omitempty"`
+		Width       *float64 `json:"width,omitempty"`
+		Calcs       []string `json:"calcs"`
+	} `json:"PieChartLegendOptions"`
+	PanelOptions struct {
+		PieType       string   `json:"pieType"`
+		DisplayLabels []string `json:"displayLabels"`
+		Tooltip       struct {
+			Mode string `json:"mode"`
+			Sort string `json:"sort"`
+		} `json:"tooltip"`
+		ReduceOptions struct {
+			Values *bool    `json:"values,omitempty"`
+			Limit  *float64 `json:"limit,omitempty"`
+			Calcs  []string `json:"calcs"`
+			Fields *string  `json:"fields,omitempty"`
+		} `json:"reduceOptions"`
+		Text *struct {
+			TitleSize *float64 `json:"titleSize,omitempty"`
+			ValueSize *float64 `json:"valueSize,omitempty"`
+		} `json:"text,omitempty"`
+		Legend struct {
+			Values      []string `json:"values"`
+			DisplayMode string   `json:"displayMode"`
+			Placement   string   `json:"placement"`
+			ShowLegend  bool     `json:"showLegend"`
+			AsTable     *bool    `json:"asTable,omitempty"`
+			IsVisible   *bool    `json:"isVisible,omitempty"`
+			SortBy      *string  `json:"sortBy,omitempty"`
+			SortDesc    *bool    `json:"sortDesc,omitempty"`
+			Width       *float64 `json:"width,omitempty"`
+			Calcs       []string `json:"calcs"`
+		} `json:"legend"`
+		Orientation string `json:"orientation"`
+	} `json:"PanelOptions"`
+	PanelFieldConfig struct {
+		HideFrom *struct {
+			Tooltip bool `json:"tooltip"`
+			Legend  bool `json:"legend"`
+			Viz     bool `json:"viz"`
+		} `json:"hideFrom,omitempty"`
+	} `json:"PanelFieldConfig"`
+	Type          string   `json:"type"`
+	Id            *int64   `json:"id,omitempty"`
+	PluginVersion *string  `json:"pluginVersion,omitempty"`
+	Tags          []string `json:"tags,omitempty"`
+	Targets       []struct {
+	} `json:"targets,omitempty"`
+	Title       *string `json:"title,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Transparent bool    `json:"transparent"`
+	Datasource  *struct {
+		Type *string `json:"type,omitempty"`
+		Uid  *string `json:"uid,omitempty"`
+	} `json:"datasource,omitempty"`
+	GridPos *struct {
+		H      int64 `json:"h"`
+		W      int64 `json:"w"`
+		X      int64 `json:"x"`
+		Y      int64 `json:"y"`
+		Static *bool `json:"static,omitempty"`
+	} `json:"gridPos,omitempty"`
+	Links []struct {
+		Title       string   `json:"title"`
+		Type        string   `json:"type"`
+		Icon        string   `json:"icon"`
+		Tooltip     string   `json:"tooltip"`
+		Url         string   `json:"url"`
+		Tags        []string `json:"tags"`
+		AsDropdown  bool     `json:"asDropdown"`
+		TargetBlank bool     `json:"targetBlank"`
+		IncludeVars bool     `json:"includeVars"`
+		KeepTime    bool     `json:"keepTime"`
+	} `json:"links,omitempty"`
+	Repeat          *string  `json:"repeat,omitempty"`
+	RepeatDirection string   `json:"repeatDirection"`
+	RepeatPanelId   *int64   `json:"repeatPanelId,omitempty"`
+	MaxDataPoints   *float64 `json:"maxDataPoints,omitempty"`
+	Thresholds      []struct {
+	} `json:"thresholds,omitempty"`
+	TimeRegions []struct {
+	} `json:"timeRegions,omitempty"`
+	Transformations []struct {
+		Id       string `json:"id"`
+		Disabled *bool  `json:"disabled,omitempty"`
+		Filter   *struct {
+			Id string `json:"id"`
+		} `json:"filter,omitempty"`
+	} `json:"transformations"`
+	Interval     *string `json:"interval,omitempty"`
+	TimeFrom     *string `json:"timeFrom,omitempty"`
+	TimeShift    *string `json:"timeShift,omitempty"`
+	LibraryPanel *struct {
+		Name string `json:"name"`
+		Uid  string `json:"uid"`
+	} `json:"libraryPanel,omitempty"`
+	Options struct {
+	} `json:"options"`
+	FieldConfig struct {
+		Defaults struct {
+			DisplayName       *string  `json:"displayName,omitempty"`
+			DisplayNameFromDS *string  `json:"displayNameFromDS,omitempty"`
+			Description       *string  `json:"description,omitempty"`
+			Path              *string  `json:"path,omitempty"`
+			Writeable         *bool    `json:"writeable,omitempty"`
+			Filterable        *bool    `json:"filterable,omitempty"`
+			Unit              *string  `json:"unit,omitempty"`
+			Decimals          *float64 `json:"decimals,omitempty"`
+			Min               *float64 `json:"min,omitempty"`
+			Max               *float64 `json:"max,omitempty"`
+			Thresholds        *struct {
+				Mode  string `json:"mode"`
+				Steps []struct {
+					Value *float64 `json:"value,omitempty"`
+					Color string   `json:"color"`
+					State *string  `json:"state,omitempty"`
+				} `json:"steps"`
+			} `json:"thresholds,omitempty"`
+			Color *struct {
+				Mode       string  `json:"mode"`
+				FixedColor *string `json:"fixedColor,omitempty"`
+				SeriesBy   *string `json:"seriesBy,omitempty"`
+			} `json:"color,omitempty"`
+			Links []struct {
+			} `json:"links,omitempty"`
+			NoValue *string `json:"noValue,omitempty"`
+			Custom  *struct {
+			} `json:"custom,omitempty"`
+		} `json:"defaults"`
+		Overrides []struct {
+			Matcher struct {
+				Id string `json:"id"`
+			} `json:"matcher"`
+			Properties []struct {
+				Id string `json:"id"`
+			} `json:"properties"`
+		} `json:"overrides"`
+	} `json:"fieldConfig"`
 }
 
 func (d *PanelPieChartDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -274,7 +427,7 @@ func (d *PanelPieChartDataSource) Schema(ctx context.Context, req datasource.Sch
 						Optional:            true,
 						Required:            false,
 					},
-					"width": schema.NumberAttribute{
+					"width": schema.Float64Attribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
@@ -340,7 +493,7 @@ func (d *PanelPieChartDataSource) Schema(ctx context.Context, req datasource.Sch
 								Optional:            true,
 								Required:            false,
 							},
-							"limit": schema.NumberAttribute{
+							"limit": schema.Float64Attribute{
 								MarkdownDescription: `if showing all values limit`,
 								Computed:            false,
 								Optional:            true,
@@ -367,13 +520,13 @@ func (d *PanelPieChartDataSource) Schema(ctx context.Context, req datasource.Sch
 						Optional:            true,
 						Required:            false,
 						Attributes: map[string]schema.Attribute{
-							"title_size": schema.NumberAttribute{
+							"title_size": schema.Float64Attribute{
 								MarkdownDescription: `Explicit title text size`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-							"value_size": schema.NumberAttribute{
+							"value_size": schema.Float64Attribute{
 								MarkdownDescription: `Explicit value text size`,
 								Computed:            false,
 								Optional:            true,
@@ -436,7 +589,7 @@ func (d *PanelPieChartDataSource) Schema(ctx context.Context, req datasource.Sch
 								Optional:            true,
 								Required:            false,
 							},
-							"width": schema.NumberAttribute{
+							"width": schema.Float64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
@@ -692,7 +845,7 @@ TODO this is probably optional`,
 				Optional:            true,
 				Required:            false,
 			},
-			"max_data_points": schema.NumberAttribute{
+			"max_data_points": schema.Float64Attribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
@@ -853,19 +1006,19 @@ may be used to update the results`,
 								Optional:            true,
 								Required:            false,
 							},
-							"decimals": schema.NumberAttribute{
+							"decimals": schema.Float64Attribute{
 								MarkdownDescription: `Significant digits (for display)`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-							"min": schema.NumberAttribute{
+							"min": schema.Float64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
-							"max": schema.NumberAttribute{
+							"max": schema.Float64Attribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            true,
@@ -890,7 +1043,7 @@ may be used to update the results`,
 										Required:            true,
 										NestedObject: schema.NestedAttributeObject{
 											Attributes: map[string]schema.Attribute{
-												"value": schema.NumberAttribute{
+												"value": schema.Float64Attribute{
 													MarkdownDescription: `TODO docs
 FIXME the corresponding typescript field is required/non-optional, but nulls currently appear here when serializing -Infinity to JSON`,
 													Computed: false,
@@ -1064,4 +1217,43 @@ func (d *PanelPieChartDataSource) applyDefaults(data *PanelPieChartDataSourceMod
 	if data.RepeatDirection.IsNull() {
 		data.RepeatDirection = types.StringValue(`h`)
 	}
+}
+
+func (d PanelPieChartDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_piecharttype := d.PieChartType.ValueString()
+	attr_piechartlabels := d.PieChartLabels.ValueString()
+	attr_piechartlegendvalues := d.PieChartLegendValues.ValueString()
+	attr_type := d.Type.ValueString()
+	attr_id := d.Id.ValueInt64()
+	attr_pluginversion := d.PluginVersion.ValueString()
+	attr_title := d.Title.ValueString()
+	attr_description := d.Description.ValueString()
+	attr_transparent := d.Transparent.ValueBool()
+	attr_repeat := d.Repeat.ValueString()
+	attr_repeatdirection := d.RepeatDirection.ValueString()
+	attr_repeatpanelid := d.RepeatPanelId.ValueInt64()
+	attr_maxdatapoints := d.MaxDataPoints.ValueFloat64()
+	attr_interval := d.Interval.ValueString()
+	attr_timefrom := d.TimeFrom.ValueString()
+	attr_timeshift := d.TimeShift.ValueString()
+
+	model := &PanelPieChartDataSourceModelJSON{
+		PieChartType:         attr_piecharttype,
+		PieChartLabels:       attr_piechartlabels,
+		PieChartLegendValues: attr_piechartlegendvalues,
+		Type:                 attr_type,
+		Id:                   &attr_id,
+		PluginVersion:        &attr_pluginversion,
+		Title:                &attr_title,
+		Description:          &attr_description,
+		Transparent:          attr_transparent,
+		Repeat:               &attr_repeat,
+		RepeatDirection:      attr_repeatdirection,
+		RepeatPanelId:        &attr_repeatpanelid,
+		MaxDataPoints:        &attr_maxdatapoints,
+		Interval:             &attr_interval,
+		TimeFrom:             &attr_timefrom,
+		TimeShift:            &attr_timeshift,
+	}
+	return json.Marshal(model)
 }

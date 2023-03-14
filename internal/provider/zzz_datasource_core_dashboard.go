@@ -35,103 +35,203 @@ type CoreDashboardDataSource struct{}
 
 // CoreDashboardDataSourceModel describes the data source data model.
 type CoreDashboardDataSourceModel struct {
-	Id           types.Int64  `tfsdk:"id" json:"id"`
-	Uid          types.String `tfsdk:"uid" json:"uid"`
-	Title        types.String `tfsdk:"title" json:"title"`
-	Description  types.String `tfsdk:"description" json:"description"`
-	Revision     types.Int64  `tfsdk:"revision" json:"revision"`
-	GnetId       types.String `tfsdk:"gnet_id" json:"gnetId"`
-	Tags         types.List   `tfsdk:"tags" json:"tags"`
-	Style        types.String `tfsdk:"style" json:"style"`
-	Timezone     types.String `tfsdk:"timezone" json:"timezone"`
-	Editable     types.Bool   `tfsdk:"editable" json:"editable"`
-	GraphTooltip types.Int64  `tfsdk:"graph_tooltip" json:"graphTooltip"`
+	Id           types.Int64  `tfsdk:"id"`
+	Uid          types.String `tfsdk:"uid"`
+	Title        types.String `tfsdk:"title"`
+	Description  types.String `tfsdk:"description"`
+	Revision     types.Int64  `tfsdk:"revision"`
+	GnetId       types.String `tfsdk:"gnet_id"`
+	Tags         types.List   `tfsdk:"tags"`
+	Style        types.String `tfsdk:"style"`
+	Timezone     types.String `tfsdk:"timezone"`
+	Editable     types.Bool   `tfsdk:"editable"`
+	GraphTooltip types.Int64  `tfsdk:"graph_tooltip"`
 	Time         *struct {
-		From types.String `tfsdk:"from" json:"from"`
-		To   types.String `tfsdk:"to" json:"to"`
-	} `tfsdk:"time" json:"time"`
+		From types.String `tfsdk:"from"`
+		To   types.String `tfsdk:"to"`
+	} `tfsdk:"time"`
 	Timepicker *struct {
-		Collapse         types.Bool `tfsdk:"collapse" json:"collapse"`
-		Enable           types.Bool `tfsdk:"enable" json:"enable"`
-		Hidden           types.Bool `tfsdk:"hidden" json:"hidden"`
-		RefreshIntervals types.List `tfsdk:"refresh_intervals" json:"refresh_intervals"`
-		TimeOptions      types.List `tfsdk:"time_options" json:"time_options"`
-	} `tfsdk:"timepicker" json:"timepicker"`
-	FiscalYearStartMonth types.Int64  `tfsdk:"fiscal_year_start_month" json:"fiscalYearStartMonth"`
-	LiveNow              types.Bool   `tfsdk:"live_now" json:"liveNow"`
-	WeekStart            types.String `tfsdk:"week_start" json:"weekStart"`
-	SchemaVersion        types.Int64  `tfsdk:"schema_version" json:"schemaVersion"`
-	Version              types.Int64  `tfsdk:"version" json:"version"`
-	Panels               types.List   `tfsdk:"panels" json:"panels"`
+		Collapse         types.Bool `tfsdk:"collapse"`
+		Enable           types.Bool `tfsdk:"enable"`
+		Hidden           types.Bool `tfsdk:"hidden"`
+		RefreshIntervals types.List `tfsdk:"refresh_intervals"`
+		TimeOptions      types.List `tfsdk:"time_options"`
+	} `tfsdk:"timepicker"`
+	FiscalYearStartMonth types.Int64  `tfsdk:"fiscal_year_start_month"`
+	LiveNow              types.Bool   `tfsdk:"live_now"`
+	WeekStart            types.String `tfsdk:"week_start"`
+	SchemaVersion        types.Int64  `tfsdk:"schema_version"`
+	Version              types.Int64  `tfsdk:"version"`
+	Panels               types.List   `tfsdk:"panels"`
 	Templating           *struct {
 		List []struct {
-			Id           types.String `tfsdk:"id" json:"id"`
-			Type         types.String `tfsdk:"type" json:"type"`
-			Name         types.String `tfsdk:"name" json:"name"`
-			Label        types.String `tfsdk:"label" json:"label"`
-			RootStateKey types.String `tfsdk:"root_state_key" json:"rootStateKey"`
-			Global       types.Bool   `tfsdk:"global" json:"global"`
-			Hide         types.Int64  `tfsdk:"hide" json:"hide"`
-			SkipUrlSync  types.Bool   `tfsdk:"skip_url_sync" json:"skipUrlSync"`
-			Index        types.Int64  `tfsdk:"index" json:"index"`
-			State        types.String `tfsdk:"state" json:"state"`
+			Id           types.String `tfsdk:"id"`
+			Type         types.String `tfsdk:"type"`
+			Name         types.String `tfsdk:"name"`
+			Label        types.String `tfsdk:"label"`
+			RootStateKey types.String `tfsdk:"root_state_key"`
+			Global       types.Bool   `tfsdk:"global"`
+			Hide         types.Int64  `tfsdk:"hide"`
+			SkipUrlSync  types.Bool   `tfsdk:"skip_url_sync"`
+			Index        types.Int64  `tfsdk:"index"`
+			State        types.String `tfsdk:"state"`
 			Error        *struct {
-			} `tfsdk:"error" json:"error"`
-			Description types.String `tfsdk:"description" json:"description"`
+			} `tfsdk:"error"`
+			Description types.String `tfsdk:"description"`
 			Datasource  *struct {
-				Type types.String `tfsdk:"type" json:"type"`
-				Uid  types.String `tfsdk:"uid" json:"uid"`
-			} `tfsdk:"datasource" json:"datasource"`
-		} `tfsdk:"list" json:"list"`
-	} `tfsdk:"templating" json:"templating"`
+				Type types.String `tfsdk:"type"`
+				Uid  types.String `tfsdk:"uid"`
+			} `tfsdk:"datasource"`
+		} `tfsdk:"list"`
+	} `tfsdk:"templating"`
 	Annotations *struct {
 		List []struct {
 			Datasource struct {
-				Type types.String `tfsdk:"type" json:"type"`
-				Uid  types.String `tfsdk:"uid" json:"uid"`
-			} `tfsdk:"datasource" json:"datasource"`
-			Enable    types.Bool   `tfsdk:"enable" json:"enable"`
-			Name      types.String `tfsdk:"name" json:"name"`
-			BuiltIn   types.Int64  `tfsdk:"built_in" json:"builtIn"`
-			Hide      types.Bool   `tfsdk:"hide" json:"hide"`
-			IconColor types.String `tfsdk:"icon_color" json:"iconColor"`
-			Type      types.String `tfsdk:"type" json:"type"`
-			RawQuery  types.String `tfsdk:"raw_query" json:"rawQuery"`
-			ShowIn    types.Int64  `tfsdk:"show_in" json:"showIn"`
+				Type types.String `tfsdk:"type"`
+				Uid  types.String `tfsdk:"uid"`
+			} `tfsdk:"datasource"`
+			Enable    types.Bool   `tfsdk:"enable"`
+			Name      types.String `tfsdk:"name"`
+			BuiltIn   types.Int64  `tfsdk:"built_in"`
+			Hide      types.Bool   `tfsdk:"hide"`
+			IconColor types.String `tfsdk:"icon_color"`
+			Type      types.String `tfsdk:"type"`
+			RawQuery  types.String `tfsdk:"raw_query"`
+			ShowIn    types.Int64  `tfsdk:"show_in"`
 			Target    *struct {
-				Limit    types.Int64  `tfsdk:"limit" json:"limit"`
-				MatchAny types.Bool   `tfsdk:"match_any" json:"matchAny"`
-				Tags     types.List   `tfsdk:"tags" json:"tags"`
-				Type     types.String `tfsdk:"type" json:"type"`
-			} `tfsdk:"target" json:"target"`
-		} `tfsdk:"list" json:"list"`
-	} `tfsdk:"annotations" json:"annotations"`
+				Limit    types.Int64  `tfsdk:"limit"`
+				MatchAny types.Bool   `tfsdk:"match_any"`
+				Tags     types.List   `tfsdk:"tags"`
+				Type     types.String `tfsdk:"type"`
+			} `tfsdk:"target"`
+		} `tfsdk:"list"`
+	} `tfsdk:"annotations"`
 	Links []struct {
-		Title       types.String `tfsdk:"title" json:"title"`
-		Type        types.String `tfsdk:"type" json:"type"`
-		Icon        types.String `tfsdk:"icon" json:"icon"`
-		Tooltip     types.String `tfsdk:"tooltip" json:"tooltip"`
-		Url         types.String `tfsdk:"url" json:"url"`
-		Tags        types.List   `tfsdk:"tags" json:"tags"`
-		AsDropdown  types.Bool   `tfsdk:"as_dropdown" json:"asDropdown"`
-		TargetBlank types.Bool   `tfsdk:"target_blank" json:"targetBlank"`
-		IncludeVars types.Bool   `tfsdk:"include_vars" json:"includeVars"`
-		KeepTime    types.Bool   `tfsdk:"keep_time" json:"keepTime"`
-	} `tfsdk:"links" json:"links"`
+		Title       types.String `tfsdk:"title"`
+		Type        types.String `tfsdk:"type"`
+		Icon        types.String `tfsdk:"icon"`
+		Tooltip     types.String `tfsdk:"tooltip"`
+		Url         types.String `tfsdk:"url"`
+		Tags        types.List   `tfsdk:"tags"`
+		AsDropdown  types.Bool   `tfsdk:"as_dropdown"`
+		TargetBlank types.Bool   `tfsdk:"target_blank"`
+		IncludeVars types.Bool   `tfsdk:"include_vars"`
+		KeepTime    types.Bool   `tfsdk:"keep_time"`
+	} `tfsdk:"links"`
 	Snapshot *struct {
-		Created     types.String `tfsdk:"created" json:"created"`
-		Expires     types.String `tfsdk:"expires" json:"expires"`
-		External    types.Bool   `tfsdk:"external" json:"external"`
-		ExternalUrl types.String `tfsdk:"external_url" json:"externalUrl"`
-		Id          types.Int64  `tfsdk:"id" json:"id"`
-		Key         types.String `tfsdk:"key" json:"key"`
-		Name        types.String `tfsdk:"name" json:"name"`
-		OrgId       types.Int64  `tfsdk:"org_id" json:"orgId"`
-		Updated     types.String `tfsdk:"updated" json:"updated"`
-		Url         types.String `tfsdk:"url" json:"url"`
-		UserId      types.Int64  `tfsdk:"user_id" json:"userId"`
-	} `tfsdk:"snapshot" json:"snapshot"`
+		Created     types.String `tfsdk:"created"`
+		Expires     types.String `tfsdk:"expires"`
+		External    types.Bool   `tfsdk:"external"`
+		ExternalUrl types.String `tfsdk:"external_url"`
+		Id          types.Int64  `tfsdk:"id"`
+		Key         types.String `tfsdk:"key"`
+		Name        types.String `tfsdk:"name"`
+		OrgId       types.Int64  `tfsdk:"org_id"`
+		Updated     types.String `tfsdk:"updated"`
+		Url         types.String `tfsdk:"url"`
+		UserId      types.Int64  `tfsdk:"user_id"`
+	} `tfsdk:"snapshot"`
 	ToJSON types.String `tfsdk:"to_json"`
+}
+
+// CoreDashboardDataSourceModelJSON describes the data source data model when exported to json.
+type CoreDashboardDataSourceModelJSON struct {
+	Id           *int64   `json:"id,omitempty"`
+	Uid          *string  `json:"uid,omitempty"`
+	Title        *string  `json:"title,omitempty"`
+	Description  *string  `json:"description,omitempty"`
+	Revision     int64    `json:"revision"`
+	GnetId       *string  `json:"gnetId,omitempty"`
+	Tags         []string `json:"tags,omitempty"`
+	Style        string   `json:"style"`
+	Timezone     *string  `json:"timezone,omitempty"`
+	Editable     bool     `json:"editable"`
+	GraphTooltip int64    `json:"graphTooltip"`
+	Time         *struct {
+		From string `json:"from"`
+		To   string `json:"to"`
+	} `json:"time,omitempty"`
+	Timepicker *struct {
+		Collapse         bool     `json:"collapse"`
+		Enable           bool     `json:"enable"`
+		Hidden           bool     `json:"hidden"`
+		RefreshIntervals []string `json:"refresh_intervals"`
+		TimeOptions      []string `json:"time_options"`
+	} `json:"timepicker,omitempty"`
+	FiscalYearStartMonth *int64   `json:"fiscalYearStartMonth,omitempty"`
+	LiveNow              *bool    `json:"liveNow,omitempty"`
+	WeekStart            *string  `json:"weekStart,omitempty"`
+	SchemaVersion        int64    `json:"schemaVersion"`
+	Version              *int64   `json:"version,omitempty"`
+	Panels               []string `json:"panels,omitempty"`
+	Templating           *struct {
+		List []struct {
+			Id           string  `json:"id"`
+			Type         string  `json:"type"`
+			Name         string  `json:"name"`
+			Label        *string `json:"label,omitempty"`
+			RootStateKey *string `json:"rootStateKey,omitempty"`
+			Global       bool    `json:"global"`
+			Hide         int64   `json:"hide"`
+			SkipUrlSync  bool    `json:"skipUrlSync"`
+			Index        int64   `json:"index"`
+			State        string  `json:"state"`
+			Error        *struct {
+			} `json:"error,omitempty"`
+			Description *string `json:"description,omitempty"`
+			Datasource  *struct {
+				Type *string `json:"type,omitempty"`
+				Uid  *string `json:"uid,omitempty"`
+			} `json:"datasource,omitempty"`
+		} `json:"list,omitempty"`
+	} `json:"templating,omitempty"`
+	Annotations *struct {
+		List []struct {
+			Datasource struct {
+				Type *string `json:"type,omitempty"`
+				Uid  *string `json:"uid,omitempty"`
+			} `json:"datasource"`
+			Enable    bool    `json:"enable"`
+			Name      *string `json:"name,omitempty"`
+			BuiltIn   int64   `json:"builtIn"`
+			Hide      *bool   `json:"hide,omitempty"`
+			IconColor *string `json:"iconColor,omitempty"`
+			Type      string  `json:"type"`
+			RawQuery  *string `json:"rawQuery,omitempty"`
+			ShowIn    int64   `json:"showIn"`
+			Target    *struct {
+				Limit    int64    `json:"limit"`
+				MatchAny bool     `json:"matchAny"`
+				Tags     []string `json:"tags"`
+				Type     string   `json:"type"`
+			} `json:"target,omitempty"`
+		} `json:"list,omitempty"`
+	} `json:"annotations,omitempty"`
+	Links []struct {
+		Title       string   `json:"title"`
+		Type        string   `json:"type"`
+		Icon        string   `json:"icon"`
+		Tooltip     string   `json:"tooltip"`
+		Url         string   `json:"url"`
+		Tags        []string `json:"tags"`
+		AsDropdown  bool     `json:"asDropdown"`
+		TargetBlank bool     `json:"targetBlank"`
+		IncludeVars bool     `json:"includeVars"`
+		KeepTime    bool     `json:"keepTime"`
+	} `json:"links,omitempty"`
+	Snapshot *struct {
+		Created     string  `json:"created"`
+		Expires     string  `json:"expires"`
+		External    bool    `json:"external"`
+		ExternalUrl string  `json:"externalUrl"`
+		Id          int64   `json:"id"`
+		Key         string  `json:"key"`
+		Name        string  `json:"name"`
+		OrgId       int64   `json:"orgId"`
+		Updated     string  `json:"updated"`
+		Url         *string `json:"url,omitempty"`
+		UserId      int64   `json:"userId"`
+	} `json:"snapshot,omitempty"`
 }
 
 func (d *CoreDashboardDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -720,22 +820,27 @@ func (d *CoreDashboardDataSource) Read(ctx context.Context, req datasource.ReadR
 	dataMap := make(map[string]interface{})
 	err = json.Unmarshal(JSONConfig, &dataMap)
 	if err != nil {
-		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
+		resp.Diagnostics.AddError("error unmarshalling config into Go map", err.Error())
 		return
 	}
 	panels := data.Panels.Elements()
 	panelsMaps := make([]map[string]interface{}, len(panels))
 	for i, panel := range panels {
 		panelMap := make(map[string]interface{})
-		err = json.Unmarshal([]byte(panel.String()), &panelMap)
+		err = json.Unmarshal([]byte(panel.(types.String).ValueString()), &panelMap)
 		if err != nil {
-			resp.Diagnostics.AddError("JSON marshalling error", err.Error())
+			resp.Diagnostics.AddError("error unmarshalling panel into go map", err.Error())
 			return
 		}
 		panelsMaps[i] = panelMap
 	}
 
 	dataMap["panels"] = panelsMaps
+	JSONConfig, err = json.MarshalIndent(dataMap, "", "  ")
+	if err != nil {
+		resp.Diagnostics.AddError("error marshalling go map into json", err.Error())
+		return
+	}
 
 	// Not sure about that
 	data.ToJSON = types.StringValue(string(JSONConfig))
@@ -785,4 +890,41 @@ func (d *CoreDashboardDataSource) applyDefaults(data *CoreDashboardDataSourceMod
 	if data.SchemaVersion.IsNull() {
 		data.SchemaVersion = types.Int64Value(36)
 	}
+}
+
+func (d CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_id := d.Id.ValueInt64()
+	attr_uid := d.Uid.ValueString()
+	attr_title := d.Title.ValueString()
+	attr_description := d.Description.ValueString()
+	attr_revision := d.Revision.ValueInt64()
+	attr_gnetid := d.GnetId.ValueString()
+	attr_style := d.Style.ValueString()
+	attr_timezone := d.Timezone.ValueString()
+	attr_editable := d.Editable.ValueBool()
+	attr_graphtooltip := d.GraphTooltip.ValueInt64()
+	attr_fiscalyearstartmonth := d.FiscalYearStartMonth.ValueInt64()
+	attr_livenow := d.LiveNow.ValueBool()
+	attr_weekstart := d.WeekStart.ValueString()
+	attr_schemaversion := d.SchemaVersion.ValueInt64()
+	attr_version := d.Version.ValueInt64()
+
+	model := &CoreDashboardDataSourceModelJSON{
+		Id:                   &attr_id,
+		Uid:                  &attr_uid,
+		Title:                &attr_title,
+		Description:          &attr_description,
+		Revision:             attr_revision,
+		GnetId:               &attr_gnetid,
+		Style:                attr_style,
+		Timezone:             &attr_timezone,
+		Editable:             attr_editable,
+		GraphTooltip:         attr_graphtooltip,
+		FiscalYearStartMonth: &attr_fiscalyearstartmonth,
+		LiveNow:              &attr_livenow,
+		WeekStart:            &attr_weekstart,
+		SchemaVersion:        attr_schemaversion,
+		Version:              &attr_version,
+	}
+	return json.Marshal(model)
 }

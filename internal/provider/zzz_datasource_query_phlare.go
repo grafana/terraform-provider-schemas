@@ -35,14 +35,25 @@ type QueryPhlareDataSource struct{}
 
 // QueryPhlareDataSourceModel describes the data source data model.
 type QueryPhlareDataSourceModel struct {
-	LabelSelector types.String `tfsdk:"label_selector" json:"labelSelector"`
-	ProfileTypeId types.String `tfsdk:"profile_type_id" json:"profileTypeId"`
-	GroupBy       types.List   `tfsdk:"group_by" json:"groupBy"`
-	RefId         types.String `tfsdk:"ref_id" json:"refId"`
-	Hide          types.Bool   `tfsdk:"hide" json:"hide"`
-	Key           types.String `tfsdk:"key" json:"key"`
-	QueryType     types.String `tfsdk:"query_type" json:"queryType"`
+	LabelSelector types.String `tfsdk:"label_selector"`
+	ProfileTypeId types.String `tfsdk:"profile_type_id"`
+	GroupBy       types.List   `tfsdk:"group_by"`
+	RefId         types.String `tfsdk:"ref_id"`
+	Hide          types.Bool   `tfsdk:"hide"`
+	Key           types.String `tfsdk:"key"`
+	QueryType     types.String `tfsdk:"query_type"`
 	ToJSON        types.String `tfsdk:"to_json"`
+}
+
+// QueryPhlareDataSourceModelJSON describes the data source data model when exported to json.
+type QueryPhlareDataSourceModelJSON struct {
+	LabelSelector string   `json:"labelSelector"`
+	ProfileTypeId string   `json:"profileTypeId"`
+	GroupBy       []string `json:"groupBy"`
+	RefId         string   `json:"refId"`
+	Hide          *bool    `json:"hide,omitempty"`
+	Key           *string  `json:"key,omitempty"`
+	QueryType     *string  `json:"queryType,omitempty"`
 }
 
 func (d *QueryPhlareDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -142,4 +153,23 @@ func (d *QueryPhlareDataSource) applyDefaults(data *QueryPhlareDataSourceModel) 
 	if data.LabelSelector.IsNull() {
 		data.LabelSelector = types.StringValue(`{}`)
 	}
+}
+
+func (d QueryPhlareDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_labelselector := d.LabelSelector.ValueString()
+	attr_profiletypeid := d.ProfileTypeId.ValueString()
+	attr_refid := d.RefId.ValueString()
+	attr_hide := d.Hide.ValueBool()
+	attr_key := d.Key.ValueString()
+	attr_querytype := d.QueryType.ValueString()
+
+	model := &QueryPhlareDataSourceModelJSON{
+		LabelSelector: attr_labelselector,
+		ProfileTypeId: attr_profiletypeid,
+		RefId:         attr_refid,
+		Hide:          &attr_hide,
+		Key:           &attr_key,
+		QueryType:     &attr_querytype,
+	}
+	return json.Marshal(model)
 }

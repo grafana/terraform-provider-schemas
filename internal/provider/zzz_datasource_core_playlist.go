@@ -35,15 +35,27 @@ type CorePlaylistDataSource struct{}
 
 // CorePlaylistDataSourceModel describes the data source data model.
 type CorePlaylistDataSourceModel struct {
-	Uid      types.String `tfsdk:"uid" json:"uid"`
-	Name     types.String `tfsdk:"name" json:"name"`
-	Interval types.String `tfsdk:"interval" json:"interval"`
+	Uid      types.String `tfsdk:"uid"`
+	Name     types.String `tfsdk:"name"`
+	Interval types.String `tfsdk:"interval"`
 	Items    []struct {
-		Type  types.String `tfsdk:"type" json:"type"`
-		Value types.String `tfsdk:"value" json:"value"`
-		Title types.String `tfsdk:"title" json:"title"`
-	} `tfsdk:"items" json:"items"`
+		Type  types.String `tfsdk:"type"`
+		Value types.String `tfsdk:"value"`
+		Title types.String `tfsdk:"title"`
+	} `tfsdk:"items"`
 	ToJSON types.String `tfsdk:"to_json"`
+}
+
+// CorePlaylistDataSourceModelJSON describes the data source data model when exported to json.
+type CorePlaylistDataSourceModelJSON struct {
+	Uid      string `json:"uid"`
+	Name     string `json:"name"`
+	Interval string `json:"interval"`
+	Items    []struct {
+		Type  string  `json:"type"`
+		Value string  `json:"value"`
+		Title *string `json:"title,omitempty"`
+	} `json:"items,omitempty"`
 }
 
 func (d *CorePlaylistDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -155,4 +167,17 @@ func (d *CorePlaylistDataSource) applyDefaults(data *CorePlaylistDataSourceModel
 	if data.Interval.IsNull() {
 		data.Interval = types.StringValue(`5m`)
 	}
+}
+
+func (d CorePlaylistDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_uid := d.Uid.ValueString()
+	attr_name := d.Name.ValueString()
+	attr_interval := d.Interval.ValueString()
+
+	model := &CorePlaylistDataSourceModelJSON{
+		Uid:      attr_uid,
+		Name:     attr_name,
+		Interval: attr_interval,
+	}
+	return json.Marshal(model)
 }

@@ -38,6 +38,10 @@ type QueryAzureMonitorDataSourceModel struct {
 	ToJSON types.String `tfsdk:"to_json"`
 }
 
+// QueryAzureMonitorDataSourceModelJSON describes the data source data model when exported to json.
+type QueryAzureMonitorDataSourceModelJSON struct {
+}
+
 func (d *QueryAzureMonitorDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_query_azure_monitor"
 }
@@ -84,4 +88,10 @@ func (d *QueryAzureMonitorDataSource) Read(ctx context.Context, req datasource.R
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d QueryAzureMonitorDataSourceModel) MarshalJSON() ([]byte, error) {
+
+	model := &QueryAzureMonitorDataSourceModelJSON{}
+	return json.Marshal(model)
 }

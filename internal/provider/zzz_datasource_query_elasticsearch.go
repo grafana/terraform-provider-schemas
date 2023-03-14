@@ -35,14 +35,25 @@ type QueryElasticsearchDataSource struct{}
 
 // QueryElasticsearchDataSourceModel describes the data source data model.
 type QueryElasticsearchDataSourceModel struct {
-	Alias     types.String `tfsdk:"alias" json:"alias"`
-	Query     types.String `tfsdk:"query" json:"query"`
-	TimeField types.String `tfsdk:"time_field" json:"timeField"`
-	RefId     types.String `tfsdk:"ref_id" json:"refId"`
-	Hide      types.Bool   `tfsdk:"hide" json:"hide"`
-	Key       types.String `tfsdk:"key" json:"key"`
-	QueryType types.String `tfsdk:"query_type" json:"queryType"`
+	Alias     types.String `tfsdk:"alias"`
+	Query     types.String `tfsdk:"query"`
+	TimeField types.String `tfsdk:"time_field"`
+	RefId     types.String `tfsdk:"ref_id"`
+	Hide      types.Bool   `tfsdk:"hide"`
+	Key       types.String `tfsdk:"key"`
+	QueryType types.String `tfsdk:"query_type"`
 	ToJSON    types.String `tfsdk:"to_json"`
+}
+
+// QueryElasticsearchDataSourceModelJSON describes the data source data model when exported to json.
+type QueryElasticsearchDataSourceModelJSON struct {
+	Alias     *string `json:"alias,omitempty"`
+	Query     *string `json:"query,omitempty"`
+	TimeField *string `json:"timeField,omitempty"`
+	RefId     string  `json:"refId"`
+	Hide      *bool   `json:"hide,omitempty"`
+	Key       *string `json:"key,omitempty"`
+	QueryType *string `json:"queryType,omitempty"`
 }
 
 func (d *QueryElasticsearchDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -134,4 +145,25 @@ func (d *QueryElasticsearchDataSource) Read(ctx context.Context, req datasource.
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d QueryElasticsearchDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_alias := d.Alias.ValueString()
+	attr_query := d.Query.ValueString()
+	attr_timefield := d.TimeField.ValueString()
+	attr_refid := d.RefId.ValueString()
+	attr_hide := d.Hide.ValueBool()
+	attr_key := d.Key.ValueString()
+	attr_querytype := d.QueryType.ValueString()
+
+	model := &QueryElasticsearchDataSourceModelJSON{
+		Alias:     &attr_alias,
+		Query:     &attr_query,
+		TimeField: &attr_timefield,
+		RefId:     attr_refid,
+		Hide:      &attr_hide,
+		Key:       &attr_key,
+		QueryType: &attr_querytype,
+	}
+	return json.Marshal(model)
 }

@@ -35,19 +35,35 @@ type QueryTempoDataSource struct{}
 
 // QueryTempoDataSourceModel describes the data source data model.
 type QueryTempoDataSourceModel struct {
-	Query           types.String `tfsdk:"query" json:"query"`
-	Search          types.String `tfsdk:"search" json:"search"`
-	ServiceName     types.String `tfsdk:"service_name" json:"serviceName"`
-	SpanName        types.String `tfsdk:"span_name" json:"spanName"`
-	MinDuration     types.String `tfsdk:"min_duration" json:"minDuration"`
-	MaxDuration     types.String `tfsdk:"max_duration" json:"maxDuration"`
-	ServiceMapQuery types.String `tfsdk:"service_map_query" json:"serviceMapQuery"`
-	Limit           types.Int64  `tfsdk:"limit" json:"limit"`
-	RefId           types.String `tfsdk:"ref_id" json:"refId"`
-	Hide            types.Bool   `tfsdk:"hide" json:"hide"`
-	Key             types.String `tfsdk:"key" json:"key"`
-	QueryType       types.String `tfsdk:"query_type" json:"queryType"`
+	Query           types.String `tfsdk:"query"`
+	Search          types.String `tfsdk:"search"`
+	ServiceName     types.String `tfsdk:"service_name"`
+	SpanName        types.String `tfsdk:"span_name"`
+	MinDuration     types.String `tfsdk:"min_duration"`
+	MaxDuration     types.String `tfsdk:"max_duration"`
+	ServiceMapQuery types.String `tfsdk:"service_map_query"`
+	Limit           types.Int64  `tfsdk:"limit"`
+	RefId           types.String `tfsdk:"ref_id"`
+	Hide            types.Bool   `tfsdk:"hide"`
+	Key             types.String `tfsdk:"key"`
+	QueryType       types.String `tfsdk:"query_type"`
 	ToJSON          types.String `tfsdk:"to_json"`
+}
+
+// QueryTempoDataSourceModelJSON describes the data source data model when exported to json.
+type QueryTempoDataSourceModelJSON struct {
+	Query           string  `json:"query"`
+	Search          *string `json:"search,omitempty"`
+	ServiceName     *string `json:"serviceName,omitempty"`
+	SpanName        *string `json:"spanName,omitempty"`
+	MinDuration     *string `json:"minDuration,omitempty"`
+	MaxDuration     *string `json:"maxDuration,omitempty"`
+	ServiceMapQuery *string `json:"serviceMapQuery,omitempty"`
+	Limit           *int64  `json:"limit,omitempty"`
+	RefId           string  `json:"refId"`
+	Hide            *bool   `json:"hide,omitempty"`
+	Key             *string `json:"key,omitempty"`
+	QueryType       *string `json:"queryType,omitempty"`
 }
 
 func (d *QueryTempoDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -169,4 +185,35 @@ func (d *QueryTempoDataSource) Read(ctx context.Context, req datasource.ReadRequ
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d QueryTempoDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_query := d.Query.ValueString()
+	attr_search := d.Search.ValueString()
+	attr_servicename := d.ServiceName.ValueString()
+	attr_spanname := d.SpanName.ValueString()
+	attr_minduration := d.MinDuration.ValueString()
+	attr_maxduration := d.MaxDuration.ValueString()
+	attr_servicemapquery := d.ServiceMapQuery.ValueString()
+	attr_limit := d.Limit.ValueInt64()
+	attr_refid := d.RefId.ValueString()
+	attr_hide := d.Hide.ValueBool()
+	attr_key := d.Key.ValueString()
+	attr_querytype := d.QueryType.ValueString()
+
+	model := &QueryTempoDataSourceModelJSON{
+		Query:           attr_query,
+		Search:          &attr_search,
+		ServiceName:     &attr_servicename,
+		SpanName:        &attr_spanname,
+		MinDuration:     &attr_minduration,
+		MaxDuration:     &attr_maxduration,
+		ServiceMapQuery: &attr_servicemapquery,
+		Limit:           &attr_limit,
+		RefId:           attr_refid,
+		Hide:            &attr_hide,
+		Key:             &attr_key,
+		QueryType:       &attr_querytype,
+	}
+	return json.Marshal(model)
 }

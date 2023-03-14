@@ -35,15 +35,27 @@ type CorePreferencesDataSource struct{}
 
 // CorePreferencesDataSourceModel describes the data source data model.
 type CorePreferencesDataSourceModel struct {
-	HomeDashboardUID types.String `tfsdk:"home_dashboard_uid" json:"homeDashboardUID"`
-	Timezone         types.String `tfsdk:"timezone" json:"timezone"`
-	WeekStart        types.String `tfsdk:"week_start" json:"weekStart"`
-	Theme            types.String `tfsdk:"theme" json:"theme"`
-	Language         types.String `tfsdk:"language" json:"language"`
+	HomeDashboardUID types.String `tfsdk:"home_dashboard_uid"`
+	Timezone         types.String `tfsdk:"timezone"`
+	WeekStart        types.String `tfsdk:"week_start"`
+	Theme            types.String `tfsdk:"theme"`
+	Language         types.String `tfsdk:"language"`
 	QueryHistory     *struct {
-		HomeTab types.String `tfsdk:"home_tab" json:"homeTab"`
-	} `tfsdk:"query_history" json:"queryHistory"`
+		HomeTab types.String `tfsdk:"home_tab"`
+	} `tfsdk:"query_history"`
 	ToJSON types.String `tfsdk:"to_json"`
+}
+
+// CorePreferencesDataSourceModelJSON describes the data source data model when exported to json.
+type CorePreferencesDataSourceModelJSON struct {
+	HomeDashboardUID *string `json:"homeDashboardUID,omitempty"`
+	Timezone         *string `json:"timezone,omitempty"`
+	WeekStart        *string `json:"weekStart,omitempty"`
+	Theme            *string `json:"theme,omitempty"`
+	Language         *string `json:"language,omitempty"`
+	QueryHistory     *struct {
+		HomeTab *string `json:"homeTab,omitempty"`
+	} `json:"queryHistory,omitempty"`
 }
 
 func (d *CorePreferencesDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -137,4 +149,21 @@ func (d *CorePreferencesDataSource) Read(ctx context.Context, req datasource.Rea
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d CorePreferencesDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_homedashboarduid := d.HomeDashboardUID.ValueString()
+	attr_timezone := d.Timezone.ValueString()
+	attr_weekstart := d.WeekStart.ValueString()
+	attr_theme := d.Theme.ValueString()
+	attr_language := d.Language.ValueString()
+
+	model := &CorePreferencesDataSourceModelJSON{
+		HomeDashboardUID: &attr_homedashboarduid,
+		Timezone:         &attr_timezone,
+		WeekStart:        &attr_weekstart,
+		Theme:            &attr_theme,
+		Language:         &attr_language,
+	}
+	return json.Marshal(model)
 }

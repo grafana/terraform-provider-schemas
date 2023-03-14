@@ -35,18 +35,33 @@ type QueryLokiDataSource struct{}
 
 // QueryLokiDataSourceModel describes the data source data model.
 type QueryLokiDataSourceModel struct {
-	Expr         types.String `tfsdk:"expr" json:"expr"`
-	LegendFormat types.String `tfsdk:"legend_format" json:"legendFormat"`
-	MaxLines     types.Int64  `tfsdk:"max_lines" json:"maxLines"`
-	Resolution   types.Int64  `tfsdk:"resolution" json:"resolution"`
-	EditorMode   types.String `tfsdk:"editor_mode" json:"editorMode"`
-	Range        types.Bool   `tfsdk:"range" json:"range"`
-	Instant      types.Bool   `tfsdk:"instant" json:"instant"`
-	RefId        types.String `tfsdk:"ref_id" json:"refId"`
-	Hide         types.Bool   `tfsdk:"hide" json:"hide"`
-	Key          types.String `tfsdk:"key" json:"key"`
-	QueryType    types.String `tfsdk:"query_type" json:"queryType"`
+	Expr         types.String `tfsdk:"expr"`
+	LegendFormat types.String `tfsdk:"legend_format"`
+	MaxLines     types.Int64  `tfsdk:"max_lines"`
+	Resolution   types.Int64  `tfsdk:"resolution"`
+	EditorMode   types.String `tfsdk:"editor_mode"`
+	Range        types.Bool   `tfsdk:"range"`
+	Instant      types.Bool   `tfsdk:"instant"`
+	RefId        types.String `tfsdk:"ref_id"`
+	Hide         types.Bool   `tfsdk:"hide"`
+	Key          types.String `tfsdk:"key"`
+	QueryType    types.String `tfsdk:"query_type"`
 	ToJSON       types.String `tfsdk:"to_json"`
+}
+
+// QueryLokiDataSourceModelJSON describes the data source data model when exported to json.
+type QueryLokiDataSourceModelJSON struct {
+	Expr         string  `json:"expr"`
+	LegendFormat *string `json:"legendFormat,omitempty"`
+	MaxLines     *int64  `json:"maxLines,omitempty"`
+	Resolution   *int64  `json:"resolution,omitempty"`
+	EditorMode   *string `json:"editorMode,omitempty"`
+	Range        *bool   `json:"range,omitempty"`
+	Instant      *bool   `json:"instant,omitempty"`
+	RefId        string  `json:"refId"`
+	Hide         *bool   `json:"hide,omitempty"`
+	Key          *string `json:"key,omitempty"`
+	QueryType    *string `json:"queryType,omitempty"`
 }
 
 func (d *QueryLokiDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -162,4 +177,33 @@ func (d *QueryLokiDataSource) Read(ctx context.Context, req datasource.ReadReque
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d QueryLokiDataSourceModel) MarshalJSON() ([]byte, error) {
+	attr_expr := d.Expr.ValueString()
+	attr_legendformat := d.LegendFormat.ValueString()
+	attr_maxlines := d.MaxLines.ValueInt64()
+	attr_resolution := d.Resolution.ValueInt64()
+	attr_editormode := d.EditorMode.ValueString()
+	attr_range := d.Range.ValueBool()
+	attr_instant := d.Instant.ValueBool()
+	attr_refid := d.RefId.ValueString()
+	attr_hide := d.Hide.ValueBool()
+	attr_key := d.Key.ValueString()
+	attr_querytype := d.QueryType.ValueString()
+
+	model := &QueryLokiDataSourceModelJSON{
+		Expr:         attr_expr,
+		LegendFormat: &attr_legendformat,
+		MaxLines:     &attr_maxlines,
+		Resolution:   &attr_resolution,
+		EditorMode:   &attr_editormode,
+		Range:        &attr_range,
+		Instant:      &attr_instant,
+		RefId:        attr_refid,
+		Hide:         &attr_hide,
+		Key:          &attr_key,
+		QueryType:    &attr_querytype,
+	}
+	return json.Marshal(model)
 }
