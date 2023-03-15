@@ -33,25 +33,41 @@ func NewQueryParcaDataSource() datasource.DataSource {
 // QueryParcaDataSource defines the data source implementation.
 type QueryParcaDataSource struct{}
 
-// QueryParcaDataSourceModel describes the data source data model.
 type QueryParcaDataSourceModel struct {
+	ToJSON        types.String `tfsdk:"to_json"`
 	LabelSelector types.String `tfsdk:"label_selector"`
 	ProfileTypeId types.String `tfsdk:"profile_type_id"`
 	RefId         types.String `tfsdk:"ref_id"`
 	Hide          types.Bool   `tfsdk:"hide"`
 	Key           types.String `tfsdk:"key"`
 	QueryType     types.String `tfsdk:"query_type"`
-	ToJSON        types.String `tfsdk:"to_json"`
 }
 
-// QueryParcaDataSourceModelJSON describes the data source data model when exported to json.
-type QueryParcaDataSourceModelJSON struct {
-	LabelSelector string  `json:"labelSelector"`
-	ProfileTypeId string  `json:"profileTypeId"`
-	RefId         string  `json:"refId"`
-	Hide          *bool   `json:"hide,omitempty"`
-	Key           *string `json:"key,omitempty"`
-	QueryType     *string `json:"queryType,omitempty"`
+func (m QueryParcaDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonQueryParcaDataSourceModel struct {
+		LabelSelector string  `json:"labelSelector"`
+		ProfileTypeId string  `json:"profileTypeId"`
+		RefId         string  `json:"refId"`
+		Hide          *bool   `json:"hide,omitempty"`
+		Key           *string `json:"key,omitempty"`
+		QueryType     *string `json:"queryType,omitempty"`
+	}
+	attr_labelselector := m.LabelSelector.ValueString()
+	attr_profiletypeid := m.ProfileTypeId.ValueString()
+	attr_refid := m.RefId.ValueString()
+	attr_hide := m.Hide.ValueBool()
+	attr_key := m.Key.ValueString()
+	attr_querytype := m.QueryType.ValueString()
+
+	model := &jsonQueryParcaDataSourceModel{
+		LabelSelector: attr_labelselector,
+		ProfileTypeId: attr_profiletypeid,
+		RefId:         attr_refid,
+		Hide:          &attr_hide,
+		Key:           &attr_key,
+		QueryType:     &attr_querytype,
+	}
+	return json.Marshal(model)
 }
 
 func (d *QueryParcaDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -64,7 +80,7 @@ func (d *QueryParcaDataSource) Schema(ctx context.Context, req datasource.Schema
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
 			"label_selector": schema.StringAttribute{
-				MarkdownDescription: `Specifies the query label selectors.`,
+				MarkdownDescription: `Specifies the query label selectors. Defaults to "{}".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -144,23 +160,4 @@ func (d *QueryParcaDataSource) applyDefaults(data *QueryParcaDataSourceModel) {
 	if data.LabelSelector.IsNull() {
 		data.LabelSelector = types.StringValue(`{}`)
 	}
-}
-
-func (d QueryParcaDataSourceModel) MarshalJSON() ([]byte, error) {
-	attr_labelselector := d.LabelSelector.ValueString()
-	attr_profiletypeid := d.ProfileTypeId.ValueString()
-	attr_refid := d.RefId.ValueString()
-	attr_hide := d.Hide.ValueBool()
-	attr_key := d.Key.ValueString()
-	attr_querytype := d.QueryType.ValueString()
-
-	model := &QueryParcaDataSourceModelJSON{
-		LabelSelector: attr_labelselector,
-		ProfileTypeId: attr_profiletypeid,
-		RefId:         attr_refid,
-		Hide:          &attr_hide,
-		Key:           &attr_key,
-		QueryType:     &attr_querytype,
-	}
-	return json.Marshal(model)
 }

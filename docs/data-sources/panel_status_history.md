@@ -18,12 +18,9 @@ TODO description
 ### Required
 
 - `field_config` (Attributes) (see [below for nested schema](#nestedatt--field_config))
-- `options` (Attributes) options is specified by the PanelOptions field in panel
-plugin schemas. (see [below for nested schema](#nestedatt--options))
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `panel_field_config` (Attributes) (see [below for nested schema](#nestedatt--panel_field_config))
-- `panel_options` (Attributes) (see [below for nested schema](#nestedatt--panel_options))
 - `transformations` (Attributes List) (see [below for nested schema](#nestedatt--transformations))
-- `type` (String) The panel plugin type id. May not be empty.
 
 ### Optional
 
@@ -41,18 +38,17 @@ TODO fill this out - seems there are a couple variants? (see [below for nested s
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
 "h" for horizontal, "v" for vertical.
-TODO this is probably optional
+TODO this is probably optional. Defaults to "h".
 - `repeat_panel_id` (Number) Id of the repeating panel.
 - `tags` (List of String) TODO docs
 - `targets` (Attributes List) TODO docs (see [below for nested schema](#nestedatt--targets))
-- `thresholds` (Attributes List) TODO docs - seems to be an old field from old dashboard alerts? (see [below for nested schema](#nestedatt--thresholds))
 - `time_from` (String) TODO docs
 TODO tighter constraint
-- `time_regions` (Attributes List) TODO docs (see [below for nested schema](#nestedatt--time_regions))
 - `time_shift` (String) TODO docs
 TODO tighter constraint
 - `title` (String) Panel title.
-- `transparent` (Boolean) Whether to display the panel without a background.
+- `transparent` (Boolean) Whether to display the panel without a background. Defaults to false.
+- `type` (String) The panel plugin type id. May not be empty. Defaults to "statushistory".
 
 ### Read-Only
 
@@ -80,7 +76,6 @@ in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config
 - `display_name_from_ds` (String) This can be used by data sources that return and explicit naming structure for values and labels
 When this property is configured, this value is used rather than the default naming strategy.
 - `filterable` (Boolean) True if data source field supports ad-hoc filters
-- `links` (Attributes List) The behavior when clicking on a result (see [below for nested schema](#nestedatt--field_config--defaults--links))
 - `max` (Number)
 - `min` (Number)
 - `no_value` (String) Alternative to empty string
@@ -108,10 +103,6 @@ Optional:
 
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
-
-
-<a id="nestedatt--field_config--defaults--links"></a>
-### Nested Schema for `field_config.defaults.links`
 
 
 <a id="nestedatt--field_config--defaults--thresholds"></a>
@@ -153,7 +144,7 @@ Required:
 
 Optional:
 
-- `id` (String)
+- `id` (String) Defaults to "".
 
 
 <a id="nestedatt--field_config--overrides--properties"></a>
@@ -161,7 +152,7 @@ Optional:
 
 Optional:
 
-- `id` (String)
+- `id` (String) Defaults to "".
 
 
 
@@ -169,44 +160,20 @@ Optional:
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
 
+Required:
 
-<a id="nestedatt--panel_field_config"></a>
-### Nested Schema for `panel_field_config`
+- `legend` (Attributes) (see [below for nested schema](#nestedatt--options--legend))
+- `tooltip` (Attributes) (see [below for nested schema](#nestedatt--options--tooltip))
 
 Optional:
 
-- `fill_opacity` (Number)
-- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--panel_field_config--hide_from))
-- `line_width` (Number)
-
-<a id="nestedatt--panel_field_config--hide_from"></a>
-### Nested Schema for `panel_field_config.hide_from`
-
-Required:
-
-- `legend` (Boolean)
-- `tooltip` (Boolean)
-- `viz` (Boolean)
-
-
-
-<a id="nestedatt--panel_options"></a>
-### Nested Schema for `panel_options`
-
-Required:
-
-- `legend` (Attributes) (see [below for nested schema](#nestedatt--panel_options--legend))
-- `tooltip` (Attributes) (see [below for nested schema](#nestedatt--panel_options--tooltip))
-
-Optional:
-
-- `col_width` (Number) Controls the column width
-- `row_height` (Number) Set the height of the rows
-- `show_value` (String) Show values on the columns
+- `col_width` (Number) Controls the column width. Defaults to 0.900000.
+- `row_height` (Number) Set the height of the rows. Defaults to 0.900000.
+- `show_value` (String) Show values on the columns. Defaults to "auto".
 - `timezone` (List of String)
 
-<a id="nestedatt--panel_options--legend"></a>
-### Nested Schema for `panel_options.legend`
+<a id="nestedatt--options--legend"></a>
+### Nested Schema for `options.legend`
 
 Required:
 
@@ -224,13 +191,33 @@ Optional:
 - `width` (Number)
 
 
-<a id="nestedatt--panel_options--tooltip"></a>
-### Nested Schema for `panel_options.tooltip`
+<a id="nestedatt--options--tooltip"></a>
+### Nested Schema for `options.tooltip`
 
 Required:
 
 - `mode` (String)
 - `sort` (String)
+
+
+
+<a id="nestedatt--panel_field_config"></a>
+### Nested Schema for `panel_field_config`
+
+Optional:
+
+- `fill_opacity` (Number) Defaults to 70.
+- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--panel_field_config--hide_from))
+- `line_width` (Number) Defaults to 1.
+
+<a id="nestedatt--panel_field_config--hide_from"></a>
+### Nested Schema for `panel_field_config.hide_from`
+
+Required:
+
+- `legend` (Boolean)
+- `tooltip` (Boolean)
+- `viz` (Boolean)
 
 
 
@@ -251,7 +238,7 @@ Optional:
 
 Optional:
 
-- `id` (String)
+- `id` (String) Defaults to "".
 
 
 
@@ -269,11 +256,11 @@ Optional:
 
 Optional:
 
-- `h` (Number) Panel
+- `h` (Number) Panel. Defaults to 9.
 - `static` (Boolean) true if fixed
-- `w` (Number) Panel
-- `x` (Number) Panel x
-- `y` (Number) Panel y
+- `w` (Number) Panel. Defaults to 12.
+- `x` (Number) Panel x. Defaults to 0.
+- `y` (Number) Panel y. Defaults to 0.
 
 
 <a id="nestedatt--library_panel"></a>
@@ -299,21 +286,13 @@ Required:
 
 Optional:
 
-- `as_dropdown` (Boolean)
-- `include_vars` (Boolean)
-- `keep_time` (Boolean)
-- `target_blank` (Boolean)
+- `as_dropdown` (Boolean) Defaults to false.
+- `include_vars` (Boolean) Defaults to false.
+- `keep_time` (Boolean) Defaults to false.
+- `target_blank` (Boolean) Defaults to false.
 
 
 <a id="nestedatt--targets"></a>
 ### Nested Schema for `targets`
-
-
-<a id="nestedatt--thresholds"></a>
-### Nested Schema for `thresholds`
-
-
-<a id="nestedatt--time_regions"></a>
-### Nested Schema for `time_regions`
 
 

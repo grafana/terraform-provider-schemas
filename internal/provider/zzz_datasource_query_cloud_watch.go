@@ -33,13 +33,16 @@ func NewQueryCloudWatchDataSource() datasource.DataSource {
 // QueryCloudWatchDataSource defines the data source implementation.
 type QueryCloudWatchDataSource struct{}
 
-// QueryCloudWatchDataSourceModel describes the data source data model.
 type QueryCloudWatchDataSourceModel struct {
 	ToJSON types.String `tfsdk:"to_json"`
 }
 
-// QueryCloudWatchDataSourceModelJSON describes the data source data model when exported to json.
-type QueryCloudWatchDataSourceModelJSON struct {
+func (m QueryCloudWatchDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonQueryCloudWatchDataSourceModel struct {
+	}
+
+	model := &jsonQueryCloudWatchDataSourceModel{}
+	return json.Marshal(model)
 }
 
 func (d *QueryCloudWatchDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -88,10 +91,4 @@ func (d *QueryCloudWatchDataSource) Read(ctx context.Context, req datasource.Rea
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d QueryCloudWatchDataSourceModel) MarshalJSON() ([]byte, error) {
-
-	model := &QueryCloudWatchDataSourceModelJSON{}
-	return json.Marshal(model)
 }

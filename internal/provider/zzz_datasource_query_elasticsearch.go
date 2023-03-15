@@ -33,8 +33,8 @@ func NewQueryElasticsearchDataSource() datasource.DataSource {
 // QueryElasticsearchDataSource defines the data source implementation.
 type QueryElasticsearchDataSource struct{}
 
-// QueryElasticsearchDataSourceModel describes the data source data model.
 type QueryElasticsearchDataSourceModel struct {
+	ToJSON    types.String `tfsdk:"to_json"`
 	Alias     types.String `tfsdk:"alias"`
 	Query     types.String `tfsdk:"query"`
 	TimeField types.String `tfsdk:"time_field"`
@@ -42,18 +42,36 @@ type QueryElasticsearchDataSourceModel struct {
 	Hide      types.Bool   `tfsdk:"hide"`
 	Key       types.String `tfsdk:"key"`
 	QueryType types.String `tfsdk:"query_type"`
-	ToJSON    types.String `tfsdk:"to_json"`
 }
 
-// QueryElasticsearchDataSourceModelJSON describes the data source data model when exported to json.
-type QueryElasticsearchDataSourceModelJSON struct {
-	Alias     *string `json:"alias,omitempty"`
-	Query     *string `json:"query,omitempty"`
-	TimeField *string `json:"timeField,omitempty"`
-	RefId     string  `json:"refId"`
-	Hide      *bool   `json:"hide,omitempty"`
-	Key       *string `json:"key,omitempty"`
-	QueryType *string `json:"queryType,omitempty"`
+func (m QueryElasticsearchDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonQueryElasticsearchDataSourceModel struct {
+		Alias     *string `json:"alias,omitempty"`
+		Query     *string `json:"query,omitempty"`
+		TimeField *string `json:"timeField,omitempty"`
+		RefId     string  `json:"refId"`
+		Hide      *bool   `json:"hide,omitempty"`
+		Key       *string `json:"key,omitempty"`
+		QueryType *string `json:"queryType,omitempty"`
+	}
+	attr_alias := m.Alias.ValueString()
+	attr_query := m.Query.ValueString()
+	attr_timefield := m.TimeField.ValueString()
+	attr_refid := m.RefId.ValueString()
+	attr_hide := m.Hide.ValueBool()
+	attr_key := m.Key.ValueString()
+	attr_querytype := m.QueryType.ValueString()
+
+	model := &jsonQueryElasticsearchDataSourceModel{
+		Alias:     &attr_alias,
+		Query:     &attr_query,
+		TimeField: &attr_timefield,
+		RefId:     attr_refid,
+		Hide:      &attr_hide,
+		Key:       &attr_key,
+		QueryType: &attr_querytype,
+	}
+	return json.Marshal(model)
 }
 
 func (d *QueryElasticsearchDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -145,25 +163,4 @@ func (d *QueryElasticsearchDataSource) Read(ctx context.Context, req datasource.
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d QueryElasticsearchDataSourceModel) MarshalJSON() ([]byte, error) {
-	attr_alias := d.Alias.ValueString()
-	attr_query := d.Query.ValueString()
-	attr_timefield := d.TimeField.ValueString()
-	attr_refid := d.RefId.ValueString()
-	attr_hide := d.Hide.ValueBool()
-	attr_key := d.Key.ValueString()
-	attr_querytype := d.QueryType.ValueString()
-
-	model := &QueryElasticsearchDataSourceModelJSON{
-		Alias:     &attr_alias,
-		Query:     &attr_query,
-		TimeField: &attr_timefield,
-		RefId:     attr_refid,
-		Hide:      &attr_hide,
-		Key:       &attr_key,
-		QueryType: &attr_querytype,
-	}
-	return json.Marshal(model)
 }

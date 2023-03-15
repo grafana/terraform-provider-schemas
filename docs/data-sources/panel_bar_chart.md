@@ -18,12 +18,9 @@ TODO description
 ### Required
 
 - `field_config` (Attributes) (see [below for nested schema](#nestedatt--field_config))
-- `options` (Attributes) options is specified by the PanelOptions field in panel
-plugin schemas. (see [below for nested schema](#nestedatt--options))
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `panel_field_config` (Attributes) (see [below for nested schema](#nestedatt--panel_field_config))
-- `panel_options` (Attributes) (see [below for nested schema](#nestedatt--panel_options))
 - `transformations` (Attributes List) (see [below for nested schema](#nestedatt--transformations))
-- `type` (String) The panel plugin type id. May not be empty.
 
 ### Optional
 
@@ -41,18 +38,17 @@ TODO fill this out - seems there are a couple variants? (see [below for nested s
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
 "h" for horizontal, "v" for vertical.
-TODO this is probably optional
+TODO this is probably optional. Defaults to "h".
 - `repeat_panel_id` (Number) Id of the repeating panel.
 - `tags` (List of String) TODO docs
 - `targets` (Attributes List) TODO docs (see [below for nested schema](#nestedatt--targets))
-- `thresholds` (Attributes List) TODO docs - seems to be an old field from old dashboard alerts? (see [below for nested schema](#nestedatt--thresholds))
 - `time_from` (String) TODO docs
 TODO tighter constraint
-- `time_regions` (Attributes List) TODO docs (see [below for nested schema](#nestedatt--time_regions))
 - `time_shift` (String) TODO docs
 TODO tighter constraint
 - `title` (String) Panel title.
-- `transparent` (Boolean) Whether to display the panel without a background.
+- `transparent` (Boolean) Whether to display the panel without a background. Defaults to false.
+- `type` (String) The panel plugin type id. May not be empty. Defaults to "barchart".
 
 ### Read-Only
 
@@ -80,7 +76,6 @@ in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config
 - `display_name_from_ds` (String) This can be used by data sources that return and explicit naming structure for values and labels
 When this property is configured, this value is used rather than the default naming strategy.
 - `filterable` (Boolean) True if data source field supports ad-hoc filters
-- `links` (Attributes List) The behavior when clicking on a result (see [below for nested schema](#nestedatt--field_config--defaults--links))
 - `max` (Number)
 - `min` (Number)
 - `no_value` (String) Alternative to empty string
@@ -108,10 +103,6 @@ Optional:
 
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
-
-
-<a id="nestedatt--field_config--defaults--links"></a>
-### Nested Schema for `field_config.defaults.links`
 
 
 <a id="nestedatt--field_config--defaults--thresholds"></a>
@@ -153,7 +144,7 @@ Required:
 
 Optional:
 
-- `id` (String)
+- `id` (String) Defaults to "".
 
 
 <a id="nestedatt--field_config--overrides--properties"></a>
@@ -161,13 +152,73 @@ Optional:
 
 Optional:
 
-- `id` (String)
+- `id` (String) Defaults to "".
 
 
 
 
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
+
+Required:
+
+- `legend` (Attributes) (see [below for nested schema](#nestedatt--options--legend))
+- `tooltip` (Attributes) (see [below for nested schema](#nestedatt--options--tooltip))
+- `x_tick_label_max_length` (Number) Sets the max length that a label can have before it is truncated.
+
+Optional:
+
+- `bar_radius` (Number) Controls the radius of each bar.
+- `bar_width` (Number) Controls the width of bars. 1 = Max width, 0 = Min width. Defaults to 0.970000.
+- `color_by_field` (String) Use the color value for a sibling field to color each bar value.
+- `full_highlight` (Boolean) Enables mode which highlights the entire bar area and shows tooltip when cursor
+hovers over highlighted area. Defaults to false.
+- `group_width` (Number) Controls the width of groups. 1 = max with, 0 = min width. Defaults to 0.700000.
+- `orientation` (String) Controls the orientation of the bar chart, either vertical or horizontal. Defaults to "auto".
+- `show_value` (String) This controls whether values are shown on top or to the left of bars. Defaults to "auto".
+- `stacking` (String) Controls whether bars are stacked or not, either normally or in percent mode. Defaults to "none".
+- `text` (Attributes) (see [below for nested schema](#nestedatt--options--text))
+- `x_field` (String) Manually select which field from the dataset to represent the x field.
+- `x_tick_label_rotation` (Number) Controls the rotation of the x axis labels. Defaults to 0.
+- `x_tick_label_spacing` (Number) Controls the spacing between x axis labels.
+negative values indicate backwards skipping behavior. Defaults to 0.
+
+<a id="nestedatt--options--legend"></a>
+### Nested Schema for `options.legend`
+
+Required:
+
+- `calcs` (List of String)
+- `display_mode` (String)
+- `placement` (String)
+- `show_legend` (Boolean)
+
+Optional:
+
+- `as_table` (Boolean)
+- `is_visible` (Boolean)
+- `sort_by` (String)
+- `sort_desc` (Boolean)
+- `width` (Number)
+
+
+<a id="nestedatt--options--tooltip"></a>
+### Nested Schema for `options.tooltip`
+
+Required:
+
+- `mode` (String)
+- `sort` (String)
+
+
+<a id="nestedatt--options--text"></a>
+### Nested Schema for `options.text`
+
+Optional:
+
+- `title_size` (Number) Explicit title text size
+- `value_size` (Number) Explicit value text size
+
 
 
 <a id="nestedatt--panel_field_config"></a>
@@ -183,11 +234,11 @@ Optional:
 - `axis_soft_max` (Number)
 - `axis_soft_min` (Number)
 - `axis_width` (Number)
-- `fill_opacity` (Number) Controls the fill opacity of the bars.
+- `fill_opacity` (Number) Controls the fill opacity of the bars. Defaults to 80.
 - `gradient_mode` (String) Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
-Gradient appearance is influenced by the Fill opacity setting.
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".
 - `hide_from` (Attributes) (see [below for nested schema](#nestedatt--panel_field_config--hide_from))
-- `line_width` (Number) Controls line width of the bars.
+- `line_width` (Number) Controls line width of the bars. Defaults to 1.
 - `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--panel_field_config--scale_distribution))
 - `thresholds_style` (Attributes) Threshold rendering (see [below for nested schema](#nestedatt--panel_field_config--thresholds_style))
 
@@ -223,70 +274,6 @@ Required:
 
 
 
-<a id="nestedatt--panel_options"></a>
-### Nested Schema for `panel_options`
-
-Required:
-
-- `legend` (Attributes) (see [below for nested schema](#nestedatt--panel_options--legend))
-- `tooltip` (Attributes) (see [below for nested schema](#nestedatt--panel_options--tooltip))
-- `x_tick_label_max_length` (Number) Sets the max length that a label can have before it is truncated.
-
-Optional:
-
-- `bar_radius` (Number) Controls the radius of each bar.
-- `bar_width` (Number) Controls the width of bars. 1 = Max width, 0 = Min width.
-- `color_by_field` (String) Use the color value for a sibling field to color each bar value.
-- `full_highlight` (Boolean) Enables mode which highlights the entire bar area and shows tooltip when cursor
-hovers over highlighted area
-- `group_width` (Number) Controls the width of groups. 1 = max with, 0 = min width.
-- `orientation` (String) Controls the orientation of the bar chart, either vertical or horizontal.
-- `show_value` (String) This controls whether values are shown on top or to the left of bars.
-- `stacking` (String) Controls whether bars are stacked or not, either normally or in percent mode.
-- `text` (Attributes) (see [below for nested schema](#nestedatt--panel_options--text))
-- `x_field` (String) Manually select which field from the dataset to represent the x field.
-- `x_tick_label_rotation` (Number) Controls the rotation of the x axis labels.
-- `x_tick_label_spacing` (Number) Controls the spacing between x axis labels.
-negative values indicate backwards skipping behavior
-
-<a id="nestedatt--panel_options--legend"></a>
-### Nested Schema for `panel_options.legend`
-
-Required:
-
-- `calcs` (List of String)
-- `display_mode` (String)
-- `placement` (String)
-- `show_legend` (Boolean)
-
-Optional:
-
-- `as_table` (Boolean)
-- `is_visible` (Boolean)
-- `sort_by` (String)
-- `sort_desc` (Boolean)
-- `width` (Number)
-
-
-<a id="nestedatt--panel_options--tooltip"></a>
-### Nested Schema for `panel_options.tooltip`
-
-Required:
-
-- `mode` (String)
-- `sort` (String)
-
-
-<a id="nestedatt--panel_options--text"></a>
-### Nested Schema for `panel_options.text`
-
-Optional:
-
-- `title_size` (Number) Explicit title text size
-- `value_size` (Number) Explicit value text size
-
-
-
 <a id="nestedatt--transformations"></a>
 ### Nested Schema for `transformations`
 
@@ -304,7 +291,7 @@ Optional:
 
 Optional:
 
-- `id` (String)
+- `id` (String) Defaults to "".
 
 
 
@@ -322,11 +309,11 @@ Optional:
 
 Optional:
 
-- `h` (Number) Panel
+- `h` (Number) Panel. Defaults to 9.
 - `static` (Boolean) true if fixed
-- `w` (Number) Panel
-- `x` (Number) Panel x
-- `y` (Number) Panel y
+- `w` (Number) Panel. Defaults to 12.
+- `x` (Number) Panel x. Defaults to 0.
+- `y` (Number) Panel y. Defaults to 0.
 
 
 <a id="nestedatt--library_panel"></a>
@@ -352,21 +339,13 @@ Required:
 
 Optional:
 
-- `as_dropdown` (Boolean)
-- `include_vars` (Boolean)
-- `keep_time` (Boolean)
-- `target_blank` (Boolean)
+- `as_dropdown` (Boolean) Defaults to false.
+- `include_vars` (Boolean) Defaults to false.
+- `keep_time` (Boolean) Defaults to false.
+- `target_blank` (Boolean) Defaults to false.
 
 
 <a id="nestedatt--targets"></a>
 ### Nested Schema for `targets`
-
-
-<a id="nestedatt--thresholds"></a>
-### Nested Schema for `thresholds`
-
-
-<a id="nestedatt--time_regions"></a>
-### Nested Schema for `time_regions`
 
 

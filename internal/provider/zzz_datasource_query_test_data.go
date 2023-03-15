@@ -33,131 +33,343 @@ func NewQueryTestDataDataSource() datasource.DataSource {
 // QueryTestDataDataSource defines the data source implementation.
 type QueryTestDataDataSource struct{}
 
-// QueryTestDataDataSourceModel describes the data source data model.
-type QueryTestDataDataSourceModel struct {
-	Alias       types.String `tfsdk:"alias"`
-	ScenarioId  types.String `tfsdk:"scenario_id"`
-	StringInput types.String `tfsdk:"string_input"`
-	Stream      *struct {
-		Type   types.String `tfsdk:"type"`
-		Speed  types.Int64  `tfsdk:"speed"`
-		Spread types.Int64  `tfsdk:"spread"`
-		Noise  types.Int64  `tfsdk:"noise"`
-		Bands  types.Int64  `tfsdk:"bands"`
-		Url    types.String `tfsdk:"url"`
-	} `tfsdk:"stream"`
-	PulseWave *struct {
-		TimeStep types.Int64   `tfsdk:"time_step"`
-		OnCount  types.Int64   `tfsdk:"on_count"`
-		OffCount types.Int64   `tfsdk:"off_count"`
-		OnValue  types.Float64 `tfsdk:"on_value"`
-		OffValue types.Float64 `tfsdk:"off_value"`
-	} `tfsdk:"pulse_wave"`
-	Sim *struct {
-		Key struct {
-			Type types.String  `tfsdk:"type"`
-			Tick types.Float64 `tfsdk:"tick"`
-			Uid  types.String  `tfsdk:"uid"`
-		} `tfsdk:"key"`
-		Config *struct {
-		} `tfsdk:"config"`
-		Stream types.Bool `tfsdk:"stream"`
-		Last   types.Bool `tfsdk:"last"`
-	} `tfsdk:"sim"`
-	CsvWave []struct {
-		TimeStep  types.Int64  `tfsdk:"time_step"`
-		Name      types.String `tfsdk:"name"`
-		ValuesCSV types.String `tfsdk:"values_csv"`
-		Labels    types.String `tfsdk:"labels"`
-	} `tfsdk:"csv_wave"`
-	Labels      types.String `tfsdk:"labels"`
-	Lines       types.Int64  `tfsdk:"lines"`
-	LevelColumn types.Bool   `tfsdk:"level_column"`
-	Channel     types.String `tfsdk:"channel"`
-	Nodes       *struct {
-		Type  types.String `tfsdk:"type"`
-		Count types.Int64  `tfsdk:"count"`
-	} `tfsdk:"nodes"`
-	CsvFileName     types.String `tfsdk:"csv_file_name"`
-	CsvContent      types.String `tfsdk:"csv_content"`
-	RawFrameContent types.String `tfsdk:"raw_frame_content"`
-	SeriesCount     types.Int64  `tfsdk:"series_count"`
-	Usa             *struct {
-		Mode   types.String `tfsdk:"mode"`
-		Period types.String `tfsdk:"period"`
-		Fields types.List   `tfsdk:"fields"`
-		States types.List   `tfsdk:"states"`
-	} `tfsdk:"usa"`
-	ErrorType types.String `tfsdk:"error_type"`
-	SpanCount types.Int64  `tfsdk:"span_count"`
-	RefId     types.String `tfsdk:"ref_id"`
-	Hide      types.Bool   `tfsdk:"hide"`
-	Key       types.String `tfsdk:"key"`
-	QueryType types.String `tfsdk:"query_type"`
-	ToJSON    types.String `tfsdk:"to_json"`
+type QueryTestDataDataSourceModel_Stream struct {
+	Type   types.String `tfsdk:"type"`
+	Speed  types.Int64  `tfsdk:"speed"`
+	Spread types.Int64  `tfsdk:"spread"`
+	Noise  types.Int64  `tfsdk:"noise"`
+	Bands  types.Int64  `tfsdk:"bands"`
+	Url    types.String `tfsdk:"url"`
 }
 
-// QueryTestDataDataSourceModelJSON describes the data source data model when exported to json.
-type QueryTestDataDataSourceModelJSON struct {
-	Alias       *string `json:"alias,omitempty"`
-	ScenarioId  *string `json:"scenarioId,omitempty"`
-	StringInput *string `json:"stringInput,omitempty"`
-	Stream      *struct {
+func (m QueryTestDataDataSourceModel_Stream) MarshalJSON() ([]byte, error) {
+	type jsonQueryTestDataDataSourceModel_Stream struct {
 		Type   string  `json:"type"`
 		Speed  int64   `json:"speed"`
 		Spread int64   `json:"spread"`
 		Noise  int64   `json:"noise"`
 		Bands  *int64  `json:"bands,omitempty"`
 		Url    *string `json:"url,omitempty"`
-	} `json:"stream,omitempty"`
-	PulseWave *struct {
+	}
+	attr_type := m.Type.ValueString()
+	attr_speed := m.Speed.ValueInt64()
+	attr_spread := m.Spread.ValueInt64()
+	attr_noise := m.Noise.ValueInt64()
+	attr_bands := m.Bands.ValueInt64()
+	attr_url := m.Url.ValueString()
+
+	model := &jsonQueryTestDataDataSourceModel_Stream{
+		Type:   attr_type,
+		Speed:  attr_speed,
+		Spread: attr_spread,
+		Noise:  attr_noise,
+		Bands:  &attr_bands,
+		Url:    &attr_url,
+	}
+	return json.Marshal(model)
+}
+
+type QueryTestDataDataSourceModel_PulseWave struct {
+	TimeStep types.Int64   `tfsdk:"time_step"`
+	OnCount  types.Int64   `tfsdk:"on_count"`
+	OffCount types.Int64   `tfsdk:"off_count"`
+	OnValue  types.Float64 `tfsdk:"on_value"`
+	OffValue types.Float64 `tfsdk:"off_value"`
+}
+
+func (m QueryTestDataDataSourceModel_PulseWave) MarshalJSON() ([]byte, error) {
+	type jsonQueryTestDataDataSourceModel_PulseWave struct {
 		TimeStep *int64   `json:"timeStep,omitempty"`
 		OnCount  *int64   `json:"onCount,omitempty"`
 		OffCount *int64   `json:"offCount,omitempty"`
 		OnValue  *float64 `json:"onValue,omitempty"`
 		OffValue *float64 `json:"offValue,omitempty"`
-	} `json:"pulseWave,omitempty"`
-	Sim *struct {
-		Key struct {
-			Type string  `json:"type"`
-			Tick float64 `json:"tick"`
-			Uid  *string `json:"uid,omitempty"`
-		} `json:"key"`
-		Config *struct {
-		} `json:"config,omitempty"`
-		Stream *bool `json:"stream,omitempty"`
-		Last   *bool `json:"last,omitempty"`
-	} `json:"sim,omitempty"`
-	CsvWave []struct {
+	}
+	attr_timestep := m.TimeStep.ValueInt64()
+	attr_oncount := m.OnCount.ValueInt64()
+	attr_offcount := m.OffCount.ValueInt64()
+	attr_onvalue := m.OnValue.ValueFloat64()
+	attr_offvalue := m.OffValue.ValueFloat64()
+
+	model := &jsonQueryTestDataDataSourceModel_PulseWave{
+		TimeStep: &attr_timestep,
+		OnCount:  &attr_oncount,
+		OffCount: &attr_offcount,
+		OnValue:  &attr_onvalue,
+		OffValue: &attr_offvalue,
+	}
+	return json.Marshal(model)
+}
+
+type QueryTestDataDataSourceModel_Sim_Key struct {
+	Type types.String  `tfsdk:"type"`
+	Tick types.Float64 `tfsdk:"tick"`
+	Uid  types.String  `tfsdk:"uid"`
+}
+
+func (m QueryTestDataDataSourceModel_Sim_Key) MarshalJSON() ([]byte, error) {
+	type jsonQueryTestDataDataSourceModel_Sim_Key struct {
+		Type string  `json:"type"`
+		Tick float64 `json:"tick"`
+		Uid  *string `json:"uid,omitempty"`
+	}
+	attr_type := m.Type.ValueString()
+	attr_tick := m.Tick.ValueFloat64()
+	attr_uid := m.Uid.ValueString()
+
+	model := &jsonQueryTestDataDataSourceModel_Sim_Key{
+		Type: attr_type,
+		Tick: attr_tick,
+		Uid:  &attr_uid,
+	}
+	return json.Marshal(model)
+}
+
+type QueryTestDataDataSourceModel_Sim_Config struct {
+}
+
+func (m QueryTestDataDataSourceModel_Sim_Config) MarshalJSON() ([]byte, error) {
+	type jsonQueryTestDataDataSourceModel_Sim_Config struct {
+	}
+
+	model := &jsonQueryTestDataDataSourceModel_Sim_Config{}
+	return json.Marshal(model)
+}
+
+type QueryTestDataDataSourceModel_Sim struct {
+	Key    QueryTestDataDataSourceModel_Sim_Key     `tfsdk:"key"`
+	Config *QueryTestDataDataSourceModel_Sim_Config `tfsdk:"config"`
+	Stream types.Bool                               `tfsdk:"stream"`
+	Last   types.Bool                               `tfsdk:"last"`
+}
+
+func (m QueryTestDataDataSourceModel_Sim) MarshalJSON() ([]byte, error) {
+	type jsonQueryTestDataDataSourceModel_Sim struct {
+		Key    interface{} `json:"key"`
+		Config interface{} `json:"config,omitempty"`
+		Stream *bool       `json:"stream,omitempty"`
+		Last   *bool       `json:"last,omitempty"`
+	}
+	var attr_key interface{} = m.Key
+	var attr_config interface{}
+	if m.Config != nil {
+		attr_config = m.Config
+	}
+	attr_stream := m.Stream.ValueBool()
+	attr_last := m.Last.ValueBool()
+
+	model := &jsonQueryTestDataDataSourceModel_Sim{
+		Key:    attr_key,
+		Config: attr_config,
+		Stream: &attr_stream,
+		Last:   &attr_last,
+	}
+	return json.Marshal(model)
+}
+
+type QueryTestDataDataSourceModel_CsvWave struct {
+	TimeStep  types.Int64  `tfsdk:"time_step"`
+	Name      types.String `tfsdk:"name"`
+	ValuesCSV types.String `tfsdk:"values_csv"`
+	Labels    types.String `tfsdk:"labels"`
+}
+
+func (m QueryTestDataDataSourceModel_CsvWave) MarshalJSON() ([]byte, error) {
+	type jsonQueryTestDataDataSourceModel_CsvWave struct {
 		TimeStep  *int64  `json:"timeStep,omitempty"`
 		Name      *string `json:"name,omitempty"`
 		ValuesCSV *string `json:"valuesCSV,omitempty"`
 		Labels    *string `json:"labels,omitempty"`
-	} `json:"csvWave,omitempty"`
-	Labels      *string `json:"labels,omitempty"`
-	Lines       *int64  `json:"lines,omitempty"`
-	LevelColumn *bool   `json:"levelColumn,omitempty"`
-	Channel     *string `json:"channel,omitempty"`
-	Nodes       *struct {
+	}
+	attr_timestep := m.TimeStep.ValueInt64()
+	attr_name := m.Name.ValueString()
+	attr_valuescsv := m.ValuesCSV.ValueString()
+	attr_labels := m.Labels.ValueString()
+
+	model := &jsonQueryTestDataDataSourceModel_CsvWave{
+		TimeStep:  &attr_timestep,
+		Name:      &attr_name,
+		ValuesCSV: &attr_valuescsv,
+		Labels:    &attr_labels,
+	}
+	return json.Marshal(model)
+}
+
+type QueryTestDataDataSourceModel_Nodes struct {
+	Type  types.String `tfsdk:"type"`
+	Count types.Int64  `tfsdk:"count"`
+}
+
+func (m QueryTestDataDataSourceModel_Nodes) MarshalJSON() ([]byte, error) {
+	type jsonQueryTestDataDataSourceModel_Nodes struct {
 		Type  *string `json:"type,omitempty"`
 		Count *int64  `json:"count,omitempty"`
-	} `json:"nodes,omitempty"`
-	CsvFileName     *string `json:"csvFileName,omitempty"`
-	CsvContent      *string `json:"csvContent,omitempty"`
-	RawFrameContent *string `json:"rawFrameContent,omitempty"`
-	SeriesCount     *int64  `json:"seriesCount,omitempty"`
-	Usa             *struct {
+	}
+	attr_type := m.Type.ValueString()
+	attr_count := m.Count.ValueInt64()
+
+	model := &jsonQueryTestDataDataSourceModel_Nodes{
+		Type:  &attr_type,
+		Count: &attr_count,
+	}
+	return json.Marshal(model)
+}
+
+type QueryTestDataDataSourceModel_Usa struct {
+	Mode   types.String `tfsdk:"mode"`
+	Period types.String `tfsdk:"period"`
+	Fields types.List   `tfsdk:"fields"`
+	States types.List   `tfsdk:"states"`
+}
+
+func (m QueryTestDataDataSourceModel_Usa) MarshalJSON() ([]byte, error) {
+	type jsonQueryTestDataDataSourceModel_Usa struct {
 		Mode   *string  `json:"mode,omitempty"`
 		Period *string  `json:"period,omitempty"`
 		Fields []string `json:"fields,omitempty"`
 		States []string `json:"states,omitempty"`
-	} `json:"usa,omitempty"`
-	ErrorType *string `json:"errorType,omitempty"`
-	SpanCount *int64  `json:"spanCount,omitempty"`
-	RefId     string  `json:"refId"`
-	Hide      *bool   `json:"hide,omitempty"`
-	Key       *string `json:"key,omitempty"`
-	QueryType *string `json:"queryType,omitempty"`
+	}
+	attr_mode := m.Mode.ValueString()
+	attr_period := m.Period.ValueString()
+	attr_fields := []string{}
+	for _, v := range m.Fields.Elements() {
+		attr_fields = append(attr_fields, v.(types.String).ValueString())
+	}
+	attr_states := []string{}
+	for _, v := range m.States.Elements() {
+		attr_states = append(attr_states, v.(types.String).ValueString())
+	}
+
+	model := &jsonQueryTestDataDataSourceModel_Usa{
+		Mode:   &attr_mode,
+		Period: &attr_period,
+		Fields: attr_fields,
+		States: attr_states,
+	}
+	return json.Marshal(model)
+}
+
+type QueryTestDataDataSourceModel struct {
+	ToJSON          types.String                            `tfsdk:"to_json"`
+	Alias           types.String                            `tfsdk:"alias"`
+	ScenarioId      types.String                            `tfsdk:"scenario_id"`
+	StringInput     types.String                            `tfsdk:"string_input"`
+	Stream          *QueryTestDataDataSourceModel_Stream    `tfsdk:"stream"`
+	PulseWave       *QueryTestDataDataSourceModel_PulseWave `tfsdk:"pulse_wave"`
+	Sim             *QueryTestDataDataSourceModel_Sim       `tfsdk:"sim"`
+	CsvWave         []QueryTestDataDataSourceModel_CsvWave  `tfsdk:"csv_wave"`
+	Labels          types.String                            `tfsdk:"labels"`
+	Lines           types.Int64                             `tfsdk:"lines"`
+	LevelColumn     types.Bool                              `tfsdk:"level_column"`
+	Channel         types.String                            `tfsdk:"channel"`
+	Nodes           *QueryTestDataDataSourceModel_Nodes     `tfsdk:"nodes"`
+	CsvFileName     types.String                            `tfsdk:"csv_file_name"`
+	CsvContent      types.String                            `tfsdk:"csv_content"`
+	RawFrameContent types.String                            `tfsdk:"raw_frame_content"`
+	SeriesCount     types.Int64                             `tfsdk:"series_count"`
+	Usa             *QueryTestDataDataSourceModel_Usa       `tfsdk:"usa"`
+	ErrorType       types.String                            `tfsdk:"error_type"`
+	SpanCount       types.Int64                             `tfsdk:"span_count"`
+	RefId           types.String                            `tfsdk:"ref_id"`
+	Hide            types.Bool                              `tfsdk:"hide"`
+	Key             types.String                            `tfsdk:"key"`
+	QueryType       types.String                            `tfsdk:"query_type"`
+}
+
+func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonQueryTestDataDataSourceModel struct {
+		Alias           *string       `json:"alias,omitempty"`
+		ScenarioId      *string       `json:"scenarioId,omitempty"`
+		StringInput     *string       `json:"stringInput,omitempty"`
+		Stream          interface{}   `json:"stream,omitempty"`
+		PulseWave       interface{}   `json:"pulseWave,omitempty"`
+		Sim             interface{}   `json:"sim,omitempty"`
+		CsvWave         []interface{} `json:"csvWave,omitempty"`
+		Labels          *string       `json:"labels,omitempty"`
+		Lines           *int64        `json:"lines,omitempty"`
+		LevelColumn     *bool         `json:"levelColumn,omitempty"`
+		Channel         *string       `json:"channel,omitempty"`
+		Nodes           interface{}   `json:"nodes,omitempty"`
+		CsvFileName     *string       `json:"csvFileName,omitempty"`
+		CsvContent      *string       `json:"csvContent,omitempty"`
+		RawFrameContent *string       `json:"rawFrameContent,omitempty"`
+		SeriesCount     *int64        `json:"seriesCount,omitempty"`
+		Usa             interface{}   `json:"usa,omitempty"`
+		ErrorType       *string       `json:"errorType,omitempty"`
+		SpanCount       *int64        `json:"spanCount,omitempty"`
+		RefId           string        `json:"refId"`
+		Hide            *bool         `json:"hide,omitempty"`
+		Key             *string       `json:"key,omitempty"`
+		QueryType       *string       `json:"queryType,omitempty"`
+	}
+	attr_alias := m.Alias.ValueString()
+	attr_scenarioid := m.ScenarioId.ValueString()
+	attr_stringinput := m.StringInput.ValueString()
+	var attr_stream interface{}
+	if m.Stream != nil {
+		attr_stream = m.Stream
+	}
+	var attr_pulsewave interface{}
+	if m.PulseWave != nil {
+		attr_pulsewave = m.PulseWave
+	}
+	var attr_sim interface{}
+	if m.Sim != nil {
+		attr_sim = m.Sim
+	}
+	attr_csvwave := []interface{}{}
+	for _, v := range m.CsvWave {
+		attr_csvwave = append(attr_csvwave, v)
+	}
+	attr_labels := m.Labels.ValueString()
+	attr_lines := m.Lines.ValueInt64()
+	attr_levelcolumn := m.LevelColumn.ValueBool()
+	attr_channel := m.Channel.ValueString()
+	var attr_nodes interface{}
+	if m.Nodes != nil {
+		attr_nodes = m.Nodes
+	}
+	attr_csvfilename := m.CsvFileName.ValueString()
+	attr_csvcontent := m.CsvContent.ValueString()
+	attr_rawframecontent := m.RawFrameContent.ValueString()
+	attr_seriescount := m.SeriesCount.ValueInt64()
+	var attr_usa interface{}
+	if m.Usa != nil {
+		attr_usa = m.Usa
+	}
+	attr_errortype := m.ErrorType.ValueString()
+	attr_spancount := m.SpanCount.ValueInt64()
+	attr_refid := m.RefId.ValueString()
+	attr_hide := m.Hide.ValueBool()
+	attr_key := m.Key.ValueString()
+	attr_querytype := m.QueryType.ValueString()
+
+	model := &jsonQueryTestDataDataSourceModel{
+		Alias:           &attr_alias,
+		ScenarioId:      &attr_scenarioid,
+		StringInput:     &attr_stringinput,
+		Stream:          attr_stream,
+		PulseWave:       attr_pulsewave,
+		Sim:             attr_sim,
+		CsvWave:         attr_csvwave,
+		Labels:          &attr_labels,
+		Lines:           &attr_lines,
+		LevelColumn:     &attr_levelcolumn,
+		Channel:         &attr_channel,
+		Nodes:           attr_nodes,
+		CsvFileName:     &attr_csvfilename,
+		CsvContent:      &attr_csvcontent,
+		RawFrameContent: &attr_rawframecontent,
+		SeriesCount:     &attr_seriescount,
+		Usa:             attr_usa,
+		ErrorType:       &attr_errortype,
+		SpanCount:       &attr_spancount,
+		RefId:           attr_refid,
+		Hide:            &attr_hide,
+		Key:             &attr_key,
+		QueryType:       &attr_querytype,
+	}
+	return json.Marshal(model)
 }
 
 func (d *QueryTestDataDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -176,7 +388,7 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 				Required:            false,
 			},
 			"scenario_id": schema.StringAttribute{
-				MarkdownDescription: ``,
+				MarkdownDescription: ` Defaults to "random_walk".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -538,45 +750,4 @@ func (d *QueryTestDataDataSource) applyDefaults(data *QueryTestDataDataSourceMod
 	if data.ScenarioId.IsNull() {
 		data.ScenarioId = types.StringValue(`random_walk`)
 	}
-}
-
-func (d QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
-	attr_alias := d.Alias.ValueString()
-	attr_scenarioid := d.ScenarioId.ValueString()
-	attr_stringinput := d.StringInput.ValueString()
-	attr_labels := d.Labels.ValueString()
-	attr_lines := d.Lines.ValueInt64()
-	attr_levelcolumn := d.LevelColumn.ValueBool()
-	attr_channel := d.Channel.ValueString()
-	attr_csvfilename := d.CsvFileName.ValueString()
-	attr_csvcontent := d.CsvContent.ValueString()
-	attr_rawframecontent := d.RawFrameContent.ValueString()
-	attr_seriescount := d.SeriesCount.ValueInt64()
-	attr_errortype := d.ErrorType.ValueString()
-	attr_spancount := d.SpanCount.ValueInt64()
-	attr_refid := d.RefId.ValueString()
-	attr_hide := d.Hide.ValueBool()
-	attr_key := d.Key.ValueString()
-	attr_querytype := d.QueryType.ValueString()
-
-	model := &QueryTestDataDataSourceModelJSON{
-		Alias:           &attr_alias,
-		ScenarioId:      &attr_scenarioid,
-		StringInput:     &attr_stringinput,
-		Labels:          &attr_labels,
-		Lines:           &attr_lines,
-		LevelColumn:     &attr_levelcolumn,
-		Channel:         &attr_channel,
-		CsvFileName:     &attr_csvfilename,
-		CsvContent:      &attr_csvcontent,
-		RawFrameContent: &attr_rawframecontent,
-		SeriesCount:     &attr_seriescount,
-		ErrorType:       &attr_errortype,
-		SpanCount:       &attr_spancount,
-		RefId:           attr_refid,
-		Hide:            &attr_hide,
-		Key:             &attr_key,
-		QueryType:       &attr_querytype,
-	}
-	return json.Marshal(model)
 }

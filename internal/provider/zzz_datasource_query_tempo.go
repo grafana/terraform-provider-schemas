@@ -33,8 +33,8 @@ func NewQueryTempoDataSource() datasource.DataSource {
 // QueryTempoDataSource defines the data source implementation.
 type QueryTempoDataSource struct{}
 
-// QueryTempoDataSourceModel describes the data source data model.
 type QueryTempoDataSourceModel struct {
+	ToJSON          types.String `tfsdk:"to_json"`
 	Query           types.String `tfsdk:"query"`
 	Search          types.String `tfsdk:"search"`
 	ServiceName     types.String `tfsdk:"service_name"`
@@ -47,23 +47,51 @@ type QueryTempoDataSourceModel struct {
 	Hide            types.Bool   `tfsdk:"hide"`
 	Key             types.String `tfsdk:"key"`
 	QueryType       types.String `tfsdk:"query_type"`
-	ToJSON          types.String `tfsdk:"to_json"`
 }
 
-// QueryTempoDataSourceModelJSON describes the data source data model when exported to json.
-type QueryTempoDataSourceModelJSON struct {
-	Query           string  `json:"query"`
-	Search          *string `json:"search,omitempty"`
-	ServiceName     *string `json:"serviceName,omitempty"`
-	SpanName        *string `json:"spanName,omitempty"`
-	MinDuration     *string `json:"minDuration,omitempty"`
-	MaxDuration     *string `json:"maxDuration,omitempty"`
-	ServiceMapQuery *string `json:"serviceMapQuery,omitempty"`
-	Limit           *int64  `json:"limit,omitempty"`
-	RefId           string  `json:"refId"`
-	Hide            *bool   `json:"hide,omitempty"`
-	Key             *string `json:"key,omitempty"`
-	QueryType       *string `json:"queryType,omitempty"`
+func (m QueryTempoDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonQueryTempoDataSourceModel struct {
+		Query           string  `json:"query"`
+		Search          *string `json:"search,omitempty"`
+		ServiceName     *string `json:"serviceName,omitempty"`
+		SpanName        *string `json:"spanName,omitempty"`
+		MinDuration     *string `json:"minDuration,omitempty"`
+		MaxDuration     *string `json:"maxDuration,omitempty"`
+		ServiceMapQuery *string `json:"serviceMapQuery,omitempty"`
+		Limit           *int64  `json:"limit,omitempty"`
+		RefId           string  `json:"refId"`
+		Hide            *bool   `json:"hide,omitempty"`
+		Key             *string `json:"key,omitempty"`
+		QueryType       *string `json:"queryType,omitempty"`
+	}
+	attr_query := m.Query.ValueString()
+	attr_search := m.Search.ValueString()
+	attr_servicename := m.ServiceName.ValueString()
+	attr_spanname := m.SpanName.ValueString()
+	attr_minduration := m.MinDuration.ValueString()
+	attr_maxduration := m.MaxDuration.ValueString()
+	attr_servicemapquery := m.ServiceMapQuery.ValueString()
+	attr_limit := m.Limit.ValueInt64()
+	attr_refid := m.RefId.ValueString()
+	attr_hide := m.Hide.ValueBool()
+	attr_key := m.Key.ValueString()
+	attr_querytype := m.QueryType.ValueString()
+
+	model := &jsonQueryTempoDataSourceModel{
+		Query:           attr_query,
+		Search:          &attr_search,
+		ServiceName:     &attr_servicename,
+		SpanName:        &attr_spanname,
+		MinDuration:     &attr_minduration,
+		MaxDuration:     &attr_maxduration,
+		ServiceMapQuery: &attr_servicemapquery,
+		Limit:           &attr_limit,
+		RefId:           attr_refid,
+		Hide:            &attr_hide,
+		Key:             &attr_key,
+		QueryType:       &attr_querytype,
+	}
+	return json.Marshal(model)
 }
 
 func (d *QueryTempoDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -185,35 +213,4 @@ func (d *QueryTempoDataSource) Read(ctx context.Context, req datasource.ReadRequ
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d QueryTempoDataSourceModel) MarshalJSON() ([]byte, error) {
-	attr_query := d.Query.ValueString()
-	attr_search := d.Search.ValueString()
-	attr_servicename := d.ServiceName.ValueString()
-	attr_spanname := d.SpanName.ValueString()
-	attr_minduration := d.MinDuration.ValueString()
-	attr_maxduration := d.MaxDuration.ValueString()
-	attr_servicemapquery := d.ServiceMapQuery.ValueString()
-	attr_limit := d.Limit.ValueInt64()
-	attr_refid := d.RefId.ValueString()
-	attr_hide := d.Hide.ValueBool()
-	attr_key := d.Key.ValueString()
-	attr_querytype := d.QueryType.ValueString()
-
-	model := &QueryTempoDataSourceModelJSON{
-		Query:           attr_query,
-		Search:          &attr_search,
-		ServiceName:     &attr_servicename,
-		SpanName:        &attr_spanname,
-		MinDuration:     &attr_minduration,
-		MaxDuration:     &attr_maxduration,
-		ServiceMapQuery: &attr_servicemapquery,
-		Limit:           &attr_limit,
-		RefId:           attr_refid,
-		Hide:            &attr_hide,
-		Key:             &attr_key,
-		QueryType:       &attr_querytype,
-	}
-	return json.Marshal(model)
 }

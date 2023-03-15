@@ -24,7 +24,7 @@ creator of the playlist of by the application.
 ### Optional
 
 - `interval` (String) Interval sets the time between switching views in a playlist.
-FIXME: Is this based on a standardized format or what options are available? Can datemath be used?
+FIXME: Is this based on a standardized format or what options are available? Can datemath be used?. Defaults to "5m".
 - `items` (Attributes List) The ordered list of items that the playlist will iterate over.
 FIXME! This should not be optional, but changing it makes the godegen awkward (see [below for nested schema](#nestedatt--items))
 

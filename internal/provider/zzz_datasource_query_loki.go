@@ -33,8 +33,8 @@ func NewQueryLokiDataSource() datasource.DataSource {
 // QueryLokiDataSource defines the data source implementation.
 type QueryLokiDataSource struct{}
 
-// QueryLokiDataSourceModel describes the data source data model.
 type QueryLokiDataSourceModel struct {
+	ToJSON       types.String `tfsdk:"to_json"`
 	Expr         types.String `tfsdk:"expr"`
 	LegendFormat types.String `tfsdk:"legend_format"`
 	MaxLines     types.Int64  `tfsdk:"max_lines"`
@@ -46,22 +46,48 @@ type QueryLokiDataSourceModel struct {
 	Hide         types.Bool   `tfsdk:"hide"`
 	Key          types.String `tfsdk:"key"`
 	QueryType    types.String `tfsdk:"query_type"`
-	ToJSON       types.String `tfsdk:"to_json"`
 }
 
-// QueryLokiDataSourceModelJSON describes the data source data model when exported to json.
-type QueryLokiDataSourceModelJSON struct {
-	Expr         string  `json:"expr"`
-	LegendFormat *string `json:"legendFormat,omitempty"`
-	MaxLines     *int64  `json:"maxLines,omitempty"`
-	Resolution   *int64  `json:"resolution,omitempty"`
-	EditorMode   *string `json:"editorMode,omitempty"`
-	Range        *bool   `json:"range,omitempty"`
-	Instant      *bool   `json:"instant,omitempty"`
-	RefId        string  `json:"refId"`
-	Hide         *bool   `json:"hide,omitempty"`
-	Key          *string `json:"key,omitempty"`
-	QueryType    *string `json:"queryType,omitempty"`
+func (m QueryLokiDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonQueryLokiDataSourceModel struct {
+		Expr         string  `json:"expr"`
+		LegendFormat *string `json:"legendFormat,omitempty"`
+		MaxLines     *int64  `json:"maxLines,omitempty"`
+		Resolution   *int64  `json:"resolution,omitempty"`
+		EditorMode   *string `json:"editorMode,omitempty"`
+		Range        *bool   `json:"range,omitempty"`
+		Instant      *bool   `json:"instant,omitempty"`
+		RefId        string  `json:"refId"`
+		Hide         *bool   `json:"hide,omitempty"`
+		Key          *string `json:"key,omitempty"`
+		QueryType    *string `json:"queryType,omitempty"`
+	}
+	attr_expr := m.Expr.ValueString()
+	attr_legendformat := m.LegendFormat.ValueString()
+	attr_maxlines := m.MaxLines.ValueInt64()
+	attr_resolution := m.Resolution.ValueInt64()
+	attr_editormode := m.EditorMode.ValueString()
+	attr_range := m.Range.ValueBool()
+	attr_instant := m.Instant.ValueBool()
+	attr_refid := m.RefId.ValueString()
+	attr_hide := m.Hide.ValueBool()
+	attr_key := m.Key.ValueString()
+	attr_querytype := m.QueryType.ValueString()
+
+	model := &jsonQueryLokiDataSourceModel{
+		Expr:         attr_expr,
+		LegendFormat: &attr_legendformat,
+		MaxLines:     &attr_maxlines,
+		Resolution:   &attr_resolution,
+		EditorMode:   &attr_editormode,
+		Range:        &attr_range,
+		Instant:      &attr_instant,
+		RefId:        attr_refid,
+		Hide:         &attr_hide,
+		Key:          &attr_key,
+		QueryType:    &attr_querytype,
+	}
+	return json.Marshal(model)
 }
 
 func (d *QueryLokiDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -177,33 +203,4 @@ func (d *QueryLokiDataSource) Read(ctx context.Context, req datasource.ReadReque
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d QueryLokiDataSourceModel) MarshalJSON() ([]byte, error) {
-	attr_expr := d.Expr.ValueString()
-	attr_legendformat := d.LegendFormat.ValueString()
-	attr_maxlines := d.MaxLines.ValueInt64()
-	attr_resolution := d.Resolution.ValueInt64()
-	attr_editormode := d.EditorMode.ValueString()
-	attr_range := d.Range.ValueBool()
-	attr_instant := d.Instant.ValueBool()
-	attr_refid := d.RefId.ValueString()
-	attr_hide := d.Hide.ValueBool()
-	attr_key := d.Key.ValueString()
-	attr_querytype := d.QueryType.ValueString()
-
-	model := &QueryLokiDataSourceModelJSON{
-		Expr:         attr_expr,
-		LegendFormat: &attr_legendformat,
-		MaxLines:     &attr_maxlines,
-		Resolution:   &attr_resolution,
-		EditorMode:   &attr_editormode,
-		Range:        &attr_range,
-		Instant:      &attr_instant,
-		RefId:        attr_refid,
-		Hide:         &attr_hide,
-		Key:          &attr_key,
-		QueryType:    &attr_querytype,
-	}
-	return json.Marshal(model)
 }

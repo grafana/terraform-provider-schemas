@@ -33,181 +33,324 @@ func NewCoreDashboardDataSource() datasource.DataSource {
 // CoreDashboardDataSource defines the data source implementation.
 type CoreDashboardDataSource struct{}
 
-// CoreDashboardDataSourceModel describes the data source data model.
-type CoreDashboardDataSourceModel struct {
-	Id           types.Int64  `tfsdk:"id"`
-	Uid          types.String `tfsdk:"uid"`
-	Title        types.String `tfsdk:"title"`
-	Description  types.String `tfsdk:"description"`
-	Revision     types.Int64  `tfsdk:"revision"`
-	GnetId       types.String `tfsdk:"gnet_id"`
-	Tags         types.List   `tfsdk:"tags"`
-	Style        types.String `tfsdk:"style"`
-	Timezone     types.String `tfsdk:"timezone"`
-	Editable     types.Bool   `tfsdk:"editable"`
-	GraphTooltip types.Int64  `tfsdk:"graph_tooltip"`
-	Time         *struct {
-		From types.String `tfsdk:"from"`
-		To   types.String `tfsdk:"to"`
-	} `tfsdk:"time"`
-	Timepicker *struct {
-		Collapse         types.Bool `tfsdk:"collapse"`
-		Enable           types.Bool `tfsdk:"enable"`
-		Hidden           types.Bool `tfsdk:"hidden"`
-		RefreshIntervals types.List `tfsdk:"refresh_intervals"`
-		TimeOptions      types.List `tfsdk:"time_options"`
-	} `tfsdk:"timepicker"`
-	FiscalYearStartMonth types.Int64  `tfsdk:"fiscal_year_start_month"`
-	LiveNow              types.Bool   `tfsdk:"live_now"`
-	WeekStart            types.String `tfsdk:"week_start"`
-	SchemaVersion        types.Int64  `tfsdk:"schema_version"`
-	Version              types.Int64  `tfsdk:"version"`
-	Panels               types.List   `tfsdk:"panels"`
-	Templating           *struct {
-		List []struct {
-			Id           types.String `tfsdk:"id"`
-			Type         types.String `tfsdk:"type"`
-			Name         types.String `tfsdk:"name"`
-			Label        types.String `tfsdk:"label"`
-			RootStateKey types.String `tfsdk:"root_state_key"`
-			Global       types.Bool   `tfsdk:"global"`
-			Hide         types.Int64  `tfsdk:"hide"`
-			SkipUrlSync  types.Bool   `tfsdk:"skip_url_sync"`
-			Index        types.Int64  `tfsdk:"index"`
-			State        types.String `tfsdk:"state"`
-			Error        *struct {
-			} `tfsdk:"error"`
-			Description types.String `tfsdk:"description"`
-			Datasource  *struct {
-				Type types.String `tfsdk:"type"`
-				Uid  types.String `tfsdk:"uid"`
-			} `tfsdk:"datasource"`
-		} `tfsdk:"list"`
-	} `tfsdk:"templating"`
-	Annotations *struct {
-		List []struct {
-			Datasource struct {
-				Type types.String `tfsdk:"type"`
-				Uid  types.String `tfsdk:"uid"`
-			} `tfsdk:"datasource"`
-			Enable    types.Bool   `tfsdk:"enable"`
-			Name      types.String `tfsdk:"name"`
-			BuiltIn   types.Int64  `tfsdk:"built_in"`
-			Hide      types.Bool   `tfsdk:"hide"`
-			IconColor types.String `tfsdk:"icon_color"`
-			Type      types.String `tfsdk:"type"`
-			RawQuery  types.String `tfsdk:"raw_query"`
-			ShowIn    types.Int64  `tfsdk:"show_in"`
-			Target    *struct {
-				Limit    types.Int64  `tfsdk:"limit"`
-				MatchAny types.Bool   `tfsdk:"match_any"`
-				Tags     types.List   `tfsdk:"tags"`
-				Type     types.String `tfsdk:"type"`
-			} `tfsdk:"target"`
-		} `tfsdk:"list"`
-	} `tfsdk:"annotations"`
-	Links []struct {
-		Title       types.String `tfsdk:"title"`
-		Type        types.String `tfsdk:"type"`
-		Icon        types.String `tfsdk:"icon"`
-		Tooltip     types.String `tfsdk:"tooltip"`
-		Url         types.String `tfsdk:"url"`
-		Tags        types.List   `tfsdk:"tags"`
-		AsDropdown  types.Bool   `tfsdk:"as_dropdown"`
-		TargetBlank types.Bool   `tfsdk:"target_blank"`
-		IncludeVars types.Bool   `tfsdk:"include_vars"`
-		KeepTime    types.Bool   `tfsdk:"keep_time"`
-	} `tfsdk:"links"`
-	Snapshot *struct {
-		Created     types.String `tfsdk:"created"`
-		Expires     types.String `tfsdk:"expires"`
-		External    types.Bool   `tfsdk:"external"`
-		ExternalUrl types.String `tfsdk:"external_url"`
-		Id          types.Int64  `tfsdk:"id"`
-		Key         types.String `tfsdk:"key"`
-		Name        types.String `tfsdk:"name"`
-		OrgId       types.Int64  `tfsdk:"org_id"`
-		Updated     types.String `tfsdk:"updated"`
-		Url         types.String `tfsdk:"url"`
-		UserId      types.Int64  `tfsdk:"user_id"`
-	} `tfsdk:"snapshot"`
-	ToJSON types.String `tfsdk:"to_json"`
+type CoreDashboardDataSourceModel_Time struct {
+	From types.String `tfsdk:"from"`
+	To   types.String `tfsdk:"to"`
 }
 
-// CoreDashboardDataSourceModelJSON describes the data source data model when exported to json.
-type CoreDashboardDataSourceModelJSON struct {
-	Id           *int64   `json:"id,omitempty"`
-	Uid          *string  `json:"uid,omitempty"`
-	Title        *string  `json:"title,omitempty"`
-	Description  *string  `json:"description,omitempty"`
-	Revision     int64    `json:"revision"`
-	GnetId       *string  `json:"gnetId,omitempty"`
-	Tags         []string `json:"tags,omitempty"`
-	Style        string   `json:"style"`
-	Timezone     *string  `json:"timezone,omitempty"`
-	Editable     bool     `json:"editable"`
-	GraphTooltip int64    `json:"graphTooltip"`
-	Time         *struct {
+func (m CoreDashboardDataSourceModel_Time) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Time struct {
 		From string `json:"from"`
 		To   string `json:"to"`
-	} `json:"time,omitempty"`
-	Timepicker *struct {
+	}
+	attr_from := m.From.ValueString()
+	attr_to := m.To.ValueString()
+
+	model := &jsonCoreDashboardDataSourceModel_Time{
+		From: attr_from,
+		To:   attr_to,
+	}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel_Timepicker struct {
+	Collapse         types.Bool `tfsdk:"collapse"`
+	Enable           types.Bool `tfsdk:"enable"`
+	Hidden           types.Bool `tfsdk:"hidden"`
+	RefreshIntervals types.List `tfsdk:"refresh_intervals"`
+	TimeOptions      types.List `tfsdk:"time_options"`
+}
+
+func (m CoreDashboardDataSourceModel_Timepicker) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Timepicker struct {
 		Collapse         bool     `json:"collapse"`
 		Enable           bool     `json:"enable"`
 		Hidden           bool     `json:"hidden"`
 		RefreshIntervals []string `json:"refresh_intervals"`
 		TimeOptions      []string `json:"time_options"`
-	} `json:"timepicker,omitempty"`
-	FiscalYearStartMonth *int64   `json:"fiscalYearStartMonth,omitempty"`
-	LiveNow              *bool    `json:"liveNow,omitempty"`
-	WeekStart            *string  `json:"weekStart,omitempty"`
-	SchemaVersion        int64    `json:"schemaVersion"`
-	Version              *int64   `json:"version,omitempty"`
-	Panels               []string `json:"panels,omitempty"`
-	Templating           *struct {
-		List []struct {
-			Id           string  `json:"id"`
-			Type         string  `json:"type"`
-			Name         string  `json:"name"`
-			Label        *string `json:"label,omitempty"`
-			RootStateKey *string `json:"rootStateKey,omitempty"`
-			Global       bool    `json:"global"`
-			Hide         int64   `json:"hide"`
-			SkipUrlSync  bool    `json:"skipUrlSync"`
-			Index        int64   `json:"index"`
-			State        string  `json:"state"`
-			Error        *struct {
-			} `json:"error,omitempty"`
-			Description *string `json:"description,omitempty"`
-			Datasource  *struct {
-				Type *string `json:"type,omitempty"`
-				Uid  *string `json:"uid,omitempty"`
-			} `json:"datasource,omitempty"`
-		} `json:"list,omitempty"`
-	} `json:"templating,omitempty"`
-	Annotations *struct {
-		List []struct {
-			Datasource struct {
-				Type *string `json:"type,omitempty"`
-				Uid  *string `json:"uid,omitempty"`
-			} `json:"datasource"`
-			Enable    bool    `json:"enable"`
-			Name      *string `json:"name,omitempty"`
-			BuiltIn   int64   `json:"builtIn"`
-			Hide      *bool   `json:"hide,omitempty"`
-			IconColor *string `json:"iconColor,omitempty"`
-			Type      string  `json:"type"`
-			RawQuery  *string `json:"rawQuery,omitempty"`
-			ShowIn    int64   `json:"showIn"`
-			Target    *struct {
-				Limit    int64    `json:"limit"`
-				MatchAny bool     `json:"matchAny"`
-				Tags     []string `json:"tags"`
-				Type     string   `json:"type"`
-			} `json:"target,omitempty"`
-		} `json:"list,omitempty"`
-	} `json:"annotations,omitempty"`
-	Links []struct {
+	}
+	attr_collapse := m.Collapse.ValueBool()
+	attr_enable := m.Enable.ValueBool()
+	attr_hidden := m.Hidden.ValueBool()
+	attr_refresh_intervals := []string{}
+	for _, v := range m.RefreshIntervals.Elements() {
+		attr_refresh_intervals = append(attr_refresh_intervals, v.(types.String).ValueString())
+	}
+	attr_time_options := []string{}
+	for _, v := range m.TimeOptions.Elements() {
+		attr_time_options = append(attr_time_options, v.(types.String).ValueString())
+	}
+
+	model := &jsonCoreDashboardDataSourceModel_Timepicker{
+		Collapse:         attr_collapse,
+		Enable:           attr_enable,
+		Hidden:           attr_hidden,
+		RefreshIntervals: attr_refresh_intervals,
+		TimeOptions:      attr_time_options,
+	}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel_Templating_List_Error struct {
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List_Error) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Templating_List_Error struct {
+	}
+
+	model := &jsonCoreDashboardDataSourceModel_Templating_List_Error{}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel_Templating_List_Datasource struct {
+	Type types.String `tfsdk:"type"`
+	Uid  types.String `tfsdk:"uid"`
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List_Datasource) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Templating_List_Datasource struct {
+		Type *string `json:"type,omitempty"`
+		Uid  *string `json:"uid,omitempty"`
+	}
+	attr_type := m.Type.ValueString()
+	attr_uid := m.Uid.ValueString()
+
+	model := &jsonCoreDashboardDataSourceModel_Templating_List_Datasource{
+		Type: &attr_type,
+		Uid:  &attr_uid,
+	}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel_Templating_List struct {
+	Id           types.String                                             `tfsdk:"id"`
+	Type         types.String                                             `tfsdk:"type"`
+	Name         types.String                                             `tfsdk:"name"`
+	Label        types.String                                             `tfsdk:"label"`
+	RootStateKey types.String                                             `tfsdk:"root_state_key"`
+	Global       types.Bool                                               `tfsdk:"global"`
+	Hide         types.Int64                                              `tfsdk:"hide"`
+	SkipUrlSync  types.Bool                                               `tfsdk:"skip_url_sync"`
+	Index        types.Int64                                              `tfsdk:"index"`
+	State        types.String                                             `tfsdk:"state"`
+	Error        *CoreDashboardDataSourceModel_Templating_List_Error      `tfsdk:"error"`
+	Description  types.String                                             `tfsdk:"description"`
+	Datasource   *CoreDashboardDataSourceModel_Templating_List_Datasource `tfsdk:"datasource"`
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Templating_List struct {
+		Id           string      `json:"id"`
+		Type         string      `json:"type"`
+		Name         string      `json:"name"`
+		Label        *string     `json:"label,omitempty"`
+		RootStateKey *string     `json:"rootStateKey,omitempty"`
+		Global       bool        `json:"global"`
+		Hide         int64       `json:"hide"`
+		SkipUrlSync  bool        `json:"skipUrlSync"`
+		Index        int64       `json:"index"`
+		State        string      `json:"state"`
+		Error        interface{} `json:"error,omitempty"`
+		Description  *string     `json:"description,omitempty"`
+		Datasource   interface{} `json:"datasource,omitempty"`
+	}
+	attr_id := m.Id.ValueString()
+	attr_type := m.Type.ValueString()
+	attr_name := m.Name.ValueString()
+	attr_label := m.Label.ValueString()
+	attr_rootstatekey := m.RootStateKey.ValueString()
+	attr_global := m.Global.ValueBool()
+	attr_hide := m.Hide.ValueInt64()
+	attr_skipurlsync := m.SkipUrlSync.ValueBool()
+	attr_index := m.Index.ValueInt64()
+	attr_state := m.State.ValueString()
+	var attr_error interface{}
+	if m.Error != nil {
+		attr_error = m.Error
+	}
+	attr_description := m.Description.ValueString()
+	var attr_datasource interface{}
+	if m.Datasource != nil {
+		attr_datasource = m.Datasource
+	}
+
+	model := &jsonCoreDashboardDataSourceModel_Templating_List{
+		Id:           attr_id,
+		Type:         attr_type,
+		Name:         attr_name,
+		Label:        &attr_label,
+		RootStateKey: &attr_rootstatekey,
+		Global:       attr_global,
+		Hide:         attr_hide,
+		SkipUrlSync:  attr_skipurlsync,
+		Index:        attr_index,
+		State:        attr_state,
+		Error:        attr_error,
+		Description:  &attr_description,
+		Datasource:   attr_datasource,
+	}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel_Templating struct {
+	List []CoreDashboardDataSourceModel_Templating_List `tfsdk:"list"`
+}
+
+func (m CoreDashboardDataSourceModel_Templating) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Templating struct {
+		List []interface{} `json:"list,omitempty"`
+	}
+	attr_list := []interface{}{}
+	for _, v := range m.List {
+		attr_list = append(attr_list, v)
+	}
+
+	model := &jsonCoreDashboardDataSourceModel_Templating{
+		List: attr_list,
+	}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel_Annotations_List_Datasource struct {
+	Type types.String `tfsdk:"type"`
+	Uid  types.String `tfsdk:"uid"`
+}
+
+func (m CoreDashboardDataSourceModel_Annotations_List_Datasource) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Annotations_List_Datasource struct {
+		Type *string `json:"type,omitempty"`
+		Uid  *string `json:"uid,omitempty"`
+	}
+	attr_type := m.Type.ValueString()
+	attr_uid := m.Uid.ValueString()
+
+	model := &jsonCoreDashboardDataSourceModel_Annotations_List_Datasource{
+		Type: &attr_type,
+		Uid:  &attr_uid,
+	}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel_Annotations_List_Target struct {
+	Limit    types.Int64  `tfsdk:"limit"`
+	MatchAny types.Bool   `tfsdk:"match_any"`
+	Tags     types.List   `tfsdk:"tags"`
+	Type     types.String `tfsdk:"type"`
+}
+
+func (m CoreDashboardDataSourceModel_Annotations_List_Target) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Annotations_List_Target struct {
+		Limit    int64    `json:"limit"`
+		MatchAny bool     `json:"matchAny"`
+		Tags     []string `json:"tags"`
+		Type     string   `json:"type"`
+	}
+	attr_limit := m.Limit.ValueInt64()
+	attr_matchany := m.MatchAny.ValueBool()
+	attr_tags := []string{}
+	for _, v := range m.Tags.Elements() {
+		attr_tags = append(attr_tags, v.(types.String).ValueString())
+	}
+	attr_type := m.Type.ValueString()
+
+	model := &jsonCoreDashboardDataSourceModel_Annotations_List_Target{
+		Limit:    attr_limit,
+		MatchAny: attr_matchany,
+		Tags:     attr_tags,
+		Type:     attr_type,
+	}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel_Annotations_List struct {
+	Datasource CoreDashboardDataSourceModel_Annotations_List_Datasource `tfsdk:"datasource"`
+	Enable     types.Bool                                               `tfsdk:"enable"`
+	Name       types.String                                             `tfsdk:"name"`
+	BuiltIn    types.Int64                                              `tfsdk:"built_in"`
+	Hide       types.Bool                                               `tfsdk:"hide"`
+	IconColor  types.String                                             `tfsdk:"icon_color"`
+	Type       types.String                                             `tfsdk:"type"`
+	RawQuery   types.String                                             `tfsdk:"raw_query"`
+	ShowIn     types.Int64                                              `tfsdk:"show_in"`
+	Target     *CoreDashboardDataSourceModel_Annotations_List_Target    `tfsdk:"target"`
+}
+
+func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Annotations_List struct {
+		Datasource interface{} `json:"datasource"`
+		Enable     bool        `json:"enable"`
+		Name       *string     `json:"name,omitempty"`
+		BuiltIn    int64       `json:"builtIn"`
+		Hide       *bool       `json:"hide,omitempty"`
+		IconColor  *string     `json:"iconColor,omitempty"`
+		Type       string      `json:"type"`
+		RawQuery   *string     `json:"rawQuery,omitempty"`
+		ShowIn     int64       `json:"showIn"`
+		Target     interface{} `json:"target,omitempty"`
+	}
+	var attr_datasource interface{} = m.Datasource
+	attr_enable := m.Enable.ValueBool()
+	attr_name := m.Name.ValueString()
+	attr_builtin := m.BuiltIn.ValueInt64()
+	attr_hide := m.Hide.ValueBool()
+	attr_iconcolor := m.IconColor.ValueString()
+	attr_type := m.Type.ValueString()
+	attr_rawquery := m.RawQuery.ValueString()
+	attr_showin := m.ShowIn.ValueInt64()
+	var attr_target interface{}
+	if m.Target != nil {
+		attr_target = m.Target
+	}
+
+	model := &jsonCoreDashboardDataSourceModel_Annotations_List{
+		Datasource: attr_datasource,
+		Enable:     attr_enable,
+		Name:       &attr_name,
+		BuiltIn:    attr_builtin,
+		Hide:       &attr_hide,
+		IconColor:  &attr_iconcolor,
+		Type:       attr_type,
+		RawQuery:   &attr_rawquery,
+		ShowIn:     attr_showin,
+		Target:     attr_target,
+	}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel_Annotations struct {
+	List []CoreDashboardDataSourceModel_Annotations_List `tfsdk:"list"`
+}
+
+func (m CoreDashboardDataSourceModel_Annotations) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Annotations struct {
+		List []interface{} `json:"list,omitempty"`
+	}
+	attr_list := []interface{}{}
+	for _, v := range m.List {
+		attr_list = append(attr_list, v)
+	}
+
+	model := &jsonCoreDashboardDataSourceModel_Annotations{
+		List: attr_list,
+	}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel_Links struct {
+	Title       types.String `tfsdk:"title"`
+	Type        types.String `tfsdk:"type"`
+	Icon        types.String `tfsdk:"icon"`
+	Tooltip     types.String `tfsdk:"tooltip"`
+	Url         types.String `tfsdk:"url"`
+	Tags        types.List   `tfsdk:"tags"`
+	AsDropdown  types.Bool   `tfsdk:"as_dropdown"`
+	TargetBlank types.Bool   `tfsdk:"target_blank"`
+	IncludeVars types.Bool   `tfsdk:"include_vars"`
+	KeepTime    types.Bool   `tfsdk:"keep_time"`
+}
+
+func (m CoreDashboardDataSourceModel_Links) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Links struct {
 		Title       string   `json:"title"`
 		Type        string   `json:"type"`
 		Icon        string   `json:"icon"`
@@ -218,8 +361,52 @@ type CoreDashboardDataSourceModelJSON struct {
 		TargetBlank bool     `json:"targetBlank"`
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
-	} `json:"links,omitempty"`
-	Snapshot *struct {
+	}
+	attr_title := m.Title.ValueString()
+	attr_type := m.Type.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_tooltip := m.Tooltip.ValueString()
+	attr_url := m.Url.ValueString()
+	attr_tags := []string{}
+	for _, v := range m.Tags.Elements() {
+		attr_tags = append(attr_tags, v.(types.String).ValueString())
+	}
+	attr_asdropdown := m.AsDropdown.ValueBool()
+	attr_targetblank := m.TargetBlank.ValueBool()
+	attr_includevars := m.IncludeVars.ValueBool()
+	attr_keeptime := m.KeepTime.ValueBool()
+
+	model := &jsonCoreDashboardDataSourceModel_Links{
+		Title:       attr_title,
+		Type:        attr_type,
+		Icon:        attr_icon,
+		Tooltip:     attr_tooltip,
+		Url:         attr_url,
+		Tags:        attr_tags,
+		AsDropdown:  attr_asdropdown,
+		TargetBlank: attr_targetblank,
+		IncludeVars: attr_includevars,
+		KeepTime:    attr_keeptime,
+	}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel_Snapshot struct {
+	Created     types.String `tfsdk:"created"`
+	Expires     types.String `tfsdk:"expires"`
+	External    types.Bool   `tfsdk:"external"`
+	ExternalUrl types.String `tfsdk:"external_url"`
+	Id          types.Int64  `tfsdk:"id"`
+	Key         types.String `tfsdk:"key"`
+	Name        types.String `tfsdk:"name"`
+	OrgId       types.Int64  `tfsdk:"org_id"`
+	Updated     types.String `tfsdk:"updated"`
+	Url         types.String `tfsdk:"url"`
+	UserId      types.Int64  `tfsdk:"user_id"`
+}
+
+func (m CoreDashboardDataSourceModel_Snapshot) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Snapshot struct {
 		Created     string  `json:"created"`
 		Expires     string  `json:"expires"`
 		External    bool    `json:"external"`
@@ -231,7 +418,162 @@ type CoreDashboardDataSourceModelJSON struct {
 		Updated     string  `json:"updated"`
 		Url         *string `json:"url,omitempty"`
 		UserId      int64   `json:"userId"`
-	} `json:"snapshot,omitempty"`
+	}
+	attr_created := m.Created.ValueString()
+	attr_expires := m.Expires.ValueString()
+	attr_external := m.External.ValueBool()
+	attr_externalurl := m.ExternalUrl.ValueString()
+	attr_id := m.Id.ValueInt64()
+	attr_key := m.Key.ValueString()
+	attr_name := m.Name.ValueString()
+	attr_orgid := m.OrgId.ValueInt64()
+	attr_updated := m.Updated.ValueString()
+	attr_url := m.Url.ValueString()
+	attr_userid := m.UserId.ValueInt64()
+
+	model := &jsonCoreDashboardDataSourceModel_Snapshot{
+		Created:     attr_created,
+		Expires:     attr_expires,
+		External:    attr_external,
+		ExternalUrl: attr_externalurl,
+		Id:          attr_id,
+		Key:         attr_key,
+		Name:        attr_name,
+		OrgId:       attr_orgid,
+		Updated:     attr_updated,
+		Url:         &attr_url,
+		UserId:      attr_userid,
+	}
+	return json.Marshal(model)
+}
+
+type CoreDashboardDataSourceModel struct {
+	ToJSON               types.String                              `tfsdk:"to_json"`
+	Id                   types.Int64                               `tfsdk:"id"`
+	Uid                  types.String                              `tfsdk:"uid"`
+	Title                types.String                              `tfsdk:"title"`
+	Description          types.String                              `tfsdk:"description"`
+	Revision             types.Int64                               `tfsdk:"revision"`
+	GnetId               types.String                              `tfsdk:"gnet_id"`
+	Tags                 types.List                                `tfsdk:"tags"`
+	Style                types.String                              `tfsdk:"style"`
+	Timezone             types.String                              `tfsdk:"timezone"`
+	Editable             types.Bool                                `tfsdk:"editable"`
+	GraphTooltip         types.Int64                               `tfsdk:"graph_tooltip"`
+	Time                 *CoreDashboardDataSourceModel_Time        `tfsdk:"time"`
+	Timepicker           *CoreDashboardDataSourceModel_Timepicker  `tfsdk:"timepicker"`
+	FiscalYearStartMonth types.Int64                               `tfsdk:"fiscal_year_start_month"`
+	LiveNow              types.Bool                                `tfsdk:"live_now"`
+	WeekStart            types.String                              `tfsdk:"week_start"`
+	SchemaVersion        types.Int64                               `tfsdk:"schema_version"`
+	Version              types.Int64                               `tfsdk:"version"`
+	Panels               types.List                                `tfsdk:"panels"`
+	Templating           *CoreDashboardDataSourceModel_Templating  `tfsdk:"templating"`
+	Annotations          *CoreDashboardDataSourceModel_Annotations `tfsdk:"annotations"`
+	Links                []CoreDashboardDataSourceModel_Links      `tfsdk:"links"`
+	Snapshot             *CoreDashboardDataSourceModel_Snapshot    `tfsdk:"snapshot"`
+}
+
+func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel struct {
+		Id                   *int64        `json:"id,omitempty"`
+		Uid                  *string       `json:"uid,omitempty"`
+		Title                *string       `json:"title,omitempty"`
+		Description          *string       `json:"description,omitempty"`
+		Revision             int64         `json:"revision"`
+		GnetId               *string       `json:"gnetId,omitempty"`
+		Tags                 []string      `json:"tags,omitempty"`
+		Style                string        `json:"style"`
+		Timezone             *string       `json:"timezone,omitempty"`
+		Editable             bool          `json:"editable"`
+		GraphTooltip         int64         `json:"graphTooltip"`
+		Time                 interface{}   `json:"time,omitempty"`
+		Timepicker           interface{}   `json:"timepicker,omitempty"`
+		FiscalYearStartMonth *int64        `json:"fiscalYearStartMonth,omitempty"`
+		LiveNow              *bool         `json:"liveNow,omitempty"`
+		WeekStart            *string       `json:"weekStart,omitempty"`
+		SchemaVersion        int64         `json:"schemaVersion"`
+		Version              *int64        `json:"version,omitempty"`
+		Panels               []string      `json:"panels,omitempty"`
+		Templating           interface{}   `json:"templating,omitempty"`
+		Annotations          interface{}   `json:"annotations,omitempty"`
+		Links                []interface{} `json:"links,omitempty"`
+		Snapshot             interface{}   `json:"snapshot,omitempty"`
+	}
+	attr_id := m.Id.ValueInt64()
+	attr_uid := m.Uid.ValueString()
+	attr_title := m.Title.ValueString()
+	attr_description := m.Description.ValueString()
+	attr_revision := m.Revision.ValueInt64()
+	attr_gnetid := m.GnetId.ValueString()
+	attr_tags := []string{}
+	for _, v := range m.Tags.Elements() {
+		attr_tags = append(attr_tags, v.(types.String).ValueString())
+	}
+	attr_style := m.Style.ValueString()
+	attr_timezone := m.Timezone.ValueString()
+	attr_editable := m.Editable.ValueBool()
+	attr_graphtooltip := m.GraphTooltip.ValueInt64()
+	var attr_time interface{}
+	if m.Time != nil {
+		attr_time = m.Time
+	}
+	var attr_timepicker interface{}
+	if m.Timepicker != nil {
+		attr_timepicker = m.Timepicker
+	}
+	attr_fiscalyearstartmonth := m.FiscalYearStartMonth.ValueInt64()
+	attr_livenow := m.LiveNow.ValueBool()
+	attr_weekstart := m.WeekStart.ValueString()
+	attr_schemaversion := m.SchemaVersion.ValueInt64()
+	attr_version := m.Version.ValueInt64()
+	attr_panels := []string{}
+	for _, v := range m.Panels.Elements() {
+		attr_panels = append(attr_panels, v.(types.String).ValueString())
+	}
+	var attr_templating interface{}
+	if m.Templating != nil {
+		attr_templating = m.Templating
+	}
+	var attr_annotations interface{}
+	if m.Annotations != nil {
+		attr_annotations = m.Annotations
+	}
+	attr_links := []interface{}{}
+	for _, v := range m.Links {
+		attr_links = append(attr_links, v)
+	}
+	var attr_snapshot interface{}
+	if m.Snapshot != nil {
+		attr_snapshot = m.Snapshot
+	}
+
+	model := &jsonCoreDashboardDataSourceModel{
+		Id:                   &attr_id,
+		Uid:                  &attr_uid,
+		Title:                &attr_title,
+		Description:          &attr_description,
+		Revision:             attr_revision,
+		GnetId:               &attr_gnetid,
+		Tags:                 attr_tags,
+		Style:                attr_style,
+		Timezone:             &attr_timezone,
+		Editable:             attr_editable,
+		GraphTooltip:         attr_graphtooltip,
+		Time:                 attr_time,
+		Timepicker:           attr_timepicker,
+		FiscalYearStartMonth: &attr_fiscalyearstartmonth,
+		LiveNow:              &attr_livenow,
+		WeekStart:            &attr_weekstart,
+		SchemaVersion:        attr_schemaversion,
+		Version:              &attr_version,
+		Panels:               attr_panels,
+		Templating:           attr_templating,
+		Annotations:          attr_annotations,
+		Links:                attr_links,
+		Snapshot:             attr_snapshot,
+	}
+	return json.Marshal(model)
 }
 
 func (d *CoreDashboardDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -269,7 +611,7 @@ TODO must isolate or remove identifiers local to a Grafana instance...?`,
 				Required:            false,
 			},
 			"revision": schema.Int64Attribute{
-				MarkdownDescription: `Version of the current dashboard data`,
+				MarkdownDescription: `Version of the current dashboard data. Defaults to -1.`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -288,25 +630,25 @@ TODO must isolate or remove identifiers local to a Grafana instance...?`,
 				ElementType:         types.StringType,
 			},
 			"style": schema.StringAttribute{
-				MarkdownDescription: `Theme of dashboard.`,
+				MarkdownDescription: `Theme of dashboard. Defaults to "dark".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
 			},
 			"timezone": schema.StringAttribute{
-				MarkdownDescription: `Timezone of dashboard. Accepts IANA TZDB zone ID or "browser" or "utc".`,
+				MarkdownDescription: `Timezone of dashboard. Accepts IANA TZDB zone ID or "browser" or "utc". Defaults to "browser".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
 			},
 			"editable": schema.BoolAttribute{
-				MarkdownDescription: `Whether a dashboard is editable or not.`,
+				MarkdownDescription: `Whether a dashboard is editable or not. Defaults to true.`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
 			},
 			"graph_tooltip": schema.Int64Attribute{
-				MarkdownDescription: `Configuration of dashboard cursor sync behavior.`,
+				MarkdownDescription: `Configuration of dashboard cursor sync behavior. Defaults to 0.`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -318,13 +660,13 @@ TODO must isolate or remove identifiers local to a Grafana instance...?`,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
 					"from": schema.StringAttribute{
-						MarkdownDescription: ``,
+						MarkdownDescription: ` Defaults to "now-6h".`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 					"to": schema.StringAttribute{
-						MarkdownDescription: ``,
+						MarkdownDescription: ` Defaults to "now".`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
@@ -339,19 +681,19 @@ TODO this appears to be spread all over in the frontend. Concepts will likely ne
 				Required: false,
 				Attributes: map[string]schema.Attribute{
 					"collapse": schema.BoolAttribute{
-						MarkdownDescription: `Whether timepicker is collapsed or not.`,
+						MarkdownDescription: `Whether timepicker is collapsed or not. Defaults to false.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 					"enable": schema.BoolAttribute{
-						MarkdownDescription: `Whether timepicker is enabled or not.`,
+						MarkdownDescription: `Whether timepicker is enabled or not. Defaults to true.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 					"hidden": schema.BoolAttribute{
-						MarkdownDescription: `Whether timepicker is visible or not.`,
+						MarkdownDescription: `Whether timepicker is visible or not. Defaults to false.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
@@ -373,7 +715,7 @@ TODO this appears to be spread all over in the frontend. Concepts will likely ne
 				},
 			},
 			"fiscal_year_start_month": schema.Int64Attribute{
-				MarkdownDescription: `The month that the fiscal year starts on.  0 = January, 11 = December`,
+				MarkdownDescription: `The month that the fiscal year starts on.  0 = January, 11 = December. Defaults to 0.`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -393,7 +735,7 @@ TODO this appears to be spread all over in the frontend. Concepts will likely ne
 			"schema_version": schema.Int64Attribute{
 				MarkdownDescription: `Version of the JSON schema, incremented each time a Grafana update brings
 changes to said schema.
-TODO this is the existing schema numbering system. It will be replaced by Thema's themaVersion`,
+TODO this is the existing schema numbering system. It will be replaced by Thema's themaVersion. Defaults to 36.`,
 				Computed: true,
 				Optional: true,
 				Required: false,
@@ -425,7 +767,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 						NestedObject: schema.NestedAttributeObject{
 							Attributes: map[string]schema.Attribute{
 								"id": schema.StringAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: ` Defaults to "00000000-0000-0000-0000-000000000000".`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
@@ -455,7 +797,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 									Required:            false,
 								},
 								"global": schema.BoolAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: ` Defaults to false.`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
@@ -467,13 +809,13 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 									Required:            true,
 								},
 								"skip_url_sync": schema.BoolAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: ` Defaults to false.`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
 								},
 								"index": schema.Int64Attribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: ` Defaults to -1.`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
@@ -555,7 +897,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 									},
 								},
 								"enable": schema.BoolAttribute{
-									MarkdownDescription: `Whether annotation is enabled.`,
+									MarkdownDescription: `Whether annotation is enabled. Defaults to true.`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
@@ -567,13 +909,13 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 									Required:            false,
 								},
 								"built_in": schema.Int64Attribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: ` Defaults to 0.`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
 								},
 								"hide": schema.BoolAttribute{
-									MarkdownDescription: `Whether to hide annotation.`,
+									MarkdownDescription: `Whether to hide annotation. Defaults to false.`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
@@ -585,7 +927,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 									Required:            false,
 								},
 								"type": schema.StringAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: ` Defaults to "dashboard".`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
@@ -597,7 +939,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 									Required:            false,
 								},
 								"show_in": schema.Int64Attribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: ` Defaults to 0.`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
@@ -685,25 +1027,25 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 							ElementType:         types.StringType,
 						},
 						"as_dropdown": schema.BoolAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: ` Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"target_blank": schema.BoolAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: ` Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"include_vars": schema.BoolAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: ` Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"keep_time": schema.BoolAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: ` Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
@@ -890,41 +1232,4 @@ func (d *CoreDashboardDataSource) applyDefaults(data *CoreDashboardDataSourceMod
 	if data.SchemaVersion.IsNull() {
 		data.SchemaVersion = types.Int64Value(36)
 	}
-}
-
-func (d CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
-	attr_id := d.Id.ValueInt64()
-	attr_uid := d.Uid.ValueString()
-	attr_title := d.Title.ValueString()
-	attr_description := d.Description.ValueString()
-	attr_revision := d.Revision.ValueInt64()
-	attr_gnetid := d.GnetId.ValueString()
-	attr_style := d.Style.ValueString()
-	attr_timezone := d.Timezone.ValueString()
-	attr_editable := d.Editable.ValueBool()
-	attr_graphtooltip := d.GraphTooltip.ValueInt64()
-	attr_fiscalyearstartmonth := d.FiscalYearStartMonth.ValueInt64()
-	attr_livenow := d.LiveNow.ValueBool()
-	attr_weekstart := d.WeekStart.ValueString()
-	attr_schemaversion := d.SchemaVersion.ValueInt64()
-	attr_version := d.Version.ValueInt64()
-
-	model := &CoreDashboardDataSourceModelJSON{
-		Id:                   &attr_id,
-		Uid:                  &attr_uid,
-		Title:                &attr_title,
-		Description:          &attr_description,
-		Revision:             attr_revision,
-		GnetId:               &attr_gnetid,
-		Style:                attr_style,
-		Timezone:             &attr_timezone,
-		Editable:             attr_editable,
-		GraphTooltip:         attr_graphtooltip,
-		FiscalYearStartMonth: &attr_fiscalyearstartmonth,
-		LiveNow:              &attr_livenow,
-		WeekStart:            &attr_weekstart,
-		SchemaVersion:        attr_schemaversion,
-		Version:              &attr_version,
-	}
-	return json.Marshal(model)
 }

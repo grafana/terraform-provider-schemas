@@ -37,7 +37,7 @@ TODO description
 - `query_type` (String) Specify the query flavor
 TODO make this required and give it a default
 - `raw_frame_content` (String)
-- `scenario_id` (String)
+- `scenario_id` (String) Defaults to "random_walk".
 - `series_count` (Number)
 - `sim` (Attributes) (see [below for nested schema](#nestedatt--sim))
 - `span_count` (Number)

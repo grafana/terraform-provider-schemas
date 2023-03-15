@@ -33,216 +33,305 @@ func NewPanelHistogramDataSource() datasource.DataSource {
 // PanelHistogramDataSource defines the data source implementation.
 type PanelHistogramDataSource struct{}
 
-// PanelHistogramDataSourceModel describes the data source data model.
-type PanelHistogramDataSourceModel struct {
-	PanelOptions struct {
-		BucketSize   types.Int64 `tfsdk:"bucket_size"`
-		BucketOffset types.Int64 `tfsdk:"bucket_offset"`
-		Legend       struct {
-			DisplayMode types.String  `tfsdk:"display_mode"`
-			Placement   types.String  `tfsdk:"placement"`
-			ShowLegend  types.Bool    `tfsdk:"show_legend"`
-			AsTable     types.Bool    `tfsdk:"as_table"`
-			IsVisible   types.Bool    `tfsdk:"is_visible"`
-			SortBy      types.String  `tfsdk:"sort_by"`
-			SortDesc    types.Bool    `tfsdk:"sort_desc"`
-			Width       types.Float64 `tfsdk:"width"`
-			Calcs       types.List    `tfsdk:"calcs"`
-		} `tfsdk:"legend"`
-		Tooltip struct {
-			Mode types.String `tfsdk:"mode"`
-			Sort types.String `tfsdk:"sort"`
-		} `tfsdk:"tooltip"`
-		Combine types.Bool `tfsdk:"combine"`
-	} `tfsdk:"panel_options"`
-	PanelFieldConfig struct {
-		LineWidth         types.Int64   `tfsdk:"line_width"`
-		FillOpacity       types.Int64   `tfsdk:"fill_opacity"`
-		AxisPlacement     types.String  `tfsdk:"axis_placement"`
-		AxisColorMode     types.String  `tfsdk:"axis_color_mode"`
-		AxisLabel         types.String  `tfsdk:"axis_label"`
-		AxisWidth         types.Float64 `tfsdk:"axis_width"`
-		AxisSoftMin       types.Float64 `tfsdk:"axis_soft_min"`
-		AxisSoftMax       types.Float64 `tfsdk:"axis_soft_max"`
-		AxisGridShow      types.Bool    `tfsdk:"axis_grid_show"`
-		ScaleDistribution *struct {
-			Type            types.String  `tfsdk:"type"`
-			Log             types.Float64 `tfsdk:"log"`
-			LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
-		} `tfsdk:"scale_distribution"`
-		HideFrom *struct {
-			Tooltip types.Bool `tfsdk:"tooltip"`
-			Legend  types.Bool `tfsdk:"legend"`
-			Viz     types.Bool `tfsdk:"viz"`
-		} `tfsdk:"hide_from"`
-		GradientMode     types.String `tfsdk:"gradient_mode"`
-		AxisCenteredZero types.Bool   `tfsdk:"axis_centered_zero"`
-	} `tfsdk:"panel_field_config"`
-	Type          types.String `tfsdk:"type"`
-	Id            types.Int64  `tfsdk:"id"`
-	PluginVersion types.String `tfsdk:"plugin_version"`
-	Tags          types.List   `tfsdk:"tags"`
-	Targets       []struct {
-	} `tfsdk:"targets"`
-	Title       types.String `tfsdk:"title"`
-	Description types.String `tfsdk:"description"`
-	Transparent types.Bool   `tfsdk:"transparent"`
-	Datasource  *struct {
-		Type types.String `tfsdk:"type"`
-		Uid  types.String `tfsdk:"uid"`
-	} `tfsdk:"datasource"`
-	GridPos *struct {
-		H      types.Int64 `tfsdk:"h"`
-		W      types.Int64 `tfsdk:"w"`
-		X      types.Int64 `tfsdk:"x"`
-		Y      types.Int64 `tfsdk:"y"`
-		Static types.Bool  `tfsdk:"static"`
-	} `tfsdk:"grid_pos"`
-	Links []struct {
-		Title       types.String `tfsdk:"title"`
-		Type        types.String `tfsdk:"type"`
-		Icon        types.String `tfsdk:"icon"`
-		Tooltip     types.String `tfsdk:"tooltip"`
-		Url         types.String `tfsdk:"url"`
-		Tags        types.List   `tfsdk:"tags"`
-		AsDropdown  types.Bool   `tfsdk:"as_dropdown"`
-		TargetBlank types.Bool   `tfsdk:"target_blank"`
-		IncludeVars types.Bool   `tfsdk:"include_vars"`
-		KeepTime    types.Bool   `tfsdk:"keep_time"`
-	} `tfsdk:"links"`
-	Repeat          types.String  `tfsdk:"repeat"`
-	RepeatDirection types.String  `tfsdk:"repeat_direction"`
-	RepeatPanelId   types.Int64   `tfsdk:"repeat_panel_id"`
-	MaxDataPoints   types.Float64 `tfsdk:"max_data_points"`
-	Thresholds      []struct {
-	} `tfsdk:"thresholds"`
-	TimeRegions []struct {
-	} `tfsdk:"time_regions"`
-	Transformations []struct {
-		Id       types.String `tfsdk:"id"`
-		Disabled types.Bool   `tfsdk:"disabled"`
-		Filter   *struct {
-			Id types.String `tfsdk:"id"`
-		} `tfsdk:"filter"`
-	} `tfsdk:"transformations"`
-	Interval     types.String `tfsdk:"interval"`
-	TimeFrom     types.String `tfsdk:"time_from"`
-	TimeShift    types.String `tfsdk:"time_shift"`
-	LibraryPanel *struct {
-		Name types.String `tfsdk:"name"`
-		Uid  types.String `tfsdk:"uid"`
-	} `tfsdk:"library_panel"`
-	Options struct {
-	} `tfsdk:"options"`
-	FieldConfig struct {
-		Defaults struct {
-			DisplayName       types.String  `tfsdk:"display_name"`
-			DisplayNameFromDS types.String  `tfsdk:"display_name_from_ds"`
-			Description       types.String  `tfsdk:"description"`
-			Path              types.String  `tfsdk:"path"`
-			Writeable         types.Bool    `tfsdk:"writeable"`
-			Filterable        types.Bool    `tfsdk:"filterable"`
-			Unit              types.String  `tfsdk:"unit"`
-			Decimals          types.Float64 `tfsdk:"decimals"`
-			Min               types.Float64 `tfsdk:"min"`
-			Max               types.Float64 `tfsdk:"max"`
-			Thresholds        *struct {
-				Mode  types.String `tfsdk:"mode"`
-				Steps []struct {
-					Value types.Float64 `tfsdk:"value"`
-					Color types.String  `tfsdk:"color"`
-					State types.String  `tfsdk:"state"`
-				} `tfsdk:"steps"`
-			} `tfsdk:"thresholds"`
-			Color *struct {
-				Mode       types.String `tfsdk:"mode"`
-				FixedColor types.String `tfsdk:"fixed_color"`
-				SeriesBy   types.String `tfsdk:"series_by"`
-			} `tfsdk:"color"`
-			Links []struct {
-			} `tfsdk:"links"`
-			NoValue types.String `tfsdk:"no_value"`
-			Custom  *struct {
-			} `tfsdk:"custom"`
-		} `tfsdk:"defaults"`
-		Overrides []struct {
-			Matcher struct {
-				Id types.String `tfsdk:"id"`
-			} `tfsdk:"matcher"`
-			Properties []struct {
-				Id types.String `tfsdk:"id"`
-			} `tfsdk:"properties"`
-		} `tfsdk:"overrides"`
-	} `tfsdk:"field_config"`
-	ToJSON types.String `tfsdk:"to_json"`
+type PanelHistogramDataSourceModel_Options_Legend struct {
+	DisplayMode types.String  `tfsdk:"display_mode"`
+	Placement   types.String  `tfsdk:"placement"`
+	ShowLegend  types.Bool    `tfsdk:"show_legend"`
+	AsTable     types.Bool    `tfsdk:"as_table"`
+	IsVisible   types.Bool    `tfsdk:"is_visible"`
+	SortBy      types.String  `tfsdk:"sort_by"`
+	SortDesc    types.Bool    `tfsdk:"sort_desc"`
+	Width       types.Float64 `tfsdk:"width"`
+	Calcs       types.List    `tfsdk:"calcs"`
 }
 
-// PanelHistogramDataSourceModelJSON describes the data source data model when exported to json.
-type PanelHistogramDataSourceModelJSON struct {
-	PanelOptions struct {
-		BucketSize   *int64 `json:"bucketSize,omitempty"`
-		BucketOffset *int64 `json:"bucketOffset,omitempty"`
-		Legend       struct {
-			DisplayMode string   `json:"displayMode"`
-			Placement   string   `json:"placement"`
-			ShowLegend  bool     `json:"showLegend"`
-			AsTable     *bool    `json:"asTable,omitempty"`
-			IsVisible   *bool    `json:"isVisible,omitempty"`
-			SortBy      *string  `json:"sortBy,omitempty"`
-			SortDesc    *bool    `json:"sortDesc,omitempty"`
-			Width       *float64 `json:"width,omitempty"`
-			Calcs       []string `json:"calcs"`
-		} `json:"legend"`
-		Tooltip struct {
-			Mode string `json:"mode"`
-			Sort string `json:"sort"`
-		} `json:"tooltip"`
-		Combine *bool `json:"combine,omitempty"`
-	} `json:"PanelOptions"`
-	PanelFieldConfig struct {
-		LineWidth         *int64   `json:"lineWidth,omitempty"`
-		FillOpacity       *int64   `json:"fillOpacity,omitempty"`
-		AxisPlacement     *string  `json:"axisPlacement,omitempty"`
-		AxisColorMode     *string  `json:"axisColorMode,omitempty"`
-		AxisLabel         *string  `json:"axisLabel,omitempty"`
-		AxisWidth         *float64 `json:"axisWidth,omitempty"`
-		AxisSoftMin       *float64 `json:"axisSoftMin,omitempty"`
-		AxisSoftMax       *float64 `json:"axisSoftMax,omitempty"`
-		AxisGridShow      *bool    `json:"axisGridShow,omitempty"`
-		ScaleDistribution *struct {
-			Type            string   `json:"type"`
-			Log             *float64 `json:"log,omitempty"`
-			LinearThreshold *float64 `json:"linearThreshold,omitempty"`
-		} `json:"scaleDistribution,omitempty"`
-		HideFrom *struct {
-			Tooltip bool `json:"tooltip"`
-			Legend  bool `json:"legend"`
-			Viz     bool `json:"viz"`
-		} `json:"hideFrom,omitempty"`
-		GradientMode     *string `json:"gradientMode,omitempty"`
-		AxisCenteredZero *bool   `json:"axisCenteredZero,omitempty"`
-	} `json:"PanelFieldConfig"`
-	Type          string   `json:"type"`
-	Id            *int64   `json:"id,omitempty"`
-	PluginVersion *string  `json:"pluginVersion,omitempty"`
-	Tags          []string `json:"tags,omitempty"`
-	Targets       []struct {
-	} `json:"targets,omitempty"`
-	Title       *string `json:"title,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Transparent bool    `json:"transparent"`
-	Datasource  *struct {
+func (m PanelHistogramDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_Options_Legend struct {
+		DisplayMode string   `json:"displayMode"`
+		Placement   string   `json:"placement"`
+		ShowLegend  bool     `json:"showLegend"`
+		AsTable     *bool    `json:"asTable,omitempty"`
+		IsVisible   *bool    `json:"isVisible,omitempty"`
+		SortBy      *string  `json:"sortBy,omitempty"`
+		SortDesc    *bool    `json:"sortDesc,omitempty"`
+		Width       *float64 `json:"width,omitempty"`
+		Calcs       []string `json:"calcs"`
+	}
+	attr_displaymode := m.DisplayMode.ValueString()
+	attr_placement := m.Placement.ValueString()
+	attr_showlegend := m.ShowLegend.ValueBool()
+	attr_astable := m.AsTable.ValueBool()
+	attr_isvisible := m.IsVisible.ValueBool()
+	attr_sortby := m.SortBy.ValueString()
+	attr_sortdesc := m.SortDesc.ValueBool()
+	attr_width := m.Width.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
+
+	model := &jsonPanelHistogramDataSourceModel_Options_Legend{
+		DisplayMode: attr_displaymode,
+		Placement:   attr_placement,
+		ShowLegend:  attr_showlegend,
+		AsTable:     &attr_astable,
+		IsVisible:   &attr_isvisible,
+		SortBy:      &attr_sortby,
+		SortDesc:    &attr_sortdesc,
+		Width:       &attr_width,
+		Calcs:       attr_calcs,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_Options_Tooltip struct {
+	Mode types.String `tfsdk:"mode"`
+	Sort types.String `tfsdk:"sort"`
+}
+
+func (m PanelHistogramDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_Options_Tooltip struct {
+		Mode string `json:"mode"`
+		Sort string `json:"sort"`
+	}
+	attr_mode := m.Mode.ValueString()
+	attr_sort := m.Sort.ValueString()
+
+	model := &jsonPanelHistogramDataSourceModel_Options_Tooltip{
+		Mode: attr_mode,
+		Sort: attr_sort,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_Options struct {
+	BucketSize   types.Int64                                   `tfsdk:"bucket_size"`
+	BucketOffset types.Int64                                   `tfsdk:"bucket_offset"`
+	Legend       PanelHistogramDataSourceModel_Options_Legend  `tfsdk:"legend"`
+	Tooltip      PanelHistogramDataSourceModel_Options_Tooltip `tfsdk:"tooltip"`
+	Combine      types.Bool                                    `tfsdk:"combine"`
+}
+
+func (m PanelHistogramDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_Options struct {
+		BucketSize   *int64      `json:"bucketSize,omitempty"`
+		BucketOffset *int64      `json:"bucketOffset,omitempty"`
+		Legend       interface{} `json:"legend"`
+		Tooltip      interface{} `json:"tooltip"`
+		Combine      *bool       `json:"combine,omitempty"`
+	}
+	attr_bucketsize := m.BucketSize.ValueInt64()
+	attr_bucketoffset := m.BucketOffset.ValueInt64()
+	var attr_legend interface{} = m.Legend
+	var attr_tooltip interface{} = m.Tooltip
+	attr_combine := m.Combine.ValueBool()
+
+	model := &jsonPanelHistogramDataSourceModel_Options{
+		BucketSize:   &attr_bucketsize,
+		BucketOffset: &attr_bucketoffset,
+		Legend:       attr_legend,
+		Tooltip:      attr_tooltip,
+		Combine:      &attr_combine,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_PanelFieldConfig_ScaleDistribution struct {
+	Type            types.String  `tfsdk:"type"`
+	Log             types.Float64 `tfsdk:"log"`
+	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+}
+
+func (m PanelHistogramDataSourceModel_PanelFieldConfig_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_PanelFieldConfig_ScaleDistribution struct {
+		Type            string   `json:"type"`
+		Log             *float64 `json:"log,omitempty"`
+		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+	}
+	attr_type := m.Type.ValueString()
+	attr_log := m.Log.ValueFloat64()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+
+	model := &jsonPanelHistogramDataSourceModel_PanelFieldConfig_ScaleDistribution{
+		Type:            attr_type,
+		Log:             &attr_log,
+		LinearThreshold: &attr_linearthreshold,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_PanelFieldConfig_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelHistogramDataSourceModel_PanelFieldConfig_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_PanelFieldConfig_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelHistogramDataSourceModel_PanelFieldConfig_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_PanelFieldConfig struct {
+	LineWidth         types.Int64                                                       `tfsdk:"line_width"`
+	FillOpacity       types.Int64                                                       `tfsdk:"fill_opacity"`
+	AxisPlacement     types.String                                                      `tfsdk:"axis_placement"`
+	AxisColorMode     types.String                                                      `tfsdk:"axis_color_mode"`
+	AxisLabel         types.String                                                      `tfsdk:"axis_label"`
+	AxisWidth         types.Float64                                                     `tfsdk:"axis_width"`
+	AxisSoftMin       types.Float64                                                     `tfsdk:"axis_soft_min"`
+	AxisSoftMax       types.Float64                                                     `tfsdk:"axis_soft_max"`
+	AxisGridShow      types.Bool                                                        `tfsdk:"axis_grid_show"`
+	ScaleDistribution *PanelHistogramDataSourceModel_PanelFieldConfig_ScaleDistribution `tfsdk:"scale_distribution"`
+	HideFrom          *PanelHistogramDataSourceModel_PanelFieldConfig_HideFrom          `tfsdk:"hide_from"`
+	GradientMode      types.String                                                      `tfsdk:"gradient_mode"`
+	AxisCenteredZero  types.Bool                                                        `tfsdk:"axis_centered_zero"`
+}
+
+func (m PanelHistogramDataSourceModel_PanelFieldConfig) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_PanelFieldConfig struct {
+		LineWidth         *int64      `json:"lineWidth,omitempty"`
+		FillOpacity       *int64      `json:"fillOpacity,omitempty"`
+		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
+		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
+		AxisLabel         *string     `json:"axisLabel,omitempty"`
+		AxisWidth         *float64    `json:"axisWidth,omitempty"`
+		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
+		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
+		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
+		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
+		HideFrom          interface{} `json:"hideFrom,omitempty"`
+		GradientMode      *string     `json:"gradientMode,omitempty"`
+		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
+	}
+	attr_linewidth := m.LineWidth.ValueInt64()
+	attr_fillopacity := m.FillOpacity.ValueInt64()
+	attr_axisplacement := m.AxisPlacement.ValueString()
+	attr_axiscolormode := m.AxisColorMode.ValueString()
+	attr_axislabel := m.AxisLabel.ValueString()
+	attr_axiswidth := m.AxisWidth.ValueFloat64()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
+	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	var attr_scaledistribution interface{}
+	if m.ScaleDistribution != nil {
+		attr_scaledistribution = m.ScaleDistribution
+	}
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	attr_gradientmode := m.GradientMode.ValueString()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
+
+	model := &jsonPanelHistogramDataSourceModel_PanelFieldConfig{
+		LineWidth:         &attr_linewidth,
+		FillOpacity:       &attr_fillopacity,
+		AxisPlacement:     &attr_axisplacement,
+		AxisColorMode:     &attr_axiscolormode,
+		AxisLabel:         &attr_axislabel,
+		AxisWidth:         &attr_axiswidth,
+		AxisSoftMin:       &attr_axissoftmin,
+		AxisSoftMax:       &attr_axissoftmax,
+		AxisGridShow:      &attr_axisgridshow,
+		ScaleDistribution: attr_scaledistribution,
+		HideFrom:          attr_hidefrom,
+		GradientMode:      &attr_gradientmode,
+		AxisCenteredZero:  &attr_axiscenteredzero,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_Targets struct {
+}
+
+func (m PanelHistogramDataSourceModel_Targets) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_Targets struct {
+	}
+
+	model := &jsonPanelHistogramDataSourceModel_Targets{}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_Datasource struct {
+	Type types.String `tfsdk:"type"`
+	Uid  types.String `tfsdk:"uid"`
+}
+
+func (m PanelHistogramDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_Datasource struct {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
-	} `json:"datasource,omitempty"`
-	GridPos *struct {
+	}
+	attr_type := m.Type.ValueString()
+	attr_uid := m.Uid.ValueString()
+
+	model := &jsonPanelHistogramDataSourceModel_Datasource{
+		Type: &attr_type,
+		Uid:  &attr_uid,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_GridPos struct {
+	H      types.Int64 `tfsdk:"h"`
+	W      types.Int64 `tfsdk:"w"`
+	X      types.Int64 `tfsdk:"x"`
+	Y      types.Int64 `tfsdk:"y"`
+	Static types.Bool  `tfsdk:"static"`
+}
+
+func (m PanelHistogramDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_GridPos struct {
 		H      int64 `json:"h"`
 		W      int64 `json:"w"`
 		X      int64 `json:"x"`
 		Y      int64 `json:"y"`
 		Static *bool `json:"static,omitempty"`
-	} `json:"gridPos,omitempty"`
-	Links []struct {
+	}
+	attr_h := m.H.ValueInt64()
+	attr_w := m.W.ValueInt64()
+	attr_x := m.X.ValueInt64()
+	attr_y := m.Y.ValueInt64()
+	attr_static := m.Static.ValueBool()
+
+	model := &jsonPanelHistogramDataSourceModel_GridPos{
+		H:      attr_h,
+		W:      attr_w,
+		X:      attr_x,
+		Y:      attr_y,
+		Static: &attr_static,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_Links struct {
+	Title       types.String `tfsdk:"title"`
+	Type        types.String `tfsdk:"type"`
+	Icon        types.String `tfsdk:"icon"`
+	Tooltip     types.String `tfsdk:"tooltip"`
+	Url         types.String `tfsdk:"url"`
+	Tags        types.List   `tfsdk:"tags"`
+	AsDropdown  types.Bool   `tfsdk:"as_dropdown"`
+	TargetBlank types.Bool   `tfsdk:"target_blank"`
+	IncludeVars types.Bool   `tfsdk:"include_vars"`
+	KeepTime    types.Bool   `tfsdk:"keep_time"`
+}
+
+func (m PanelHistogramDataSourceModel_Links) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_Links struct {
 		Title       string   `json:"title"`
 		Type        string   `json:"type"`
 		Icon        string   `json:"icon"`
@@ -253,71 +342,460 @@ type PanelHistogramDataSourceModelJSON struct {
 		TargetBlank bool     `json:"targetBlank"`
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
-	} `json:"links,omitempty"`
-	Repeat          *string  `json:"repeat,omitempty"`
-	RepeatDirection string   `json:"repeatDirection"`
-	RepeatPanelId   *int64   `json:"repeatPanelId,omitempty"`
-	MaxDataPoints   *float64 `json:"maxDataPoints,omitempty"`
-	Thresholds      []struct {
-	} `json:"thresholds,omitempty"`
-	TimeRegions []struct {
-	} `json:"timeRegions,omitempty"`
-	Transformations []struct {
-		Id       string `json:"id"`
-		Disabled *bool  `json:"disabled,omitempty"`
-		Filter   *struct {
-			Id string `json:"id"`
-		} `json:"filter,omitempty"`
-	} `json:"transformations"`
-	Interval     *string `json:"interval,omitempty"`
-	TimeFrom     *string `json:"timeFrom,omitempty"`
-	TimeShift    *string `json:"timeShift,omitempty"`
-	LibraryPanel *struct {
+	}
+	attr_title := m.Title.ValueString()
+	attr_type := m.Type.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_tooltip := m.Tooltip.ValueString()
+	attr_url := m.Url.ValueString()
+	attr_tags := []string{}
+	for _, v := range m.Tags.Elements() {
+		attr_tags = append(attr_tags, v.(types.String).ValueString())
+	}
+	attr_asdropdown := m.AsDropdown.ValueBool()
+	attr_targetblank := m.TargetBlank.ValueBool()
+	attr_includevars := m.IncludeVars.ValueBool()
+	attr_keeptime := m.KeepTime.ValueBool()
+
+	model := &jsonPanelHistogramDataSourceModel_Links{
+		Title:       attr_title,
+		Type:        attr_type,
+		Icon:        attr_icon,
+		Tooltip:     attr_tooltip,
+		Url:         attr_url,
+		Tags:        attr_tags,
+		AsDropdown:  attr_asdropdown,
+		TargetBlank: attr_targetblank,
+		IncludeVars: attr_includevars,
+		KeepTime:    attr_keeptime,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_Transformations_Filter struct {
+	Id types.String `tfsdk:"id"`
+}
+
+func (m PanelHistogramDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_Transformations_Filter struct {
+		Id string `json:"id"`
+	}
+	attr_id := m.Id.ValueString()
+
+	model := &jsonPanelHistogramDataSourceModel_Transformations_Filter{
+		Id: attr_id,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_Transformations struct {
+	Id       types.String                                          `tfsdk:"id"`
+	Disabled types.Bool                                            `tfsdk:"disabled"`
+	Filter   *PanelHistogramDataSourceModel_Transformations_Filter `tfsdk:"filter"`
+}
+
+func (m PanelHistogramDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_Transformations struct {
+		Id       string      `json:"id"`
+		Disabled *bool       `json:"disabled,omitempty"`
+		Filter   interface{} `json:"filter,omitempty"`
+	}
+	attr_id := m.Id.ValueString()
+	attr_disabled := m.Disabled.ValueBool()
+	var attr_filter interface{}
+	if m.Filter != nil {
+		attr_filter = m.Filter
+	}
+
+	model := &jsonPanelHistogramDataSourceModel_Transformations{
+		Id:       attr_id,
+		Disabled: &attr_disabled,
+		Filter:   attr_filter,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_LibraryPanel struct {
+	Name types.String `tfsdk:"name"`
+	Uid  types.String `tfsdk:"uid"`
+}
+
+func (m PanelHistogramDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_LibraryPanel struct {
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
-	} `json:"libraryPanel,omitempty"`
-	Options struct {
-	} `json:"options"`
-	FieldConfig struct {
-		Defaults struct {
-			DisplayName       *string  `json:"displayName,omitempty"`
-			DisplayNameFromDS *string  `json:"displayNameFromDS,omitempty"`
-			Description       *string  `json:"description,omitempty"`
-			Path              *string  `json:"path,omitempty"`
-			Writeable         *bool    `json:"writeable,omitempty"`
-			Filterable        *bool    `json:"filterable,omitempty"`
-			Unit              *string  `json:"unit,omitempty"`
-			Decimals          *float64 `json:"decimals,omitempty"`
-			Min               *float64 `json:"min,omitempty"`
-			Max               *float64 `json:"max,omitempty"`
-			Thresholds        *struct {
-				Mode  string `json:"mode"`
-				Steps []struct {
-					Value *float64 `json:"value,omitempty"`
-					Color string   `json:"color"`
-					State *string  `json:"state,omitempty"`
-				} `json:"steps"`
-			} `json:"thresholds,omitempty"`
-			Color *struct {
-				Mode       string  `json:"mode"`
-				FixedColor *string `json:"fixedColor,omitempty"`
-				SeriesBy   *string `json:"seriesBy,omitempty"`
-			} `json:"color,omitempty"`
-			Links []struct {
-			} `json:"links,omitempty"`
-			NoValue *string `json:"noValue,omitempty"`
-			Custom  *struct {
-			} `json:"custom,omitempty"`
-		} `json:"defaults"`
-		Overrides []struct {
-			Matcher struct {
-				Id string `json:"id"`
-			} `json:"matcher"`
-			Properties []struct {
-				Id string `json:"id"`
-			} `json:"properties"`
-		} `json:"overrides"`
-	} `json:"fieldConfig"`
+	}
+	attr_name := m.Name.ValueString()
+	attr_uid := m.Uid.ValueString()
+
+	model := &jsonPanelHistogramDataSourceModel_LibraryPanel{
+		Name: attr_name,
+		Uid:  attr_uid,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+	Value types.Float64 `tfsdk:"value"`
+	Color types.String  `tfsdk:"color"`
+	State types.String  `tfsdk:"state"`
+}
+
+func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+		Value *float64 `json:"value,omitempty"`
+		Color string   `json:"color"`
+		State *string  `json:"state,omitempty"`
+	}
+	attr_value := m.Value.ValueFloat64()
+	attr_color := m.Color.ValueString()
+	attr_state := m.State.ValueString()
+
+	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
+		Value: &attr_value,
+		Color: attr_color,
+		State: &attr_state,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+	Mode  types.String                                                          `tfsdk:"mode"`
+	Steps []PanelHistogramDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
+}
+
+func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+		Mode  string        `json:"mode"`
+		Steps []interface{} `json:"steps"`
+	}
+	attr_mode := m.Mode.ValueString()
+	attr_steps := []interface{}{}
+	for _, v := range m.Steps {
+		attr_steps = append(attr_steps, v)
+	}
+
+	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Thresholds{
+		Mode:  attr_mode,
+		Steps: attr_steps,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_FieldConfig_Defaults_Color struct {
+	Mode       types.String `tfsdk:"mode"`
+	FixedColor types.String `tfsdk:"fixed_color"`
+	SeriesBy   types.String `tfsdk:"series_by"`
+}
+
+func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Color struct {
+		Mode       string  `json:"mode"`
+		FixedColor *string `json:"fixedColor,omitempty"`
+		SeriesBy   *string `json:"seriesBy,omitempty"`
+	}
+	attr_mode := m.Mode.ValueString()
+	attr_fixedcolor := m.FixedColor.ValueString()
+	attr_seriesby := m.SeriesBy.ValueString()
+
+	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Color{
+		Mode:       attr_mode,
+		FixedColor: &attr_fixedcolor,
+		SeriesBy:   &attr_seriesby,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_FieldConfig_Defaults_Custom struct {
+}
+
+func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Custom struct {
+	}
+
+	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Custom{}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_FieldConfig_Defaults struct {
+	DisplayName       types.String                                                   `tfsdk:"display_name"`
+	DisplayNameFromDS types.String                                                   `tfsdk:"display_name_from_ds"`
+	Description       types.String                                                   `tfsdk:"description"`
+	Path              types.String                                                   `tfsdk:"path"`
+	Writeable         types.Bool                                                     `tfsdk:"writeable"`
+	Filterable        types.Bool                                                     `tfsdk:"filterable"`
+	Unit              types.String                                                   `tfsdk:"unit"`
+	Decimals          types.Float64                                                  `tfsdk:"decimals"`
+	Min               types.Float64                                                  `tfsdk:"min"`
+	Max               types.Float64                                                  `tfsdk:"max"`
+	Thresholds        *PanelHistogramDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
+	Color             *PanelHistogramDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
+	NoValue           types.String                                                   `tfsdk:"no_value"`
+	Custom            *PanelHistogramDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
+}
+
+func (m PanelHistogramDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_FieldConfig_Defaults struct {
+		DisplayName       *string     `json:"displayName,omitempty"`
+		DisplayNameFromDS *string     `json:"displayNameFromDS,omitempty"`
+		Description       *string     `json:"description,omitempty"`
+		Path              *string     `json:"path,omitempty"`
+		Writeable         *bool       `json:"writeable,omitempty"`
+		Filterable        *bool       `json:"filterable,omitempty"`
+		Unit              *string     `json:"unit,omitempty"`
+		Decimals          *float64    `json:"decimals,omitempty"`
+		Min               *float64    `json:"min,omitempty"`
+		Max               *float64    `json:"max,omitempty"`
+		Thresholds        interface{} `json:"thresholds,omitempty"`
+		Color             interface{} `json:"color,omitempty"`
+		NoValue           *string     `json:"noValue,omitempty"`
+		Custom            interface{} `json:"custom,omitempty"`
+	}
+	attr_displayname := m.DisplayName.ValueString()
+	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
+	attr_description := m.Description.ValueString()
+	attr_path := m.Path.ValueString()
+	attr_writeable := m.Writeable.ValueBool()
+	attr_filterable := m.Filterable.ValueBool()
+	attr_unit := m.Unit.ValueString()
+	attr_decimals := m.Decimals.ValueFloat64()
+	attr_min := m.Min.ValueFloat64()
+	attr_max := m.Max.ValueFloat64()
+	var attr_thresholds interface{}
+	if m.Thresholds != nil {
+		attr_thresholds = m.Thresholds
+	}
+	var attr_color interface{}
+	if m.Color != nil {
+		attr_color = m.Color
+	}
+	attr_novalue := m.NoValue.ValueString()
+	var attr_custom interface{}
+	if m.Custom != nil {
+		attr_custom = m.Custom
+	}
+
+	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults{
+		DisplayName:       &attr_displayname,
+		DisplayNameFromDS: &attr_displaynamefromds,
+		Description:       &attr_description,
+		Path:              &attr_path,
+		Writeable:         &attr_writeable,
+		Filterable:        &attr_filterable,
+		Unit:              &attr_unit,
+		Decimals:          &attr_decimals,
+		Min:               &attr_min,
+		Max:               &attr_max,
+		Thresholds:        attr_thresholds,
+		Color:             attr_color,
+		NoValue:           &attr_novalue,
+		Custom:            attr_custom,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_FieldConfig_Overrides_Matcher struct {
+	Id types.String `tfsdk:"id"`
+}
+
+func (m PanelHistogramDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_FieldConfig_Overrides_Matcher struct {
+		Id string `json:"id"`
+	}
+	attr_id := m.Id.ValueString()
+
+	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Overrides_Matcher{
+		Id: attr_id,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_FieldConfig_Overrides_Properties struct {
+	Id types.String `tfsdk:"id"`
+}
+
+func (m PanelHistogramDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_FieldConfig_Overrides_Properties struct {
+		Id string `json:"id"`
+	}
+	attr_id := m.Id.ValueString()
+
+	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Overrides_Properties{
+		Id: attr_id,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_FieldConfig_Overrides struct {
+	Matcher    PanelHistogramDataSourceModel_FieldConfig_Overrides_Matcher      `tfsdk:"matcher"`
+	Properties []PanelHistogramDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
+}
+
+func (m PanelHistogramDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_FieldConfig_Overrides struct {
+		Matcher    interface{}   `json:"matcher"`
+		Properties []interface{} `json:"properties"`
+	}
+	var attr_matcher interface{} = m.Matcher
+	attr_properties := []interface{}{}
+	for _, v := range m.Properties {
+		attr_properties = append(attr_properties, v)
+	}
+
+	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Overrides{
+		Matcher:    attr_matcher,
+		Properties: attr_properties,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel_FieldConfig struct {
+	Defaults  PanelHistogramDataSourceModel_FieldConfig_Defaults    `tfsdk:"defaults"`
+	Overrides []PanelHistogramDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
+}
+
+func (m PanelHistogramDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel_FieldConfig struct {
+		Defaults  interface{}   `json:"defaults"`
+		Overrides []interface{} `json:"overrides"`
+	}
+	var attr_defaults interface{} = m.Defaults
+	attr_overrides := []interface{}{}
+	for _, v := range m.Overrides {
+		attr_overrides = append(attr_overrides, v)
+	}
+
+	model := &jsonPanelHistogramDataSourceModel_FieldConfig{
+		Defaults:  attr_defaults,
+		Overrides: attr_overrides,
+	}
+	return json.Marshal(model)
+}
+
+type PanelHistogramDataSourceModel struct {
+	ToJSON           types.String                                    `tfsdk:"to_json"`
+	Options          PanelHistogramDataSourceModel_Options           `tfsdk:"options"`
+	PanelFieldConfig PanelHistogramDataSourceModel_PanelFieldConfig  `tfsdk:"panel_field_config"`
+	Type             types.String                                    `tfsdk:"type"`
+	Id               types.Int64                                     `tfsdk:"id"`
+	PluginVersion    types.String                                    `tfsdk:"plugin_version"`
+	Tags             types.List                                      `tfsdk:"tags"`
+	Targets          []PanelHistogramDataSourceModel_Targets         `tfsdk:"targets"`
+	Title            types.String                                    `tfsdk:"title"`
+	Description      types.String                                    `tfsdk:"description"`
+	Transparent      types.Bool                                      `tfsdk:"transparent"`
+	Datasource       *PanelHistogramDataSourceModel_Datasource       `tfsdk:"datasource"`
+	GridPos          *PanelHistogramDataSourceModel_GridPos          `tfsdk:"grid_pos"`
+	Links            []PanelHistogramDataSourceModel_Links           `tfsdk:"links"`
+	Repeat           types.String                                    `tfsdk:"repeat"`
+	RepeatDirection  types.String                                    `tfsdk:"repeat_direction"`
+	RepeatPanelId    types.Int64                                     `tfsdk:"repeat_panel_id"`
+	MaxDataPoints    types.Float64                                   `tfsdk:"max_data_points"`
+	Transformations  []PanelHistogramDataSourceModel_Transformations `tfsdk:"transformations"`
+	Interval         types.String                                    `tfsdk:"interval"`
+	TimeFrom         types.String                                    `tfsdk:"time_from"`
+	TimeShift        types.String                                    `tfsdk:"time_shift"`
+	LibraryPanel     *PanelHistogramDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
+	FieldConfig      PanelHistogramDataSourceModel_FieldConfig       `tfsdk:"field_config"`
+}
+
+func (m PanelHistogramDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonPanelHistogramDataSourceModel struct {
+		Options          interface{}   `json:"options"`
+		PanelFieldConfig interface{}   `json:"PanelFieldConfig"`
+		Type             string        `json:"type"`
+		Id               *int64        `json:"id,omitempty"`
+		PluginVersion    *string       `json:"pluginVersion,omitempty"`
+		Tags             []string      `json:"tags,omitempty"`
+		Targets          []interface{} `json:"targets,omitempty"`
+		Title            *string       `json:"title,omitempty"`
+		Description      *string       `json:"description,omitempty"`
+		Transparent      bool          `json:"transparent"`
+		Datasource       interface{}   `json:"datasource,omitempty"`
+		GridPos          interface{}   `json:"gridPos,omitempty"`
+		Links            []interface{} `json:"links,omitempty"`
+		Repeat           *string       `json:"repeat,omitempty"`
+		RepeatDirection  string        `json:"repeatDirection"`
+		RepeatPanelId    *int64        `json:"repeatPanelId,omitempty"`
+		MaxDataPoints    *float64      `json:"maxDataPoints,omitempty"`
+		Transformations  []interface{} `json:"transformations"`
+		Interval         *string       `json:"interval,omitempty"`
+		TimeFrom         *string       `json:"timeFrom,omitempty"`
+		TimeShift        *string       `json:"timeShift,omitempty"`
+		LibraryPanel     interface{}   `json:"libraryPanel,omitempty"`
+		FieldConfig      interface{}   `json:"fieldConfig"`
+	}
+	var attr_options interface{} = m.Options
+	var attr_panelfieldconfig interface{} = m.PanelFieldConfig
+	attr_type := m.Type.ValueString()
+	attr_id := m.Id.ValueInt64()
+	attr_pluginversion := m.PluginVersion.ValueString()
+	attr_tags := []string{}
+	for _, v := range m.Tags.Elements() {
+		attr_tags = append(attr_tags, v.(types.String).ValueString())
+	}
+	attr_targets := []interface{}{}
+	for _, v := range m.Targets {
+		attr_targets = append(attr_targets, v)
+	}
+	attr_title := m.Title.ValueString()
+	attr_description := m.Description.ValueString()
+	attr_transparent := m.Transparent.ValueBool()
+	var attr_datasource interface{}
+	if m.Datasource != nil {
+		attr_datasource = m.Datasource
+	}
+	var attr_gridpos interface{}
+	if m.GridPos != nil {
+		attr_gridpos = m.GridPos
+	}
+	attr_links := []interface{}{}
+	for _, v := range m.Links {
+		attr_links = append(attr_links, v)
+	}
+	attr_repeat := m.Repeat.ValueString()
+	attr_repeatdirection := m.RepeatDirection.ValueString()
+	attr_repeatpanelid := m.RepeatPanelId.ValueInt64()
+	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
+	attr_transformations := []interface{}{}
+	for _, v := range m.Transformations {
+		attr_transformations = append(attr_transformations, v)
+	}
+	attr_interval := m.Interval.ValueString()
+	attr_timefrom := m.TimeFrom.ValueString()
+	attr_timeshift := m.TimeShift.ValueString()
+	var attr_librarypanel interface{}
+	if m.LibraryPanel != nil {
+		attr_librarypanel = m.LibraryPanel
+	}
+	var attr_fieldconfig interface{} = m.FieldConfig
+
+	model := &jsonPanelHistogramDataSourceModel{
+		Options:          attr_options,
+		PanelFieldConfig: attr_panelfieldconfig,
+		Type:             attr_type,
+		Id:               &attr_id,
+		PluginVersion:    &attr_pluginversion,
+		Tags:             attr_tags,
+		Targets:          attr_targets,
+		Title:            &attr_title,
+		Description:      &attr_description,
+		Transparent:      attr_transparent,
+		Datasource:       attr_datasource,
+		GridPos:          attr_gridpos,
+		Links:            attr_links,
+		Repeat:           &attr_repeat,
+		RepeatDirection:  attr_repeatdirection,
+		RepeatPanelId:    &attr_repeatpanelid,
+		MaxDataPoints:    &attr_maxdatapoints,
+		Transformations:  attr_transformations,
+		Interval:         &attr_interval,
+		TimeFrom:         &attr_timefrom,
+		TimeShift:        &attr_timeshift,
+		LibraryPanel:     attr_librarypanel,
+		FieldConfig:      attr_fieldconfig,
+	}
+	return json.Marshal(model)
 }
 
 func (d *PanelHistogramDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -329,7 +807,7 @@ func (d *PanelHistogramDataSource) Schema(ctx context.Context, req datasource.Sc
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"panel_options": schema.SingleNestedAttribute{
+			"options": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
 				Optional:            false,
@@ -342,7 +820,7 @@ func (d *PanelHistogramDataSource) Schema(ctx context.Context, req datasource.Sc
 						Required:            false,
 					},
 					"bucket_offset": schema.Int64Attribute{
-						MarkdownDescription: `Offset buckets by this amount`,
+						MarkdownDescription: `Offset buckets by this amount. Defaults to 0.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
@@ -445,13 +923,13 @@ func (d *PanelHistogramDataSource) Schema(ctx context.Context, req datasource.Sc
 				Required:            true,
 				Attributes: map[string]schema.Attribute{
 					"line_width": schema.Int64Attribute{
-						MarkdownDescription: `Controls line width of the bars.`,
+						MarkdownDescription: `Controls line width of the bars. Defaults to 1.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 					"fill_opacity": schema.Int64Attribute{
-						MarkdownDescription: `Controls the fill opacity of the bars.`,
+						MarkdownDescription: `Controls the fill opacity of the bars. Defaults to 80.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
@@ -552,7 +1030,7 @@ func (d *PanelHistogramDataSource) Schema(ctx context.Context, req datasource.Sc
 					},
 					"gradient_mode": schema.StringAttribute{
 						MarkdownDescription: `Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
-Gradient appearance is influenced by the Fill opacity setting.`,
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".`,
 						Computed: true,
 						Optional: true,
 						Required: false,
@@ -566,10 +1044,10 @@ Gradient appearance is influenced by the Fill opacity setting.`,
 				},
 			},
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty.`,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "histogram".`,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 			},
 			"id": schema.Int64Attribute{
 				MarkdownDescription: `TODO docs`,
@@ -609,7 +1087,7 @@ Gradient appearance is influenced by the Fill opacity setting.`,
 				Required:            false,
 			},
 			"transparent": schema.BoolAttribute{
-				MarkdownDescription: `Whether to display the panel without a background.`,
+				MarkdownDescription: `Whether to display the panel without a background. Defaults to false.`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -641,25 +1119,25 @@ Gradient appearance is influenced by the Fill opacity setting.`,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
 					"h": schema.Int64Attribute{
-						MarkdownDescription: `Panel`,
+						MarkdownDescription: `Panel. Defaults to 9.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 					"w": schema.Int64Attribute{
-						MarkdownDescription: `Panel`,
+						MarkdownDescription: `Panel. Defaults to 12.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 					"x": schema.Int64Attribute{
-						MarkdownDescription: `Panel x`,
+						MarkdownDescription: `Panel x. Defaults to 0.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 					"y": schema.Int64Attribute{
-						MarkdownDescription: `Panel y`,
+						MarkdownDescription: `Panel y. Defaults to 0.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
@@ -718,25 +1196,25 @@ TODO fill this out - seems there are a couple variants?`,
 							ElementType:         types.StringType,
 						},
 						"as_dropdown": schema.BoolAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: ` Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"target_blank": schema.BoolAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: ` Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"include_vars": schema.BoolAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: ` Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"keep_time": schema.BoolAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: ` Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
@@ -753,7 +1231,7 @@ TODO fill this out - seems there are a couple variants?`,
 			"repeat_direction": schema.StringAttribute{
 				MarkdownDescription: `Direction to repeat in if 'repeat' is set.
 "h" for horizontal, "v" for vertical.
-TODO this is probably optional`,
+TODO this is probably optional. Defaults to "h".`,
 				Computed: true,
 				Optional: true,
 				Required: false,
@@ -765,18 +1243,6 @@ TODO this is probably optional`,
 				Required:            false,
 			},
 			"max_data_points": schema.Float64Attribute{
-				MarkdownDescription: `TODO docs`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"thresholds": schema.ListNestedAttribute{
-				MarkdownDescription: `TODO docs - seems to be an old field from old dashboard alerts?`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"time_regions": schema.ListNestedAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
@@ -808,7 +1274,7 @@ TODO this is probably optional`,
 							Required:            false,
 							Attributes: map[string]schema.Attribute{
 								"id": schema.StringAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: ` Defaults to "".`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
@@ -858,13 +1324,6 @@ TODO tighter constraint`,
 						Required:            true,
 					},
 				},
-			},
-			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the PanelOptions field in panel
-plugin schemas.`,
-				Computed: false,
-				Optional: false,
-				Required: true,
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1014,12 +1473,6 @@ Some seem to be listed in typescript comment`,
 									},
 								},
 							},
-							"links": schema.ListNestedAttribute{
-								MarkdownDescription: `The behavior when clicking on a result`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
 							"no_value": schema.StringAttribute{
 								MarkdownDescription: `Alternative to empty string`,
 								Computed:            false,
@@ -1049,7 +1502,7 @@ in panel plugin schemas.`,
 									Required:            true,
 									Attributes: map[string]schema.Attribute{
 										"id": schema.StringAttribute{
-											MarkdownDescription: ``,
+											MarkdownDescription: ` Defaults to "".`,
 											Computed:            true,
 											Optional:            true,
 											Required:            false,
@@ -1064,7 +1517,7 @@ in panel plugin schemas.`,
 									NestedObject: schema.NestedAttributeObject{
 										Attributes: map[string]schema.Attribute{
 											"id": schema.StringAttribute{
-												MarkdownDescription: ``,
+												MarkdownDescription: ` Defaults to "".`,
 												Computed:            true,
 												Optional:            true,
 												Required:            false,
@@ -1118,8 +1571,8 @@ func (d *PanelHistogramDataSource) Read(ctx context.Context, req datasource.Read
 }
 
 func (d *PanelHistogramDataSource) applyDefaults(data *PanelHistogramDataSourceModel) {
-	if data.PanelOptions.BucketOffset.IsNull() {
-		data.PanelOptions.BucketOffset = types.Int64Value(0)
+	if data.Options.BucketOffset.IsNull() {
+		data.Options.BucketOffset = types.Int64Value(0)
 	}
 	if data.PanelFieldConfig.LineWidth.IsNull() {
 		data.PanelFieldConfig.LineWidth = types.Int64Value(1)
@@ -1129,6 +1582,9 @@ func (d *PanelHistogramDataSource) applyDefaults(data *PanelHistogramDataSourceM
 	}
 	if data.PanelFieldConfig.GradientMode.IsNull() {
 		data.PanelFieldConfig.GradientMode = types.StringValue(`none`)
+	}
+	if data.Type.IsNull() {
+		data.Type = types.StringValue(`histogram`)
 	}
 	if data.Transparent.IsNull() {
 		data.Transparent = types.BoolValue(false)
@@ -1148,37 +1604,4 @@ func (d *PanelHistogramDataSource) applyDefaults(data *PanelHistogramDataSourceM
 	if data.RepeatDirection.IsNull() {
 		data.RepeatDirection = types.StringValue(`h`)
 	}
-}
-
-func (d PanelHistogramDataSourceModel) MarshalJSON() ([]byte, error) {
-	attr_type := d.Type.ValueString()
-	attr_id := d.Id.ValueInt64()
-	attr_pluginversion := d.PluginVersion.ValueString()
-	attr_title := d.Title.ValueString()
-	attr_description := d.Description.ValueString()
-	attr_transparent := d.Transparent.ValueBool()
-	attr_repeat := d.Repeat.ValueString()
-	attr_repeatdirection := d.RepeatDirection.ValueString()
-	attr_repeatpanelid := d.RepeatPanelId.ValueInt64()
-	attr_maxdatapoints := d.MaxDataPoints.ValueFloat64()
-	attr_interval := d.Interval.ValueString()
-	attr_timefrom := d.TimeFrom.ValueString()
-	attr_timeshift := d.TimeShift.ValueString()
-
-	model := &PanelHistogramDataSourceModelJSON{
-		Type:            attr_type,
-		Id:              &attr_id,
-		PluginVersion:   &attr_pluginversion,
-		Title:           &attr_title,
-		Description:     &attr_description,
-		Transparent:     attr_transparent,
-		Repeat:          &attr_repeat,
-		RepeatDirection: attr_repeatdirection,
-		RepeatPanelId:   &attr_repeatpanelid,
-		MaxDataPoints:   &attr_maxdatapoints,
-		Interval:        &attr_interval,
-		TimeFrom:        &attr_timefrom,
-		TimeShift:       &attr_timeshift,
-	}
-	return json.Marshal(model)
 }

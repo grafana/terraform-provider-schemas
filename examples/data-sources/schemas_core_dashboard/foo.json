@@ -10,24 +10,42 @@
     {
       "CodeLanguage": "plaintext",
       "CodeOptions": {
-        "language": "",
+        "language": "plaintext",
         "showLineNumbers": false,
         "showMiniMap": false
-      },
-      "PanelOptions": {
-        "content": "",
-        "mode": ""
       },
       "TextMode": "markdown",
       "description": "",
       "fieldConfig": {
-        "defaults": {},
-        "overrides": null
+        "defaults": {
+          "decimals": 0,
+          "description": "",
+          "displayName": "",
+          "displayNameFromDS": "",
+          "filterable": false,
+          "max": 0,
+          "min": 0,
+          "noValue": "",
+          "path": "",
+          "unit": "",
+          "writeable": false
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "static": false,
+        "w": 24,
+        "x": 0,
+        "y": 0
       },
       "id": 0,
       "interval": "",
       "maxDataPoints": 0,
-      "options": {},
+      "options": {
+        "content": "# test content",
+        "mode": "markdown"
+      },
       "pluginVersion": "",
       "repeat": "",
       "repeatDirection": "h",
@@ -35,7 +53,7 @@
       "timeFrom": "",
       "timeShift": "",
       "title": "test title",
-      "transformations": null,
+      "transformations": [],
       "transparent": false,
       "type": "text"
     }

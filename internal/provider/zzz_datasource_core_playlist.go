@@ -33,29 +33,60 @@ func NewCorePlaylistDataSource() datasource.DataSource {
 // CorePlaylistDataSource defines the data source implementation.
 type CorePlaylistDataSource struct{}
 
-// CorePlaylistDataSourceModel describes the data source data model.
-type CorePlaylistDataSourceModel struct {
-	Uid      types.String `tfsdk:"uid"`
-	Name     types.String `tfsdk:"name"`
-	Interval types.String `tfsdk:"interval"`
-	Items    []struct {
-		Type  types.String `tfsdk:"type"`
-		Value types.String `tfsdk:"value"`
-		Title types.String `tfsdk:"title"`
-	} `tfsdk:"items"`
-	ToJSON types.String `tfsdk:"to_json"`
+type CorePlaylistDataSourceModel_Items struct {
+	Type  types.String `tfsdk:"type"`
+	Value types.String `tfsdk:"value"`
+	Title types.String `tfsdk:"title"`
 }
 
-// CorePlaylistDataSourceModelJSON describes the data source data model when exported to json.
-type CorePlaylistDataSourceModelJSON struct {
-	Uid      string `json:"uid"`
-	Name     string `json:"name"`
-	Interval string `json:"interval"`
-	Items    []struct {
+func (m CorePlaylistDataSourceModel_Items) MarshalJSON() ([]byte, error) {
+	type jsonCorePlaylistDataSourceModel_Items struct {
 		Type  string  `json:"type"`
 		Value string  `json:"value"`
 		Title *string `json:"title,omitempty"`
-	} `json:"items,omitempty"`
+	}
+	attr_type := m.Type.ValueString()
+	attr_value := m.Value.ValueString()
+	attr_title := m.Title.ValueString()
+
+	model := &jsonCorePlaylistDataSourceModel_Items{
+		Type:  attr_type,
+		Value: attr_value,
+		Title: &attr_title,
+	}
+	return json.Marshal(model)
+}
+
+type CorePlaylistDataSourceModel struct {
+	ToJSON   types.String                        `tfsdk:"to_json"`
+	Uid      types.String                        `tfsdk:"uid"`
+	Name     types.String                        `tfsdk:"name"`
+	Interval types.String                        `tfsdk:"interval"`
+	Items    []CorePlaylistDataSourceModel_Items `tfsdk:"items"`
+}
+
+func (m CorePlaylistDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonCorePlaylistDataSourceModel struct {
+		Uid      string        `json:"uid"`
+		Name     string        `json:"name"`
+		Interval string        `json:"interval"`
+		Items    []interface{} `json:"items,omitempty"`
+	}
+	attr_uid := m.Uid.ValueString()
+	attr_name := m.Name.ValueString()
+	attr_interval := m.Interval.ValueString()
+	attr_items := []interface{}{}
+	for _, v := range m.Items {
+		attr_items = append(attr_items, v)
+	}
+
+	model := &jsonCorePlaylistDataSourceModel{
+		Uid:      attr_uid,
+		Name:     attr_name,
+		Interval: attr_interval,
+		Items:    attr_items,
+	}
+	return json.Marshal(model)
 }
 
 func (d *CorePlaylistDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -82,7 +113,7 @@ creator of the playlist of by the application.`,
 			},
 			"interval": schema.StringAttribute{
 				MarkdownDescription: `Interval sets the time between switching views in a playlist.
-FIXME: Is this based on a standardized format or what options are available? Can datemath be used?`,
+FIXME: Is this based on a standardized format or what options are available? Can datemath be used?. Defaults to "5m".`,
 				Computed: true,
 				Optional: true,
 				Required: false,
@@ -167,17 +198,4 @@ func (d *CorePlaylistDataSource) applyDefaults(data *CorePlaylistDataSourceModel
 	if data.Interval.IsNull() {
 		data.Interval = types.StringValue(`5m`)
 	}
-}
-
-func (d CorePlaylistDataSourceModel) MarshalJSON() ([]byte, error) {
-	attr_uid := d.Uid.ValueString()
-	attr_name := d.Name.ValueString()
-	attr_interval := d.Interval.ValueString()
-
-	model := &CorePlaylistDataSourceModelJSON{
-		Uid:      attr_uid,
-		Name:     attr_name,
-		Interval: attr_interval,
-	}
-	return json.Marshal(model)
 }

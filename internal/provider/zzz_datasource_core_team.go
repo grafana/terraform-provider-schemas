@@ -33,33 +33,67 @@ func NewCoreTeamDataSource() datasource.DataSource {
 // CoreTeamDataSource defines the data source implementation.
 type CoreTeamDataSource struct{}
 
-// CoreTeamDataSourceModel describes the data source data model.
-type CoreTeamDataSourceModel struct {
-	OrgId         types.Int64  `tfsdk:"org_id"`
-	Name          types.String `tfsdk:"name"`
-	Email         types.String `tfsdk:"email"`
-	AvatarUrl     types.String `tfsdk:"avatar_url"`
-	MemberCount   types.Int64  `tfsdk:"member_count"`
-	Permission    types.Int64  `tfsdk:"permission"`
-	AccessControl *struct {
-	} `tfsdk:"access_control"`
-	Created types.Int64  `tfsdk:"created"`
-	Updated types.Int64  `tfsdk:"updated"`
-	ToJSON  types.String `tfsdk:"to_json"`
+type CoreTeamDataSourceModel_AccessControl struct {
 }
 
-// CoreTeamDataSourceModelJSON describes the data source data model when exported to json.
-type CoreTeamDataSourceModelJSON struct {
-	OrgId         int64   `json:"orgId"`
-	Name          string  `json:"name"`
-	Email         *string `json:"email,omitempty"`
-	AvatarUrl     *string `json:"avatarUrl,omitempty"`
-	MemberCount   int64   `json:"memberCount"`
-	Permission    int64   `json:"permission"`
-	AccessControl *struct {
-	} `json:"accessControl,omitempty"`
-	Created int64 `json:"created"`
-	Updated int64 `json:"updated"`
+func (m CoreTeamDataSourceModel_AccessControl) MarshalJSON() ([]byte, error) {
+	type jsonCoreTeamDataSourceModel_AccessControl struct {
+	}
+
+	model := &jsonCoreTeamDataSourceModel_AccessControl{}
+	return json.Marshal(model)
+}
+
+type CoreTeamDataSourceModel struct {
+	ToJSON        types.String                           `tfsdk:"to_json"`
+	OrgId         types.Int64                            `tfsdk:"org_id"`
+	Name          types.String                           `tfsdk:"name"`
+	Email         types.String                           `tfsdk:"email"`
+	AvatarUrl     types.String                           `tfsdk:"avatar_url"`
+	MemberCount   types.Int64                            `tfsdk:"member_count"`
+	Permission    types.Int64                            `tfsdk:"permission"`
+	AccessControl *CoreTeamDataSourceModel_AccessControl `tfsdk:"access_control"`
+	Created       types.Int64                            `tfsdk:"created"`
+	Updated       types.Int64                            `tfsdk:"updated"`
+}
+
+func (m CoreTeamDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonCoreTeamDataSourceModel struct {
+		OrgId         int64       `json:"orgId"`
+		Name          string      `json:"name"`
+		Email         *string     `json:"email,omitempty"`
+		AvatarUrl     *string     `json:"avatarUrl,omitempty"`
+		MemberCount   int64       `json:"memberCount"`
+		Permission    int64       `json:"permission"`
+		AccessControl interface{} `json:"accessControl,omitempty"`
+		Created       int64       `json:"created"`
+		Updated       int64       `json:"updated"`
+	}
+	attr_orgid := m.OrgId.ValueInt64()
+	attr_name := m.Name.ValueString()
+	attr_email := m.Email.ValueString()
+	attr_avatarurl := m.AvatarUrl.ValueString()
+	attr_membercount := m.MemberCount.ValueInt64()
+	attr_permission := m.Permission.ValueInt64()
+	var attr_accesscontrol interface{}
+	if m.AccessControl != nil {
+		attr_accesscontrol = m.AccessControl
+	}
+	attr_created := m.Created.ValueInt64()
+	attr_updated := m.Updated.ValueInt64()
+
+	model := &jsonCoreTeamDataSourceModel{
+		OrgId:         attr_orgid,
+		Name:          attr_name,
+		Email:         &attr_email,
+		AvatarUrl:     &attr_avatarurl,
+		MemberCount:   attr_membercount,
+		Permission:    attr_permission,
+		AccessControl: attr_accesscontrol,
+		Created:       attr_created,
+		Updated:       attr_updated,
+	}
+	return json.Marshal(model)
 }
 
 func (d *CoreTeamDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -162,27 +196,4 @@ func (d *CoreTeamDataSource) Read(ctx context.Context, req datasource.ReadReques
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d CoreTeamDataSourceModel) MarshalJSON() ([]byte, error) {
-	attr_orgid := d.OrgId.ValueInt64()
-	attr_name := d.Name.ValueString()
-	attr_email := d.Email.ValueString()
-	attr_avatarurl := d.AvatarUrl.ValueString()
-	attr_membercount := d.MemberCount.ValueInt64()
-	attr_permission := d.Permission.ValueInt64()
-	attr_created := d.Created.ValueInt64()
-	attr_updated := d.Updated.ValueInt64()
-
-	model := &CoreTeamDataSourceModelJSON{
-		OrgId:       attr_orgid,
-		Name:        attr_name,
-		Email:       &attr_email,
-		AvatarUrl:   &attr_avatarurl,
-		MemberCount: attr_membercount,
-		Permission:  attr_permission,
-		Created:     attr_created,
-		Updated:     attr_updated,
-	}
-	return json.Marshal(model)
 }

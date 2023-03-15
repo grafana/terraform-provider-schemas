@@ -18,29 +18,21 @@ data "schemas_panel_text" "test" {
     }
     overrides = []
   }
-  options = {
 
-  }
-  panel_options = {
-    content = "# hello world"
-
-  }
   transformations = [
-
   ]
   code_options = {
+  }
 
+  options = {
+    content = "# test content"
   }
   grid_pos = {
-    h = 3
+    h = 10
     w = 24
-    x = 0
-    y = 0
   }
 
-  title = "test title"
-
-  type      = "text"
+  title     = "test title"
   text_mode = "markdown"
 }
 
