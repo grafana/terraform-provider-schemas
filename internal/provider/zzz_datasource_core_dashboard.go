@@ -263,21 +263,21 @@ func (m CoreDashboardDataSourceModel_Annotations_List_Target) MarshalJSON() ([]b
 }
 
 type CoreDashboardDataSourceModel_Annotations_List struct {
-	Datasource CoreDashboardDataSourceModel_Annotations_List_Datasource `tfsdk:"datasource"`
-	Enable     types.Bool                                               `tfsdk:"enable"`
-	Name       types.String                                             `tfsdk:"name"`
-	BuiltIn    types.Int64                                              `tfsdk:"built_in"`
-	Hide       types.Bool                                               `tfsdk:"hide"`
-	IconColor  types.String                                             `tfsdk:"icon_color"`
-	Type       types.String                                             `tfsdk:"type"`
-	RawQuery   types.String                                             `tfsdk:"raw_query"`
-	ShowIn     types.Int64                                              `tfsdk:"show_in"`
-	Target     *CoreDashboardDataSourceModel_Annotations_List_Target    `tfsdk:"target"`
+	Datasource *CoreDashboardDataSourceModel_Annotations_List_Datasource `tfsdk:"datasource"`
+	Enable     types.Bool                                                `tfsdk:"enable"`
+	Name       types.String                                              `tfsdk:"name"`
+	BuiltIn    types.Int64                                               `tfsdk:"built_in"`
+	Hide       types.Bool                                                `tfsdk:"hide"`
+	IconColor  types.String                                              `tfsdk:"icon_color"`
+	Type       types.String                                              `tfsdk:"type"`
+	RawQuery   types.String                                              `tfsdk:"raw_query"`
+	ShowIn     types.Int64                                               `tfsdk:"show_in"`
+	Target     *CoreDashboardDataSourceModel_Annotations_List_Target     `tfsdk:"target"`
 }
 
 func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, error) {
 	type jsonCoreDashboardDataSourceModel_Annotations_List struct {
-		Datasource interface{} `json:"datasource"`
+		Datasource interface{} `json:"datasource,omitempty"`
 		Enable     bool        `json:"enable"`
 		Name       *string     `json:"name,omitempty"`
 		BuiltIn    int64       `json:"builtIn"`
@@ -288,7 +288,10 @@ func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, er
 		ShowIn     int64       `json:"showIn"`
 		Target     interface{} `json:"target,omitempty"`
 	}
-	var attr_datasource interface{} = m.Datasource
+	var attr_datasource interface{}
+	if m.Datasource != nil {
+		attr_datasource = m.Datasource
+	}
 	attr_enable := m.Enable.ValueBool()
 	attr_name := m.Name.ValueString()
 	attr_builtin := m.BuiltIn.ValueInt64()
@@ -655,7 +658,7 @@ TODO must isolate or remove identifiers local to a Grafana instance...?`,
 			},
 			"time": schema.SingleNestedAttribute{
 				MarkdownDescription: `Time range for dashboard, e.g. last 6 hours, last 7 days, etc`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -676,7 +679,7 @@ TODO must isolate or remove identifiers local to a Grafana instance...?`,
 			"timepicker": schema.SingleNestedAttribute{
 				MarkdownDescription: `TODO docs
 TODO this appears to be spread all over in the frontend. Concepts will likely need tidying in tandem with schema changes`,
-				Computed: false,
+				Computed: true,
 				Optional: true,
 				Required: false,
 				Attributes: map[string]schema.Attribute{
@@ -755,7 +758,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 			},
 			"templating": schema.SingleNestedAttribute{
 				MarkdownDescription: `TODO docs`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -828,7 +831,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 								},
 								"error": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
+									Computed:            true,
 									Optional:            true,
 									Required:            false,
 								},
@@ -840,7 +843,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 								},
 								"datasource": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
+									Computed:            true,
 									Optional:            true,
 									Required:            false,
 									Attributes: map[string]schema.Attribute{
@@ -865,7 +868,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 			},
 			"annotations": schema.SingleNestedAttribute{
 				MarkdownDescription: `TODO docs`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -878,9 +881,9 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 							Attributes: map[string]schema.Attribute{
 								"datasource": schema.SingleNestedAttribute{
 									MarkdownDescription: `Datasource to use for annotation.`,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
 									Attributes: map[string]schema.Attribute{
 										"type": schema.StringAttribute{
 											MarkdownDescription: ``,
@@ -946,7 +949,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 								},
 								"target": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
+									Computed:            true,
 									Optional:            true,
 									Required:            false,
 									Attributes: map[string]schema.Attribute{
@@ -1055,7 +1058,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 			},
 			"snapshot": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1196,6 +1199,21 @@ func (d *CoreDashboardDataSource) Read(ctx context.Context, req datasource.ReadR
 }
 
 func (d *CoreDashboardDataSource) applyDefaults(data *CoreDashboardDataSourceModel) {
+	if data.Time == nil {
+		data.Time = &CoreDashboardDataSourceModel_Time{}
+	}
+	if data.Timepicker == nil {
+		data.Timepicker = &CoreDashboardDataSourceModel_Timepicker{}
+	}
+	if data.Templating == nil {
+		data.Templating = &CoreDashboardDataSourceModel_Templating{}
+	}
+	if data.Annotations == nil {
+		data.Annotations = &CoreDashboardDataSourceModel_Annotations{}
+	}
+	if data.Snapshot == nil {
+		data.Snapshot = &CoreDashboardDataSourceModel_Snapshot{}
+	}
 	if data.Revision.IsNull() {
 		data.Revision = types.Int64Value(-1)
 	}

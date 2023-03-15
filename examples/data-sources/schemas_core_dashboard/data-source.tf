@@ -12,18 +12,8 @@ terraform {
 }
 
 data "schemas_panel_text" "test" {
-  field_config = {
-    defaults = {
-
-    }
-    overrides = []
-  }
-
   transformations = [
   ]
-  code_options = {
-  }
-
   options = {
     content = "# test content"
   }
@@ -32,8 +22,8 @@ data "schemas_panel_text" "test" {
     w = 24
   }
 
-  title     = "test title"
-  text_mode = "markdown"
+
+  title = "test title"
 }
 
 data "schemas_core_dashboard" "example" {

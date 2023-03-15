@@ -17,17 +17,13 @@ TODO description
 
 ### Required
 
-- `arc_option` (Attributes) (see [below for nested schema](#nestedatt--arc_option))
-- `edge_options` (Attributes) (see [below for nested schema](#nestedatt--edge_options))
-- `field_config` (Attributes) (see [below for nested schema](#nestedatt--field_config))
-- `node_options` (Attributes) (see [below for nested schema](#nestedatt--node_options))
-- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `transformations` (Attributes List) (see [below for nested schema](#nestedatt--transformations))
 
 ### Optional
 
 - `datasource` (Attributes) The datasource used in all targets. (see [below for nested schema](#nestedatt--datasource))
 - `description` (String) Description.
+- `field_config` (Attributes) (see [below for nested schema](#nestedatt--field_config))
 - `grid_pos` (Attributes) Grid position. (see [below for nested schema](#nestedatt--grid_pos))
 - `id` (Number) TODO docs
 - `interval` (String) TODO docs
@@ -36,6 +32,7 @@ TODO tighter constraint
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) TODO docs
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -56,22 +53,34 @@ TODO tighter constraint
 
 - `to_json` (String) This datasource rendered as JSON
 
-<a id="nestedatt--arc_option"></a>
-### Nested Schema for `arc_option`
+<a id="nestedatt--transformations"></a>
+### Nested Schema for `transformations`
+
+Required:
+
+- `id` (String) Unique identifier of transformer
 
 Optional:
 
-- `color` (String) The color of the arc.
-- `field` (String) Field from which to get the value. Values should be less than 1, representing fraction of a circle.
+- `disabled` (Boolean) Disabled transformations are skipped
+- `filter` (Attributes) Optional frame matcher.  When missing it will be applied to all results (see [below for nested schema](#nestedatt--transformations--filter))
 
-
-<a id="nestedatt--edge_options"></a>
-### Nested Schema for `edge_options`
+<a id="nestedatt--transformations--filter"></a>
+### Nested Schema for `transformations.filter`
 
 Optional:
 
-- `main_stat_unit` (String) Unit for the main stat to override what ever is set in the data frame.
-- `secondary_stat_unit` (String) Unit for the secondary stat to override what ever is set in the data frame.
+- `id` (String) Defaults to "".
+
+
+
+<a id="nestedatt--datasource"></a>
+### Nested Schema for `datasource`
+
+Optional:
+
+- `type` (String)
+- `uid` (String)
 
 
 <a id="nestedatt--field_config"></a>
@@ -79,8 +88,39 @@ Optional:
 
 Required:
 
-- `defaults` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults))
 - `overrides` (Attributes List) (see [below for nested schema](#nestedatt--field_config--overrides))
+
+Optional:
+
+- `defaults` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults))
+
+<a id="nestedatt--field_config--overrides"></a>
+### Nested Schema for `field_config.overrides`
+
+Required:
+
+- `properties` (Attributes List) (see [below for nested schema](#nestedatt--field_config--overrides--properties))
+
+Optional:
+
+- `matcher` (Attributes) (see [below for nested schema](#nestedatt--field_config--overrides--matcher))
+
+<a id="nestedatt--field_config--overrides--properties"></a>
+### Nested Schema for `field_config.overrides.properties`
+
+Optional:
+
+- `id` (String) Defaults to "".
+
+
+<a id="nestedatt--field_config--overrides--matcher"></a>
+### Nested Schema for `field_config.overrides.matcher`
+
+Optional:
+
+- `id` (String) Defaults to "".
+
+
 
 <a id="nestedatt--field_config--defaults"></a>
 ### Nested Schema for `field_config.defaults`
@@ -88,8 +128,7 @@ Required:
 Optional:
 
 - `color` (Attributes) Map values to a display color (see [below for nested schema](#nestedatt--field_config--defaults--color))
-- `custom` (Attributes) custom is specified by the PanelFieldConfig field
-in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config--defaults--custom))
+- `custom` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom))
 - `decimals` (Number) Significant digits (for display)
 - `description` (String) Human readable field metadata
 - `display_name` (String) The display value for this field.  This supports template variables blank is auto
@@ -124,6 +163,46 @@ Optional:
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
 
+Optional:
+
+- `axis_centered_zero` (Boolean)
+- `axis_color_mode` (String)
+- `axis_grid_show` (Boolean)
+- `axis_label` (String)
+- `axis_placement` (String)
+- `axis_soft_max` (Number)
+- `axis_soft_min` (Number)
+- `axis_width` (Number)
+- `fill_opacity` (Number) Controls the fill opacity of the bars. Defaults to 80.
+- `gradient_mode` (String) Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".
+- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
+- `line_width` (Number) Controls line width of the bars. Defaults to 1.
+- `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--scale_distribution))
+
+<a id="nestedatt--field_config--defaults--custom--hide_from"></a>
+### Nested Schema for `field_config.defaults.custom.scale_distribution`
+
+Required:
+
+- `legend` (Boolean)
+- `tooltip` (Boolean)
+- `viz` (Boolean)
+
+
+<a id="nestedatt--field_config--defaults--custom--scale_distribution"></a>
+### Nested Schema for `field_config.defaults.custom.scale_distribution`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `linear_threshold` (Number)
+- `log` (Number)
+
+
 
 <a id="nestedatt--field_config--defaults--thresholds"></a>
 ### Nested Schema for `field_config.defaults.thresholds`
@@ -150,117 +229,6 @@ FIXME the corresponding typescript field is required/non-optional, but nulls cur
 
 
 
-
-<a id="nestedatt--field_config--overrides"></a>
-### Nested Schema for `field_config.overrides`
-
-Required:
-
-- `matcher` (Attributes) (see [below for nested schema](#nestedatt--field_config--overrides--matcher))
-- `properties` (Attributes List) (see [below for nested schema](#nestedatt--field_config--overrides--properties))
-
-<a id="nestedatt--field_config--overrides--matcher"></a>
-### Nested Schema for `field_config.overrides.matcher`
-
-Optional:
-
-- `id` (String) Defaults to "".
-
-
-<a id="nestedatt--field_config--overrides--properties"></a>
-### Nested Schema for `field_config.overrides.properties`
-
-Optional:
-
-- `id` (String) Defaults to "".
-
-
-
-
-<a id="nestedatt--node_options"></a>
-### Nested Schema for `node_options`
-
-Optional:
-
-- `arcs` (Attributes List) Define which fields are shown as part of the node arc (colored circle around the node). (see [below for nested schema](#nestedatt--node_options--arcs))
-- `main_stat_unit` (String) Unit for the main stat to override what ever is set in the data frame.
-- `secondary_stat_unit` (String) Unit for the secondary stat to override what ever is set in the data frame.
-
-<a id="nestedatt--node_options--arcs"></a>
-### Nested Schema for `node_options.arcs`
-
-Optional:
-
-- `color` (String) The color of the arc.
-- `field` (String) Field from which to get the value. Values should be less than 1, representing fraction of a circle.
-
-
-
-<a id="nestedatt--options"></a>
-### Nested Schema for `options`
-
-Optional:
-
-- `edges` (Attributes) (see [below for nested schema](#nestedatt--options--edges))
-- `nodes` (Attributes) (see [below for nested schema](#nestedatt--options--nodes))
-
-<a id="nestedatt--options--edges"></a>
-### Nested Schema for `options.edges`
-
-Optional:
-
-- `main_stat_unit` (String) Unit for the main stat to override what ever is set in the data frame.
-- `secondary_stat_unit` (String) Unit for the secondary stat to override what ever is set in the data frame.
-
-
-<a id="nestedatt--options--nodes"></a>
-### Nested Schema for `options.nodes`
-
-Optional:
-
-- `arcs` (Attributes List) Define which fields are shown as part of the node arc (colored circle around the node). (see [below for nested schema](#nestedatt--options--nodes--arcs))
-- `main_stat_unit` (String) Unit for the main stat to override what ever is set in the data frame.
-- `secondary_stat_unit` (String) Unit for the secondary stat to override what ever is set in the data frame.
-
-<a id="nestedatt--options--nodes--arcs"></a>
-### Nested Schema for `options.nodes.arcs`
-
-Optional:
-
-- `color` (String) The color of the arc.
-- `field` (String) Field from which to get the value. Values should be less than 1, representing fraction of a circle.
-
-
-
-
-<a id="nestedatt--transformations"></a>
-### Nested Schema for `transformations`
-
-Required:
-
-- `id` (String) Unique identifier of transformer
-
-Optional:
-
-- `disabled` (Boolean) Disabled transformations are skipped
-- `filter` (Attributes) Optional frame matcher.  When missing it will be applied to all results (see [below for nested schema](#nestedatt--transformations--filter))
-
-<a id="nestedatt--transformations--filter"></a>
-### Nested Schema for `transformations.filter`
-
-Optional:
-
-- `id` (String) Defaults to "".
-
-
-
-<a id="nestedatt--datasource"></a>
-### Nested Schema for `datasource`
-
-Optional:
-
-- `type` (String)
-- `uid` (String)
 
 
 <a id="nestedatt--grid_pos"></a>
@@ -302,6 +270,43 @@ Optional:
 - `include_vars` (Boolean) Defaults to false.
 - `keep_time` (Boolean) Defaults to false.
 - `target_blank` (Boolean) Defaults to false.
+
+
+<a id="nestedatt--options"></a>
+### Nested Schema for `options`
+
+Optional:
+
+- `edges` (Attributes) (see [below for nested schema](#nestedatt--options--edges))
+- `nodes` (Attributes) (see [below for nested schema](#nestedatt--options--nodes))
+
+<a id="nestedatt--options--edges"></a>
+### Nested Schema for `options.edges`
+
+Optional:
+
+- `main_stat_unit` (String) Unit for the main stat to override what ever is set in the data frame.
+- `secondary_stat_unit` (String) Unit for the secondary stat to override what ever is set in the data frame.
+
+
+<a id="nestedatt--options--nodes"></a>
+### Nested Schema for `options.nodes`
+
+Optional:
+
+- `arcs` (Attributes List) Define which fields are shown as part of the node arc (colored circle around the node). (see [below for nested schema](#nestedatt--options--nodes--arcs))
+- `main_stat_unit` (String) Unit for the main stat to override what ever is set in the data frame.
+- `secondary_stat_unit` (String) Unit for the secondary stat to override what ever is set in the data frame.
+
+<a id="nestedatt--options--nodes--arcs"></a>
+### Nested Schema for `options.nodes.arcs`
+
+Optional:
+
+- `color` (String) The color of the arc.
+- `field` (String) Field from which to get the value. Values should be less than 1, representing fraction of a circle.
+
+
 
 
 <a id="nestedatt--targets"></a>

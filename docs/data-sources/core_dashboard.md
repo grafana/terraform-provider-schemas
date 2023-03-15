@@ -27,18 +27,8 @@ terraform {
 }
 
 data "schemas_panel_text" "test" {
-  field_config = {
-    defaults = {
-
-    }
-    overrides = []
-  }
-
   transformations = [
   ]
-  code_options = {
-  }
-
   options = {
     content = "# test content"
   }
@@ -47,8 +37,8 @@ data "schemas_panel_text" "test" {
     w = 24
   }
 
-  title     = "test title"
-  text_mode = "markdown"
+
+  title = "test title"
 }
 
 data "schemas_core_dashboard" "example" {
@@ -120,13 +110,10 @@ Optional:
 <a id="nestedatt--annotations--list"></a>
 ### Nested Schema for `annotations.list`
 
-Required:
-
-- `datasource` (Attributes) Datasource to use for annotation. (see [below for nested schema](#nestedatt--annotations--list--datasource))
-
 Optional:
 
 - `built_in` (Number) Defaults to 0.
+- `datasource` (Attributes) Datasource to use for annotation. (see [below for nested schema](#nestedatt--annotations--list--datasource))
 - `enable` (Boolean) Whether annotation is enabled. Defaults to true.
 - `hide` (Boolean) Whether to hide annotation. Defaults to false.
 - `icon_color` (String) Annotation icon color.

@@ -143,7 +143,7 @@ func (d *CoreTeamDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 			},
 			"access_control": schema.SingleNestedAttribute{
 				MarkdownDescription: `AccessControl metadata associated with a given resource.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 			},
@@ -181,6 +181,7 @@ func (d *CoreTeamDataSource) Read(ctx context.Context, req datasource.ReadReques
 		return
 	}
 
+	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -196,4 +197,10 @@ func (d *CoreTeamDataSource) Read(ctx context.Context, req datasource.ReadReques
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d *CoreTeamDataSource) applyDefaults(data *CoreTeamDataSourceModel) {
+	if data.AccessControl == nil {
+		data.AccessControl = &CoreTeamDataSourceModel_AccessControl{}
+	}
 }

@@ -33,81 +33,6 @@ func NewPanelTextDataSource() datasource.DataSource {
 // PanelTextDataSource defines the data source implementation.
 type PanelTextDataSource struct{}
 
-type PanelTextDataSourceModel_CodeOptions struct {
-	Language        types.String `tfsdk:"language"`
-	ShowLineNumbers types.Bool   `tfsdk:"show_line_numbers"`
-	ShowMiniMap     types.Bool   `tfsdk:"show_mini_map"`
-}
-
-func (m PanelTextDataSourceModel_CodeOptions) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_CodeOptions struct {
-		Language        string `json:"language"`
-		ShowLineNumbers bool   `json:"showLineNumbers"`
-		ShowMiniMap     bool   `json:"showMiniMap"`
-	}
-	attr_language := m.Language.ValueString()
-	attr_showlinenumbers := m.ShowLineNumbers.ValueBool()
-	attr_showminimap := m.ShowMiniMap.ValueBool()
-
-	model := &jsonPanelTextDataSourceModel_CodeOptions{
-		Language:        attr_language,
-		ShowLineNumbers: attr_showlinenumbers,
-		ShowMiniMap:     attr_showminimap,
-	}
-	return json.Marshal(model)
-}
-
-type PanelTextDataSourceModel_Options_Code struct {
-	Language        types.String `tfsdk:"language"`
-	ShowLineNumbers types.Bool   `tfsdk:"show_line_numbers"`
-	ShowMiniMap     types.Bool   `tfsdk:"show_mini_map"`
-}
-
-func (m PanelTextDataSourceModel_Options_Code) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Options_Code struct {
-		Language        string `json:"language"`
-		ShowLineNumbers bool   `json:"showLineNumbers"`
-		ShowMiniMap     bool   `json:"showMiniMap"`
-	}
-	attr_language := m.Language.ValueString()
-	attr_showlinenumbers := m.ShowLineNumbers.ValueBool()
-	attr_showminimap := m.ShowMiniMap.ValueBool()
-
-	model := &jsonPanelTextDataSourceModel_Options_Code{
-		Language:        attr_language,
-		ShowLineNumbers: attr_showlinenumbers,
-		ShowMiniMap:     attr_showminimap,
-	}
-	return json.Marshal(model)
-}
-
-type PanelTextDataSourceModel_Options struct {
-	Mode    types.String                           `tfsdk:"mode"`
-	Code    *PanelTextDataSourceModel_Options_Code `tfsdk:"code"`
-	Content types.String                           `tfsdk:"content"`
-}
-
-func (m PanelTextDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Options struct {
-		Mode    string      `json:"mode"`
-		Code    interface{} `json:"code,omitempty"`
-		Content string      `json:"content"`
-	}
-	attr_mode := m.Mode.ValueString()
-	var attr_code interface{}
-	if m.Code != nil {
-		attr_code = m.Code
-	}
-	attr_content := m.Content.ValueString()
-
-	model := &jsonPanelTextDataSourceModel_Options{
-		Mode:    attr_mode,
-		Code:    attr_code,
-		Content: attr_content,
-	}
-	return json.Marshal(model)
-}
-
 type PanelTextDataSourceModel_Targets struct {
 }
 
@@ -289,6 +214,57 @@ func (m PanelTextDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+type PanelTextDataSourceModel_Options_Code struct {
+	Language        types.String `tfsdk:"language"`
+	ShowLineNumbers types.Bool   `tfsdk:"show_line_numbers"`
+	ShowMiniMap     types.Bool   `tfsdk:"show_mini_map"`
+}
+
+func (m PanelTextDataSourceModel_Options_Code) MarshalJSON() ([]byte, error) {
+	type jsonPanelTextDataSourceModel_Options_Code struct {
+		Language        string `json:"language"`
+		ShowLineNumbers bool   `json:"showLineNumbers"`
+		ShowMiniMap     bool   `json:"showMiniMap"`
+	}
+	attr_language := m.Language.ValueString()
+	attr_showlinenumbers := m.ShowLineNumbers.ValueBool()
+	attr_showminimap := m.ShowMiniMap.ValueBool()
+
+	model := &jsonPanelTextDataSourceModel_Options_Code{
+		Language:        attr_language,
+		ShowLineNumbers: attr_showlinenumbers,
+		ShowMiniMap:     attr_showminimap,
+	}
+	return json.Marshal(model)
+}
+
+type PanelTextDataSourceModel_Options struct {
+	Mode    types.String                           `tfsdk:"mode"`
+	Code    *PanelTextDataSourceModel_Options_Code `tfsdk:"code"`
+	Content types.String                           `tfsdk:"content"`
+}
+
+func (m PanelTextDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelTextDataSourceModel_Options struct {
+		Mode    string      `json:"mode"`
+		Code    interface{} `json:"code,omitempty"`
+		Content string      `json:"content"`
+	}
+	attr_mode := m.Mode.ValueString()
+	var attr_code interface{}
+	if m.Code != nil {
+		attr_code = m.Code
+	}
+	attr_content := m.Content.ValueString()
+
+	model := &jsonPanelTextDataSourceModel_Options{
+		Mode:    attr_mode,
+		Code:    attr_code,
+		Content: attr_content,
+	}
+	return json.Marshal(model)
+}
+
 type PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.Float64 `tfsdk:"value"`
 	Color types.String  `tfsdk:"color"`
@@ -360,14 +336,54 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]by
 	return json.Marshal(model)
 }
 
+type PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
 type PanelTextDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth   types.Int64                                                    `tfsdk:"line_width"`
+	HideFrom    *PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
+	FillOpacity types.Int64                                                    `tfsdk:"fill_opacity"`
 }
 
 func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth   *int64      `json:"lineWidth,omitempty"`
+		HideFrom    interface{} `json:"hideFrom,omitempty"`
+		FillOpacity *int64      `json:"fillOpacity,omitempty"`
 	}
+	attr_linewidth := m.LineWidth.ValueInt64()
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	attr_fillopacity := m.FillOpacity.ValueInt64()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:   &attr_linewidth,
+		HideFrom:    attr_hidefrom,
+		FillOpacity: &attr_fillopacity,
+	}
 	return json.Marshal(model)
 }
 
@@ -481,16 +497,19 @@ func (m PanelTextDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON()
 }
 
 type PanelTextDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    PanelTextDataSourceModel_FieldConfig_Overrides_Matcher      `tfsdk:"matcher"`
+	Matcher    *PanelTextDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
 	Properties []PanelTextDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
 func (m PanelTextDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
 	type jsonPanelTextDataSourceModel_FieldConfig_Overrides struct {
-		Matcher    interface{}   `json:"matcher"`
+		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
-	var attr_matcher interface{} = m.Matcher
+	var attr_matcher interface{}
+	if m.Matcher != nil {
+		attr_matcher = m.Matcher
+	}
 	attr_properties := []interface{}{}
 	for _, v := range m.Properties {
 		attr_properties = append(attr_properties, v)
@@ -504,16 +523,19 @@ func (m PanelTextDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, e
 }
 
 type PanelTextDataSourceModel_FieldConfig struct {
-	Defaults  PanelTextDataSourceModel_FieldConfig_Defaults    `tfsdk:"defaults"`
+	Defaults  *PanelTextDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
 	Overrides []PanelTextDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
 func (m PanelTextDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 	type jsonPanelTextDataSourceModel_FieldConfig struct {
-		Defaults  interface{}   `json:"defaults"`
+		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
-	var attr_defaults interface{} = m.Defaults
+	var attr_defaults interface{}
+	if m.Defaults != nil {
+		attr_defaults = m.Defaults
+	}
 	attr_overrides := []interface{}{}
 	for _, v := range m.Overrides {
 		attr_overrides = append(attr_overrides, v)
@@ -528,10 +550,6 @@ func (m PanelTextDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 
 type PanelTextDataSourceModel struct {
 	ToJSON          types.String                               `tfsdk:"to_json"`
-	TextMode        types.String                               `tfsdk:"text_mode"`
-	CodeLanguage    types.String                               `tfsdk:"code_language"`
-	CodeOptions     PanelTextDataSourceModel_CodeOptions       `tfsdk:"code_options"`
-	Options         PanelTextDataSourceModel_Options           `tfsdk:"options"`
 	Type            types.String                               `tfsdk:"type"`
 	Id              types.Int64                                `tfsdk:"id"`
 	PluginVersion   types.String                               `tfsdk:"plugin_version"`
@@ -552,15 +570,12 @@ type PanelTextDataSourceModel struct {
 	TimeFrom        types.String                               `tfsdk:"time_from"`
 	TimeShift       types.String                               `tfsdk:"time_shift"`
 	LibraryPanel    *PanelTextDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	FieldConfig     PanelTextDataSourceModel_FieldConfig       `tfsdk:"field_config"`
+	Options         *PanelTextDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelTextDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
 func (m PanelTextDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonPanelTextDataSourceModel struct {
-		TextMode        string        `json:"TextMode"`
-		CodeLanguage    string        `json:"CodeLanguage"`
-		CodeOptions     interface{}   `json:"CodeOptions"`
-		Options         interface{}   `json:"options"`
 		Type            string        `json:"type"`
 		Id              *int64        `json:"id,omitempty"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
@@ -581,12 +596,9 @@ func (m PanelTextDataSourceModel) MarshalJSON() ([]byte, error) {
 		TimeFrom        *string       `json:"timeFrom,omitempty"`
 		TimeShift       *string       `json:"timeShift,omitempty"`
 		LibraryPanel    interface{}   `json:"libraryPanel,omitempty"`
-		FieldConfig     interface{}   `json:"fieldConfig"`
+		Options         interface{}   `json:"options,omitempty"`
+		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
-	attr_textmode := m.TextMode.ValueString()
-	attr_codelanguage := m.CodeLanguage.ValueString()
-	var attr_codeoptions interface{} = m.CodeOptions
-	var attr_options interface{} = m.Options
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()
@@ -628,13 +640,16 @@ func (m PanelTextDataSourceModel) MarshalJSON() ([]byte, error) {
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
 	}
-	var attr_fieldconfig interface{} = m.FieldConfig
+	var attr_options interface{}
+	if m.Options != nil {
+		attr_options = m.Options
+	}
+	var attr_fieldconfig interface{}
+	if m.FieldConfig != nil {
+		attr_fieldconfig = m.FieldConfig
+	}
 
 	model := &jsonPanelTextDataSourceModel{
-		TextMode:        attr_textmode,
-		CodeLanguage:    attr_codelanguage,
-		CodeOptions:     attr_codeoptions,
-		Options:         attr_options,
 		Type:            attr_type,
 		Id:              &attr_id,
 		PluginVersion:   &attr_pluginversion,
@@ -655,6 +670,7 @@ func (m PanelTextDataSourceModel) MarshalJSON() ([]byte, error) {
 		TimeFrom:        &attr_timefrom,
 		TimeShift:       &attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
+		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,
 	}
 	return json.Marshal(model)
@@ -669,92 +685,6 @@ func (d *PanelTextDataSource) Schema(ctx context.Context, req datasource.SchemaR
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"text_mode": schema.StringAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-			},
-			"code_language": schema.StringAttribute{
-				MarkdownDescription: ` Defaults to "plaintext".`,
-				Computed:            true,
-				Optional:            true,
-				Required:            false,
-			},
-			"code_options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"language": schema.StringAttribute{
-						MarkdownDescription: `The language passed to monaco code editor. Defaults to "plaintext".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"show_line_numbers": schema.BoolAttribute{
-						MarkdownDescription: ` Defaults to false.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"show_mini_map": schema.BoolAttribute{
-						MarkdownDescription: ` Defaults to false.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-				},
-			},
-			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "markdown".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"code": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"language": schema.StringAttribute{
-								MarkdownDescription: `The language passed to monaco code editor. Defaults to "plaintext".`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_line_numbers": schema.BoolAttribute{
-								MarkdownDescription: ` Defaults to false.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_mini_map": schema.BoolAttribute{
-								MarkdownDescription: ` Defaults to false.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"content": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "# Title
-
-For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)".`,
-						Computed: true,
-						Optional: true,
-						Required: false,
-					},
-				},
-			},
 			"type": schema.StringAttribute{
 				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "text".`,
 				Computed:            true,
@@ -806,7 +736,7 @@ For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)".`
 			},
 			"datasource": schema.SingleNestedAttribute{
 				MarkdownDescription: `The datasource used in all targets.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -826,7 +756,7 @@ For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)".`
 			},
 			"grid_pos": schema.SingleNestedAttribute{
 				MarkdownDescription: `Grid position.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -981,7 +911,7 @@ TODO this is probably optional. Defaults to "h".`,
 						},
 						"filter": schema.SingleNestedAttribute{
 							MarkdownDescription: `Optional frame matcher.  When missing it will be applied to all results`,
-							Computed:            false,
+							Computed:            true,
 							Optional:            true,
 							Required:            false,
 							Attributes: map[string]schema.Attribute{
@@ -1019,7 +949,7 @@ TODO tighter constraint`,
 			},
 			"library_panel": schema.SingleNestedAttribute{
 				MarkdownDescription: `Dynamically load the panel`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1037,17 +967,65 @@ TODO tighter constraint`,
 					},
 				},
 			},
+			"options": schema.SingleNestedAttribute{
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"mode": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "markdown".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"code": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"language": schema.StringAttribute{
+								MarkdownDescription: `The language passed to monaco code editor. Defaults to "plaintext".`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_line_numbers": schema.BoolAttribute{
+								MarkdownDescription: ` Defaults to false.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_mini_map": schema.BoolAttribute{
+								MarkdownDescription: ` Defaults to false.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"content": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "# Title
+
+For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)".`,
+						Computed: true,
+						Optional: true,
+						Required: false,
+					},
+				},
+			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 				Attributes: map[string]schema.Attribute{
 					"defaults": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 						Attributes: map[string]schema.Attribute{
 							"display_name": schema.StringAttribute{
 								MarkdownDescription: `The display value for this field.  This supports template variables blank is auto`,
@@ -1116,7 +1094,7 @@ may be used to update the results`,
 							},
 							"thresholds": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map numeric values to states`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1161,7 +1139,7 @@ Some seem to be listed in typescript comment`,
 							},
 							"color": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map values to a display color`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1192,11 +1170,50 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the PanelFieldConfig field
-in panel plugin schemas.`,
-								Computed: false,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"line_width": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 1.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 70.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},
@@ -1209,9 +1226,9 @@ in panel plugin schemas.`,
 							Attributes: map[string]schema.Attribute{
 								"matcher": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
 									Attributes: map[string]schema.Attribute{
 										"id": schema.StringAttribute{
 											MarkdownDescription: ` Defaults to "".`,
@@ -1283,34 +1300,38 @@ func (d *PanelTextDataSource) Read(ctx context.Context, req datasource.ReadReque
 }
 
 func (d *PanelTextDataSource) applyDefaults(data *PanelTextDataSourceModel) {
-	if data.CodeLanguage.IsNull() {
-		data.CodeLanguage = types.StringValue(`plaintext`)
+	if data.Datasource == nil {
+		data.Datasource = &PanelTextDataSourceModel_Datasource{}
 	}
-	if data.CodeOptions.Language.IsNull() {
-		data.CodeOptions.Language = types.StringValue(`plaintext`)
+	if data.GridPos == nil {
+		data.GridPos = &PanelTextDataSourceModel_GridPos{}
 	}
-	if data.CodeOptions.ShowLineNumbers.IsNull() {
-		data.CodeOptions.ShowLineNumbers = types.BoolValue(false)
+	if data.LibraryPanel == nil {
+		data.LibraryPanel = &PanelTextDataSourceModel_LibraryPanel{}
 	}
-	if data.CodeOptions.ShowMiniMap.IsNull() {
-		data.CodeOptions.ShowMiniMap = types.BoolValue(false)
+	if data.Options == nil {
+		data.Options = &PanelTextDataSourceModel_Options{}
 	}
-	if data.Options.Mode.IsNull() {
-		data.Options.Mode = types.StringValue(`markdown`)
+	if data.Options.Code == nil {
+		data.Options.Code = &PanelTextDataSourceModel_Options_Code{}
 	}
-	if data.Options.Code != nil && data.Options.Code.Language.IsNull() {
-		data.Options.Code.Language = types.StringValue(`plaintext`)
+	if data.FieldConfig == nil {
+		data.FieldConfig = &PanelTextDataSourceModel_FieldConfig{}
 	}
-	if data.Options.Code != nil && data.Options.Code.ShowLineNumbers.IsNull() {
-		data.Options.Code.ShowLineNumbers = types.BoolValue(false)
+	if data.FieldConfig.Defaults == nil {
+		data.FieldConfig.Defaults = &PanelTextDataSourceModel_FieldConfig_Defaults{}
 	}
-	if data.Options.Code != nil && data.Options.Code.ShowMiniMap.IsNull() {
-		data.Options.Code.ShowMiniMap = types.BoolValue(false)
+	if data.FieldConfig.Defaults.Thresholds == nil {
+		data.FieldConfig.Defaults.Thresholds = &PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds{}
 	}
-	if data.Options.Content.IsNull() {
-		data.Options.Content = types.StringValue(`# Title
-
-For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)`)
+	if data.FieldConfig.Defaults.Color == nil {
+		data.FieldConfig.Defaults.Color = &PanelTextDataSourceModel_FieldConfig_Defaults_Color{}
+	}
+	if data.FieldConfig.Defaults.Custom == nil {
+		data.FieldConfig.Defaults.Custom = &PanelTextDataSourceModel_FieldConfig_Defaults_Custom{}
+	}
+	if data.FieldConfig.Defaults.Custom.HideFrom == nil {
+		data.FieldConfig.Defaults.Custom.HideFrom = &PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{}
 	}
 	if data.Type.IsNull() {
 		data.Type = types.StringValue(`text`)
@@ -1332,5 +1353,28 @@ For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)`)
 	}
 	if data.RepeatDirection.IsNull() {
 		data.RepeatDirection = types.StringValue(`h`)
+	}
+	if data.Options != nil && data.Options.Mode.IsNull() {
+		data.Options.Mode = types.StringValue(`markdown`)
+	}
+	if data.Options != nil && data.Options.Code != nil && data.Options.Code.Language.IsNull() {
+		data.Options.Code.Language = types.StringValue(`plaintext`)
+	}
+	if data.Options != nil && data.Options.Code != nil && data.Options.Code.ShowLineNumbers.IsNull() {
+		data.Options.Code.ShowLineNumbers = types.BoolValue(false)
+	}
+	if data.Options != nil && data.Options.Code != nil && data.Options.Code.ShowMiniMap.IsNull() {
+		data.Options.Code.ShowMiniMap = types.BoolValue(false)
+	}
+	if data.Options != nil && data.Options.Content.IsNull() {
+		data.Options.Content = types.StringValue(`# Title
+
+For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)`)
+	}
+	if data.FieldConfig != nil && data.FieldConfig.Defaults != nil && data.FieldConfig.Defaults.Custom != nil && data.FieldConfig.Defaults.Custom.LineWidth.IsNull() {
+		data.FieldConfig.Defaults.Custom.LineWidth = types.Int64Value(1)
+	}
+	if data.FieldConfig != nil && data.FieldConfig.Defaults != nil && data.FieldConfig.Defaults.Custom != nil && data.FieldConfig.Defaults.Custom.FillOpacity.IsNull() {
+		data.FieldConfig.Defaults.Custom.FillOpacity = types.Int64Value(70)
 	}
 }

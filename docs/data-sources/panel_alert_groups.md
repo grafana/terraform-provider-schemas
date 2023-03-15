@@ -17,14 +17,13 @@ TODO description
 
 ### Required
 
-- `field_config` (Attributes) (see [below for nested schema](#nestedatt--field_config))
-- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `transformations` (Attributes List) (see [below for nested schema](#nestedatt--transformations))
 
 ### Optional
 
 - `datasource` (Attributes) The datasource used in all targets. (see [below for nested schema](#nestedatt--datasource))
 - `description` (String) Description.
+- `field_config` (Attributes) (see [below for nested schema](#nestedatt--field_config))
 - `grid_pos` (Attributes) Grid position. (see [below for nested schema](#nestedatt--grid_pos))
 - `id` (Number) TODO docs
 - `interval` (String) TODO docs
@@ -33,6 +32,7 @@ TODO tighter constraint
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) TODO docs
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -53,13 +53,74 @@ TODO tighter constraint
 
 - `to_json` (String) This datasource rendered as JSON
 
+<a id="nestedatt--transformations"></a>
+### Nested Schema for `transformations`
+
+Required:
+
+- `id` (String) Unique identifier of transformer
+
+Optional:
+
+- `disabled` (Boolean) Disabled transformations are skipped
+- `filter` (Attributes) Optional frame matcher.  When missing it will be applied to all results (see [below for nested schema](#nestedatt--transformations--filter))
+
+<a id="nestedatt--transformations--filter"></a>
+### Nested Schema for `transformations.filter`
+
+Optional:
+
+- `id` (String) Defaults to "".
+
+
+
+<a id="nestedatt--datasource"></a>
+### Nested Schema for `datasource`
+
+Optional:
+
+- `type` (String)
+- `uid` (String)
+
+
 <a id="nestedatt--field_config"></a>
 ### Nested Schema for `field_config`
 
 Required:
 
-- `defaults` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults))
 - `overrides` (Attributes List) (see [below for nested schema](#nestedatt--field_config--overrides))
+
+Optional:
+
+- `defaults` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults))
+
+<a id="nestedatt--field_config--overrides"></a>
+### Nested Schema for `field_config.overrides`
+
+Required:
+
+- `properties` (Attributes List) (see [below for nested schema](#nestedatt--field_config--overrides--properties))
+
+Optional:
+
+- `matcher` (Attributes) (see [below for nested schema](#nestedatt--field_config--overrides--matcher))
+
+<a id="nestedatt--field_config--overrides--properties"></a>
+### Nested Schema for `field_config.overrides.properties`
+
+Optional:
+
+- `id` (String) Defaults to "".
+
+
+<a id="nestedatt--field_config--overrides--matcher"></a>
+### Nested Schema for `field_config.overrides.matcher`
+
+Optional:
+
+- `id` (String) Defaults to "".
+
+
 
 <a id="nestedatt--field_config--defaults"></a>
 ### Nested Schema for `field_config.defaults`
@@ -130,71 +191,6 @@ FIXME the corresponding typescript field is required/non-optional, but nulls cur
 
 
 
-<a id="nestedatt--field_config--overrides"></a>
-### Nested Schema for `field_config.overrides`
-
-Required:
-
-- `matcher` (Attributes) (see [below for nested schema](#nestedatt--field_config--overrides--matcher))
-- `properties` (Attributes List) (see [below for nested schema](#nestedatt--field_config--overrides--properties))
-
-<a id="nestedatt--field_config--overrides--matcher"></a>
-### Nested Schema for `field_config.overrides.matcher`
-
-Optional:
-
-- `id` (String) Defaults to "".
-
-
-<a id="nestedatt--field_config--overrides--properties"></a>
-### Nested Schema for `field_config.overrides.properties`
-
-Optional:
-
-- `id` (String) Defaults to "".
-
-
-
-
-<a id="nestedatt--options"></a>
-### Nested Schema for `options`
-
-Required:
-
-- `alertmanager` (String) Name of the alertmanager used as a source for alerts
-- `expand_all` (Boolean) Expand all alert groups by default
-- `labels` (String) Comma-separated list of values used to filter alert results
-
-
-<a id="nestedatt--transformations"></a>
-### Nested Schema for `transformations`
-
-Required:
-
-- `id` (String) Unique identifier of transformer
-
-Optional:
-
-- `disabled` (Boolean) Disabled transformations are skipped
-- `filter` (Attributes) Optional frame matcher.  When missing it will be applied to all results (see [below for nested schema](#nestedatt--transformations--filter))
-
-<a id="nestedatt--transformations--filter"></a>
-### Nested Schema for `transformations.filter`
-
-Optional:
-
-- `id` (String) Defaults to "".
-
-
-
-<a id="nestedatt--datasource"></a>
-### Nested Schema for `datasource`
-
-Optional:
-
-- `type` (String)
-- `uid` (String)
-
 
 <a id="nestedatt--grid_pos"></a>
 ### Nested Schema for `grid_pos`
@@ -235,6 +231,16 @@ Optional:
 - `include_vars` (Boolean) Defaults to false.
 - `keep_time` (Boolean) Defaults to false.
 - `target_blank` (Boolean) Defaults to false.
+
+
+<a id="nestedatt--options"></a>
+### Nested Schema for `options`
+
+Required:
+
+- `alertmanager` (String) Name of the alertmanager used as a source for alerts
+- `expand_all` (Boolean) Expand all alert groups by default
+- `labels` (String) Comma-separated list of values used to filter alert results
 
 
 <a id="nestedatt--targets"></a>

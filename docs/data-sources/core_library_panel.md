@@ -17,8 +17,6 @@ TODO description
 
 ### Required
 
-- `model` (Attributes) TODO: should be the same panel schema defined in dashboard
-Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>; (see [below for nested schema](#nestedatt--model))
 - `name` (String) Panel name (also saved in the model)
 - `type` (String) The panel type (from inside the model)
 - `uid` (String) Library element UID
@@ -29,15 +27,13 @@ Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>; (see [below for nest
 - `description` (String) Panel description
 - `folder_uid` (String) Folder UID
 - `meta` (Attributes) Object storage metadata (see [below for nested schema](#nestedatt--meta))
+- `model` (Attributes) TODO: should be the same panel schema defined in dashboard
+Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>; (see [below for nested schema](#nestedatt--model))
 - `schema_version` (Number) Dashboard version when this was saved (zero if unknown)
 
 ### Read-Only
 
 - `to_json` (String) This datasource rendered as JSON
-
-<a id="nestedatt--model"></a>
-### Nested Schema for `model`
-
 
 <a id="nestedatt--meta"></a>
 ### Nested Schema for `meta`
@@ -46,10 +42,13 @@ Required:
 
 - `connected_dashboards` (Number)
 - `created` (String)
-- `created_by` (Attributes) (see [below for nested schema](#nestedatt--meta--created_by))
 - `folder_name` (String)
 - `folder_uid` (String)
 - `updated` (String)
+
+Optional:
+
+- `created_by` (Attributes) (see [below for nested schema](#nestedatt--meta--created_by))
 - `updated_by` (Attributes) (see [below for nested schema](#nestedatt--meta--updated_by))
 
 <a id="nestedatt--meta--created_by"></a>
@@ -70,5 +69,10 @@ Required:
 - `avatar_url` (String)
 - `id` (Number)
 - `name` (String)
+
+
+
+<a id="nestedatt--model"></a>
+### Nested Schema for `model`
 
 

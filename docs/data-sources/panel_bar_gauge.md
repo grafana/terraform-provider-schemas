@@ -17,14 +17,13 @@ TODO description
 
 ### Required
 
-- `field_config` (Attributes) (see [below for nested schema](#nestedatt--field_config))
-- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `transformations` (Attributes List) (see [below for nested schema](#nestedatt--transformations))
 
 ### Optional
 
 - `datasource` (Attributes) The datasource used in all targets. (see [below for nested schema](#nestedatt--datasource))
 - `description` (String) Description.
+- `field_config` (Attributes) (see [below for nested schema](#nestedatt--field_config))
 - `grid_pos` (Attributes) Grid position. (see [below for nested schema](#nestedatt--grid_pos))
 - `id` (Number) TODO docs
 - `interval` (String) TODO docs
@@ -33,6 +32,7 @@ TODO tighter constraint
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) TODO docs
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -53,13 +53,74 @@ TODO tighter constraint
 
 - `to_json` (String) This datasource rendered as JSON
 
+<a id="nestedatt--transformations"></a>
+### Nested Schema for `transformations`
+
+Required:
+
+- `id` (String) Unique identifier of transformer
+
+Optional:
+
+- `disabled` (Boolean) Disabled transformations are skipped
+- `filter` (Attributes) Optional frame matcher.  When missing it will be applied to all results (see [below for nested schema](#nestedatt--transformations--filter))
+
+<a id="nestedatt--transformations--filter"></a>
+### Nested Schema for `transformations.filter`
+
+Optional:
+
+- `id` (String) Defaults to "".
+
+
+
+<a id="nestedatt--datasource"></a>
+### Nested Schema for `datasource`
+
+Optional:
+
+- `type` (String)
+- `uid` (String)
+
+
 <a id="nestedatt--field_config"></a>
 ### Nested Schema for `field_config`
 
 Required:
 
-- `defaults` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults))
 - `overrides` (Attributes List) (see [below for nested schema](#nestedatt--field_config--overrides))
+
+Optional:
+
+- `defaults` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults))
+
+<a id="nestedatt--field_config--overrides"></a>
+### Nested Schema for `field_config.overrides`
+
+Required:
+
+- `properties` (Attributes List) (see [below for nested schema](#nestedatt--field_config--overrides--properties))
+
+Optional:
+
+- `matcher` (Attributes) (see [below for nested schema](#nestedatt--field_config--overrides--matcher))
+
+<a id="nestedatt--field_config--overrides--properties"></a>
+### Nested Schema for `field_config.overrides.properties`
+
+Optional:
+
+- `id` (String) Defaults to "".
+
+
+<a id="nestedatt--field_config--overrides--matcher"></a>
+### Nested Schema for `field_config.overrides.matcher`
+
+Optional:
+
+- `id` (String) Defaults to "".
+
+
 
 <a id="nestedatt--field_config--defaults"></a>
 ### Nested Schema for `field_config.defaults`
@@ -67,8 +128,7 @@ Required:
 Optional:
 
 - `color` (Attributes) Map values to a display color (see [below for nested schema](#nestedatt--field_config--defaults--color))
-- `custom` (Attributes) custom is specified by the PanelFieldConfig field
-in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config--defaults--custom))
+- `custom` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom))
 - `decimals` (Number) Significant digits (for display)
 - `description` (String) Human readable field metadata
 - `display_name` (String) The display value for this field.  This supports template variables blank is auto
@@ -103,6 +163,55 @@ Optional:
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
 
+Optional:
+
+- `axis_centered_zero` (Boolean)
+- `axis_color_mode` (String)
+- `axis_grid_show` (Boolean)
+- `axis_label` (String)
+- `axis_placement` (String)
+- `axis_soft_max` (Number)
+- `axis_soft_min` (Number)
+- `axis_width` (Number)
+- `fill_opacity` (Number) Controls the fill opacity of the bars. Defaults to 80.
+- `gradient_mode` (String) Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".
+- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
+- `line_width` (Number) Controls line width of the bars. Defaults to 1.
+- `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--scale_distribution))
+- `thresholds_style` (Attributes) Threshold rendering (see [below for nested schema](#nestedatt--field_config--defaults--custom--thresholds_style))
+
+<a id="nestedatt--field_config--defaults--custom--hide_from"></a>
+### Nested Schema for `field_config.defaults.custom.thresholds_style`
+
+Required:
+
+- `legend` (Boolean)
+- `tooltip` (Boolean)
+- `viz` (Boolean)
+
+
+<a id="nestedatt--field_config--defaults--custom--scale_distribution"></a>
+### Nested Schema for `field_config.defaults.custom.thresholds_style`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `linear_threshold` (Number)
+- `log` (Number)
+
+
+<a id="nestedatt--field_config--defaults--custom--thresholds_style"></a>
+### Nested Schema for `field_config.defaults.custom.thresholds_style`
+
+Required:
+
+- `mode` (String)
+
+
 
 <a id="nestedatt--field_config--defaults--thresholds"></a>
 ### Nested Schema for `field_config.defaults.thresholds`
@@ -129,101 +238,6 @@ FIXME the corresponding typescript field is required/non-optional, but nulls cur
 
 
 
-
-<a id="nestedatt--field_config--overrides"></a>
-### Nested Schema for `field_config.overrides`
-
-Required:
-
-- `matcher` (Attributes) (see [below for nested schema](#nestedatt--field_config--overrides--matcher))
-- `properties` (Attributes List) (see [below for nested schema](#nestedatt--field_config--overrides--properties))
-
-<a id="nestedatt--field_config--overrides--matcher"></a>
-### Nested Schema for `field_config.overrides.matcher`
-
-Optional:
-
-- `id` (String) Defaults to "".
-
-
-<a id="nestedatt--field_config--overrides--properties"></a>
-### Nested Schema for `field_config.overrides.properties`
-
-Optional:
-
-- `id` (String) Defaults to "".
-
-
-
-
-<a id="nestedatt--options"></a>
-### Nested Schema for `options`
-
-Required:
-
-- `orientation` (String)
-- `reduce_options` (Attributes) (see [below for nested schema](#nestedatt--options--reduce_options))
-
-Optional:
-
-- `display_mode` (String) Defaults to "gradient".
-- `min_viz_height` (Number) Defaults to 10.
-- `min_viz_width` (Number) Defaults to 0.
-- `show_unfilled` (Boolean) Defaults to true.
-- `text` (Attributes) (see [below for nested schema](#nestedatt--options--text))
-
-<a id="nestedatt--options--reduce_options"></a>
-### Nested Schema for `options.reduce_options`
-
-Required:
-
-- `calcs` (List of String) When !values, pick one value for the whole field
-
-Optional:
-
-- `fields` (String) Which fields to show.  By default this is only numeric fields
-- `limit` (Number) if showing all values limit
-- `values` (Boolean) If true show each row value
-
-
-<a id="nestedatt--options--text"></a>
-### Nested Schema for `options.text`
-
-Optional:
-
-- `title_size` (Number) Explicit title text size
-- `value_size` (Number) Explicit value text size
-
-
-
-<a id="nestedatt--transformations"></a>
-### Nested Schema for `transformations`
-
-Required:
-
-- `id` (String) Unique identifier of transformer
-
-Optional:
-
-- `disabled` (Boolean) Disabled transformations are skipped
-- `filter` (Attributes) Optional frame matcher.  When missing it will be applied to all results (see [below for nested schema](#nestedatt--transformations--filter))
-
-<a id="nestedatt--transformations--filter"></a>
-### Nested Schema for `transformations.filter`
-
-Optional:
-
-- `id` (String) Defaults to "".
-
-
-
-<a id="nestedatt--datasource"></a>
-### Nested Schema for `datasource`
-
-Optional:
-
-- `type` (String)
-- `uid` (String)
 
 
 <a id="nestedatt--grid_pos"></a>
@@ -265,6 +279,46 @@ Optional:
 - `include_vars` (Boolean) Defaults to false.
 - `keep_time` (Boolean) Defaults to false.
 - `target_blank` (Boolean) Defaults to false.
+
+
+<a id="nestedatt--options"></a>
+### Nested Schema for `options`
+
+Required:
+
+- `orientation` (String)
+
+Optional:
+
+- `display_mode` (String) Defaults to "gradient".
+- `min_viz_height` (Number) Defaults to 10.
+- `min_viz_width` (Number) Defaults to 0.
+- `reduce_options` (Attributes) (see [below for nested schema](#nestedatt--options--reduce_options))
+- `show_unfilled` (Boolean) Defaults to true.
+- `text` (Attributes) (see [below for nested schema](#nestedatt--options--text))
+
+<a id="nestedatt--options--reduce_options"></a>
+### Nested Schema for `options.reduce_options`
+
+Required:
+
+- `calcs` (List of String) When !values, pick one value for the whole field
+
+Optional:
+
+- `fields` (String) Which fields to show.  By default this is only numeric fields
+- `limit` (Number) if showing all values limit
+- `values` (Boolean) If true show each row value
+
+
+<a id="nestedatt--options--text"></a>
+### Nested Schema for `options.text`
+
+Optional:
+
+- `title_size` (Number) Explicit title text size
+- `value_size` (Number) Explicit value text size
+
 
 
 <a id="nestedatt--targets"></a>

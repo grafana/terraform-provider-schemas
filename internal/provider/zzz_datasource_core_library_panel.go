@@ -93,13 +93,13 @@ func (m CoreLibraryPanelDataSourceModel_Meta_UpdatedBy) MarshalJSON() ([]byte, e
 }
 
 type CoreLibraryPanelDataSourceModel_Meta struct {
-	FolderName          types.String                                   `tfsdk:"folder_name"`
-	FolderUid           types.String                                   `tfsdk:"folder_uid"`
-	ConnectedDashboards types.Int64                                    `tfsdk:"connected_dashboards"`
-	Created             types.String                                   `tfsdk:"created"`
-	Updated             types.String                                   `tfsdk:"updated"`
-	CreatedBy           CoreLibraryPanelDataSourceModel_Meta_CreatedBy `tfsdk:"created_by"`
-	UpdatedBy           CoreLibraryPanelDataSourceModel_Meta_UpdatedBy `tfsdk:"updated_by"`
+	FolderName          types.String                                    `tfsdk:"folder_name"`
+	FolderUid           types.String                                    `tfsdk:"folder_uid"`
+	ConnectedDashboards types.Int64                                     `tfsdk:"connected_dashboards"`
+	Created             types.String                                    `tfsdk:"created"`
+	Updated             types.String                                    `tfsdk:"updated"`
+	CreatedBy           *CoreLibraryPanelDataSourceModel_Meta_CreatedBy `tfsdk:"created_by"`
+	UpdatedBy           *CoreLibraryPanelDataSourceModel_Meta_UpdatedBy `tfsdk:"updated_by"`
 }
 
 func (m CoreLibraryPanelDataSourceModel_Meta) MarshalJSON() ([]byte, error) {
@@ -109,16 +109,22 @@ func (m CoreLibraryPanelDataSourceModel_Meta) MarshalJSON() ([]byte, error) {
 		ConnectedDashboards int64       `json:"connectedDashboards"`
 		Created             string      `json:"created"`
 		Updated             string      `json:"updated"`
-		CreatedBy           interface{} `json:"createdBy"`
-		UpdatedBy           interface{} `json:"updatedBy"`
+		CreatedBy           interface{} `json:"createdBy,omitempty"`
+		UpdatedBy           interface{} `json:"updatedBy,omitempty"`
 	}
 	attr_foldername := m.FolderName.ValueString()
 	attr_folderuid := m.FolderUid.ValueString()
 	attr_connecteddashboards := m.ConnectedDashboards.ValueInt64()
 	attr_created := m.Created.ValueString()
 	attr_updated := m.Updated.ValueString()
-	var attr_createdby interface{} = m.CreatedBy
-	var attr_updatedby interface{} = m.UpdatedBy
+	var attr_createdby interface{}
+	if m.CreatedBy != nil {
+		attr_createdby = m.CreatedBy
+	}
+	var attr_updatedby interface{}
+	if m.UpdatedBy != nil {
+		attr_updatedby = m.UpdatedBy
+	}
 
 	model := &jsonCoreLibraryPanelDataSourceModel_Meta{
 		FolderName:          attr_foldername,
@@ -133,16 +139,16 @@ func (m CoreLibraryPanelDataSourceModel_Meta) MarshalJSON() ([]byte, error) {
 }
 
 type CoreLibraryPanelDataSourceModel struct {
-	ToJSON        types.String                          `tfsdk:"to_json"`
-	FolderUid     types.String                          `tfsdk:"folder_uid"`
-	Uid           types.String                          `tfsdk:"uid"`
-	Name          types.String                          `tfsdk:"name"`
-	Description   types.String                          `tfsdk:"description"`
-	Type          types.String                          `tfsdk:"type"`
-	SchemaVersion types.Int64                           `tfsdk:"schema_version"`
-	Version       types.Int64                           `tfsdk:"version"`
-	Model         CoreLibraryPanelDataSourceModel_Model `tfsdk:"model"`
-	Meta          *CoreLibraryPanelDataSourceModel_Meta `tfsdk:"meta"`
+	ToJSON        types.String                           `tfsdk:"to_json"`
+	FolderUid     types.String                           `tfsdk:"folder_uid"`
+	Uid           types.String                           `tfsdk:"uid"`
+	Name          types.String                           `tfsdk:"name"`
+	Description   types.String                           `tfsdk:"description"`
+	Type          types.String                           `tfsdk:"type"`
+	SchemaVersion types.Int64                            `tfsdk:"schema_version"`
+	Version       types.Int64                            `tfsdk:"version"`
+	Model         *CoreLibraryPanelDataSourceModel_Model `tfsdk:"model"`
+	Meta          *CoreLibraryPanelDataSourceModel_Meta  `tfsdk:"meta"`
 }
 
 func (m CoreLibraryPanelDataSourceModel) MarshalJSON() ([]byte, error) {
@@ -154,7 +160,7 @@ func (m CoreLibraryPanelDataSourceModel) MarshalJSON() ([]byte, error) {
 		Type          string      `json:"type"`
 		SchemaVersion *int64      `json:"schemaVersion,omitempty"`
 		Version       int64       `json:"version"`
-		Model         interface{} `json:"model"`
+		Model         interface{} `json:"model,omitempty"`
 		Meta          interface{} `json:"meta,omitempty"`
 	}
 	attr_folderuid := m.FolderUid.ValueString()
@@ -164,7 +170,10 @@ func (m CoreLibraryPanelDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_type := m.Type.ValueString()
 	attr_schemaversion := m.SchemaVersion.ValueInt64()
 	attr_version := m.Version.ValueInt64()
-	var attr_model interface{} = m.Model
+	var attr_model interface{}
+	if m.Model != nil {
+		attr_model = m.Model
+	}
 	var attr_meta interface{}
 	if m.Meta != nil {
 		attr_meta = m.Meta
@@ -238,13 +247,13 @@ func (d *CoreLibraryPanelDataSource) Schema(ctx context.Context, req datasource.
 			"model": schema.SingleNestedAttribute{
 				MarkdownDescription: `TODO: should be the same panel schema defined in dashboard
 Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
-				Computed: false,
-				Optional: false,
-				Required: true,
+				Computed: true,
+				Optional: true,
+				Required: false,
 			},
 			"meta": schema.SingleNestedAttribute{
 				MarkdownDescription: `Object storage metadata`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -280,9 +289,9 @@ Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
 					},
 					"created_by": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 						Attributes: map[string]schema.Attribute{
 							"id": schema.Int64Attribute{
 								MarkdownDescription: ``,
@@ -306,9 +315,9 @@ Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
 					},
 					"updated_by": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 						Attributes: map[string]schema.Attribute{
 							"id": schema.Int64Attribute{
 								MarkdownDescription: ``,
@@ -354,6 +363,7 @@ func (d *CoreLibraryPanelDataSource) Read(ctx context.Context, req datasource.Re
 		return
 	}
 
+	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -369,4 +379,19 @@ func (d *CoreLibraryPanelDataSource) Read(ctx context.Context, req datasource.Re
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d *CoreLibraryPanelDataSource) applyDefaults(data *CoreLibraryPanelDataSourceModel) {
+	if data.Model == nil {
+		data.Model = &CoreLibraryPanelDataSourceModel_Model{}
+	}
+	if data.Meta == nil {
+		data.Meta = &CoreLibraryPanelDataSourceModel_Meta{}
+	}
+	if data.Meta.CreatedBy == nil {
+		data.Meta.CreatedBy = &CoreLibraryPanelDataSourceModel_Meta_CreatedBy{}
+	}
+	if data.Meta.UpdatedBy == nil {
+		data.Meta.UpdatedBy = &CoreLibraryPanelDataSourceModel_Meta_UpdatedBy{}
+	}
 }

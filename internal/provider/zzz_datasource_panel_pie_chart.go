@@ -33,282 +33,6 @@ func NewPanelPieChartDataSource() datasource.DataSource {
 // PanelPieChartDataSource defines the data source implementation.
 type PanelPieChartDataSource struct{}
 
-type PanelPieChartDataSourceModel_PieChartLegendOptions struct {
-	Values      types.List    `tfsdk:"values"`
-	DisplayMode types.String  `tfsdk:"display_mode"`
-	Placement   types.String  `tfsdk:"placement"`
-	ShowLegend  types.Bool    `tfsdk:"show_legend"`
-	AsTable     types.Bool    `tfsdk:"as_table"`
-	IsVisible   types.Bool    `tfsdk:"is_visible"`
-	SortBy      types.String  `tfsdk:"sort_by"`
-	SortDesc    types.Bool    `tfsdk:"sort_desc"`
-	Width       types.Float64 `tfsdk:"width"`
-	Calcs       types.List    `tfsdk:"calcs"`
-}
-
-func (m PanelPieChartDataSourceModel_PieChartLegendOptions) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_PieChartLegendOptions struct {
-		Values      []string `json:"values"`
-		DisplayMode string   `json:"displayMode"`
-		Placement   string   `json:"placement"`
-		ShowLegend  bool     `json:"showLegend"`
-		AsTable     *bool    `json:"asTable,omitempty"`
-		IsVisible   *bool    `json:"isVisible,omitempty"`
-		SortBy      *string  `json:"sortBy,omitempty"`
-		SortDesc    *bool    `json:"sortDesc,omitempty"`
-		Width       *float64 `json:"width,omitempty"`
-		Calcs       []string `json:"calcs"`
-	}
-	attr_values := []string{}
-	for _, v := range m.Values.Elements() {
-		attr_values = append(attr_values, v.(types.String).ValueString())
-	}
-	attr_displaymode := m.DisplayMode.ValueString()
-	attr_placement := m.Placement.ValueString()
-	attr_showlegend := m.ShowLegend.ValueBool()
-	attr_astable := m.AsTable.ValueBool()
-	attr_isvisible := m.IsVisible.ValueBool()
-	attr_sortby := m.SortBy.ValueString()
-	attr_sortdesc := m.SortDesc.ValueBool()
-	attr_width := m.Width.ValueFloat64()
-	attr_calcs := []string{}
-	for _, v := range m.Calcs.Elements() {
-		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
-	}
-
-	model := &jsonPanelPieChartDataSourceModel_PieChartLegendOptions{
-		Values:      attr_values,
-		DisplayMode: attr_displaymode,
-		Placement:   attr_placement,
-		ShowLegend:  attr_showlegend,
-		AsTable:     &attr_astable,
-		IsVisible:   &attr_isvisible,
-		SortBy:      &attr_sortby,
-		SortDesc:    &attr_sortdesc,
-		Width:       &attr_width,
-		Calcs:       attr_calcs,
-	}
-	return json.Marshal(model)
-}
-
-type PanelPieChartDataSourceModel_Options_Tooltip struct {
-	Mode types.String `tfsdk:"mode"`
-	Sort types.String `tfsdk:"sort"`
-}
-
-func (m PanelPieChartDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Options_Tooltip struct {
-		Mode string `json:"mode"`
-		Sort string `json:"sort"`
-	}
-	attr_mode := m.Mode.ValueString()
-	attr_sort := m.Sort.ValueString()
-
-	model := &jsonPanelPieChartDataSourceModel_Options_Tooltip{
-		Mode: attr_mode,
-		Sort: attr_sort,
-	}
-	return json.Marshal(model)
-}
-
-type PanelPieChartDataSourceModel_Options_ReduceOptions struct {
-	Values types.Bool    `tfsdk:"values"`
-	Limit  types.Float64 `tfsdk:"limit"`
-	Calcs  types.List    `tfsdk:"calcs"`
-	Fields types.String  `tfsdk:"fields"`
-}
-
-func (m PanelPieChartDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Options_ReduceOptions struct {
-		Values *bool    `json:"values,omitempty"`
-		Limit  *float64 `json:"limit,omitempty"`
-		Calcs  []string `json:"calcs"`
-		Fields *string  `json:"fields,omitempty"`
-	}
-	attr_values := m.Values.ValueBool()
-	attr_limit := m.Limit.ValueFloat64()
-	attr_calcs := []string{}
-	for _, v := range m.Calcs.Elements() {
-		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
-	}
-	attr_fields := m.Fields.ValueString()
-
-	model := &jsonPanelPieChartDataSourceModel_Options_ReduceOptions{
-		Values: &attr_values,
-		Limit:  &attr_limit,
-		Calcs:  attr_calcs,
-		Fields: &attr_fields,
-	}
-	return json.Marshal(model)
-}
-
-type PanelPieChartDataSourceModel_Options_Text struct {
-	TitleSize types.Float64 `tfsdk:"title_size"`
-	ValueSize types.Float64 `tfsdk:"value_size"`
-}
-
-func (m PanelPieChartDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Options_Text struct {
-		TitleSize *float64 `json:"titleSize,omitempty"`
-		ValueSize *float64 `json:"valueSize,omitempty"`
-	}
-	attr_titlesize := m.TitleSize.ValueFloat64()
-	attr_valuesize := m.ValueSize.ValueFloat64()
-
-	model := &jsonPanelPieChartDataSourceModel_Options_Text{
-		TitleSize: &attr_titlesize,
-		ValueSize: &attr_valuesize,
-	}
-	return json.Marshal(model)
-}
-
-type PanelPieChartDataSourceModel_Options_Legend struct {
-	Values      types.List    `tfsdk:"values"`
-	DisplayMode types.String  `tfsdk:"display_mode"`
-	Placement   types.String  `tfsdk:"placement"`
-	ShowLegend  types.Bool    `tfsdk:"show_legend"`
-	AsTable     types.Bool    `tfsdk:"as_table"`
-	IsVisible   types.Bool    `tfsdk:"is_visible"`
-	SortBy      types.String  `tfsdk:"sort_by"`
-	SortDesc    types.Bool    `tfsdk:"sort_desc"`
-	Width       types.Float64 `tfsdk:"width"`
-	Calcs       types.List    `tfsdk:"calcs"`
-}
-
-func (m PanelPieChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Options_Legend struct {
-		Values      []string `json:"values"`
-		DisplayMode string   `json:"displayMode"`
-		Placement   string   `json:"placement"`
-		ShowLegend  bool     `json:"showLegend"`
-		AsTable     *bool    `json:"asTable,omitempty"`
-		IsVisible   *bool    `json:"isVisible,omitempty"`
-		SortBy      *string  `json:"sortBy,omitempty"`
-		SortDesc    *bool    `json:"sortDesc,omitempty"`
-		Width       *float64 `json:"width,omitempty"`
-		Calcs       []string `json:"calcs"`
-	}
-	attr_values := []string{}
-	for _, v := range m.Values.Elements() {
-		attr_values = append(attr_values, v.(types.String).ValueString())
-	}
-	attr_displaymode := m.DisplayMode.ValueString()
-	attr_placement := m.Placement.ValueString()
-	attr_showlegend := m.ShowLegend.ValueBool()
-	attr_astable := m.AsTable.ValueBool()
-	attr_isvisible := m.IsVisible.ValueBool()
-	attr_sortby := m.SortBy.ValueString()
-	attr_sortdesc := m.SortDesc.ValueBool()
-	attr_width := m.Width.ValueFloat64()
-	attr_calcs := []string{}
-	for _, v := range m.Calcs.Elements() {
-		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
-	}
-
-	model := &jsonPanelPieChartDataSourceModel_Options_Legend{
-		Values:      attr_values,
-		DisplayMode: attr_displaymode,
-		Placement:   attr_placement,
-		ShowLegend:  attr_showlegend,
-		AsTable:     &attr_astable,
-		IsVisible:   &attr_isvisible,
-		SortBy:      &attr_sortby,
-		SortDesc:    &attr_sortdesc,
-		Width:       &attr_width,
-		Calcs:       attr_calcs,
-	}
-	return json.Marshal(model)
-}
-
-type PanelPieChartDataSourceModel_Options struct {
-	PieType       types.String                                       `tfsdk:"pie_type"`
-	DisplayLabels types.List                                         `tfsdk:"display_labels"`
-	Tooltip       PanelPieChartDataSourceModel_Options_Tooltip       `tfsdk:"tooltip"`
-	ReduceOptions PanelPieChartDataSourceModel_Options_ReduceOptions `tfsdk:"reduce_options"`
-	Text          *PanelPieChartDataSourceModel_Options_Text         `tfsdk:"text"`
-	Legend        PanelPieChartDataSourceModel_Options_Legend        `tfsdk:"legend"`
-	Orientation   types.String                                       `tfsdk:"orientation"`
-}
-
-func (m PanelPieChartDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Options struct {
-		PieType       string      `json:"pieType"`
-		DisplayLabels []string    `json:"displayLabels"`
-		Tooltip       interface{} `json:"tooltip"`
-		ReduceOptions interface{} `json:"reduceOptions"`
-		Text          interface{} `json:"text,omitempty"`
-		Legend        interface{} `json:"legend"`
-		Orientation   string      `json:"orientation"`
-	}
-	attr_pietype := m.PieType.ValueString()
-	attr_displaylabels := []string{}
-	for _, v := range m.DisplayLabels.Elements() {
-		attr_displaylabels = append(attr_displaylabels, v.(types.String).ValueString())
-	}
-	var attr_tooltip interface{} = m.Tooltip
-	var attr_reduceoptions interface{} = m.ReduceOptions
-	var attr_text interface{}
-	if m.Text != nil {
-		attr_text = m.Text
-	}
-	var attr_legend interface{} = m.Legend
-	attr_orientation := m.Orientation.ValueString()
-
-	model := &jsonPanelPieChartDataSourceModel_Options{
-		PieType:       attr_pietype,
-		DisplayLabels: attr_displaylabels,
-		Tooltip:       attr_tooltip,
-		ReduceOptions: attr_reduceoptions,
-		Text:          attr_text,
-		Legend:        attr_legend,
-		Orientation:   attr_orientation,
-	}
-	return json.Marshal(model)
-}
-
-type PanelPieChartDataSourceModel_PanelFieldConfig_HideFrom struct {
-	Tooltip types.Bool `tfsdk:"tooltip"`
-	Legend  types.Bool `tfsdk:"legend"`
-	Viz     types.Bool `tfsdk:"viz"`
-}
-
-func (m PanelPieChartDataSourceModel_PanelFieldConfig_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_PanelFieldConfig_HideFrom struct {
-		Tooltip bool `json:"tooltip"`
-		Legend  bool `json:"legend"`
-		Viz     bool `json:"viz"`
-	}
-	attr_tooltip := m.Tooltip.ValueBool()
-	attr_legend := m.Legend.ValueBool()
-	attr_viz := m.Viz.ValueBool()
-
-	model := &jsonPanelPieChartDataSourceModel_PanelFieldConfig_HideFrom{
-		Tooltip: attr_tooltip,
-		Legend:  attr_legend,
-		Viz:     attr_viz,
-	}
-	return json.Marshal(model)
-}
-
-type PanelPieChartDataSourceModel_PanelFieldConfig struct {
-	HideFrom *PanelPieChartDataSourceModel_PanelFieldConfig_HideFrom `tfsdk:"hide_from"`
-}
-
-func (m PanelPieChartDataSourceModel_PanelFieldConfig) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_PanelFieldConfig struct {
-		HideFrom interface{} `json:"hideFrom,omitempty"`
-	}
-	var attr_hidefrom interface{}
-	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom
-	}
-
-	model := &jsonPanelPieChartDataSourceModel_PanelFieldConfig{
-		HideFrom: attr_hidefrom,
-	}
-	return json.Marshal(model)
-}
-
 type PanelPieChartDataSourceModel_Targets struct {
 }
 
@@ -490,6 +214,190 @@ func (m PanelPieChartDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error)
 	return json.Marshal(model)
 }
 
+type PanelPieChartDataSourceModel_Options_Tooltip struct {
+	Mode types.String `tfsdk:"mode"`
+	Sort types.String `tfsdk:"sort"`
+}
+
+func (m PanelPieChartDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
+	type jsonPanelPieChartDataSourceModel_Options_Tooltip struct {
+		Mode string `json:"mode"`
+		Sort string `json:"sort"`
+	}
+	attr_mode := m.Mode.ValueString()
+	attr_sort := m.Sort.ValueString()
+
+	model := &jsonPanelPieChartDataSourceModel_Options_Tooltip{
+		Mode: attr_mode,
+		Sort: attr_sort,
+	}
+	return json.Marshal(model)
+}
+
+type PanelPieChartDataSourceModel_Options_ReduceOptions struct {
+	Values types.Bool    `tfsdk:"values"`
+	Limit  types.Float64 `tfsdk:"limit"`
+	Calcs  types.List    `tfsdk:"calcs"`
+	Fields types.String  `tfsdk:"fields"`
+}
+
+func (m PanelPieChartDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byte, error) {
+	type jsonPanelPieChartDataSourceModel_Options_ReduceOptions struct {
+		Values *bool    `json:"values,omitempty"`
+		Limit  *float64 `json:"limit,omitempty"`
+		Calcs  []string `json:"calcs"`
+		Fields *string  `json:"fields,omitempty"`
+	}
+	attr_values := m.Values.ValueBool()
+	attr_limit := m.Limit.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
+	attr_fields := m.Fields.ValueString()
+
+	model := &jsonPanelPieChartDataSourceModel_Options_ReduceOptions{
+		Values: &attr_values,
+		Limit:  &attr_limit,
+		Calcs:  attr_calcs,
+		Fields: &attr_fields,
+	}
+	return json.Marshal(model)
+}
+
+type PanelPieChartDataSourceModel_Options_Text struct {
+	TitleSize types.Float64 `tfsdk:"title_size"`
+	ValueSize types.Float64 `tfsdk:"value_size"`
+}
+
+func (m PanelPieChartDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
+	type jsonPanelPieChartDataSourceModel_Options_Text struct {
+		TitleSize *float64 `json:"titleSize,omitempty"`
+		ValueSize *float64 `json:"valueSize,omitempty"`
+	}
+	attr_titlesize := m.TitleSize.ValueFloat64()
+	attr_valuesize := m.ValueSize.ValueFloat64()
+
+	model := &jsonPanelPieChartDataSourceModel_Options_Text{
+		TitleSize: &attr_titlesize,
+		ValueSize: &attr_valuesize,
+	}
+	return json.Marshal(model)
+}
+
+type PanelPieChartDataSourceModel_Options_Legend struct {
+	Values      types.List    `tfsdk:"values"`
+	DisplayMode types.String  `tfsdk:"display_mode"`
+	Placement   types.String  `tfsdk:"placement"`
+	ShowLegend  types.Bool    `tfsdk:"show_legend"`
+	AsTable     types.Bool    `tfsdk:"as_table"`
+	IsVisible   types.Bool    `tfsdk:"is_visible"`
+	SortBy      types.String  `tfsdk:"sort_by"`
+	SortDesc    types.Bool    `tfsdk:"sort_desc"`
+	Width       types.Float64 `tfsdk:"width"`
+	Calcs       types.List    `tfsdk:"calcs"`
+}
+
+func (m PanelPieChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
+	type jsonPanelPieChartDataSourceModel_Options_Legend struct {
+		Values      []string `json:"values"`
+		DisplayMode string   `json:"displayMode"`
+		Placement   string   `json:"placement"`
+		ShowLegend  bool     `json:"showLegend"`
+		AsTable     *bool    `json:"asTable,omitempty"`
+		IsVisible   *bool    `json:"isVisible,omitempty"`
+		SortBy      *string  `json:"sortBy,omitempty"`
+		SortDesc    *bool    `json:"sortDesc,omitempty"`
+		Width       *float64 `json:"width,omitempty"`
+		Calcs       []string `json:"calcs"`
+	}
+	attr_values := []string{}
+	for _, v := range m.Values.Elements() {
+		attr_values = append(attr_values, v.(types.String).ValueString())
+	}
+	attr_displaymode := m.DisplayMode.ValueString()
+	attr_placement := m.Placement.ValueString()
+	attr_showlegend := m.ShowLegend.ValueBool()
+	attr_astable := m.AsTable.ValueBool()
+	attr_isvisible := m.IsVisible.ValueBool()
+	attr_sortby := m.SortBy.ValueString()
+	attr_sortdesc := m.SortDesc.ValueBool()
+	attr_width := m.Width.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
+
+	model := &jsonPanelPieChartDataSourceModel_Options_Legend{
+		Values:      attr_values,
+		DisplayMode: attr_displaymode,
+		Placement:   attr_placement,
+		ShowLegend:  attr_showlegend,
+		AsTable:     &attr_astable,
+		IsVisible:   &attr_isvisible,
+		SortBy:      &attr_sortby,
+		SortDesc:    &attr_sortdesc,
+		Width:       &attr_width,
+		Calcs:       attr_calcs,
+	}
+	return json.Marshal(model)
+}
+
+type PanelPieChartDataSourceModel_Options struct {
+	PieType       types.String                                        `tfsdk:"pie_type"`
+	DisplayLabels types.List                                          `tfsdk:"display_labels"`
+	Tooltip       *PanelPieChartDataSourceModel_Options_Tooltip       `tfsdk:"tooltip"`
+	ReduceOptions *PanelPieChartDataSourceModel_Options_ReduceOptions `tfsdk:"reduce_options"`
+	Text          *PanelPieChartDataSourceModel_Options_Text          `tfsdk:"text"`
+	Legend        *PanelPieChartDataSourceModel_Options_Legend        `tfsdk:"legend"`
+	Orientation   types.String                                        `tfsdk:"orientation"`
+}
+
+func (m PanelPieChartDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelPieChartDataSourceModel_Options struct {
+		PieType       string      `json:"pieType"`
+		DisplayLabels []string    `json:"displayLabels"`
+		Tooltip       interface{} `json:"tooltip,omitempty"`
+		ReduceOptions interface{} `json:"reduceOptions,omitempty"`
+		Text          interface{} `json:"text,omitempty"`
+		Legend        interface{} `json:"legend,omitempty"`
+		Orientation   string      `json:"orientation"`
+	}
+	attr_pietype := m.PieType.ValueString()
+	attr_displaylabels := []string{}
+	for _, v := range m.DisplayLabels.Elements() {
+		attr_displaylabels = append(attr_displaylabels, v.(types.String).ValueString())
+	}
+	var attr_tooltip interface{}
+	if m.Tooltip != nil {
+		attr_tooltip = m.Tooltip
+	}
+	var attr_reduceoptions interface{}
+	if m.ReduceOptions != nil {
+		attr_reduceoptions = m.ReduceOptions
+	}
+	var attr_text interface{}
+	if m.Text != nil {
+		attr_text = m.Text
+	}
+	var attr_legend interface{}
+	if m.Legend != nil {
+		attr_legend = m.Legend
+	}
+	attr_orientation := m.Orientation.ValueString()
+
+	model := &jsonPanelPieChartDataSourceModel_Options{
+		PieType:       attr_pietype,
+		DisplayLabels: attr_displaylabels,
+		Tooltip:       attr_tooltip,
+		ReduceOptions: attr_reduceoptions,
+		Text:          attr_text,
+		Legend:        attr_legend,
+		Orientation:   attr_orientation,
+	}
+	return json.Marshal(model)
+}
+
 type PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.Float64 `tfsdk:"value"`
 	Color types.String  `tfsdk:"color"`
@@ -561,14 +469,46 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() (
 	return json.Marshal(model)
 }
 
+type PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
 type PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom struct {
+	HideFrom *PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
 }
 
 func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Custom struct {
+		HideFrom interface{} `json:"hideFrom,omitempty"`
+	}
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
 	}
 
-	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Custom{
+		HideFrom: attr_hidefrom,
+	}
 	return json.Marshal(model)
 }
 
@@ -682,16 +622,19 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Overrides_Properties) MarshalJS
 }
 
 type PanelPieChartDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    PanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher      `tfsdk:"matcher"`
+	Matcher    *PanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
 	Properties []PanelPieChartDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
 func (m PanelPieChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
 	type jsonPanelPieChartDataSourceModel_FieldConfig_Overrides struct {
-		Matcher    interface{}   `json:"matcher"`
+		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
-	var attr_matcher interface{} = m.Matcher
+	var attr_matcher interface{}
+	if m.Matcher != nil {
+		attr_matcher = m.Matcher
+	}
 	attr_properties := []interface{}{}
 	for _, v := range m.Properties {
 		attr_properties = append(attr_properties, v)
@@ -705,16 +648,19 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byt
 }
 
 type PanelPieChartDataSourceModel_FieldConfig struct {
-	Defaults  PanelPieChartDataSourceModel_FieldConfig_Defaults    `tfsdk:"defaults"`
+	Defaults  *PanelPieChartDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
 	Overrides []PanelPieChartDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
 func (m PanelPieChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 	type jsonPanelPieChartDataSourceModel_FieldConfig struct {
-		Defaults  interface{}   `json:"defaults"`
+		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
-	var attr_defaults interface{} = m.Defaults
+	var attr_defaults interface{}
+	if m.Defaults != nil {
+		attr_defaults = m.Defaults
+	}
 	attr_overrides := []interface{}{}
 	for _, v := range m.Overrides {
 		attr_overrides = append(attr_overrides, v)
@@ -728,72 +674,56 @@ func (m PanelPieChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) 
 }
 
 type PanelPieChartDataSourceModel struct {
-	ToJSON                types.String                                       `tfsdk:"to_json"`
-	PieChartType          types.String                                       `tfsdk:"pie_chart_type"`
-	PieChartLabels        types.String                                       `tfsdk:"pie_chart_labels"`
-	PieChartLegendValues  types.String                                       `tfsdk:"pie_chart_legend_values"`
-	PieChartLegendOptions PanelPieChartDataSourceModel_PieChartLegendOptions `tfsdk:"pie_chart_legend_options"`
-	Options               PanelPieChartDataSourceModel_Options               `tfsdk:"options"`
-	PanelFieldConfig      PanelPieChartDataSourceModel_PanelFieldConfig      `tfsdk:"panel_field_config"`
-	Type                  types.String                                       `tfsdk:"type"`
-	Id                    types.Int64                                        `tfsdk:"id"`
-	PluginVersion         types.String                                       `tfsdk:"plugin_version"`
-	Tags                  types.List                                         `tfsdk:"tags"`
-	Targets               []PanelPieChartDataSourceModel_Targets             `tfsdk:"targets"`
-	Title                 types.String                                       `tfsdk:"title"`
-	Description           types.String                                       `tfsdk:"description"`
-	Transparent           types.Bool                                         `tfsdk:"transparent"`
-	Datasource            *PanelPieChartDataSourceModel_Datasource           `tfsdk:"datasource"`
-	GridPos               *PanelPieChartDataSourceModel_GridPos              `tfsdk:"grid_pos"`
-	Links                 []PanelPieChartDataSourceModel_Links               `tfsdk:"links"`
-	Repeat                types.String                                       `tfsdk:"repeat"`
-	RepeatDirection       types.String                                       `tfsdk:"repeat_direction"`
-	RepeatPanelId         types.Int64                                        `tfsdk:"repeat_panel_id"`
-	MaxDataPoints         types.Float64                                      `tfsdk:"max_data_points"`
-	Transformations       []PanelPieChartDataSourceModel_Transformations     `tfsdk:"transformations"`
-	Interval              types.String                                       `tfsdk:"interval"`
-	TimeFrom              types.String                                       `tfsdk:"time_from"`
-	TimeShift             types.String                                       `tfsdk:"time_shift"`
-	LibraryPanel          *PanelPieChartDataSourceModel_LibraryPanel         `tfsdk:"library_panel"`
-	FieldConfig           PanelPieChartDataSourceModel_FieldConfig           `tfsdk:"field_config"`
+	ToJSON          types.String                                   `tfsdk:"to_json"`
+	Type            types.String                                   `tfsdk:"type"`
+	Id              types.Int64                                    `tfsdk:"id"`
+	PluginVersion   types.String                                   `tfsdk:"plugin_version"`
+	Tags            types.List                                     `tfsdk:"tags"`
+	Targets         []PanelPieChartDataSourceModel_Targets         `tfsdk:"targets"`
+	Title           types.String                                   `tfsdk:"title"`
+	Description     types.String                                   `tfsdk:"description"`
+	Transparent     types.Bool                                     `tfsdk:"transparent"`
+	Datasource      *PanelPieChartDataSourceModel_Datasource       `tfsdk:"datasource"`
+	GridPos         *PanelPieChartDataSourceModel_GridPos          `tfsdk:"grid_pos"`
+	Links           []PanelPieChartDataSourceModel_Links           `tfsdk:"links"`
+	Repeat          types.String                                   `tfsdk:"repeat"`
+	RepeatDirection types.String                                   `tfsdk:"repeat_direction"`
+	RepeatPanelId   types.Int64                                    `tfsdk:"repeat_panel_id"`
+	MaxDataPoints   types.Float64                                  `tfsdk:"max_data_points"`
+	Transformations []PanelPieChartDataSourceModel_Transformations `tfsdk:"transformations"`
+	Interval        types.String                                   `tfsdk:"interval"`
+	TimeFrom        types.String                                   `tfsdk:"time_from"`
+	TimeShift       types.String                                   `tfsdk:"time_shift"`
+	LibraryPanel    *PanelPieChartDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
+	Options         *PanelPieChartDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelPieChartDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
 func (m PanelPieChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonPanelPieChartDataSourceModel struct {
-		PieChartType          string        `json:"PieChartType"`
-		PieChartLabels        string        `json:"PieChartLabels"`
-		PieChartLegendValues  string        `json:"PieChartLegendValues"`
-		PieChartLegendOptions interface{}   `json:"PieChartLegendOptions"`
-		Options               interface{}   `json:"options"`
-		PanelFieldConfig      interface{}   `json:"PanelFieldConfig"`
-		Type                  string        `json:"type"`
-		Id                    *int64        `json:"id,omitempty"`
-		PluginVersion         *string       `json:"pluginVersion,omitempty"`
-		Tags                  []string      `json:"tags,omitempty"`
-		Targets               []interface{} `json:"targets,omitempty"`
-		Title                 *string       `json:"title,omitempty"`
-		Description           *string       `json:"description,omitempty"`
-		Transparent           bool          `json:"transparent"`
-		Datasource            interface{}   `json:"datasource,omitempty"`
-		GridPos               interface{}   `json:"gridPos,omitempty"`
-		Links                 []interface{} `json:"links,omitempty"`
-		Repeat                *string       `json:"repeat,omitempty"`
-		RepeatDirection       string        `json:"repeatDirection"`
-		RepeatPanelId         *int64        `json:"repeatPanelId,omitempty"`
-		MaxDataPoints         *float64      `json:"maxDataPoints,omitempty"`
-		Transformations       []interface{} `json:"transformations"`
-		Interval              *string       `json:"interval,omitempty"`
-		TimeFrom              *string       `json:"timeFrom,omitempty"`
-		TimeShift             *string       `json:"timeShift,omitempty"`
-		LibraryPanel          interface{}   `json:"libraryPanel,omitempty"`
-		FieldConfig           interface{}   `json:"fieldConfig"`
+		Type            string        `json:"type"`
+		Id              *int64        `json:"id,omitempty"`
+		PluginVersion   *string       `json:"pluginVersion,omitempty"`
+		Tags            []string      `json:"tags,omitempty"`
+		Targets         []interface{} `json:"targets,omitempty"`
+		Title           *string       `json:"title,omitempty"`
+		Description     *string       `json:"description,omitempty"`
+		Transparent     bool          `json:"transparent"`
+		Datasource      interface{}   `json:"datasource,omitempty"`
+		GridPos         interface{}   `json:"gridPos,omitempty"`
+		Links           []interface{} `json:"links,omitempty"`
+		Repeat          *string       `json:"repeat,omitempty"`
+		RepeatDirection string        `json:"repeatDirection"`
+		RepeatPanelId   *int64        `json:"repeatPanelId,omitempty"`
+		MaxDataPoints   *float64      `json:"maxDataPoints,omitempty"`
+		Transformations []interface{} `json:"transformations"`
+		Interval        *string       `json:"interval,omitempty"`
+		TimeFrom        *string       `json:"timeFrom,omitempty"`
+		TimeShift       *string       `json:"timeShift,omitempty"`
+		LibraryPanel    interface{}   `json:"libraryPanel,omitempty"`
+		Options         interface{}   `json:"options,omitempty"`
+		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
-	attr_piecharttype := m.PieChartType.ValueString()
-	attr_piechartlabels := m.PieChartLabels.ValueString()
-	attr_piechartlegendvalues := m.PieChartLegendValues.ValueString()
-	var attr_piechartlegendoptions interface{} = m.PieChartLegendOptions
-	var attr_options interface{} = m.Options
-	var attr_panelfieldconfig interface{} = m.PanelFieldConfig
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()
@@ -835,36 +765,38 @@ func (m PanelPieChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
 	}
-	var attr_fieldconfig interface{} = m.FieldConfig
+	var attr_options interface{}
+	if m.Options != nil {
+		attr_options = m.Options
+	}
+	var attr_fieldconfig interface{}
+	if m.FieldConfig != nil {
+		attr_fieldconfig = m.FieldConfig
+	}
 
 	model := &jsonPanelPieChartDataSourceModel{
-		PieChartType:          attr_piecharttype,
-		PieChartLabels:        attr_piechartlabels,
-		PieChartLegendValues:  attr_piechartlegendvalues,
-		PieChartLegendOptions: attr_piechartlegendoptions,
-		Options:               attr_options,
-		PanelFieldConfig:      attr_panelfieldconfig,
-		Type:                  attr_type,
-		Id:                    &attr_id,
-		PluginVersion:         &attr_pluginversion,
-		Tags:                  attr_tags,
-		Targets:               attr_targets,
-		Title:                 &attr_title,
-		Description:           &attr_description,
-		Transparent:           attr_transparent,
-		Datasource:            attr_datasource,
-		GridPos:               attr_gridpos,
-		Links:                 attr_links,
-		Repeat:                &attr_repeat,
-		RepeatDirection:       attr_repeatdirection,
-		RepeatPanelId:         &attr_repeatpanelid,
-		MaxDataPoints:         &attr_maxdatapoints,
-		Transformations:       attr_transformations,
-		Interval:              &attr_interval,
-		TimeFrom:              &attr_timefrom,
-		TimeShift:             &attr_timeshift,
-		LibraryPanel:          attr_librarypanel,
-		FieldConfig:           attr_fieldconfig,
+		Type:            attr_type,
+		Id:              &attr_id,
+		PluginVersion:   &attr_pluginversion,
+		Tags:            attr_tags,
+		Targets:         attr_targets,
+		Title:           &attr_title,
+		Description:     &attr_description,
+		Transparent:     attr_transparent,
+		Datasource:      attr_datasource,
+		GridPos:         attr_gridpos,
+		Links:           attr_links,
+		Repeat:          &attr_repeat,
+		RepeatDirection: attr_repeatdirection,
+		RepeatPanelId:   &attr_repeatpanelid,
+		MaxDataPoints:   &attr_maxdatapoints,
+		Transformations: attr_transformations,
+		Interval:        &attr_interval,
+		TimeFrom:        &attr_timefrom,
+		TimeShift:       &attr_timeshift,
+		LibraryPanel:    attr_librarypanel,
+		Options:         attr_options,
+		FieldConfig:     attr_fieldconfig,
 	}
 	return json.Marshal(model)
 }
@@ -878,303 +810,6 @@ func (d *PanelPieChartDataSource) Schema(ctx context.Context, req datasource.Sch
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"pie_chart_type": schema.StringAttribute{
-				MarkdownDescription: `Select the pie chart display style.`,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-			},
-			"pie_chart_labels": schema.StringAttribute{
-				MarkdownDescription: `Select labels to display on the pie chart.
- - Name - The series or field name.
- - Percent - The percentage of the whole.
- - Value - The raw numerical value.`,
-				Computed: false,
-				Optional: false,
-				Required: true,
-			},
-			"pie_chart_legend_values": schema.StringAttribute{
-				MarkdownDescription: `Select values to display in the legend.
- - Percent: The percentage of the whole.
- - Value: The raw numerical value.`,
-				Computed: false,
-				Optional: false,
-				Required: true,
-			},
-			"pie_chart_legend_options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"values": schema.ListAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						ElementType:         types.StringType,
-					},
-					"display_mode": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-					"placement": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-					"show_legend": schema.BoolAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-					"as_table": schema.BoolAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"is_visible": schema.BoolAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"sort_by": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"sort_desc": schema.BoolAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"width": schema.Float64Attribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"calcs": schema.ListAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						ElementType:         types.StringType,
-					},
-				},
-			},
-			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"pie_type": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-					"display_labels": schema.ListAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						ElementType:         types.StringType,
-					},
-					"tooltip": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						Attributes: map[string]schema.Attribute{
-							"mode": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"sort": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-					"reduce_options": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						Attributes: map[string]schema.Attribute{
-							"values": schema.BoolAttribute{
-								MarkdownDescription: `If true show each row value`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"limit": schema.Float64Attribute{
-								MarkdownDescription: `if showing all values limit`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"calcs": schema.ListAttribute{
-								MarkdownDescription: `When !values, pick one value for the whole field`,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-								ElementType:         types.StringType,
-							},
-							"fields": schema.StringAttribute{
-								MarkdownDescription: `Which fields to show.  By default this is only numeric fields`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"text": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"title_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit title text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"value_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit value text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"legend": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						Attributes: map[string]schema.Attribute{
-							"values": schema.ListAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-								ElementType:         types.StringType,
-							},
-							"display_mode": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"placement": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"show_legend": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"as_table": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"is_visible": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"sort_by": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"sort_desc": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"width": schema.Float64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"calcs": schema.ListAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-								ElementType:         types.StringType,
-							},
-						},
-					},
-					"orientation": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-				},
-			},
-			"panel_field_config": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"hide_from": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"tooltip": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"legend": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"viz": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-				},
-			},
 			"type": schema.StringAttribute{
 				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "piechart".`,
 				Computed:            true,
@@ -1226,7 +861,7 @@ func (d *PanelPieChartDataSource) Schema(ctx context.Context, req datasource.Sch
 			},
 			"datasource": schema.SingleNestedAttribute{
 				MarkdownDescription: `The datasource used in all targets.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1246,7 +881,7 @@ func (d *PanelPieChartDataSource) Schema(ctx context.Context, req datasource.Sch
 			},
 			"grid_pos": schema.SingleNestedAttribute{
 				MarkdownDescription: `Grid position.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1401,7 +1036,7 @@ TODO this is probably optional. Defaults to "h".`,
 						},
 						"filter": schema.SingleNestedAttribute{
 							MarkdownDescription: `Optional frame matcher.  When missing it will be applied to all results`,
-							Computed:            false,
+							Computed:            true,
 							Optional:            true,
 							Required:            false,
 							Attributes: map[string]schema.Attribute{
@@ -1439,7 +1074,7 @@ TODO tighter constraint`,
 			},
 			"library_panel": schema.SingleNestedAttribute{
 				MarkdownDescription: `Dynamically load the panel`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1457,17 +1092,187 @@ TODO tighter constraint`,
 					},
 				},
 			},
-			"field_config": schema.SingleNestedAttribute{
+			"options": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 				Attributes: map[string]schema.Attribute{
-					"defaults": schema.SingleNestedAttribute{
+					"pie_type": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
+					},
+					"display_labels": schema.ListAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+						ElementType:         types.StringType,
+					},
+					"tooltip": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"sort": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+						},
+					},
+					"reduce_options": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"values": schema.BoolAttribute{
+								MarkdownDescription: `If true show each row value`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"limit": schema.Float64Attribute{
+								MarkdownDescription: `if showing all values limit`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"calcs": schema.ListAttribute{
+								MarkdownDescription: `When !values, pick one value for the whole field`,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+								ElementType:         types.StringType,
+							},
+							"fields": schema.StringAttribute{
+								MarkdownDescription: `Which fields to show.  By default this is only numeric fields`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"text": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"title_size": schema.Float64Attribute{
+								MarkdownDescription: `Explicit title text size`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"value_size": schema.Float64Attribute{
+								MarkdownDescription: `Explicit value text size`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"legend": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"values": schema.ListAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+								ElementType:         types.StringType,
+							},
+							"display_mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"placement": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"show_legend": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"as_table": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"is_visible": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_by": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_desc": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"width": schema.Float64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"calcs": schema.ListAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+								ElementType:         types.StringType,
+							},
+						},
+					},
+					"orientation": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+				},
+			},
+			"field_config": schema.SingleNestedAttribute{
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"defaults": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 						Attributes: map[string]schema.Attribute{
 							"display_name": schema.StringAttribute{
 								MarkdownDescription: `The display value for this field.  This supports template variables blank is auto`,
@@ -1536,7 +1341,7 @@ may be used to update the results`,
 							},
 							"thresholds": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map numeric values to states`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1581,7 +1386,7 @@ Some seem to be listed in typescript comment`,
 							},
 							"color": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map values to a display color`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1612,11 +1417,38 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the PanelFieldConfig field
-in panel plugin schemas.`,
-								Computed: false,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+								},
 							},
 						},
 					},
@@ -1629,9 +1461,9 @@ in panel plugin schemas.`,
 							Attributes: map[string]schema.Attribute{
 								"matcher": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
 									Attributes: map[string]schema.Attribute{
 										"id": schema.StringAttribute{
 											MarkdownDescription: ` Defaults to "".`,
@@ -1703,6 +1535,48 @@ func (d *PanelPieChartDataSource) Read(ctx context.Context, req datasource.ReadR
 }
 
 func (d *PanelPieChartDataSource) applyDefaults(data *PanelPieChartDataSourceModel) {
+	if data.Datasource == nil {
+		data.Datasource = &PanelPieChartDataSourceModel_Datasource{}
+	}
+	if data.GridPos == nil {
+		data.GridPos = &PanelPieChartDataSourceModel_GridPos{}
+	}
+	if data.LibraryPanel == nil {
+		data.LibraryPanel = &PanelPieChartDataSourceModel_LibraryPanel{}
+	}
+	if data.Options == nil {
+		data.Options = &PanelPieChartDataSourceModel_Options{}
+	}
+	if data.Options.Tooltip == nil {
+		data.Options.Tooltip = &PanelPieChartDataSourceModel_Options_Tooltip{}
+	}
+	if data.Options.ReduceOptions == nil {
+		data.Options.ReduceOptions = &PanelPieChartDataSourceModel_Options_ReduceOptions{}
+	}
+	if data.Options.Text == nil {
+		data.Options.Text = &PanelPieChartDataSourceModel_Options_Text{}
+	}
+	if data.Options.Legend == nil {
+		data.Options.Legend = &PanelPieChartDataSourceModel_Options_Legend{}
+	}
+	if data.FieldConfig == nil {
+		data.FieldConfig = &PanelPieChartDataSourceModel_FieldConfig{}
+	}
+	if data.FieldConfig.Defaults == nil {
+		data.FieldConfig.Defaults = &PanelPieChartDataSourceModel_FieldConfig_Defaults{}
+	}
+	if data.FieldConfig.Defaults.Thresholds == nil {
+		data.FieldConfig.Defaults.Thresholds = &PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds{}
+	}
+	if data.FieldConfig.Defaults.Color == nil {
+		data.FieldConfig.Defaults.Color = &PanelPieChartDataSourceModel_FieldConfig_Defaults_Color{}
+	}
+	if data.FieldConfig.Defaults.Custom == nil {
+		data.FieldConfig.Defaults.Custom = &PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom{}
+	}
+	if data.FieldConfig.Defaults.Custom.HideFrom == nil {
+		data.FieldConfig.Defaults.Custom.HideFrom = &PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{}
+	}
 	if data.Type.IsNull() {
 		data.Type = types.StringValue(`piechart`)
 	}

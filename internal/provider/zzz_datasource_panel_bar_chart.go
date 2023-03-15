@@ -33,313 +33,6 @@ func NewPanelBarChartDataSource() datasource.DataSource {
 // PanelBarChartDataSource defines the data source implementation.
 type PanelBarChartDataSource struct{}
 
-type PanelBarChartDataSourceModel_Options_Legend struct {
-	DisplayMode types.String  `tfsdk:"display_mode"`
-	Placement   types.String  `tfsdk:"placement"`
-	ShowLegend  types.Bool    `tfsdk:"show_legend"`
-	AsTable     types.Bool    `tfsdk:"as_table"`
-	IsVisible   types.Bool    `tfsdk:"is_visible"`
-	SortBy      types.String  `tfsdk:"sort_by"`
-	SortDesc    types.Bool    `tfsdk:"sort_desc"`
-	Width       types.Float64 `tfsdk:"width"`
-	Calcs       types.List    `tfsdk:"calcs"`
-}
-
-func (m PanelBarChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_Options_Legend struct {
-		DisplayMode string   `json:"displayMode"`
-		Placement   string   `json:"placement"`
-		ShowLegend  bool     `json:"showLegend"`
-		AsTable     *bool    `json:"asTable,omitempty"`
-		IsVisible   *bool    `json:"isVisible,omitempty"`
-		SortBy      *string  `json:"sortBy,omitempty"`
-		SortDesc    *bool    `json:"sortDesc,omitempty"`
-		Width       *float64 `json:"width,omitempty"`
-		Calcs       []string `json:"calcs"`
-	}
-	attr_displaymode := m.DisplayMode.ValueString()
-	attr_placement := m.Placement.ValueString()
-	attr_showlegend := m.ShowLegend.ValueBool()
-	attr_astable := m.AsTable.ValueBool()
-	attr_isvisible := m.IsVisible.ValueBool()
-	attr_sortby := m.SortBy.ValueString()
-	attr_sortdesc := m.SortDesc.ValueBool()
-	attr_width := m.Width.ValueFloat64()
-	attr_calcs := []string{}
-	for _, v := range m.Calcs.Elements() {
-		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
-	}
-
-	model := &jsonPanelBarChartDataSourceModel_Options_Legend{
-		DisplayMode: attr_displaymode,
-		Placement:   attr_placement,
-		ShowLegend:  attr_showlegend,
-		AsTable:     &attr_astable,
-		IsVisible:   &attr_isvisible,
-		SortBy:      &attr_sortby,
-		SortDesc:    &attr_sortdesc,
-		Width:       &attr_width,
-		Calcs:       attr_calcs,
-	}
-	return json.Marshal(model)
-}
-
-type PanelBarChartDataSourceModel_Options_Tooltip struct {
-	Mode types.String `tfsdk:"mode"`
-	Sort types.String `tfsdk:"sort"`
-}
-
-func (m PanelBarChartDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_Options_Tooltip struct {
-		Mode string `json:"mode"`
-		Sort string `json:"sort"`
-	}
-	attr_mode := m.Mode.ValueString()
-	attr_sort := m.Sort.ValueString()
-
-	model := &jsonPanelBarChartDataSourceModel_Options_Tooltip{
-		Mode: attr_mode,
-		Sort: attr_sort,
-	}
-	return json.Marshal(model)
-}
-
-type PanelBarChartDataSourceModel_Options_Text struct {
-	TitleSize types.Float64 `tfsdk:"title_size"`
-	ValueSize types.Float64 `tfsdk:"value_size"`
-}
-
-func (m PanelBarChartDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_Options_Text struct {
-		TitleSize *float64 `json:"titleSize,omitempty"`
-		ValueSize *float64 `json:"valueSize,omitempty"`
-	}
-	attr_titlesize := m.TitleSize.ValueFloat64()
-	attr_valuesize := m.ValueSize.ValueFloat64()
-
-	model := &jsonPanelBarChartDataSourceModel_Options_Text{
-		TitleSize: &attr_titlesize,
-		ValueSize: &attr_valuesize,
-	}
-	return json.Marshal(model)
-}
-
-type PanelBarChartDataSourceModel_Options struct {
-	XField              types.String                                 `tfsdk:"x_field"`
-	ColorByField        types.String                                 `tfsdk:"color_by_field"`
-	Orientation         types.String                                 `tfsdk:"orientation"`
-	BarRadius           types.Float64                                `tfsdk:"bar_radius"`
-	XTickLabelRotation  types.Int64                                  `tfsdk:"x_tick_label_rotation"`
-	XTickLabelMaxLength types.Int64                                  `tfsdk:"x_tick_label_max_length"`
-	XTickLabelSpacing   types.Int64                                  `tfsdk:"x_tick_label_spacing"`
-	Stacking            types.String                                 `tfsdk:"stacking"`
-	ShowValue           types.String                                 `tfsdk:"show_value"`
-	BarWidth            types.Float64                                `tfsdk:"bar_width"`
-	GroupWidth          types.Float64                                `tfsdk:"group_width"`
-	Legend              PanelBarChartDataSourceModel_Options_Legend  `tfsdk:"legend"`
-	Tooltip             PanelBarChartDataSourceModel_Options_Tooltip `tfsdk:"tooltip"`
-	Text                *PanelBarChartDataSourceModel_Options_Text   `tfsdk:"text"`
-	FullHighlight       types.Bool                                   `tfsdk:"full_highlight"`
-}
-
-func (m PanelBarChartDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_Options struct {
-		XField              *string     `json:"xField,omitempty"`
-		ColorByField        *string     `json:"colorByField,omitempty"`
-		Orientation         string      `json:"orientation"`
-		BarRadius           *float64    `json:"barRadius,omitempty"`
-		XTickLabelRotation  int64       `json:"xTickLabelRotation"`
-		XTickLabelMaxLength int64       `json:"xTickLabelMaxLength"`
-		XTickLabelSpacing   *int64      `json:"xTickLabelSpacing,omitempty"`
-		Stacking            string      `json:"stacking"`
-		ShowValue           string      `json:"showValue"`
-		BarWidth            float64     `json:"barWidth"`
-		GroupWidth          float64     `json:"groupWidth"`
-		Legend              interface{} `json:"legend"`
-		Tooltip             interface{} `json:"tooltip"`
-		Text                interface{} `json:"text,omitempty"`
-		FullHighlight       bool        `json:"fullHighlight"`
-	}
-	attr_xfield := m.XField.ValueString()
-	attr_colorbyfield := m.ColorByField.ValueString()
-	attr_orientation := m.Orientation.ValueString()
-	attr_barradius := m.BarRadius.ValueFloat64()
-	attr_xticklabelrotation := m.XTickLabelRotation.ValueInt64()
-	attr_xticklabelmaxlength := m.XTickLabelMaxLength.ValueInt64()
-	attr_xticklabelspacing := m.XTickLabelSpacing.ValueInt64()
-	attr_stacking := m.Stacking.ValueString()
-	attr_showvalue := m.ShowValue.ValueString()
-	attr_barwidth := m.BarWidth.ValueFloat64()
-	attr_groupwidth := m.GroupWidth.ValueFloat64()
-	var attr_legend interface{} = m.Legend
-	var attr_tooltip interface{} = m.Tooltip
-	var attr_text interface{}
-	if m.Text != nil {
-		attr_text = m.Text
-	}
-	attr_fullhighlight := m.FullHighlight.ValueBool()
-
-	model := &jsonPanelBarChartDataSourceModel_Options{
-		XField:              &attr_xfield,
-		ColorByField:        &attr_colorbyfield,
-		Orientation:         attr_orientation,
-		BarRadius:           &attr_barradius,
-		XTickLabelRotation:  attr_xticklabelrotation,
-		XTickLabelMaxLength: attr_xticklabelmaxlength,
-		XTickLabelSpacing:   &attr_xticklabelspacing,
-		Stacking:            attr_stacking,
-		ShowValue:           attr_showvalue,
-		BarWidth:            attr_barwidth,
-		GroupWidth:          attr_groupwidth,
-		Legend:              attr_legend,
-		Tooltip:             attr_tooltip,
-		Text:                attr_text,
-		FullHighlight:       attr_fullhighlight,
-	}
-	return json.Marshal(model)
-}
-
-type PanelBarChartDataSourceModel_PanelFieldConfig_ScaleDistribution struct {
-	Type            types.String  `tfsdk:"type"`
-	Log             types.Float64 `tfsdk:"log"`
-	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
-}
-
-func (m PanelBarChartDataSourceModel_PanelFieldConfig_ScaleDistribution) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_PanelFieldConfig_ScaleDistribution struct {
-		Type            string   `json:"type"`
-		Log             *float64 `json:"log,omitempty"`
-		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
-	}
-	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
-
-	model := &jsonPanelBarChartDataSourceModel_PanelFieldConfig_ScaleDistribution{
-		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
-	}
-	return json.Marshal(model)
-}
-
-type PanelBarChartDataSourceModel_PanelFieldConfig_HideFrom struct {
-	Tooltip types.Bool `tfsdk:"tooltip"`
-	Legend  types.Bool `tfsdk:"legend"`
-	Viz     types.Bool `tfsdk:"viz"`
-}
-
-func (m PanelBarChartDataSourceModel_PanelFieldConfig_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_PanelFieldConfig_HideFrom struct {
-		Tooltip bool `json:"tooltip"`
-		Legend  bool `json:"legend"`
-		Viz     bool `json:"viz"`
-	}
-	attr_tooltip := m.Tooltip.ValueBool()
-	attr_legend := m.Legend.ValueBool()
-	attr_viz := m.Viz.ValueBool()
-
-	model := &jsonPanelBarChartDataSourceModel_PanelFieldConfig_HideFrom{
-		Tooltip: attr_tooltip,
-		Legend:  attr_legend,
-		Viz:     attr_viz,
-	}
-	return json.Marshal(model)
-}
-
-type PanelBarChartDataSourceModel_PanelFieldConfig_ThresholdsStyle struct {
-	Mode types.String `tfsdk:"mode"`
-}
-
-func (m PanelBarChartDataSourceModel_PanelFieldConfig_ThresholdsStyle) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_PanelFieldConfig_ThresholdsStyle struct {
-		Mode string `json:"mode"`
-	}
-	attr_mode := m.Mode.ValueString()
-
-	model := &jsonPanelBarChartDataSourceModel_PanelFieldConfig_ThresholdsStyle{
-		Mode: attr_mode,
-	}
-	return json.Marshal(model)
-}
-
-type PanelBarChartDataSourceModel_PanelFieldConfig struct {
-	LineWidth         types.Int64                                                      `tfsdk:"line_width"`
-	FillOpacity       types.Int64                                                      `tfsdk:"fill_opacity"`
-	GradientMode      types.String                                                     `tfsdk:"gradient_mode"`
-	AxisPlacement     types.String                                                     `tfsdk:"axis_placement"`
-	AxisColorMode     types.String                                                     `tfsdk:"axis_color_mode"`
-	AxisLabel         types.String                                                     `tfsdk:"axis_label"`
-	AxisWidth         types.Float64                                                    `tfsdk:"axis_width"`
-	AxisSoftMin       types.Float64                                                    `tfsdk:"axis_soft_min"`
-	AxisSoftMax       types.Float64                                                    `tfsdk:"axis_soft_max"`
-	AxisGridShow      types.Bool                                                       `tfsdk:"axis_grid_show"`
-	ScaleDistribution *PanelBarChartDataSourceModel_PanelFieldConfig_ScaleDistribution `tfsdk:"scale_distribution"`
-	HideFrom          *PanelBarChartDataSourceModel_PanelFieldConfig_HideFrom          `tfsdk:"hide_from"`
-	ThresholdsStyle   *PanelBarChartDataSourceModel_PanelFieldConfig_ThresholdsStyle   `tfsdk:"thresholds_style"`
-	AxisCenteredZero  types.Bool                                                       `tfsdk:"axis_centered_zero"`
-}
-
-func (m PanelBarChartDataSourceModel_PanelFieldConfig) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_PanelFieldConfig struct {
-		LineWidth         *int64      `json:"lineWidth,omitempty"`
-		FillOpacity       *int64      `json:"fillOpacity,omitempty"`
-		GradientMode      *string     `json:"gradientMode,omitempty"`
-		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
-		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
-		AxisLabel         *string     `json:"axisLabel,omitempty"`
-		AxisWidth         *float64    `json:"axisWidth,omitempty"`
-		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
-		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
-		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
-		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
-		HideFrom          interface{} `json:"hideFrom,omitempty"`
-		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
-		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
-	}
-	attr_linewidth := m.LineWidth.ValueInt64()
-	attr_fillopacity := m.FillOpacity.ValueInt64()
-	attr_gradientmode := m.GradientMode.ValueString()
-	attr_axisplacement := m.AxisPlacement.ValueString()
-	attr_axiscolormode := m.AxisColorMode.ValueString()
-	attr_axislabel := m.AxisLabel.ValueString()
-	attr_axiswidth := m.AxisWidth.ValueFloat64()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
-	attr_axisgridshow := m.AxisGridShow.ValueBool()
-	var attr_scaledistribution interface{}
-	if m.ScaleDistribution != nil {
-		attr_scaledistribution = m.ScaleDistribution
-	}
-	var attr_hidefrom interface{}
-	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom
-	}
-	var attr_thresholdsstyle interface{}
-	if m.ThresholdsStyle != nil {
-		attr_thresholdsstyle = m.ThresholdsStyle
-	}
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
-
-	model := &jsonPanelBarChartDataSourceModel_PanelFieldConfig{
-		LineWidth:         &attr_linewidth,
-		FillOpacity:       &attr_fillopacity,
-		GradientMode:      &attr_gradientmode,
-		AxisPlacement:     &attr_axisplacement,
-		AxisColorMode:     &attr_axiscolormode,
-		AxisLabel:         &attr_axislabel,
-		AxisWidth:         &attr_axiswidth,
-		AxisSoftMin:       &attr_axissoftmin,
-		AxisSoftMax:       &attr_axissoftmax,
-		AxisGridShow:      &attr_axisgridshow,
-		ScaleDistribution: attr_scaledistribution,
-		HideFrom:          attr_hidefrom,
-		ThresholdsStyle:   attr_thresholdsstyle,
-		AxisCenteredZero:  &attr_axiscenteredzero,
-	}
-	return json.Marshal(model)
-}
-
 type PanelBarChartDataSourceModel_Targets struct {
 }
 
@@ -521,6 +214,178 @@ func (m PanelBarChartDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error)
 	return json.Marshal(model)
 }
 
+type PanelBarChartDataSourceModel_Options_Legend struct {
+	DisplayMode types.String  `tfsdk:"display_mode"`
+	Placement   types.String  `tfsdk:"placement"`
+	ShowLegend  types.Bool    `tfsdk:"show_legend"`
+	AsTable     types.Bool    `tfsdk:"as_table"`
+	IsVisible   types.Bool    `tfsdk:"is_visible"`
+	SortBy      types.String  `tfsdk:"sort_by"`
+	SortDesc    types.Bool    `tfsdk:"sort_desc"`
+	Width       types.Float64 `tfsdk:"width"`
+	Calcs       types.List    `tfsdk:"calcs"`
+}
+
+func (m PanelBarChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
+	type jsonPanelBarChartDataSourceModel_Options_Legend struct {
+		DisplayMode string   `json:"displayMode"`
+		Placement   string   `json:"placement"`
+		ShowLegend  bool     `json:"showLegend"`
+		AsTable     *bool    `json:"asTable,omitempty"`
+		IsVisible   *bool    `json:"isVisible,omitempty"`
+		SortBy      *string  `json:"sortBy,omitempty"`
+		SortDesc    *bool    `json:"sortDesc,omitempty"`
+		Width       *float64 `json:"width,omitempty"`
+		Calcs       []string `json:"calcs"`
+	}
+	attr_displaymode := m.DisplayMode.ValueString()
+	attr_placement := m.Placement.ValueString()
+	attr_showlegend := m.ShowLegend.ValueBool()
+	attr_astable := m.AsTable.ValueBool()
+	attr_isvisible := m.IsVisible.ValueBool()
+	attr_sortby := m.SortBy.ValueString()
+	attr_sortdesc := m.SortDesc.ValueBool()
+	attr_width := m.Width.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
+
+	model := &jsonPanelBarChartDataSourceModel_Options_Legend{
+		DisplayMode: attr_displaymode,
+		Placement:   attr_placement,
+		ShowLegend:  attr_showlegend,
+		AsTable:     &attr_astable,
+		IsVisible:   &attr_isvisible,
+		SortBy:      &attr_sortby,
+		SortDesc:    &attr_sortdesc,
+		Width:       &attr_width,
+		Calcs:       attr_calcs,
+	}
+	return json.Marshal(model)
+}
+
+type PanelBarChartDataSourceModel_Options_Tooltip struct {
+	Mode types.String `tfsdk:"mode"`
+	Sort types.String `tfsdk:"sort"`
+}
+
+func (m PanelBarChartDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
+	type jsonPanelBarChartDataSourceModel_Options_Tooltip struct {
+		Mode string `json:"mode"`
+		Sort string `json:"sort"`
+	}
+	attr_mode := m.Mode.ValueString()
+	attr_sort := m.Sort.ValueString()
+
+	model := &jsonPanelBarChartDataSourceModel_Options_Tooltip{
+		Mode: attr_mode,
+		Sort: attr_sort,
+	}
+	return json.Marshal(model)
+}
+
+type PanelBarChartDataSourceModel_Options_Text struct {
+	TitleSize types.Float64 `tfsdk:"title_size"`
+	ValueSize types.Float64 `tfsdk:"value_size"`
+}
+
+func (m PanelBarChartDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
+	type jsonPanelBarChartDataSourceModel_Options_Text struct {
+		TitleSize *float64 `json:"titleSize,omitempty"`
+		ValueSize *float64 `json:"valueSize,omitempty"`
+	}
+	attr_titlesize := m.TitleSize.ValueFloat64()
+	attr_valuesize := m.ValueSize.ValueFloat64()
+
+	model := &jsonPanelBarChartDataSourceModel_Options_Text{
+		TitleSize: &attr_titlesize,
+		ValueSize: &attr_valuesize,
+	}
+	return json.Marshal(model)
+}
+
+type PanelBarChartDataSourceModel_Options struct {
+	XField              types.String                                  `tfsdk:"x_field"`
+	ColorByField        types.String                                  `tfsdk:"color_by_field"`
+	Orientation         types.String                                  `tfsdk:"orientation"`
+	BarRadius           types.Float64                                 `tfsdk:"bar_radius"`
+	XTickLabelRotation  types.Int64                                   `tfsdk:"x_tick_label_rotation"`
+	XTickLabelMaxLength types.Int64                                   `tfsdk:"x_tick_label_max_length"`
+	XTickLabelSpacing   types.Int64                                   `tfsdk:"x_tick_label_spacing"`
+	Stacking            types.String                                  `tfsdk:"stacking"`
+	ShowValue           types.String                                  `tfsdk:"show_value"`
+	BarWidth            types.Float64                                 `tfsdk:"bar_width"`
+	GroupWidth          types.Float64                                 `tfsdk:"group_width"`
+	Legend              *PanelBarChartDataSourceModel_Options_Legend  `tfsdk:"legend"`
+	Tooltip             *PanelBarChartDataSourceModel_Options_Tooltip `tfsdk:"tooltip"`
+	Text                *PanelBarChartDataSourceModel_Options_Text    `tfsdk:"text"`
+	FullHighlight       types.Bool                                    `tfsdk:"full_highlight"`
+}
+
+func (m PanelBarChartDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelBarChartDataSourceModel_Options struct {
+		XField              *string     `json:"xField,omitempty"`
+		ColorByField        *string     `json:"colorByField,omitempty"`
+		Orientation         string      `json:"orientation"`
+		BarRadius           *float64    `json:"barRadius,omitempty"`
+		XTickLabelRotation  int64       `json:"xTickLabelRotation"`
+		XTickLabelMaxLength int64       `json:"xTickLabelMaxLength"`
+		XTickLabelSpacing   *int64      `json:"xTickLabelSpacing,omitempty"`
+		Stacking            string      `json:"stacking"`
+		ShowValue           string      `json:"showValue"`
+		BarWidth            float64     `json:"barWidth"`
+		GroupWidth          float64     `json:"groupWidth"`
+		Legend              interface{} `json:"legend,omitempty"`
+		Tooltip             interface{} `json:"tooltip,omitempty"`
+		Text                interface{} `json:"text,omitempty"`
+		FullHighlight       bool        `json:"fullHighlight"`
+	}
+	attr_xfield := m.XField.ValueString()
+	attr_colorbyfield := m.ColorByField.ValueString()
+	attr_orientation := m.Orientation.ValueString()
+	attr_barradius := m.BarRadius.ValueFloat64()
+	attr_xticklabelrotation := m.XTickLabelRotation.ValueInt64()
+	attr_xticklabelmaxlength := m.XTickLabelMaxLength.ValueInt64()
+	attr_xticklabelspacing := m.XTickLabelSpacing.ValueInt64()
+	attr_stacking := m.Stacking.ValueString()
+	attr_showvalue := m.ShowValue.ValueString()
+	attr_barwidth := m.BarWidth.ValueFloat64()
+	attr_groupwidth := m.GroupWidth.ValueFloat64()
+	var attr_legend interface{}
+	if m.Legend != nil {
+		attr_legend = m.Legend
+	}
+	var attr_tooltip interface{}
+	if m.Tooltip != nil {
+		attr_tooltip = m.Tooltip
+	}
+	var attr_text interface{}
+	if m.Text != nil {
+		attr_text = m.Text
+	}
+	attr_fullhighlight := m.FullHighlight.ValueBool()
+
+	model := &jsonPanelBarChartDataSourceModel_Options{
+		XField:              &attr_xfield,
+		ColorByField:        &attr_colorbyfield,
+		Orientation:         attr_orientation,
+		BarRadius:           &attr_barradius,
+		XTickLabelRotation:  attr_xticklabelrotation,
+		XTickLabelMaxLength: attr_xticklabelmaxlength,
+		XTickLabelSpacing:   &attr_xticklabelspacing,
+		Stacking:            attr_stacking,
+		ShowValue:           attr_showvalue,
+		BarWidth:            attr_barwidth,
+		GroupWidth:          attr_groupwidth,
+		Legend:              attr_legend,
+		Tooltip:             attr_tooltip,
+		Text:                attr_text,
+		FullHighlight:       attr_fullhighlight,
+	}
+	return json.Marshal(model)
+}
+
 type PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.Float64 `tfsdk:"value"`
 	Color types.String  `tfsdk:"color"`
@@ -592,14 +457,144 @@ func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() (
 	return json.Marshal(model)
 }
 
+type PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+	Type            types.String  `tfsdk:"type"`
+	Log             types.Float64 `tfsdk:"log"`
+	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+}
+
+func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+		Type            string   `json:"type"`
+		Log             *float64 `json:"log,omitempty"`
+		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+	}
+	attr_type := m.Type.ValueString()
+	attr_log := m.Log.ValueFloat64()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+
+	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
+		Type:            attr_type,
+		Log:             &attr_log,
+		LinearThreshold: &attr_linearthreshold,
+	}
+	return json.Marshal(model)
+}
+
+type PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+type PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+	Mode types.String `tfsdk:"mode"`
+}
+
+func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+		Mode string `json:"mode"`
+	}
+	attr_mode := m.Mode.ValueString()
+
+	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
+		Mode: attr_mode,
+	}
+	return json.Marshal(model)
+}
+
 type PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth         types.Int64                                                                 `tfsdk:"line_width"`
+	FillOpacity       types.Int64                                                                 `tfsdk:"fill_opacity"`
+	GradientMode      types.String                                                                `tfsdk:"gradient_mode"`
+	AxisPlacement     types.String                                                                `tfsdk:"axis_placement"`
+	AxisColorMode     types.String                                                                `tfsdk:"axis_color_mode"`
+	AxisLabel         types.String                                                                `tfsdk:"axis_label"`
+	AxisWidth         types.Float64                                                               `tfsdk:"axis_width"`
+	AxisSoftMin       types.Float64                                                               `tfsdk:"axis_soft_min"`
+	AxisSoftMax       types.Float64                                                               `tfsdk:"axis_soft_max"`
+	AxisGridShow      types.Bool                                                                  `tfsdk:"axis_grid_show"`
+	ScaleDistribution *PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
+	HideFrom          *PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
+	ThresholdsStyle   *PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
+	AxisCenteredZero  types.Bool                                                                  `tfsdk:"axis_centered_zero"`
 }
 
 func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth         *int64      `json:"lineWidth,omitempty"`
+		FillOpacity       *int64      `json:"fillOpacity,omitempty"`
+		GradientMode      *string     `json:"gradientMode,omitempty"`
+		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
+		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
+		AxisLabel         *string     `json:"axisLabel,omitempty"`
+		AxisWidth         *float64    `json:"axisWidth,omitempty"`
+		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
+		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
+		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
+		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
+		HideFrom          interface{} `json:"hideFrom,omitempty"`
+		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
+		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
 	}
+	attr_linewidth := m.LineWidth.ValueInt64()
+	attr_fillopacity := m.FillOpacity.ValueInt64()
+	attr_gradientmode := m.GradientMode.ValueString()
+	attr_axisplacement := m.AxisPlacement.ValueString()
+	attr_axiscolormode := m.AxisColorMode.ValueString()
+	attr_axislabel := m.AxisLabel.ValueString()
+	attr_axiswidth := m.AxisWidth.ValueFloat64()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
+	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	var attr_scaledistribution interface{}
+	if m.ScaleDistribution != nil {
+		attr_scaledistribution = m.ScaleDistribution
+	}
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	var attr_thresholdsstyle interface{}
+	if m.ThresholdsStyle != nil {
+		attr_thresholdsstyle = m.ThresholdsStyle
+	}
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
 
-	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:         &attr_linewidth,
+		FillOpacity:       &attr_fillopacity,
+		GradientMode:      &attr_gradientmode,
+		AxisPlacement:     &attr_axisplacement,
+		AxisColorMode:     &attr_axiscolormode,
+		AxisLabel:         &attr_axislabel,
+		AxisWidth:         &attr_axiswidth,
+		AxisSoftMin:       &attr_axissoftmin,
+		AxisSoftMax:       &attr_axissoftmax,
+		AxisGridShow:      &attr_axisgridshow,
+		ScaleDistribution: attr_scaledistribution,
+		HideFrom:          attr_hidefrom,
+		ThresholdsStyle:   attr_thresholdsstyle,
+		AxisCenteredZero:  &attr_axiscenteredzero,
+	}
 	return json.Marshal(model)
 }
 
@@ -713,16 +708,19 @@ func (m PanelBarChartDataSourceModel_FieldConfig_Overrides_Properties) MarshalJS
 }
 
 type PanelBarChartDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    PanelBarChartDataSourceModel_FieldConfig_Overrides_Matcher      `tfsdk:"matcher"`
+	Matcher    *PanelBarChartDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
 	Properties []PanelBarChartDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
 func (m PanelBarChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
 	type jsonPanelBarChartDataSourceModel_FieldConfig_Overrides struct {
-		Matcher    interface{}   `json:"matcher"`
+		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
-	var attr_matcher interface{} = m.Matcher
+	var attr_matcher interface{}
+	if m.Matcher != nil {
+		attr_matcher = m.Matcher
+	}
 	attr_properties := []interface{}{}
 	for _, v := range m.Properties {
 		attr_properties = append(attr_properties, v)
@@ -736,16 +734,19 @@ func (m PanelBarChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byt
 }
 
 type PanelBarChartDataSourceModel_FieldConfig struct {
-	Defaults  PanelBarChartDataSourceModel_FieldConfig_Defaults    `tfsdk:"defaults"`
+	Defaults  *PanelBarChartDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
 	Overrides []PanelBarChartDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
 func (m PanelBarChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 	type jsonPanelBarChartDataSourceModel_FieldConfig struct {
-		Defaults  interface{}   `json:"defaults"`
+		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
-	var attr_defaults interface{} = m.Defaults
+	var attr_defaults interface{}
+	if m.Defaults != nil {
+		attr_defaults = m.Defaults
+	}
 	attr_overrides := []interface{}{}
 	for _, v := range m.Overrides {
 		attr_overrides = append(attr_overrides, v)
@@ -759,60 +760,56 @@ func (m PanelBarChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) 
 }
 
 type PanelBarChartDataSourceModel struct {
-	ToJSON           types.String                                   `tfsdk:"to_json"`
-	Options          PanelBarChartDataSourceModel_Options           `tfsdk:"options"`
-	PanelFieldConfig PanelBarChartDataSourceModel_PanelFieldConfig  `tfsdk:"panel_field_config"`
-	Type             types.String                                   `tfsdk:"type"`
-	Id               types.Int64                                    `tfsdk:"id"`
-	PluginVersion    types.String                                   `tfsdk:"plugin_version"`
-	Tags             types.List                                     `tfsdk:"tags"`
-	Targets          []PanelBarChartDataSourceModel_Targets         `tfsdk:"targets"`
-	Title            types.String                                   `tfsdk:"title"`
-	Description      types.String                                   `tfsdk:"description"`
-	Transparent      types.Bool                                     `tfsdk:"transparent"`
-	Datasource       *PanelBarChartDataSourceModel_Datasource       `tfsdk:"datasource"`
-	GridPos          *PanelBarChartDataSourceModel_GridPos          `tfsdk:"grid_pos"`
-	Links            []PanelBarChartDataSourceModel_Links           `tfsdk:"links"`
-	Repeat           types.String                                   `tfsdk:"repeat"`
-	RepeatDirection  types.String                                   `tfsdk:"repeat_direction"`
-	RepeatPanelId    types.Int64                                    `tfsdk:"repeat_panel_id"`
-	MaxDataPoints    types.Float64                                  `tfsdk:"max_data_points"`
-	Transformations  []PanelBarChartDataSourceModel_Transformations `tfsdk:"transformations"`
-	Interval         types.String                                   `tfsdk:"interval"`
-	TimeFrom         types.String                                   `tfsdk:"time_from"`
-	TimeShift        types.String                                   `tfsdk:"time_shift"`
-	LibraryPanel     *PanelBarChartDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	FieldConfig      PanelBarChartDataSourceModel_FieldConfig       `tfsdk:"field_config"`
+	ToJSON          types.String                                   `tfsdk:"to_json"`
+	Type            types.String                                   `tfsdk:"type"`
+	Id              types.Int64                                    `tfsdk:"id"`
+	PluginVersion   types.String                                   `tfsdk:"plugin_version"`
+	Tags            types.List                                     `tfsdk:"tags"`
+	Targets         []PanelBarChartDataSourceModel_Targets         `tfsdk:"targets"`
+	Title           types.String                                   `tfsdk:"title"`
+	Description     types.String                                   `tfsdk:"description"`
+	Transparent     types.Bool                                     `tfsdk:"transparent"`
+	Datasource      *PanelBarChartDataSourceModel_Datasource       `tfsdk:"datasource"`
+	GridPos         *PanelBarChartDataSourceModel_GridPos          `tfsdk:"grid_pos"`
+	Links           []PanelBarChartDataSourceModel_Links           `tfsdk:"links"`
+	Repeat          types.String                                   `tfsdk:"repeat"`
+	RepeatDirection types.String                                   `tfsdk:"repeat_direction"`
+	RepeatPanelId   types.Int64                                    `tfsdk:"repeat_panel_id"`
+	MaxDataPoints   types.Float64                                  `tfsdk:"max_data_points"`
+	Transformations []PanelBarChartDataSourceModel_Transformations `tfsdk:"transformations"`
+	Interval        types.String                                   `tfsdk:"interval"`
+	TimeFrom        types.String                                   `tfsdk:"time_from"`
+	TimeShift       types.String                                   `tfsdk:"time_shift"`
+	LibraryPanel    *PanelBarChartDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
+	Options         *PanelBarChartDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelBarChartDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
 func (m PanelBarChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonPanelBarChartDataSourceModel struct {
-		Options          interface{}   `json:"options"`
-		PanelFieldConfig interface{}   `json:"PanelFieldConfig"`
-		Type             string        `json:"type"`
-		Id               *int64        `json:"id,omitempty"`
-		PluginVersion    *string       `json:"pluginVersion,omitempty"`
-		Tags             []string      `json:"tags,omitempty"`
-		Targets          []interface{} `json:"targets,omitempty"`
-		Title            *string       `json:"title,omitempty"`
-		Description      *string       `json:"description,omitempty"`
-		Transparent      bool          `json:"transparent"`
-		Datasource       interface{}   `json:"datasource,omitempty"`
-		GridPos          interface{}   `json:"gridPos,omitempty"`
-		Links            []interface{} `json:"links,omitempty"`
-		Repeat           *string       `json:"repeat,omitempty"`
-		RepeatDirection  string        `json:"repeatDirection"`
-		RepeatPanelId    *int64        `json:"repeatPanelId,omitempty"`
-		MaxDataPoints    *float64      `json:"maxDataPoints,omitempty"`
-		Transformations  []interface{} `json:"transformations"`
-		Interval         *string       `json:"interval,omitempty"`
-		TimeFrom         *string       `json:"timeFrom,omitempty"`
-		TimeShift        *string       `json:"timeShift,omitempty"`
-		LibraryPanel     interface{}   `json:"libraryPanel,omitempty"`
-		FieldConfig      interface{}   `json:"fieldConfig"`
+		Type            string        `json:"type"`
+		Id              *int64        `json:"id,omitempty"`
+		PluginVersion   *string       `json:"pluginVersion,omitempty"`
+		Tags            []string      `json:"tags,omitempty"`
+		Targets         []interface{} `json:"targets,omitempty"`
+		Title           *string       `json:"title,omitempty"`
+		Description     *string       `json:"description,omitempty"`
+		Transparent     bool          `json:"transparent"`
+		Datasource      interface{}   `json:"datasource,omitempty"`
+		GridPos         interface{}   `json:"gridPos,omitempty"`
+		Links           []interface{} `json:"links,omitempty"`
+		Repeat          *string       `json:"repeat,omitempty"`
+		RepeatDirection string        `json:"repeatDirection"`
+		RepeatPanelId   *int64        `json:"repeatPanelId,omitempty"`
+		MaxDataPoints   *float64      `json:"maxDataPoints,omitempty"`
+		Transformations []interface{} `json:"transformations"`
+		Interval        *string       `json:"interval,omitempty"`
+		TimeFrom        *string       `json:"timeFrom,omitempty"`
+		TimeShift       *string       `json:"timeShift,omitempty"`
+		LibraryPanel    interface{}   `json:"libraryPanel,omitempty"`
+		Options         interface{}   `json:"options,omitempty"`
+		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
-	var attr_options interface{} = m.Options
-	var attr_panelfieldconfig interface{} = m.PanelFieldConfig
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()
@@ -854,32 +851,38 @@ func (m PanelBarChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
 	}
-	var attr_fieldconfig interface{} = m.FieldConfig
+	var attr_options interface{}
+	if m.Options != nil {
+		attr_options = m.Options
+	}
+	var attr_fieldconfig interface{}
+	if m.FieldConfig != nil {
+		attr_fieldconfig = m.FieldConfig
+	}
 
 	model := &jsonPanelBarChartDataSourceModel{
-		Options:          attr_options,
-		PanelFieldConfig: attr_panelfieldconfig,
-		Type:             attr_type,
-		Id:               &attr_id,
-		PluginVersion:    &attr_pluginversion,
-		Tags:             attr_tags,
-		Targets:          attr_targets,
-		Title:            &attr_title,
-		Description:      &attr_description,
-		Transparent:      attr_transparent,
-		Datasource:       attr_datasource,
-		GridPos:          attr_gridpos,
-		Links:            attr_links,
-		Repeat:           &attr_repeat,
-		RepeatDirection:  attr_repeatdirection,
-		RepeatPanelId:    &attr_repeatpanelid,
-		MaxDataPoints:    &attr_maxdatapoints,
-		Transformations:  attr_transformations,
-		Interval:         &attr_interval,
-		TimeFrom:         &attr_timefrom,
-		TimeShift:        &attr_timeshift,
-		LibraryPanel:     attr_librarypanel,
-		FieldConfig:      attr_fieldconfig,
+		Type:            attr_type,
+		Id:              &attr_id,
+		PluginVersion:   &attr_pluginversion,
+		Tags:            attr_tags,
+		Targets:         attr_targets,
+		Title:           &attr_title,
+		Description:     &attr_description,
+		Transparent:     attr_transparent,
+		Datasource:      attr_datasource,
+		GridPos:         attr_gridpos,
+		Links:           attr_links,
+		Repeat:          &attr_repeat,
+		RepeatDirection: attr_repeatdirection,
+		RepeatPanelId:   &attr_repeatpanelid,
+		MaxDataPoints:   &attr_maxdatapoints,
+		Transformations: attr_transformations,
+		Interval:        &attr_interval,
+		TimeFrom:        &attr_timefrom,
+		TimeShift:       &attr_timeshift,
+		LibraryPanel:    attr_librarypanel,
+		Options:         attr_options,
+		FieldConfig:     attr_fieldconfig,
 	}
 	return json.Marshal(model)
 }
@@ -893,332 +896,6 @@ func (d *PanelBarChartDataSource) Schema(ctx context.Context, req datasource.Sch
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"x_field": schema.StringAttribute{
-						MarkdownDescription: `Manually select which field from the dataset to represent the x field.`,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"color_by_field": schema.StringAttribute{
-						MarkdownDescription: `Use the color value for a sibling field to color each bar value.`,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"orientation": schema.StringAttribute{
-						MarkdownDescription: `Controls the orientation of the bar chart, either vertical or horizontal. Defaults to "auto".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"bar_radius": schema.Float64Attribute{
-						MarkdownDescription: `Controls the radius of each bar.`,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"x_tick_label_rotation": schema.Int64Attribute{
-						MarkdownDescription: `Controls the rotation of the x axis labels. Defaults to 0.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"x_tick_label_max_length": schema.Int64Attribute{
-						MarkdownDescription: `Sets the max length that a label can have before it is truncated.`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-					"x_tick_label_spacing": schema.Int64Attribute{
-						MarkdownDescription: `Controls the spacing between x axis labels.
-negative values indicate backwards skipping behavior. Defaults to 0.`,
-						Computed: true,
-						Optional: true,
-						Required: false,
-					},
-					"stacking": schema.StringAttribute{
-						MarkdownDescription: `Controls whether bars are stacked or not, either normally or in percent mode. Defaults to "none".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"show_value": schema.StringAttribute{
-						MarkdownDescription: `This controls whether values are shown on top or to the left of bars. Defaults to "auto".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"bar_width": schema.Float64Attribute{
-						MarkdownDescription: `Controls the width of bars. 1 = Max width, 0 = Min width. Defaults to 0.970000.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"group_width": schema.Float64Attribute{
-						MarkdownDescription: `Controls the width of groups. 1 = max with, 0 = min width. Defaults to 0.700000.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"legend": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						Attributes: map[string]schema.Attribute{
-							"display_mode": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"placement": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"show_legend": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"as_table": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"is_visible": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"sort_by": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"sort_desc": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"width": schema.Float64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"calcs": schema.ListAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-								ElementType:         types.StringType,
-							},
-						},
-					},
-					"tooltip": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						Attributes: map[string]schema.Attribute{
-							"mode": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"sort": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-					"text": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"title_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit title text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"value_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit value text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"full_highlight": schema.BoolAttribute{
-						MarkdownDescription: `Enables mode which highlights the entire bar area and shows tooltip when cursor
-hovers over highlighted area. Defaults to false.`,
-						Computed: true,
-						Optional: true,
-						Required: false,
-					},
-				},
-			},
-			"panel_field_config": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"line_width": schema.Int64Attribute{
-						MarkdownDescription: `Controls line width of the bars. Defaults to 1.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"fill_opacity": schema.Int64Attribute{
-						MarkdownDescription: `Controls the fill opacity of the bars. Defaults to 80.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"gradient_mode": schema.StringAttribute{
-						MarkdownDescription: `Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
-Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".`,
-						Computed: true,
-						Optional: true,
-						Required: false,
-					},
-					"axis_placement": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"axis_color_mode": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"axis_label": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"axis_width": schema.Float64Attribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"axis_soft_min": schema.Float64Attribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"axis_soft_max": schema.Float64Attribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"axis_grid_show": schema.BoolAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"scale_distribution": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"type": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"log": schema.Float64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"linear_threshold": schema.Float64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"hide_from": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"tooltip": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"legend": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"viz": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-					"thresholds_style": schema.SingleNestedAttribute{
-						MarkdownDescription: `Threshold rendering`,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"mode": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-					"axis_centered_zero": schema.BoolAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-				},
-			},
 			"type": schema.StringAttribute{
 				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "barchart".`,
 				Computed:            true,
@@ -1270,7 +947,7 @@ Gradient appearance is influenced by the Fill opacity setting. Defaults to "none
 			},
 			"datasource": schema.SingleNestedAttribute{
 				MarkdownDescription: `The datasource used in all targets.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1290,7 +967,7 @@ Gradient appearance is influenced by the Fill opacity setting. Defaults to "none
 			},
 			"grid_pos": schema.SingleNestedAttribute{
 				MarkdownDescription: `Grid position.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1445,7 +1122,7 @@ TODO this is probably optional. Defaults to "h".`,
 						},
 						"filter": schema.SingleNestedAttribute{
 							MarkdownDescription: `Optional frame matcher.  When missing it will be applied to all results`,
-							Computed:            false,
+							Computed:            true,
 							Optional:            true,
 							Required:            false,
 							Attributes: map[string]schema.Attribute{
@@ -1483,7 +1160,7 @@ TODO tighter constraint`,
 			},
 			"library_panel": schema.SingleNestedAttribute{
 				MarkdownDescription: `Dynamically load the panel`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1501,17 +1178,202 @@ TODO tighter constraint`,
 					},
 				},
 			},
-			"field_config": schema.SingleNestedAttribute{
+			"options": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 				Attributes: map[string]schema.Attribute{
-					"defaults": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
+					"x_field": schema.StringAttribute{
+						MarkdownDescription: `Manually select which field from the dataset to represent the x field.`,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+					},
+					"color_by_field": schema.StringAttribute{
+						MarkdownDescription: `Use the color value for a sibling field to color each bar value.`,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+					},
+					"orientation": schema.StringAttribute{
+						MarkdownDescription: `Controls the orientation of the bar chart, either vertical or horizontal. Defaults to "auto".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"bar_radius": schema.Float64Attribute{
+						MarkdownDescription: `Controls the radius of each bar.`,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+					},
+					"x_tick_label_rotation": schema.Int64Attribute{
+						MarkdownDescription: `Controls the rotation of the x axis labels. Defaults to 0.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"x_tick_label_max_length": schema.Int64Attribute{
+						MarkdownDescription: `Sets the max length that a label can have before it is truncated.`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
+					},
+					"x_tick_label_spacing": schema.Int64Attribute{
+						MarkdownDescription: `Controls the spacing between x axis labels.
+negative values indicate backwards skipping behavior. Defaults to 0.`,
+						Computed: true,
+						Optional: true,
+						Required: false,
+					},
+					"stacking": schema.StringAttribute{
+						MarkdownDescription: `Controls whether bars are stacked or not, either normally or in percent mode. Defaults to "none".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"show_value": schema.StringAttribute{
+						MarkdownDescription: `This controls whether values are shown on top or to the left of bars. Defaults to "auto".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"bar_width": schema.Float64Attribute{
+						MarkdownDescription: `Controls the width of bars. 1 = Max width, 0 = Min width. Defaults to 0.970000.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"group_width": schema.Float64Attribute{
+						MarkdownDescription: `Controls the width of groups. 1 = max with, 0 = min width. Defaults to 0.700000.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"legend": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"display_mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"placement": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"show_legend": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"as_table": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"is_visible": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_by": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_desc": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"width": schema.Float64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"calcs": schema.ListAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+								ElementType:         types.StringType,
+							},
+						},
+					},
+					"tooltip": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"sort": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+						},
+					},
+					"text": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"title_size": schema.Float64Attribute{
+								MarkdownDescription: `Explicit title text size`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"value_size": schema.Float64Attribute{
+								MarkdownDescription: `Explicit value text size`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"full_highlight": schema.BoolAttribute{
+						MarkdownDescription: `Enables mode which highlights the entire bar area and shows tooltip when cursor
+hovers over highlighted area. Defaults to false.`,
+						Computed: true,
+						Optional: true,
+						Required: false,
+					},
+				},
+			},
+			"field_config": schema.SingleNestedAttribute{
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"defaults": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 						Attributes: map[string]schema.Attribute{
 							"display_name": schema.StringAttribute{
 								MarkdownDescription: `The display value for this field.  This supports template variables blank is auto`,
@@ -1580,7 +1442,7 @@ may be used to update the results`,
 							},
 							"thresholds": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map numeric values to states`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1625,7 +1487,7 @@ Some seem to be listed in typescript comment`,
 							},
 							"color": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map values to a display color`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1656,11 +1518,145 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the PanelFieldConfig field
-in panel plugin schemas.`,
-								Computed: false,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"line_width": schema.Int64Attribute{
+										MarkdownDescription: `Controls line width of the bars. Defaults to 1.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: `Controls the fill opacity of the bars. Defaults to 80.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"gradient_mode": schema.StringAttribute{
+										MarkdownDescription: `Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".`,
+										Computed: true,
+										Optional: true,
+										Required: false,
+									},
+									"axis_placement": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_color_mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_label": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_min": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_max": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_grid_show": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"scale_distribution": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"type": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"log": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"linear_threshold": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+										},
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"thresholds_style": schema.SingleNestedAttribute{
+										MarkdownDescription: `Threshold rendering`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"mode": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"axis_centered_zero": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},
@@ -1673,9 +1669,9 @@ in panel plugin schemas.`,
 							Attributes: map[string]schema.Attribute{
 								"matcher": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
 									Attributes: map[string]schema.Attribute{
 										"id": schema.StringAttribute{
 											MarkdownDescription: ` Defaults to "".`,
@@ -1747,38 +1743,50 @@ func (d *PanelBarChartDataSource) Read(ctx context.Context, req datasource.ReadR
 }
 
 func (d *PanelBarChartDataSource) applyDefaults(data *PanelBarChartDataSourceModel) {
-	if data.Options.Orientation.IsNull() {
-		data.Options.Orientation = types.StringValue(`auto`)
+	if data.Datasource == nil {
+		data.Datasource = &PanelBarChartDataSourceModel_Datasource{}
 	}
-	if data.Options.XTickLabelRotation.IsNull() {
-		data.Options.XTickLabelRotation = types.Int64Value(0)
+	if data.GridPos == nil {
+		data.GridPos = &PanelBarChartDataSourceModel_GridPos{}
 	}
-	if data.Options.XTickLabelSpacing.IsNull() {
-		data.Options.XTickLabelSpacing = types.Int64Value(0)
+	if data.LibraryPanel == nil {
+		data.LibraryPanel = &PanelBarChartDataSourceModel_LibraryPanel{}
 	}
-	if data.Options.Stacking.IsNull() {
-		data.Options.Stacking = types.StringValue(`none`)
+	if data.Options == nil {
+		data.Options = &PanelBarChartDataSourceModel_Options{}
 	}
-	if data.Options.ShowValue.IsNull() {
-		data.Options.ShowValue = types.StringValue(`auto`)
+	if data.Options.Legend == nil {
+		data.Options.Legend = &PanelBarChartDataSourceModel_Options_Legend{}
 	}
-	if data.Options.BarWidth.IsNull() {
-		data.Options.BarWidth = types.Float64Value(0.970000)
+	if data.Options.Tooltip == nil {
+		data.Options.Tooltip = &PanelBarChartDataSourceModel_Options_Tooltip{}
 	}
-	if data.Options.GroupWidth.IsNull() {
-		data.Options.GroupWidth = types.Float64Value(0.700000)
+	if data.Options.Text == nil {
+		data.Options.Text = &PanelBarChartDataSourceModel_Options_Text{}
 	}
-	if data.Options.FullHighlight.IsNull() {
-		data.Options.FullHighlight = types.BoolValue(false)
+	if data.FieldConfig == nil {
+		data.FieldConfig = &PanelBarChartDataSourceModel_FieldConfig{}
 	}
-	if data.PanelFieldConfig.LineWidth.IsNull() {
-		data.PanelFieldConfig.LineWidth = types.Int64Value(1)
+	if data.FieldConfig.Defaults == nil {
+		data.FieldConfig.Defaults = &PanelBarChartDataSourceModel_FieldConfig_Defaults{}
 	}
-	if data.PanelFieldConfig.FillOpacity.IsNull() {
-		data.PanelFieldConfig.FillOpacity = types.Int64Value(80)
+	if data.FieldConfig.Defaults.Thresholds == nil {
+		data.FieldConfig.Defaults.Thresholds = &PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds{}
 	}
-	if data.PanelFieldConfig.GradientMode.IsNull() {
-		data.PanelFieldConfig.GradientMode = types.StringValue(`none`)
+	if data.FieldConfig.Defaults.Color == nil {
+		data.FieldConfig.Defaults.Color = &PanelBarChartDataSourceModel_FieldConfig_Defaults_Color{}
+	}
+	if data.FieldConfig.Defaults.Custom == nil {
+		data.FieldConfig.Defaults.Custom = &PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom{}
+	}
+	if data.FieldConfig.Defaults.Custom.ScaleDistribution == nil {
+		data.FieldConfig.Defaults.Custom.ScaleDistribution = &PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{}
+	}
+	if data.FieldConfig.Defaults.Custom.HideFrom == nil {
+		data.FieldConfig.Defaults.Custom.HideFrom = &PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{}
+	}
+	if data.FieldConfig.Defaults.Custom.ThresholdsStyle == nil {
+		data.FieldConfig.Defaults.Custom.ThresholdsStyle = &PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{}
 	}
 	if data.Type.IsNull() {
 		data.Type = types.StringValue(`barchart`)
@@ -1800,5 +1808,38 @@ func (d *PanelBarChartDataSource) applyDefaults(data *PanelBarChartDataSourceMod
 	}
 	if data.RepeatDirection.IsNull() {
 		data.RepeatDirection = types.StringValue(`h`)
+	}
+	if data.Options != nil && data.Options.Orientation.IsNull() {
+		data.Options.Orientation = types.StringValue(`auto`)
+	}
+	if data.Options != nil && data.Options.XTickLabelRotation.IsNull() {
+		data.Options.XTickLabelRotation = types.Int64Value(0)
+	}
+	if data.Options != nil && data.Options.XTickLabelSpacing.IsNull() {
+		data.Options.XTickLabelSpacing = types.Int64Value(0)
+	}
+	if data.Options != nil && data.Options.Stacking.IsNull() {
+		data.Options.Stacking = types.StringValue(`none`)
+	}
+	if data.Options != nil && data.Options.ShowValue.IsNull() {
+		data.Options.ShowValue = types.StringValue(`auto`)
+	}
+	if data.Options != nil && data.Options.BarWidth.IsNull() {
+		data.Options.BarWidth = types.Float64Value(0.970000)
+	}
+	if data.Options != nil && data.Options.GroupWidth.IsNull() {
+		data.Options.GroupWidth = types.Float64Value(0.700000)
+	}
+	if data.Options != nil && data.Options.FullHighlight.IsNull() {
+		data.Options.FullHighlight = types.BoolValue(false)
+	}
+	if data.FieldConfig != nil && data.FieldConfig.Defaults != nil && data.FieldConfig.Defaults.Custom != nil && data.FieldConfig.Defaults.Custom.LineWidth.IsNull() {
+		data.FieldConfig.Defaults.Custom.LineWidth = types.Int64Value(1)
+	}
+	if data.FieldConfig != nil && data.FieldConfig.Defaults != nil && data.FieldConfig.Defaults.Custom != nil && data.FieldConfig.Defaults.Custom.FillOpacity.IsNull() {
+		data.FieldConfig.Defaults.Custom.FillOpacity = types.Int64Value(80)
+	}
+	if data.FieldConfig != nil && data.FieldConfig.Defaults != nil && data.FieldConfig.Defaults.Custom != nil && data.FieldConfig.Defaults.Custom.GradientMode.IsNull() {
+		data.FieldConfig.Defaults.Custom.GradientMode = types.StringValue(`none`)
 	}
 }

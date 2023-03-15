@@ -137,7 +137,7 @@ func (m QueryTestDataDataSourceModel_Sim_Config) MarshalJSON() ([]byte, error) {
 }
 
 type QueryTestDataDataSourceModel_Sim struct {
-	Key    QueryTestDataDataSourceModel_Sim_Key     `tfsdk:"key"`
+	Key    *QueryTestDataDataSourceModel_Sim_Key    `tfsdk:"key"`
 	Config *QueryTestDataDataSourceModel_Sim_Config `tfsdk:"config"`
 	Stream types.Bool                               `tfsdk:"stream"`
 	Last   types.Bool                               `tfsdk:"last"`
@@ -145,12 +145,15 @@ type QueryTestDataDataSourceModel_Sim struct {
 
 func (m QueryTestDataDataSourceModel_Sim) MarshalJSON() ([]byte, error) {
 	type jsonQueryTestDataDataSourceModel_Sim struct {
-		Key    interface{} `json:"key"`
+		Key    interface{} `json:"key,omitempty"`
 		Config interface{} `json:"config,omitempty"`
 		Stream *bool       `json:"stream,omitempty"`
 		Last   *bool       `json:"last,omitempty"`
 	}
-	var attr_key interface{} = m.Key
+	var attr_key interface{}
+	if m.Key != nil {
+		attr_key = m.Key
+	}
 	var attr_config interface{}
 	if m.Config != nil {
 		attr_config = m.Config
@@ -401,7 +404,7 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 			},
 			"stream": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -445,7 +448,7 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 			},
 			"pulse_wave": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -483,15 +486,15 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 			},
 			"sim": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
 					"key": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 						Attributes: map[string]schema.Attribute{
 							"type": schema.StringAttribute{
 								MarkdownDescription: ``,
@@ -515,7 +518,7 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 					},
 					"config": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
-						Computed:            false,
+						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
@@ -593,7 +596,7 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 			},
 			"nodes": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -637,7 +640,7 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 			},
 			"usa": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -747,6 +750,27 @@ func (d *QueryTestDataDataSource) Read(ctx context.Context, req datasource.ReadR
 }
 
 func (d *QueryTestDataDataSource) applyDefaults(data *QueryTestDataDataSourceModel) {
+	if data.Stream == nil {
+		data.Stream = &QueryTestDataDataSourceModel_Stream{}
+	}
+	if data.PulseWave == nil {
+		data.PulseWave = &QueryTestDataDataSourceModel_PulseWave{}
+	}
+	if data.Sim == nil {
+		data.Sim = &QueryTestDataDataSourceModel_Sim{}
+	}
+	if data.Sim.Key == nil {
+		data.Sim.Key = &QueryTestDataDataSourceModel_Sim_Key{}
+	}
+	if data.Sim.Config == nil {
+		data.Sim.Config = &QueryTestDataDataSourceModel_Sim_Config{}
+	}
+	if data.Nodes == nil {
+		data.Nodes = &QueryTestDataDataSourceModel_Nodes{}
+	}
+	if data.Usa == nil {
+		data.Usa = &QueryTestDataDataSourceModel_Usa{}
+	}
 	if data.ScenarioId.IsNull() {
 		data.ScenarioId = types.StringValue(`random_walk`)
 	}

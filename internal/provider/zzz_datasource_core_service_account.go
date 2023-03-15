@@ -172,7 +172,7 @@ of the service account.`,
 			},
 			"access_control": schema.SingleNestedAttribute{
 				MarkdownDescription: `AccessControl metadata associated with a given resource.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 			},
@@ -217,6 +217,7 @@ func (d *CoreServiceAccountDataSource) Read(ctx context.Context, req datasource.
 		return
 	}
 
+	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -232,4 +233,10 @@ func (d *CoreServiceAccountDataSource) Read(ctx context.Context, req datasource.
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d *CoreServiceAccountDataSource) applyDefaults(data *CoreServiceAccountDataSourceModel) {
+	if data.AccessControl == nil {
+		data.AccessControl = &CoreServiceAccountDataSourceModel_AccessControl{}
+	}
 }

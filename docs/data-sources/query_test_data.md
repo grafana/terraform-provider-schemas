@@ -84,15 +84,16 @@ Optional:
 <a id="nestedatt--sim"></a>
 ### Nested Schema for `sim`
 
-Required:
-
-- `key` (Attributes) (see [below for nested schema](#nestedatt--sim--key))
-
 Optional:
 
 - `config` (Attributes) (see [below for nested schema](#nestedatt--sim--config))
+- `key` (Attributes) (see [below for nested schema](#nestedatt--sim--key))
 - `last` (Boolean)
 - `stream` (Boolean)
+
+<a id="nestedatt--sim--config"></a>
+### Nested Schema for `sim.config`
+
 
 <a id="nestedatt--sim--key"></a>
 ### Nested Schema for `sim.key`
@@ -105,10 +106,6 @@ Required:
 Optional:
 
 - `uid` (String)
-
-
-<a id="nestedatt--sim--config"></a>
-### Nested Schema for `sim.config`
 
 
 

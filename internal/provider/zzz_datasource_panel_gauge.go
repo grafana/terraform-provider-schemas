@@ -33,92 +33,6 @@ func NewPanelGaugeDataSource() datasource.DataSource {
 // PanelGaugeDataSource defines the data source implementation.
 type PanelGaugeDataSource struct{}
 
-type PanelGaugeDataSourceModel_Options_ReduceOptions struct {
-	Values types.Bool    `tfsdk:"values"`
-	Limit  types.Float64 `tfsdk:"limit"`
-	Calcs  types.List    `tfsdk:"calcs"`
-	Fields types.String  `tfsdk:"fields"`
-}
-
-func (m PanelGaugeDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byte, error) {
-	type jsonPanelGaugeDataSourceModel_Options_ReduceOptions struct {
-		Values *bool    `json:"values,omitempty"`
-		Limit  *float64 `json:"limit,omitempty"`
-		Calcs  []string `json:"calcs"`
-		Fields *string  `json:"fields,omitempty"`
-	}
-	attr_values := m.Values.ValueBool()
-	attr_limit := m.Limit.ValueFloat64()
-	attr_calcs := []string{}
-	for _, v := range m.Calcs.Elements() {
-		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
-	}
-	attr_fields := m.Fields.ValueString()
-
-	model := &jsonPanelGaugeDataSourceModel_Options_ReduceOptions{
-		Values: &attr_values,
-		Limit:  &attr_limit,
-		Calcs:  attr_calcs,
-		Fields: &attr_fields,
-	}
-	return json.Marshal(model)
-}
-
-type PanelGaugeDataSourceModel_Options_Text struct {
-	TitleSize types.Float64 `tfsdk:"title_size"`
-	ValueSize types.Float64 `tfsdk:"value_size"`
-}
-
-func (m PanelGaugeDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
-	type jsonPanelGaugeDataSourceModel_Options_Text struct {
-		TitleSize *float64 `json:"titleSize,omitempty"`
-		ValueSize *float64 `json:"valueSize,omitempty"`
-	}
-	attr_titlesize := m.TitleSize.ValueFloat64()
-	attr_valuesize := m.ValueSize.ValueFloat64()
-
-	model := &jsonPanelGaugeDataSourceModel_Options_Text{
-		TitleSize: &attr_titlesize,
-		ValueSize: &attr_valuesize,
-	}
-	return json.Marshal(model)
-}
-
-type PanelGaugeDataSourceModel_Options struct {
-	ShowThresholdLabels  types.Bool                                      `tfsdk:"show_threshold_labels"`
-	ReduceOptions        PanelGaugeDataSourceModel_Options_ReduceOptions `tfsdk:"reduce_options"`
-	Text                 *PanelGaugeDataSourceModel_Options_Text         `tfsdk:"text"`
-	ShowThresholdMarkers types.Bool                                      `tfsdk:"show_threshold_markers"`
-	Orientation          types.String                                    `tfsdk:"orientation"`
-}
-
-func (m PanelGaugeDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelGaugeDataSourceModel_Options struct {
-		ShowThresholdLabels  bool        `json:"showThresholdLabels"`
-		ReduceOptions        interface{} `json:"reduceOptions"`
-		Text                 interface{} `json:"text,omitempty"`
-		ShowThresholdMarkers bool        `json:"showThresholdMarkers"`
-		Orientation          string      `json:"orientation"`
-	}
-	attr_showthresholdlabels := m.ShowThresholdLabels.ValueBool()
-	var attr_reduceoptions interface{} = m.ReduceOptions
-	var attr_text interface{}
-	if m.Text != nil {
-		attr_text = m.Text
-	}
-	attr_showthresholdmarkers := m.ShowThresholdMarkers.ValueBool()
-	attr_orientation := m.Orientation.ValueString()
-
-	model := &jsonPanelGaugeDataSourceModel_Options{
-		ShowThresholdLabels:  attr_showthresholdlabels,
-		ReduceOptions:        attr_reduceoptions,
-		Text:                 attr_text,
-		ShowThresholdMarkers: attr_showthresholdmarkers,
-		Orientation:          attr_orientation,
-	}
-	return json.Marshal(model)
-}
-
 type PanelGaugeDataSourceModel_Targets struct {
 }
 
@@ -300,6 +214,95 @@ func (m PanelGaugeDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+type PanelGaugeDataSourceModel_Options_ReduceOptions struct {
+	Values types.Bool    `tfsdk:"values"`
+	Limit  types.Float64 `tfsdk:"limit"`
+	Calcs  types.List    `tfsdk:"calcs"`
+	Fields types.String  `tfsdk:"fields"`
+}
+
+func (m PanelGaugeDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byte, error) {
+	type jsonPanelGaugeDataSourceModel_Options_ReduceOptions struct {
+		Values *bool    `json:"values,omitempty"`
+		Limit  *float64 `json:"limit,omitempty"`
+		Calcs  []string `json:"calcs"`
+		Fields *string  `json:"fields,omitempty"`
+	}
+	attr_values := m.Values.ValueBool()
+	attr_limit := m.Limit.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
+	attr_fields := m.Fields.ValueString()
+
+	model := &jsonPanelGaugeDataSourceModel_Options_ReduceOptions{
+		Values: &attr_values,
+		Limit:  &attr_limit,
+		Calcs:  attr_calcs,
+		Fields: &attr_fields,
+	}
+	return json.Marshal(model)
+}
+
+type PanelGaugeDataSourceModel_Options_Text struct {
+	TitleSize types.Float64 `tfsdk:"title_size"`
+	ValueSize types.Float64 `tfsdk:"value_size"`
+}
+
+func (m PanelGaugeDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
+	type jsonPanelGaugeDataSourceModel_Options_Text struct {
+		TitleSize *float64 `json:"titleSize,omitempty"`
+		ValueSize *float64 `json:"valueSize,omitempty"`
+	}
+	attr_titlesize := m.TitleSize.ValueFloat64()
+	attr_valuesize := m.ValueSize.ValueFloat64()
+
+	model := &jsonPanelGaugeDataSourceModel_Options_Text{
+		TitleSize: &attr_titlesize,
+		ValueSize: &attr_valuesize,
+	}
+	return json.Marshal(model)
+}
+
+type PanelGaugeDataSourceModel_Options struct {
+	ShowThresholdLabels  types.Bool                                       `tfsdk:"show_threshold_labels"`
+	ReduceOptions        *PanelGaugeDataSourceModel_Options_ReduceOptions `tfsdk:"reduce_options"`
+	Text                 *PanelGaugeDataSourceModel_Options_Text          `tfsdk:"text"`
+	ShowThresholdMarkers types.Bool                                       `tfsdk:"show_threshold_markers"`
+	Orientation          types.String                                     `tfsdk:"orientation"`
+}
+
+func (m PanelGaugeDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelGaugeDataSourceModel_Options struct {
+		ShowThresholdLabels  bool        `json:"showThresholdLabels"`
+		ReduceOptions        interface{} `json:"reduceOptions,omitempty"`
+		Text                 interface{} `json:"text,omitempty"`
+		ShowThresholdMarkers bool        `json:"showThresholdMarkers"`
+		Orientation          string      `json:"orientation"`
+	}
+	attr_showthresholdlabels := m.ShowThresholdLabels.ValueBool()
+	var attr_reduceoptions interface{}
+	if m.ReduceOptions != nil {
+		attr_reduceoptions = m.ReduceOptions
+	}
+	var attr_text interface{}
+	if m.Text != nil {
+		attr_text = m.Text
+	}
+	attr_showthresholdmarkers := m.ShowThresholdMarkers.ValueBool()
+	attr_orientation := m.Orientation.ValueString()
+
+	model := &jsonPanelGaugeDataSourceModel_Options{
+		ShowThresholdLabels:  attr_showthresholdlabels,
+		ReduceOptions:        attr_reduceoptions,
+		Text:                 attr_text,
+		ShowThresholdMarkers: attr_showthresholdmarkers,
+		Orientation:          attr_orientation,
+	}
+	return json.Marshal(model)
+}
+
 type PanelGaugeDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.Float64 `tfsdk:"value"`
 	Color types.String  `tfsdk:"color"`
@@ -371,14 +374,144 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]b
 	return json.Marshal(model)
 }
 
+type PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+	Type            types.String  `tfsdk:"type"`
+	Log             types.Float64 `tfsdk:"log"`
+	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+}
+
+func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+		Type            string   `json:"type"`
+		Log             *float64 `json:"log,omitempty"`
+		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+	}
+	attr_type := m.Type.ValueString()
+	attr_log := m.Log.ValueFloat64()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+
+	model := &jsonPanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
+		Type:            attr_type,
+		Log:             &attr_log,
+		LinearThreshold: &attr_linearthreshold,
+	}
+	return json.Marshal(model)
+}
+
+type PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+type PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+	Mode types.String `tfsdk:"mode"`
+}
+
+func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+		Mode string `json:"mode"`
+	}
+	attr_mode := m.Mode.ValueString()
+
+	model := &jsonPanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
+		Mode: attr_mode,
+	}
+	return json.Marshal(model)
+}
+
 type PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth         types.Int64                                                              `tfsdk:"line_width"`
+	FillOpacity       types.Int64                                                              `tfsdk:"fill_opacity"`
+	GradientMode      types.String                                                             `tfsdk:"gradient_mode"`
+	AxisPlacement     types.String                                                             `tfsdk:"axis_placement"`
+	AxisColorMode     types.String                                                             `tfsdk:"axis_color_mode"`
+	AxisLabel         types.String                                                             `tfsdk:"axis_label"`
+	AxisWidth         types.Float64                                                            `tfsdk:"axis_width"`
+	AxisSoftMin       types.Float64                                                            `tfsdk:"axis_soft_min"`
+	AxisSoftMax       types.Float64                                                            `tfsdk:"axis_soft_max"`
+	AxisGridShow      types.Bool                                                               `tfsdk:"axis_grid_show"`
+	ScaleDistribution *PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
+	HideFrom          *PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
+	ThresholdsStyle   *PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
+	AxisCenteredZero  types.Bool                                                               `tfsdk:"axis_centered_zero"`
 }
 
 func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelGaugeDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth         *int64      `json:"lineWidth,omitempty"`
+		FillOpacity       *int64      `json:"fillOpacity,omitempty"`
+		GradientMode      *string     `json:"gradientMode,omitempty"`
+		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
+		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
+		AxisLabel         *string     `json:"axisLabel,omitempty"`
+		AxisWidth         *float64    `json:"axisWidth,omitempty"`
+		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
+		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
+		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
+		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
+		HideFrom          interface{} `json:"hideFrom,omitempty"`
+		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
+		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
 	}
+	attr_linewidth := m.LineWidth.ValueInt64()
+	attr_fillopacity := m.FillOpacity.ValueInt64()
+	attr_gradientmode := m.GradientMode.ValueString()
+	attr_axisplacement := m.AxisPlacement.ValueString()
+	attr_axiscolormode := m.AxisColorMode.ValueString()
+	attr_axislabel := m.AxisLabel.ValueString()
+	attr_axiswidth := m.AxisWidth.ValueFloat64()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
+	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	var attr_scaledistribution interface{}
+	if m.ScaleDistribution != nil {
+		attr_scaledistribution = m.ScaleDistribution
+	}
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	var attr_thresholdsstyle interface{}
+	if m.ThresholdsStyle != nil {
+		attr_thresholdsstyle = m.ThresholdsStyle
+	}
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
 
-	model := &jsonPanelGaugeDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelGaugeDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:         &attr_linewidth,
+		FillOpacity:       &attr_fillopacity,
+		GradientMode:      &attr_gradientmode,
+		AxisPlacement:     &attr_axisplacement,
+		AxisColorMode:     &attr_axiscolormode,
+		AxisLabel:         &attr_axislabel,
+		AxisWidth:         &attr_axiswidth,
+		AxisSoftMin:       &attr_axissoftmin,
+		AxisSoftMax:       &attr_axissoftmax,
+		AxisGridShow:      &attr_axisgridshow,
+		ScaleDistribution: attr_scaledistribution,
+		HideFrom:          attr_hidefrom,
+		ThresholdsStyle:   attr_thresholdsstyle,
+		AxisCenteredZero:  &attr_axiscenteredzero,
+	}
 	return json.Marshal(model)
 }
 
@@ -492,16 +625,19 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON(
 }
 
 type PanelGaugeDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    PanelGaugeDataSourceModel_FieldConfig_Overrides_Matcher      `tfsdk:"matcher"`
+	Matcher    *PanelGaugeDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
 	Properties []PanelGaugeDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
 func (m PanelGaugeDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
 	type jsonPanelGaugeDataSourceModel_FieldConfig_Overrides struct {
-		Matcher    interface{}   `json:"matcher"`
+		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
-	var attr_matcher interface{} = m.Matcher
+	var attr_matcher interface{}
+	if m.Matcher != nil {
+		attr_matcher = m.Matcher
+	}
 	attr_properties := []interface{}{}
 	for _, v := range m.Properties {
 		attr_properties = append(attr_properties, v)
@@ -515,16 +651,19 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, 
 }
 
 type PanelGaugeDataSourceModel_FieldConfig struct {
-	Defaults  PanelGaugeDataSourceModel_FieldConfig_Defaults    `tfsdk:"defaults"`
+	Defaults  *PanelGaugeDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
 	Overrides []PanelGaugeDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
 func (m PanelGaugeDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 	type jsonPanelGaugeDataSourceModel_FieldConfig struct {
-		Defaults  interface{}   `json:"defaults"`
+		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
-	var attr_defaults interface{} = m.Defaults
+	var attr_defaults interface{}
+	if m.Defaults != nil {
+		attr_defaults = m.Defaults
+	}
 	attr_overrides := []interface{}{}
 	for _, v := range m.Overrides {
 		attr_overrides = append(attr_overrides, v)
@@ -539,7 +678,6 @@ func (m PanelGaugeDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 
 type PanelGaugeDataSourceModel struct {
 	ToJSON          types.String                                `tfsdk:"to_json"`
-	Options         PanelGaugeDataSourceModel_Options           `tfsdk:"options"`
 	Type            types.String                                `tfsdk:"type"`
 	Id              types.Int64                                 `tfsdk:"id"`
 	PluginVersion   types.String                                `tfsdk:"plugin_version"`
@@ -560,12 +698,12 @@ type PanelGaugeDataSourceModel struct {
 	TimeFrom        types.String                                `tfsdk:"time_from"`
 	TimeShift       types.String                                `tfsdk:"time_shift"`
 	LibraryPanel    *PanelGaugeDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	FieldConfig     PanelGaugeDataSourceModel_FieldConfig       `tfsdk:"field_config"`
+	Options         *PanelGaugeDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelGaugeDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
 func (m PanelGaugeDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonPanelGaugeDataSourceModel struct {
-		Options         interface{}   `json:"options"`
 		Type            string        `json:"type"`
 		Id              *int64        `json:"id,omitempty"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
@@ -586,9 +724,9 @@ func (m PanelGaugeDataSourceModel) MarshalJSON() ([]byte, error) {
 		TimeFrom        *string       `json:"timeFrom,omitempty"`
 		TimeShift       *string       `json:"timeShift,omitempty"`
 		LibraryPanel    interface{}   `json:"libraryPanel,omitempty"`
-		FieldConfig     interface{}   `json:"fieldConfig"`
+		Options         interface{}   `json:"options,omitempty"`
+		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
-	var attr_options interface{} = m.Options
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()
@@ -630,10 +768,16 @@ func (m PanelGaugeDataSourceModel) MarshalJSON() ([]byte, error) {
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
 	}
-	var attr_fieldconfig interface{} = m.FieldConfig
+	var attr_options interface{}
+	if m.Options != nil {
+		attr_options = m.Options
+	}
+	var attr_fieldconfig interface{}
+	if m.FieldConfig != nil {
+		attr_fieldconfig = m.FieldConfig
+	}
 
 	model := &jsonPanelGaugeDataSourceModel{
-		Options:         attr_options,
 		Type:            attr_type,
 		Id:              &attr_id,
 		PluginVersion:   &attr_pluginversion,
@@ -654,6 +798,7 @@ func (m PanelGaugeDataSourceModel) MarshalJSON() ([]byte, error) {
 		TimeFrom:        &attr_timefrom,
 		TimeShift:       &attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
+		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,
 	}
 	return json.Marshal(model)
@@ -668,85 +813,6 @@ func (d *PanelGaugeDataSource) Schema(ctx context.Context, req datasource.Schema
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"show_threshold_labels": schema.BoolAttribute{
-						MarkdownDescription: ` Defaults to false.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"reduce_options": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						Attributes: map[string]schema.Attribute{
-							"values": schema.BoolAttribute{
-								MarkdownDescription: `If true show each row value`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"limit": schema.Float64Attribute{
-								MarkdownDescription: `if showing all values limit`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"calcs": schema.ListAttribute{
-								MarkdownDescription: `When !values, pick one value for the whole field`,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-								ElementType:         types.StringType,
-							},
-							"fields": schema.StringAttribute{
-								MarkdownDescription: `Which fields to show.  By default this is only numeric fields`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"text": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"title_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit title text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"value_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit value text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"show_threshold_markers": schema.BoolAttribute{
-						MarkdownDescription: ` Defaults to true.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"orientation": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-				},
-			},
 			"type": schema.StringAttribute{
 				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "gauge".`,
 				Computed:            true,
@@ -798,7 +864,7 @@ func (d *PanelGaugeDataSource) Schema(ctx context.Context, req datasource.Schema
 			},
 			"datasource": schema.SingleNestedAttribute{
 				MarkdownDescription: `The datasource used in all targets.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -818,7 +884,7 @@ func (d *PanelGaugeDataSource) Schema(ctx context.Context, req datasource.Schema
 			},
 			"grid_pos": schema.SingleNestedAttribute{
 				MarkdownDescription: `Grid position.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -973,7 +1039,7 @@ TODO this is probably optional. Defaults to "h".`,
 						},
 						"filter": schema.SingleNestedAttribute{
 							MarkdownDescription: `Optional frame matcher.  When missing it will be applied to all results`,
-							Computed:            false,
+							Computed:            true,
 							Optional:            true,
 							Required:            false,
 							Attributes: map[string]schema.Attribute{
@@ -1011,7 +1077,7 @@ TODO tighter constraint`,
 			},
 			"library_panel": schema.SingleNestedAttribute{
 				MarkdownDescription: `Dynamically load the panel`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1029,17 +1095,96 @@ TODO tighter constraint`,
 					},
 				},
 			},
-			"field_config": schema.SingleNestedAttribute{
+			"options": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 				Attributes: map[string]schema.Attribute{
-					"defaults": schema.SingleNestedAttribute{
+					"show_threshold_labels": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to false.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"reduce_options": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"values": schema.BoolAttribute{
+								MarkdownDescription: `If true show each row value`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"limit": schema.Float64Attribute{
+								MarkdownDescription: `if showing all values limit`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"calcs": schema.ListAttribute{
+								MarkdownDescription: `When !values, pick one value for the whole field`,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+								ElementType:         types.StringType,
+							},
+							"fields": schema.StringAttribute{
+								MarkdownDescription: `Which fields to show.  By default this is only numeric fields`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"text": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"title_size": schema.Float64Attribute{
+								MarkdownDescription: `Explicit title text size`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"value_size": schema.Float64Attribute{
+								MarkdownDescription: `Explicit value text size`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"show_threshold_markers": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to true.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"orientation": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
+					},
+				},
+			},
+			"field_config": schema.SingleNestedAttribute{
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"defaults": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 						Attributes: map[string]schema.Attribute{
 							"display_name": schema.StringAttribute{
 								MarkdownDescription: `The display value for this field.  This supports template variables blank is auto`,
@@ -1108,7 +1253,7 @@ may be used to update the results`,
 							},
 							"thresholds": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map numeric values to states`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1153,7 +1298,7 @@ Some seem to be listed in typescript comment`,
 							},
 							"color": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map values to a display color`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1184,11 +1329,145 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the PanelFieldConfig field
-in panel plugin schemas.`,
-								Computed: false,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"line_width": schema.Int64Attribute{
+										MarkdownDescription: `Controls line width of the bars. Defaults to 1.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: `Controls the fill opacity of the bars. Defaults to 80.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"gradient_mode": schema.StringAttribute{
+										MarkdownDescription: `Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".`,
+										Computed: true,
+										Optional: true,
+										Required: false,
+									},
+									"axis_placement": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_color_mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_label": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_min": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_max": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_grid_show": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"scale_distribution": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"type": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"log": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"linear_threshold": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+										},
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"thresholds_style": schema.SingleNestedAttribute{
+										MarkdownDescription: `Threshold rendering`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"mode": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"axis_centered_zero": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},
@@ -1201,9 +1480,9 @@ in panel plugin schemas.`,
 							Attributes: map[string]schema.Attribute{
 								"matcher": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
 									Attributes: map[string]schema.Attribute{
 										"id": schema.StringAttribute{
 											MarkdownDescription: ` Defaults to "".`,
@@ -1275,11 +1554,47 @@ func (d *PanelGaugeDataSource) Read(ctx context.Context, req datasource.ReadRequ
 }
 
 func (d *PanelGaugeDataSource) applyDefaults(data *PanelGaugeDataSourceModel) {
-	if data.Options.ShowThresholdLabels.IsNull() {
-		data.Options.ShowThresholdLabels = types.BoolValue(false)
+	if data.Datasource == nil {
+		data.Datasource = &PanelGaugeDataSourceModel_Datasource{}
 	}
-	if data.Options.ShowThresholdMarkers.IsNull() {
-		data.Options.ShowThresholdMarkers = types.BoolValue(true)
+	if data.GridPos == nil {
+		data.GridPos = &PanelGaugeDataSourceModel_GridPos{}
+	}
+	if data.LibraryPanel == nil {
+		data.LibraryPanel = &PanelGaugeDataSourceModel_LibraryPanel{}
+	}
+	if data.Options == nil {
+		data.Options = &PanelGaugeDataSourceModel_Options{}
+	}
+	if data.Options.ReduceOptions == nil {
+		data.Options.ReduceOptions = &PanelGaugeDataSourceModel_Options_ReduceOptions{}
+	}
+	if data.Options.Text == nil {
+		data.Options.Text = &PanelGaugeDataSourceModel_Options_Text{}
+	}
+	if data.FieldConfig == nil {
+		data.FieldConfig = &PanelGaugeDataSourceModel_FieldConfig{}
+	}
+	if data.FieldConfig.Defaults == nil {
+		data.FieldConfig.Defaults = &PanelGaugeDataSourceModel_FieldConfig_Defaults{}
+	}
+	if data.FieldConfig.Defaults.Thresholds == nil {
+		data.FieldConfig.Defaults.Thresholds = &PanelGaugeDataSourceModel_FieldConfig_Defaults_Thresholds{}
+	}
+	if data.FieldConfig.Defaults.Color == nil {
+		data.FieldConfig.Defaults.Color = &PanelGaugeDataSourceModel_FieldConfig_Defaults_Color{}
+	}
+	if data.FieldConfig.Defaults.Custom == nil {
+		data.FieldConfig.Defaults.Custom = &PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom{}
+	}
+	if data.FieldConfig.Defaults.Custom.ScaleDistribution == nil {
+		data.FieldConfig.Defaults.Custom.ScaleDistribution = &PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{}
+	}
+	if data.FieldConfig.Defaults.Custom.HideFrom == nil {
+		data.FieldConfig.Defaults.Custom.HideFrom = &PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{}
+	}
+	if data.FieldConfig.Defaults.Custom.ThresholdsStyle == nil {
+		data.FieldConfig.Defaults.Custom.ThresholdsStyle = &PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{}
 	}
 	if data.Type.IsNull() {
 		data.Type = types.StringValue(`gauge`)
@@ -1301,5 +1616,20 @@ func (d *PanelGaugeDataSource) applyDefaults(data *PanelGaugeDataSourceModel) {
 	}
 	if data.RepeatDirection.IsNull() {
 		data.RepeatDirection = types.StringValue(`h`)
+	}
+	if data.Options != nil && data.Options.ShowThresholdLabels.IsNull() {
+		data.Options.ShowThresholdLabels = types.BoolValue(false)
+	}
+	if data.Options != nil && data.Options.ShowThresholdMarkers.IsNull() {
+		data.Options.ShowThresholdMarkers = types.BoolValue(true)
+	}
+	if data.FieldConfig != nil && data.FieldConfig.Defaults != nil && data.FieldConfig.Defaults.Custom != nil && data.FieldConfig.Defaults.Custom.LineWidth.IsNull() {
+		data.FieldConfig.Defaults.Custom.LineWidth = types.Int64Value(1)
+	}
+	if data.FieldConfig != nil && data.FieldConfig.Defaults != nil && data.FieldConfig.Defaults.Custom != nil && data.FieldConfig.Defaults.Custom.FillOpacity.IsNull() {
+		data.FieldConfig.Defaults.Custom.FillOpacity = types.Int64Value(80)
+	}
+	if data.FieldConfig != nil && data.FieldConfig.Defaults != nil && data.FieldConfig.Defaults.Custom != nil && data.FieldConfig.Defaults.Custom.GradientMode.IsNull() {
+		data.FieldConfig.Defaults.Custom.GradientMode = types.StringValue(`none`)
 	}
 }

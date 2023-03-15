@@ -33,100 +33,6 @@ func NewPanelStatDataSource() datasource.DataSource {
 // PanelStatDataSource defines the data source implementation.
 type PanelStatDataSource struct{}
 
-type PanelStatDataSourceModel_Options_ReduceOptions struct {
-	Values types.Bool    `tfsdk:"values"`
-	Limit  types.Float64 `tfsdk:"limit"`
-	Calcs  types.List    `tfsdk:"calcs"`
-	Fields types.String  `tfsdk:"fields"`
-}
-
-func (m PanelStatDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatDataSourceModel_Options_ReduceOptions struct {
-		Values *bool    `json:"values,omitempty"`
-		Limit  *float64 `json:"limit,omitempty"`
-		Calcs  []string `json:"calcs"`
-		Fields *string  `json:"fields,omitempty"`
-	}
-	attr_values := m.Values.ValueBool()
-	attr_limit := m.Limit.ValueFloat64()
-	attr_calcs := []string{}
-	for _, v := range m.Calcs.Elements() {
-		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
-	}
-	attr_fields := m.Fields.ValueString()
-
-	model := &jsonPanelStatDataSourceModel_Options_ReduceOptions{
-		Values: &attr_values,
-		Limit:  &attr_limit,
-		Calcs:  attr_calcs,
-		Fields: &attr_fields,
-	}
-	return json.Marshal(model)
-}
-
-type PanelStatDataSourceModel_Options_Text struct {
-	TitleSize types.Float64 `tfsdk:"title_size"`
-	ValueSize types.Float64 `tfsdk:"value_size"`
-}
-
-func (m PanelStatDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatDataSourceModel_Options_Text struct {
-		TitleSize *float64 `json:"titleSize,omitempty"`
-		ValueSize *float64 `json:"valueSize,omitempty"`
-	}
-	attr_titlesize := m.TitleSize.ValueFloat64()
-	attr_valuesize := m.ValueSize.ValueFloat64()
-
-	model := &jsonPanelStatDataSourceModel_Options_Text{
-		TitleSize: &attr_titlesize,
-		ValueSize: &attr_valuesize,
-	}
-	return json.Marshal(model)
-}
-
-type PanelStatDataSourceModel_Options struct {
-	GraphMode     types.String                                   `tfsdk:"graph_mode"`
-	ColorMode     types.String                                   `tfsdk:"color_mode"`
-	JustifyMode   types.String                                   `tfsdk:"justify_mode"`
-	ReduceOptions PanelStatDataSourceModel_Options_ReduceOptions `tfsdk:"reduce_options"`
-	Text          *PanelStatDataSourceModel_Options_Text         `tfsdk:"text"`
-	TextMode      types.String                                   `tfsdk:"text_mode"`
-	Orientation   types.String                                   `tfsdk:"orientation"`
-}
-
-func (m PanelStatDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatDataSourceModel_Options struct {
-		GraphMode     string      `json:"graphMode"`
-		ColorMode     string      `json:"colorMode"`
-		JustifyMode   string      `json:"justifyMode"`
-		ReduceOptions interface{} `json:"reduceOptions"`
-		Text          interface{} `json:"text,omitempty"`
-		TextMode      string      `json:"textMode"`
-		Orientation   string      `json:"orientation"`
-	}
-	attr_graphmode := m.GraphMode.ValueString()
-	attr_colormode := m.ColorMode.ValueString()
-	attr_justifymode := m.JustifyMode.ValueString()
-	var attr_reduceoptions interface{} = m.ReduceOptions
-	var attr_text interface{}
-	if m.Text != nil {
-		attr_text = m.Text
-	}
-	attr_textmode := m.TextMode.ValueString()
-	attr_orientation := m.Orientation.ValueString()
-
-	model := &jsonPanelStatDataSourceModel_Options{
-		GraphMode:     attr_graphmode,
-		ColorMode:     attr_colormode,
-		JustifyMode:   attr_justifymode,
-		ReduceOptions: attr_reduceoptions,
-		Text:          attr_text,
-		TextMode:      attr_textmode,
-		Orientation:   attr_orientation,
-	}
-	return json.Marshal(model)
-}
-
 type PanelStatDataSourceModel_Targets struct {
 }
 
@@ -308,6 +214,103 @@ func (m PanelStatDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+type PanelStatDataSourceModel_Options_ReduceOptions struct {
+	Values types.Bool    `tfsdk:"values"`
+	Limit  types.Float64 `tfsdk:"limit"`
+	Calcs  types.List    `tfsdk:"calcs"`
+	Fields types.String  `tfsdk:"fields"`
+}
+
+func (m PanelStatDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatDataSourceModel_Options_ReduceOptions struct {
+		Values *bool    `json:"values,omitempty"`
+		Limit  *float64 `json:"limit,omitempty"`
+		Calcs  []string `json:"calcs"`
+		Fields *string  `json:"fields,omitempty"`
+	}
+	attr_values := m.Values.ValueBool()
+	attr_limit := m.Limit.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
+	attr_fields := m.Fields.ValueString()
+
+	model := &jsonPanelStatDataSourceModel_Options_ReduceOptions{
+		Values: &attr_values,
+		Limit:  &attr_limit,
+		Calcs:  attr_calcs,
+		Fields: &attr_fields,
+	}
+	return json.Marshal(model)
+}
+
+type PanelStatDataSourceModel_Options_Text struct {
+	TitleSize types.Float64 `tfsdk:"title_size"`
+	ValueSize types.Float64 `tfsdk:"value_size"`
+}
+
+func (m PanelStatDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatDataSourceModel_Options_Text struct {
+		TitleSize *float64 `json:"titleSize,omitempty"`
+		ValueSize *float64 `json:"valueSize,omitempty"`
+	}
+	attr_titlesize := m.TitleSize.ValueFloat64()
+	attr_valuesize := m.ValueSize.ValueFloat64()
+
+	model := &jsonPanelStatDataSourceModel_Options_Text{
+		TitleSize: &attr_titlesize,
+		ValueSize: &attr_valuesize,
+	}
+	return json.Marshal(model)
+}
+
+type PanelStatDataSourceModel_Options struct {
+	GraphMode     types.String                                    `tfsdk:"graph_mode"`
+	ColorMode     types.String                                    `tfsdk:"color_mode"`
+	JustifyMode   types.String                                    `tfsdk:"justify_mode"`
+	ReduceOptions *PanelStatDataSourceModel_Options_ReduceOptions `tfsdk:"reduce_options"`
+	Text          *PanelStatDataSourceModel_Options_Text          `tfsdk:"text"`
+	TextMode      types.String                                    `tfsdk:"text_mode"`
+	Orientation   types.String                                    `tfsdk:"orientation"`
+}
+
+func (m PanelStatDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatDataSourceModel_Options struct {
+		GraphMode     string      `json:"graphMode"`
+		ColorMode     string      `json:"colorMode"`
+		JustifyMode   string      `json:"justifyMode"`
+		ReduceOptions interface{} `json:"reduceOptions,omitempty"`
+		Text          interface{} `json:"text,omitempty"`
+		TextMode      string      `json:"textMode"`
+		Orientation   string      `json:"orientation"`
+	}
+	attr_graphmode := m.GraphMode.ValueString()
+	attr_colormode := m.ColorMode.ValueString()
+	attr_justifymode := m.JustifyMode.ValueString()
+	var attr_reduceoptions interface{}
+	if m.ReduceOptions != nil {
+		attr_reduceoptions = m.ReduceOptions
+	}
+	var attr_text interface{}
+	if m.Text != nil {
+		attr_text = m.Text
+	}
+	attr_textmode := m.TextMode.ValueString()
+	attr_orientation := m.Orientation.ValueString()
+
+	model := &jsonPanelStatDataSourceModel_Options{
+		GraphMode:     attr_graphmode,
+		ColorMode:     attr_colormode,
+		JustifyMode:   attr_justifymode,
+		ReduceOptions: attr_reduceoptions,
+		Text:          attr_text,
+		TextMode:      attr_textmode,
+		Orientation:   attr_orientation,
+	}
+	return json.Marshal(model)
+}
+
 type PanelStatDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.Float64 `tfsdk:"value"`
 	Color types.String  `tfsdk:"color"`
@@ -379,14 +382,46 @@ func (m PanelStatDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]by
 	return json.Marshal(model)
 }
 
+type PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
 type PanelStatDataSourceModel_FieldConfig_Defaults_Custom struct {
+	HideFrom *PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
 }
 
 func (m PanelStatDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom struct {
+		HideFrom interface{} `json:"hideFrom,omitempty"`
+	}
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
 	}
 
-	model := &jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom{
+		HideFrom: attr_hidefrom,
+	}
 	return json.Marshal(model)
 }
 
@@ -500,16 +535,19 @@ func (m PanelStatDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON()
 }
 
 type PanelStatDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    PanelStatDataSourceModel_FieldConfig_Overrides_Matcher      `tfsdk:"matcher"`
+	Matcher    *PanelStatDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
 	Properties []PanelStatDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
 func (m PanelStatDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatDataSourceModel_FieldConfig_Overrides struct {
-		Matcher    interface{}   `json:"matcher"`
+		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
-	var attr_matcher interface{} = m.Matcher
+	var attr_matcher interface{}
+	if m.Matcher != nil {
+		attr_matcher = m.Matcher
+	}
 	attr_properties := []interface{}{}
 	for _, v := range m.Properties {
 		attr_properties = append(attr_properties, v)
@@ -523,16 +561,19 @@ func (m PanelStatDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, e
 }
 
 type PanelStatDataSourceModel_FieldConfig struct {
-	Defaults  PanelStatDataSourceModel_FieldConfig_Defaults    `tfsdk:"defaults"`
+	Defaults  *PanelStatDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
 	Overrides []PanelStatDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
 func (m PanelStatDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatDataSourceModel_FieldConfig struct {
-		Defaults  interface{}   `json:"defaults"`
+		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
-	var attr_defaults interface{} = m.Defaults
+	var attr_defaults interface{}
+	if m.Defaults != nil {
+		attr_defaults = m.Defaults
+	}
 	attr_overrides := []interface{}{}
 	for _, v := range m.Overrides {
 		attr_overrides = append(attr_overrides, v)
@@ -547,7 +588,6 @@ func (m PanelStatDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 
 type PanelStatDataSourceModel struct {
 	ToJSON          types.String                               `tfsdk:"to_json"`
-	Options         PanelStatDataSourceModel_Options           `tfsdk:"options"`
 	Type            types.String                               `tfsdk:"type"`
 	Id              types.Int64                                `tfsdk:"id"`
 	PluginVersion   types.String                               `tfsdk:"plugin_version"`
@@ -568,12 +608,12 @@ type PanelStatDataSourceModel struct {
 	TimeFrom        types.String                               `tfsdk:"time_from"`
 	TimeShift       types.String                               `tfsdk:"time_shift"`
 	LibraryPanel    *PanelStatDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	FieldConfig     PanelStatDataSourceModel_FieldConfig       `tfsdk:"field_config"`
+	Options         *PanelStatDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelStatDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
 func (m PanelStatDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatDataSourceModel struct {
-		Options         interface{}   `json:"options"`
 		Type            string        `json:"type"`
 		Id              *int64        `json:"id,omitempty"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
@@ -594,9 +634,9 @@ func (m PanelStatDataSourceModel) MarshalJSON() ([]byte, error) {
 		TimeFrom        *string       `json:"timeFrom,omitempty"`
 		TimeShift       *string       `json:"timeShift,omitempty"`
 		LibraryPanel    interface{}   `json:"libraryPanel,omitempty"`
-		FieldConfig     interface{}   `json:"fieldConfig"`
+		Options         interface{}   `json:"options,omitempty"`
+		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
-	var attr_options interface{} = m.Options
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()
@@ -638,10 +678,16 @@ func (m PanelStatDataSourceModel) MarshalJSON() ([]byte, error) {
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
 	}
-	var attr_fieldconfig interface{} = m.FieldConfig
+	var attr_options interface{}
+	if m.Options != nil {
+		attr_options = m.Options
+	}
+	var attr_fieldconfig interface{}
+	if m.FieldConfig != nil {
+		attr_fieldconfig = m.FieldConfig
+	}
 
 	model := &jsonPanelStatDataSourceModel{
-		Options:         attr_options,
 		Type:            attr_type,
 		Id:              &attr_id,
 		PluginVersion:   &attr_pluginversion,
@@ -662,6 +708,7 @@ func (m PanelStatDataSourceModel) MarshalJSON() ([]byte, error) {
 		TimeFrom:        &attr_timefrom,
 		TimeShift:       &attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
+		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,
 	}
 	return json.Marshal(model)
@@ -676,97 +723,6 @@ func (d *PanelStatDataSource) Schema(ctx context.Context, req datasource.SchemaR
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"graph_mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "area".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"color_mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "value".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"justify_mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "auto".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"reduce_options": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						Attributes: map[string]schema.Attribute{
-							"values": schema.BoolAttribute{
-								MarkdownDescription: `If true show each row value`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"limit": schema.Float64Attribute{
-								MarkdownDescription: `if showing all values limit`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"calcs": schema.ListAttribute{
-								MarkdownDescription: `When !values, pick one value for the whole field`,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-								ElementType:         types.StringType,
-							},
-							"fields": schema.StringAttribute{
-								MarkdownDescription: `Which fields to show.  By default this is only numeric fields`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"text": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"title_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit title text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"value_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit value text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"text_mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "auto".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"orientation": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-				},
-			},
 			"type": schema.StringAttribute{
 				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "stat".`,
 				Computed:            true,
@@ -818,7 +774,7 @@ func (d *PanelStatDataSource) Schema(ctx context.Context, req datasource.SchemaR
 			},
 			"datasource": schema.SingleNestedAttribute{
 				MarkdownDescription: `The datasource used in all targets.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -838,7 +794,7 @@ func (d *PanelStatDataSource) Schema(ctx context.Context, req datasource.SchemaR
 			},
 			"grid_pos": schema.SingleNestedAttribute{
 				MarkdownDescription: `Grid position.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -993,7 +949,7 @@ TODO this is probably optional. Defaults to "h".`,
 						},
 						"filter": schema.SingleNestedAttribute{
 							MarkdownDescription: `Optional frame matcher.  When missing it will be applied to all results`,
-							Computed:            false,
+							Computed:            true,
 							Optional:            true,
 							Required:            false,
 							Attributes: map[string]schema.Attribute{
@@ -1031,7 +987,7 @@ TODO tighter constraint`,
 			},
 			"library_panel": schema.SingleNestedAttribute{
 				MarkdownDescription: `Dynamically load the panel`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1049,17 +1005,108 @@ TODO tighter constraint`,
 					},
 				},
 			},
-			"field_config": schema.SingleNestedAttribute{
+			"options": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 				Attributes: map[string]schema.Attribute{
-					"defaults": schema.SingleNestedAttribute{
+					"graph_mode": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "area".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"color_mode": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "value".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"justify_mode": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "auto".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"reduce_options": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"values": schema.BoolAttribute{
+								MarkdownDescription: `If true show each row value`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"limit": schema.Float64Attribute{
+								MarkdownDescription: `if showing all values limit`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"calcs": schema.ListAttribute{
+								MarkdownDescription: `When !values, pick one value for the whole field`,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+								ElementType:         types.StringType,
+							},
+							"fields": schema.StringAttribute{
+								MarkdownDescription: `Which fields to show.  By default this is only numeric fields`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"text": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"title_size": schema.Float64Attribute{
+								MarkdownDescription: `Explicit title text size`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"value_size": schema.Float64Attribute{
+								MarkdownDescription: `Explicit value text size`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"text_mode": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "auto".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"orientation": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
+					},
+				},
+			},
+			"field_config": schema.SingleNestedAttribute{
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"defaults": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 						Attributes: map[string]schema.Attribute{
 							"display_name": schema.StringAttribute{
 								MarkdownDescription: `The display value for this field.  This supports template variables blank is auto`,
@@ -1128,7 +1175,7 @@ may be used to update the results`,
 							},
 							"thresholds": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map numeric values to states`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1173,7 +1220,7 @@ Some seem to be listed in typescript comment`,
 							},
 							"color": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map values to a display color`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1204,11 +1251,38 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the PanelFieldConfig field
-in panel plugin schemas.`,
-								Computed: false,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+								},
 							},
 						},
 					},
@@ -1221,9 +1295,9 @@ in panel plugin schemas.`,
 							Attributes: map[string]schema.Attribute{
 								"matcher": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
 									Attributes: map[string]schema.Attribute{
 										"id": schema.StringAttribute{
 											MarkdownDescription: ` Defaults to "".`,
@@ -1295,17 +1369,41 @@ func (d *PanelStatDataSource) Read(ctx context.Context, req datasource.ReadReque
 }
 
 func (d *PanelStatDataSource) applyDefaults(data *PanelStatDataSourceModel) {
-	if data.Options.GraphMode.IsNull() {
-		data.Options.GraphMode = types.StringValue(`area`)
+	if data.Datasource == nil {
+		data.Datasource = &PanelStatDataSourceModel_Datasource{}
 	}
-	if data.Options.ColorMode.IsNull() {
-		data.Options.ColorMode = types.StringValue(`value`)
+	if data.GridPos == nil {
+		data.GridPos = &PanelStatDataSourceModel_GridPos{}
 	}
-	if data.Options.JustifyMode.IsNull() {
-		data.Options.JustifyMode = types.StringValue(`auto`)
+	if data.LibraryPanel == nil {
+		data.LibraryPanel = &PanelStatDataSourceModel_LibraryPanel{}
 	}
-	if data.Options.TextMode.IsNull() {
-		data.Options.TextMode = types.StringValue(`auto`)
+	if data.Options == nil {
+		data.Options = &PanelStatDataSourceModel_Options{}
+	}
+	if data.Options.ReduceOptions == nil {
+		data.Options.ReduceOptions = &PanelStatDataSourceModel_Options_ReduceOptions{}
+	}
+	if data.Options.Text == nil {
+		data.Options.Text = &PanelStatDataSourceModel_Options_Text{}
+	}
+	if data.FieldConfig == nil {
+		data.FieldConfig = &PanelStatDataSourceModel_FieldConfig{}
+	}
+	if data.FieldConfig.Defaults == nil {
+		data.FieldConfig.Defaults = &PanelStatDataSourceModel_FieldConfig_Defaults{}
+	}
+	if data.FieldConfig.Defaults.Thresholds == nil {
+		data.FieldConfig.Defaults.Thresholds = &PanelStatDataSourceModel_FieldConfig_Defaults_Thresholds{}
+	}
+	if data.FieldConfig.Defaults.Color == nil {
+		data.FieldConfig.Defaults.Color = &PanelStatDataSourceModel_FieldConfig_Defaults_Color{}
+	}
+	if data.FieldConfig.Defaults.Custom == nil {
+		data.FieldConfig.Defaults.Custom = &PanelStatDataSourceModel_FieldConfig_Defaults_Custom{}
+	}
+	if data.FieldConfig.Defaults.Custom.HideFrom == nil {
+		data.FieldConfig.Defaults.Custom.HideFrom = &PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{}
 	}
 	if data.Type.IsNull() {
 		data.Type = types.StringValue(`stat`)
@@ -1327,5 +1425,17 @@ func (d *PanelStatDataSource) applyDefaults(data *PanelStatDataSourceModel) {
 	}
 	if data.RepeatDirection.IsNull() {
 		data.RepeatDirection = types.StringValue(`h`)
+	}
+	if data.Options != nil && data.Options.GraphMode.IsNull() {
+		data.Options.GraphMode = types.StringValue(`area`)
+	}
+	if data.Options != nil && data.Options.ColorMode.IsNull() {
+		data.Options.ColorMode = types.StringValue(`value`)
+	}
+	if data.Options != nil && data.Options.JustifyMode.IsNull() {
+		data.Options.JustifyMode = types.StringValue(`auto`)
+	}
+	if data.Options != nil && data.Options.TextMode.IsNull() {
+		data.Options.TextMode = types.StringValue(`auto`)
 	}
 }

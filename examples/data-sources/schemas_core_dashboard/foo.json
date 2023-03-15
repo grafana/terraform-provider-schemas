@@ -8,16 +8,13 @@
   "liveNow": false,
   "panels": [
     {
-      "CodeLanguage": "plaintext",
-      "CodeOptions": {
-        "language": "plaintext",
-        "showLineNumbers": false,
-        "showMiniMap": false
-      },
-      "TextMode": "markdown",
       "description": "",
       "fieldConfig": {
         "defaults": {
+          "custom": {
+            "fillOpacity": 70,
+            "lineWidth": 1
+          },
           "decimals": 0,
           "description": "",
           "displayName": "",

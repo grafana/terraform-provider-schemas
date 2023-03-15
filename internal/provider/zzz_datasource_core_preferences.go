@@ -131,7 +131,7 @@ TODO: this should use the timezone defined in common`,
 			},
 			"query_history": schema.SingleNestedAttribute{
 				MarkdownDescription: `Explore query history preferences`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -165,6 +165,7 @@ func (d *CorePreferencesDataSource) Read(ctx context.Context, req datasource.Rea
 		return
 	}
 
+	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -180,4 +181,10 @@ func (d *CorePreferencesDataSource) Read(ctx context.Context, req datasource.Rea
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
+}
+
+func (d *CorePreferencesDataSource) applyDefaults(data *CorePreferencesDataSourceModel) {
+	if data.QueryHistory == nil {
+		data.QueryHistory = &CorePreferencesDataSourceModel_QueryHistory{}
+	}
 }

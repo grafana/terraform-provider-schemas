@@ -33,167 +33,6 @@ func NewPanelStatusHistoryDataSource() datasource.DataSource {
 // PanelStatusHistoryDataSource defines the data source implementation.
 type PanelStatusHistoryDataSource struct{}
 
-type PanelStatusHistoryDataSourceModel_Options_Legend struct {
-	DisplayMode types.String  `tfsdk:"display_mode"`
-	Placement   types.String  `tfsdk:"placement"`
-	ShowLegend  types.Bool    `tfsdk:"show_legend"`
-	AsTable     types.Bool    `tfsdk:"as_table"`
-	IsVisible   types.Bool    `tfsdk:"is_visible"`
-	SortBy      types.String  `tfsdk:"sort_by"`
-	SortDesc    types.Bool    `tfsdk:"sort_desc"`
-	Width       types.Float64 `tfsdk:"width"`
-	Calcs       types.List    `tfsdk:"calcs"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_Options_Legend struct {
-		DisplayMode string   `json:"displayMode"`
-		Placement   string   `json:"placement"`
-		ShowLegend  bool     `json:"showLegend"`
-		AsTable     *bool    `json:"asTable,omitempty"`
-		IsVisible   *bool    `json:"isVisible,omitempty"`
-		SortBy      *string  `json:"sortBy,omitempty"`
-		SortDesc    *bool    `json:"sortDesc,omitempty"`
-		Width       *float64 `json:"width,omitempty"`
-		Calcs       []string `json:"calcs"`
-	}
-	attr_displaymode := m.DisplayMode.ValueString()
-	attr_placement := m.Placement.ValueString()
-	attr_showlegend := m.ShowLegend.ValueBool()
-	attr_astable := m.AsTable.ValueBool()
-	attr_isvisible := m.IsVisible.ValueBool()
-	attr_sortby := m.SortBy.ValueString()
-	attr_sortdesc := m.SortDesc.ValueBool()
-	attr_width := m.Width.ValueFloat64()
-	attr_calcs := []string{}
-	for _, v := range m.Calcs.Elements() {
-		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
-	}
-
-	model := &jsonPanelStatusHistoryDataSourceModel_Options_Legend{
-		DisplayMode: attr_displaymode,
-		Placement:   attr_placement,
-		ShowLegend:  attr_showlegend,
-		AsTable:     &attr_astable,
-		IsVisible:   &attr_isvisible,
-		SortBy:      &attr_sortby,
-		SortDesc:    &attr_sortdesc,
-		Width:       &attr_width,
-		Calcs:       attr_calcs,
-	}
-	return json.Marshal(model)
-}
-
-type PanelStatusHistoryDataSourceModel_Options_Tooltip struct {
-	Mode types.String `tfsdk:"mode"`
-	Sort types.String `tfsdk:"sort"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_Options_Tooltip struct {
-		Mode string `json:"mode"`
-		Sort string `json:"sort"`
-	}
-	attr_mode := m.Mode.ValueString()
-	attr_sort := m.Sort.ValueString()
-
-	model := &jsonPanelStatusHistoryDataSourceModel_Options_Tooltip{
-		Mode: attr_mode,
-		Sort: attr_sort,
-	}
-	return json.Marshal(model)
-}
-
-type PanelStatusHistoryDataSourceModel_Options struct {
-	RowHeight types.Float64                                     `tfsdk:"row_height"`
-	ShowValue types.String                                      `tfsdk:"show_value"`
-	Legend    PanelStatusHistoryDataSourceModel_Options_Legend  `tfsdk:"legend"`
-	Tooltip   PanelStatusHistoryDataSourceModel_Options_Tooltip `tfsdk:"tooltip"`
-	Timezone  types.List                                        `tfsdk:"timezone"`
-	ColWidth  types.Float64                                     `tfsdk:"col_width"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_Options struct {
-		RowHeight float64     `json:"rowHeight"`
-		ShowValue string      `json:"showValue"`
-		Legend    interface{} `json:"legend"`
-		Tooltip   interface{} `json:"tooltip"`
-		Timezone  []string    `json:"timezone,omitempty"`
-		ColWidth  *float64    `json:"colWidth,omitempty"`
-	}
-	attr_rowheight := m.RowHeight.ValueFloat64()
-	attr_showvalue := m.ShowValue.ValueString()
-	var attr_legend interface{} = m.Legend
-	var attr_tooltip interface{} = m.Tooltip
-	attr_timezone := []string{}
-	for _, v := range m.Timezone.Elements() {
-		attr_timezone = append(attr_timezone, v.(types.String).ValueString())
-	}
-	attr_colwidth := m.ColWidth.ValueFloat64()
-
-	model := &jsonPanelStatusHistoryDataSourceModel_Options{
-		RowHeight: attr_rowheight,
-		ShowValue: attr_showvalue,
-		Legend:    attr_legend,
-		Tooltip:   attr_tooltip,
-		Timezone:  attr_timezone,
-		ColWidth:  &attr_colwidth,
-	}
-	return json.Marshal(model)
-}
-
-type PanelStatusHistoryDataSourceModel_PanelFieldConfig_HideFrom struct {
-	Tooltip types.Bool `tfsdk:"tooltip"`
-	Legend  types.Bool `tfsdk:"legend"`
-	Viz     types.Bool `tfsdk:"viz"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_PanelFieldConfig_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_PanelFieldConfig_HideFrom struct {
-		Tooltip bool `json:"tooltip"`
-		Legend  bool `json:"legend"`
-		Viz     bool `json:"viz"`
-	}
-	attr_tooltip := m.Tooltip.ValueBool()
-	attr_legend := m.Legend.ValueBool()
-	attr_viz := m.Viz.ValueBool()
-
-	model := &jsonPanelStatusHistoryDataSourceModel_PanelFieldConfig_HideFrom{
-		Tooltip: attr_tooltip,
-		Legend:  attr_legend,
-		Viz:     attr_viz,
-	}
-	return json.Marshal(model)
-}
-
-type PanelStatusHistoryDataSourceModel_PanelFieldConfig struct {
-	LineWidth   types.Int64                                                  `tfsdk:"line_width"`
-	HideFrom    *PanelStatusHistoryDataSourceModel_PanelFieldConfig_HideFrom `tfsdk:"hide_from"`
-	FillOpacity types.Int64                                                  `tfsdk:"fill_opacity"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_PanelFieldConfig) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_PanelFieldConfig struct {
-		LineWidth   *int64      `json:"lineWidth,omitempty"`
-		HideFrom    interface{} `json:"hideFrom,omitempty"`
-		FillOpacity *int64      `json:"fillOpacity,omitempty"`
-	}
-	attr_linewidth := m.LineWidth.ValueInt64()
-	var attr_hidefrom interface{}
-	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom
-	}
-	attr_fillopacity := m.FillOpacity.ValueInt64()
-
-	model := &jsonPanelStatusHistoryDataSourceModel_PanelFieldConfig{
-		LineWidth:   &attr_linewidth,
-		HideFrom:    attr_hidefrom,
-		FillOpacity: &attr_fillopacity,
-	}
-	return json.Marshal(model)
-}
-
 type PanelStatusHistoryDataSourceModel_Targets struct {
 }
 
@@ -375,6 +214,122 @@ func (m PanelStatusHistoryDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, e
 	return json.Marshal(model)
 }
 
+type PanelStatusHistoryDataSourceModel_Options_Legend struct {
+	DisplayMode types.String  `tfsdk:"display_mode"`
+	Placement   types.String  `tfsdk:"placement"`
+	ShowLegend  types.Bool    `tfsdk:"show_legend"`
+	AsTable     types.Bool    `tfsdk:"as_table"`
+	IsVisible   types.Bool    `tfsdk:"is_visible"`
+	SortBy      types.String  `tfsdk:"sort_by"`
+	SortDesc    types.Bool    `tfsdk:"sort_desc"`
+	Width       types.Float64 `tfsdk:"width"`
+	Calcs       types.List    `tfsdk:"calcs"`
+}
+
+func (m PanelStatusHistoryDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatusHistoryDataSourceModel_Options_Legend struct {
+		DisplayMode string   `json:"displayMode"`
+		Placement   string   `json:"placement"`
+		ShowLegend  bool     `json:"showLegend"`
+		AsTable     *bool    `json:"asTable,omitempty"`
+		IsVisible   *bool    `json:"isVisible,omitempty"`
+		SortBy      *string  `json:"sortBy,omitempty"`
+		SortDesc    *bool    `json:"sortDesc,omitempty"`
+		Width       *float64 `json:"width,omitempty"`
+		Calcs       []string `json:"calcs"`
+	}
+	attr_displaymode := m.DisplayMode.ValueString()
+	attr_placement := m.Placement.ValueString()
+	attr_showlegend := m.ShowLegend.ValueBool()
+	attr_astable := m.AsTable.ValueBool()
+	attr_isvisible := m.IsVisible.ValueBool()
+	attr_sortby := m.SortBy.ValueString()
+	attr_sortdesc := m.SortDesc.ValueBool()
+	attr_width := m.Width.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
+
+	model := &jsonPanelStatusHistoryDataSourceModel_Options_Legend{
+		DisplayMode: attr_displaymode,
+		Placement:   attr_placement,
+		ShowLegend:  attr_showlegend,
+		AsTable:     &attr_astable,
+		IsVisible:   &attr_isvisible,
+		SortBy:      &attr_sortby,
+		SortDesc:    &attr_sortdesc,
+		Width:       &attr_width,
+		Calcs:       attr_calcs,
+	}
+	return json.Marshal(model)
+}
+
+type PanelStatusHistoryDataSourceModel_Options_Tooltip struct {
+	Mode types.String `tfsdk:"mode"`
+	Sort types.String `tfsdk:"sort"`
+}
+
+func (m PanelStatusHistoryDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatusHistoryDataSourceModel_Options_Tooltip struct {
+		Mode string `json:"mode"`
+		Sort string `json:"sort"`
+	}
+	attr_mode := m.Mode.ValueString()
+	attr_sort := m.Sort.ValueString()
+
+	model := &jsonPanelStatusHistoryDataSourceModel_Options_Tooltip{
+		Mode: attr_mode,
+		Sort: attr_sort,
+	}
+	return json.Marshal(model)
+}
+
+type PanelStatusHistoryDataSourceModel_Options struct {
+	RowHeight types.Float64                                      `tfsdk:"row_height"`
+	ShowValue types.String                                       `tfsdk:"show_value"`
+	Legend    *PanelStatusHistoryDataSourceModel_Options_Legend  `tfsdk:"legend"`
+	Tooltip   *PanelStatusHistoryDataSourceModel_Options_Tooltip `tfsdk:"tooltip"`
+	Timezone  types.List                                         `tfsdk:"timezone"`
+	ColWidth  types.Float64                                      `tfsdk:"col_width"`
+}
+
+func (m PanelStatusHistoryDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatusHistoryDataSourceModel_Options struct {
+		RowHeight float64     `json:"rowHeight"`
+		ShowValue string      `json:"showValue"`
+		Legend    interface{} `json:"legend,omitempty"`
+		Tooltip   interface{} `json:"tooltip,omitempty"`
+		Timezone  []string    `json:"timezone,omitempty"`
+		ColWidth  *float64    `json:"colWidth,omitempty"`
+	}
+	attr_rowheight := m.RowHeight.ValueFloat64()
+	attr_showvalue := m.ShowValue.ValueString()
+	var attr_legend interface{}
+	if m.Legend != nil {
+		attr_legend = m.Legend
+	}
+	var attr_tooltip interface{}
+	if m.Tooltip != nil {
+		attr_tooltip = m.Tooltip
+	}
+	attr_timezone := []string{}
+	for _, v := range m.Timezone.Elements() {
+		attr_timezone = append(attr_timezone, v.(types.String).ValueString())
+	}
+	attr_colwidth := m.ColWidth.ValueFloat64()
+
+	model := &jsonPanelStatusHistoryDataSourceModel_Options{
+		RowHeight: attr_rowheight,
+		ShowValue: attr_showvalue,
+		Legend:    attr_legend,
+		Tooltip:   attr_tooltip,
+		Timezone:  attr_timezone,
+		ColWidth:  &attr_colwidth,
+	}
+	return json.Marshal(model)
+}
+
 type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.Float64 `tfsdk:"value"`
 	Color types.String  `tfsdk:"color"`
@@ -446,14 +401,54 @@ func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Color) MarshalJSO
 	return json.Marshal(model)
 }
 
+type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
 type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth   types.Int64                                                             `tfsdk:"line_width"`
+	HideFrom    *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
+	FillOpacity types.Int64                                                             `tfsdk:"fill_opacity"`
 }
 
 func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth   *int64      `json:"lineWidth,omitempty"`
+		HideFrom    interface{} `json:"hideFrom,omitempty"`
+		FillOpacity *int64      `json:"fillOpacity,omitempty"`
 	}
+	attr_linewidth := m.LineWidth.ValueInt64()
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	attr_fillopacity := m.FillOpacity.ValueInt64()
 
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:   &attr_linewidth,
+		HideFrom:    attr_hidefrom,
+		FillOpacity: &attr_fillopacity,
+	}
 	return json.Marshal(model)
 }
 
@@ -567,16 +562,19 @@ func (m PanelStatusHistoryDataSourceModel_FieldConfig_Overrides_Properties) Mars
 }
 
 type PanelStatusHistoryDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    PanelStatusHistoryDataSourceModel_FieldConfig_Overrides_Matcher      `tfsdk:"matcher"`
+	Matcher    *PanelStatusHistoryDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
 	Properties []PanelStatusHistoryDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
 func (m PanelStatusHistoryDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Overrides struct {
-		Matcher    interface{}   `json:"matcher"`
+		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
-	var attr_matcher interface{} = m.Matcher
+	var attr_matcher interface{}
+	if m.Matcher != nil {
+		attr_matcher = m.Matcher
+	}
 	attr_properties := []interface{}{}
 	for _, v := range m.Properties {
 		attr_properties = append(attr_properties, v)
@@ -590,16 +588,19 @@ func (m PanelStatusHistoryDataSourceModel_FieldConfig_Overrides) MarshalJSON() (
 }
 
 type PanelStatusHistoryDataSourceModel_FieldConfig struct {
-	Defaults  PanelStatusHistoryDataSourceModel_FieldConfig_Defaults    `tfsdk:"defaults"`
+	Defaults  *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
 	Overrides []PanelStatusHistoryDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
 func (m PanelStatusHistoryDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatusHistoryDataSourceModel_FieldConfig struct {
-		Defaults  interface{}   `json:"defaults"`
+		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
-	var attr_defaults interface{} = m.Defaults
+	var attr_defaults interface{}
+	if m.Defaults != nil {
+		attr_defaults = m.Defaults
+	}
 	attr_overrides := []interface{}{}
 	for _, v := range m.Overrides {
 		attr_overrides = append(attr_overrides, v)
@@ -613,60 +614,56 @@ func (m PanelStatusHistoryDataSourceModel_FieldConfig) MarshalJSON() ([]byte, er
 }
 
 type PanelStatusHistoryDataSourceModel struct {
-	ToJSON           types.String                                        `tfsdk:"to_json"`
-	Options          PanelStatusHistoryDataSourceModel_Options           `tfsdk:"options"`
-	PanelFieldConfig PanelStatusHistoryDataSourceModel_PanelFieldConfig  `tfsdk:"panel_field_config"`
-	Type             types.String                                        `tfsdk:"type"`
-	Id               types.Int64                                         `tfsdk:"id"`
-	PluginVersion    types.String                                        `tfsdk:"plugin_version"`
-	Tags             types.List                                          `tfsdk:"tags"`
-	Targets          []PanelStatusHistoryDataSourceModel_Targets         `tfsdk:"targets"`
-	Title            types.String                                        `tfsdk:"title"`
-	Description      types.String                                        `tfsdk:"description"`
-	Transparent      types.Bool                                          `tfsdk:"transparent"`
-	Datasource       *PanelStatusHistoryDataSourceModel_Datasource       `tfsdk:"datasource"`
-	GridPos          *PanelStatusHistoryDataSourceModel_GridPos          `tfsdk:"grid_pos"`
-	Links            []PanelStatusHistoryDataSourceModel_Links           `tfsdk:"links"`
-	Repeat           types.String                                        `tfsdk:"repeat"`
-	RepeatDirection  types.String                                        `tfsdk:"repeat_direction"`
-	RepeatPanelId    types.Int64                                         `tfsdk:"repeat_panel_id"`
-	MaxDataPoints    types.Float64                                       `tfsdk:"max_data_points"`
-	Transformations  []PanelStatusHistoryDataSourceModel_Transformations `tfsdk:"transformations"`
-	Interval         types.String                                        `tfsdk:"interval"`
-	TimeFrom         types.String                                        `tfsdk:"time_from"`
-	TimeShift        types.String                                        `tfsdk:"time_shift"`
-	LibraryPanel     *PanelStatusHistoryDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	FieldConfig      PanelStatusHistoryDataSourceModel_FieldConfig       `tfsdk:"field_config"`
+	ToJSON          types.String                                        `tfsdk:"to_json"`
+	Type            types.String                                        `tfsdk:"type"`
+	Id              types.Int64                                         `tfsdk:"id"`
+	PluginVersion   types.String                                        `tfsdk:"plugin_version"`
+	Tags            types.List                                          `tfsdk:"tags"`
+	Targets         []PanelStatusHistoryDataSourceModel_Targets         `tfsdk:"targets"`
+	Title           types.String                                        `tfsdk:"title"`
+	Description     types.String                                        `tfsdk:"description"`
+	Transparent     types.Bool                                          `tfsdk:"transparent"`
+	Datasource      *PanelStatusHistoryDataSourceModel_Datasource       `tfsdk:"datasource"`
+	GridPos         *PanelStatusHistoryDataSourceModel_GridPos          `tfsdk:"grid_pos"`
+	Links           []PanelStatusHistoryDataSourceModel_Links           `tfsdk:"links"`
+	Repeat          types.String                                        `tfsdk:"repeat"`
+	RepeatDirection types.String                                        `tfsdk:"repeat_direction"`
+	RepeatPanelId   types.Int64                                         `tfsdk:"repeat_panel_id"`
+	MaxDataPoints   types.Float64                                       `tfsdk:"max_data_points"`
+	Transformations []PanelStatusHistoryDataSourceModel_Transformations `tfsdk:"transformations"`
+	Interval        types.String                                        `tfsdk:"interval"`
+	TimeFrom        types.String                                        `tfsdk:"time_from"`
+	TimeShift       types.String                                        `tfsdk:"time_shift"`
+	LibraryPanel    *PanelStatusHistoryDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
+	Options         *PanelStatusHistoryDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelStatusHistoryDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
 func (m PanelStatusHistoryDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatusHistoryDataSourceModel struct {
-		Options          interface{}   `json:"options"`
-		PanelFieldConfig interface{}   `json:"PanelFieldConfig"`
-		Type             string        `json:"type"`
-		Id               *int64        `json:"id,omitempty"`
-		PluginVersion    *string       `json:"pluginVersion,omitempty"`
-		Tags             []string      `json:"tags,omitempty"`
-		Targets          []interface{} `json:"targets,omitempty"`
-		Title            *string       `json:"title,omitempty"`
-		Description      *string       `json:"description,omitempty"`
-		Transparent      bool          `json:"transparent"`
-		Datasource       interface{}   `json:"datasource,omitempty"`
-		GridPos          interface{}   `json:"gridPos,omitempty"`
-		Links            []interface{} `json:"links,omitempty"`
-		Repeat           *string       `json:"repeat,omitempty"`
-		RepeatDirection  string        `json:"repeatDirection"`
-		RepeatPanelId    *int64        `json:"repeatPanelId,omitempty"`
-		MaxDataPoints    *float64      `json:"maxDataPoints,omitempty"`
-		Transformations  []interface{} `json:"transformations"`
-		Interval         *string       `json:"interval,omitempty"`
-		TimeFrom         *string       `json:"timeFrom,omitempty"`
-		TimeShift        *string       `json:"timeShift,omitempty"`
-		LibraryPanel     interface{}   `json:"libraryPanel,omitempty"`
-		FieldConfig      interface{}   `json:"fieldConfig"`
+		Type            string        `json:"type"`
+		Id              *int64        `json:"id,omitempty"`
+		PluginVersion   *string       `json:"pluginVersion,omitempty"`
+		Tags            []string      `json:"tags,omitempty"`
+		Targets         []interface{} `json:"targets,omitempty"`
+		Title           *string       `json:"title,omitempty"`
+		Description     *string       `json:"description,omitempty"`
+		Transparent     bool          `json:"transparent"`
+		Datasource      interface{}   `json:"datasource,omitempty"`
+		GridPos         interface{}   `json:"gridPos,omitempty"`
+		Links           []interface{} `json:"links,omitempty"`
+		Repeat          *string       `json:"repeat,omitempty"`
+		RepeatDirection string        `json:"repeatDirection"`
+		RepeatPanelId   *int64        `json:"repeatPanelId,omitempty"`
+		MaxDataPoints   *float64      `json:"maxDataPoints,omitempty"`
+		Transformations []interface{} `json:"transformations"`
+		Interval        *string       `json:"interval,omitempty"`
+		TimeFrom        *string       `json:"timeFrom,omitempty"`
+		TimeShift       *string       `json:"timeShift,omitempty"`
+		LibraryPanel    interface{}   `json:"libraryPanel,omitempty"`
+		Options         interface{}   `json:"options,omitempty"`
+		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
-	var attr_options interface{} = m.Options
-	var attr_panelfieldconfig interface{} = m.PanelFieldConfig
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()
@@ -708,32 +705,38 @@ func (m PanelStatusHistoryDataSourceModel) MarshalJSON() ([]byte, error) {
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
 	}
-	var attr_fieldconfig interface{} = m.FieldConfig
+	var attr_options interface{}
+	if m.Options != nil {
+		attr_options = m.Options
+	}
+	var attr_fieldconfig interface{}
+	if m.FieldConfig != nil {
+		attr_fieldconfig = m.FieldConfig
+	}
 
 	model := &jsonPanelStatusHistoryDataSourceModel{
-		Options:          attr_options,
-		PanelFieldConfig: attr_panelfieldconfig,
-		Type:             attr_type,
-		Id:               &attr_id,
-		PluginVersion:    &attr_pluginversion,
-		Tags:             attr_tags,
-		Targets:          attr_targets,
-		Title:            &attr_title,
-		Description:      &attr_description,
-		Transparent:      attr_transparent,
-		Datasource:       attr_datasource,
-		GridPos:          attr_gridpos,
-		Links:            attr_links,
-		Repeat:           &attr_repeat,
-		RepeatDirection:  attr_repeatdirection,
-		RepeatPanelId:    &attr_repeatpanelid,
-		MaxDataPoints:    &attr_maxdatapoints,
-		Transformations:  attr_transformations,
-		Interval:         &attr_interval,
-		TimeFrom:         &attr_timefrom,
-		TimeShift:        &attr_timeshift,
-		LibraryPanel:     attr_librarypanel,
-		FieldConfig:      attr_fieldconfig,
+		Type:            attr_type,
+		Id:              &attr_id,
+		PluginVersion:   &attr_pluginversion,
+		Tags:            attr_tags,
+		Targets:         attr_targets,
+		Title:           &attr_title,
+		Description:     &attr_description,
+		Transparent:     attr_transparent,
+		Datasource:      attr_datasource,
+		GridPos:         attr_gridpos,
+		Links:           attr_links,
+		Repeat:          &attr_repeat,
+		RepeatDirection: attr_repeatdirection,
+		RepeatPanelId:   &attr_repeatpanelid,
+		MaxDataPoints:   &attr_maxdatapoints,
+		Transformations: attr_transformations,
+		Interval:        &attr_interval,
+		TimeFrom:        &attr_timefrom,
+		TimeShift:       &attr_timeshift,
+		LibraryPanel:    attr_librarypanel,
+		Options:         attr_options,
+		FieldConfig:     attr_fieldconfig,
 	}
 	return json.Marshal(model)
 }
@@ -747,168 +750,6 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"row_height": schema.Float64Attribute{
-						MarkdownDescription: `Set the height of the rows. Defaults to 0.900000.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"show_value": schema.StringAttribute{
-						MarkdownDescription: `Show values on the columns. Defaults to "auto".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"legend": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						Attributes: map[string]schema.Attribute{
-							"display_mode": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"placement": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"show_legend": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"as_table": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"is_visible": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"sort_by": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"sort_desc": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"width": schema.Float64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"calcs": schema.ListAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-								ElementType:         types.StringType,
-							},
-						},
-					},
-					"tooltip": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-						Attributes: map[string]schema.Attribute{
-							"mode": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"sort": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-					"timezone": schema.ListAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						ElementType:         types.StringType,
-					},
-					"col_width": schema.Float64Attribute{
-						MarkdownDescription: `Controls the column width. Defaults to 0.900000.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-				},
-			},
-			"panel_field_config": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"line_width": schema.Int64Attribute{
-						MarkdownDescription: ` Defaults to 1.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"hide_from": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"tooltip": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"legend": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"viz": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-					"fill_opacity": schema.Int64Attribute{
-						MarkdownDescription: ` Defaults to 70.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-				},
-			},
 			"type": schema.StringAttribute{
 				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "statushistory".`,
 				Computed:            true,
@@ -960,7 +801,7 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 			},
 			"datasource": schema.SingleNestedAttribute{
 				MarkdownDescription: `The datasource used in all targets.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -980,7 +821,7 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 			},
 			"grid_pos": schema.SingleNestedAttribute{
 				MarkdownDescription: `Grid position.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1135,7 +976,7 @@ TODO this is probably optional. Defaults to "h".`,
 						},
 						"filter": schema.SingleNestedAttribute{
 							MarkdownDescription: `Optional frame matcher.  When missing it will be applied to all results`,
-							Computed:            false,
+							Computed:            true,
 							Optional:            true,
 							Required:            false,
 							Attributes: map[string]schema.Attribute{
@@ -1173,7 +1014,7 @@ TODO tighter constraint`,
 			},
 			"library_panel": schema.SingleNestedAttribute{
 				MarkdownDescription: `Dynamically load the panel`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -1191,17 +1032,133 @@ TODO tighter constraint`,
 					},
 				},
 			},
+			"options": schema.SingleNestedAttribute{
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"row_height": schema.Float64Attribute{
+						MarkdownDescription: `Set the height of the rows. Defaults to 0.900000.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"show_value": schema.StringAttribute{
+						MarkdownDescription: `Show values on the columns. Defaults to "auto".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"legend": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"display_mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"placement": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"show_legend": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"as_table": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"is_visible": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_by": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_desc": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"width": schema.Float64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"calcs": schema.ListAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+								ElementType:         types.StringType,
+							},
+						},
+					},
+					"tooltip": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"sort": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+						},
+					},
+					"timezone": schema.ListAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+						ElementType:         types.StringType,
+					},
+					"col_width": schema.Float64Attribute{
+						MarkdownDescription: `Controls the column width. Defaults to 0.900000.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+				},
+			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 				Attributes: map[string]schema.Attribute{
 					"defaults": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 						Attributes: map[string]schema.Attribute{
 							"display_name": schema.StringAttribute{
 								MarkdownDescription: `The display value for this field.  This supports template variables blank is auto`,
@@ -1270,7 +1227,7 @@ may be used to update the results`,
 							},
 							"thresholds": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map numeric values to states`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1315,7 +1272,7 @@ Some seem to be listed in typescript comment`,
 							},
 							"color": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map values to a display color`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1346,11 +1303,50 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the PanelFieldConfig field
-in panel plugin schemas.`,
-								Computed: false,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"line_width": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 1.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 70.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},
@@ -1363,9 +1359,9 @@ in panel plugin schemas.`,
 							Attributes: map[string]schema.Attribute{
 								"matcher": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
 									Attributes: map[string]schema.Attribute{
 										"id": schema.StringAttribute{
 											MarkdownDescription: ` Defaults to "".`,
@@ -1437,20 +1433,41 @@ func (d *PanelStatusHistoryDataSource) Read(ctx context.Context, req datasource.
 }
 
 func (d *PanelStatusHistoryDataSource) applyDefaults(data *PanelStatusHistoryDataSourceModel) {
-	if data.Options.RowHeight.IsNull() {
-		data.Options.RowHeight = types.Float64Value(0.900000)
+	if data.Datasource == nil {
+		data.Datasource = &PanelStatusHistoryDataSourceModel_Datasource{}
 	}
-	if data.Options.ShowValue.IsNull() {
-		data.Options.ShowValue = types.StringValue(`auto`)
+	if data.GridPos == nil {
+		data.GridPos = &PanelStatusHistoryDataSourceModel_GridPos{}
 	}
-	if data.Options.ColWidth.IsNull() {
-		data.Options.ColWidth = types.Float64Value(0.900000)
+	if data.LibraryPanel == nil {
+		data.LibraryPanel = &PanelStatusHistoryDataSourceModel_LibraryPanel{}
 	}
-	if data.PanelFieldConfig.LineWidth.IsNull() {
-		data.PanelFieldConfig.LineWidth = types.Int64Value(1)
+	if data.Options == nil {
+		data.Options = &PanelStatusHistoryDataSourceModel_Options{}
 	}
-	if data.PanelFieldConfig.FillOpacity.IsNull() {
-		data.PanelFieldConfig.FillOpacity = types.Int64Value(70)
+	if data.Options.Legend == nil {
+		data.Options.Legend = &PanelStatusHistoryDataSourceModel_Options_Legend{}
+	}
+	if data.Options.Tooltip == nil {
+		data.Options.Tooltip = &PanelStatusHistoryDataSourceModel_Options_Tooltip{}
+	}
+	if data.FieldConfig == nil {
+		data.FieldConfig = &PanelStatusHistoryDataSourceModel_FieldConfig{}
+	}
+	if data.FieldConfig.Defaults == nil {
+		data.FieldConfig.Defaults = &PanelStatusHistoryDataSourceModel_FieldConfig_Defaults{}
+	}
+	if data.FieldConfig.Defaults.Thresholds == nil {
+		data.FieldConfig.Defaults.Thresholds = &PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Thresholds{}
+	}
+	if data.FieldConfig.Defaults.Color == nil {
+		data.FieldConfig.Defaults.Color = &PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Color{}
+	}
+	if data.FieldConfig.Defaults.Custom == nil {
+		data.FieldConfig.Defaults.Custom = &PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom{}
+	}
+	if data.FieldConfig.Defaults.Custom.HideFrom == nil {
+		data.FieldConfig.Defaults.Custom.HideFrom = &PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{}
 	}
 	if data.Type.IsNull() {
 		data.Type = types.StringValue(`statushistory`)
@@ -1472,5 +1489,20 @@ func (d *PanelStatusHistoryDataSource) applyDefaults(data *PanelStatusHistoryDat
 	}
 	if data.RepeatDirection.IsNull() {
 		data.RepeatDirection = types.StringValue(`h`)
+	}
+	if data.Options != nil && data.Options.RowHeight.IsNull() {
+		data.Options.RowHeight = types.Float64Value(0.900000)
+	}
+	if data.Options != nil && data.Options.ShowValue.IsNull() {
+		data.Options.ShowValue = types.StringValue(`auto`)
+	}
+	if data.Options != nil && data.Options.ColWidth.IsNull() {
+		data.Options.ColWidth = types.Float64Value(0.900000)
+	}
+	if data.FieldConfig != nil && data.FieldConfig.Defaults != nil && data.FieldConfig.Defaults.Custom != nil && data.FieldConfig.Defaults.Custom.LineWidth.IsNull() {
+		data.FieldConfig.Defaults.Custom.LineWidth = types.Int64Value(1)
+	}
+	if data.FieldConfig != nil && data.FieldConfig.Defaults != nil && data.FieldConfig.Defaults.Custom != nil && data.FieldConfig.Defaults.Custom.FillOpacity.IsNull() {
+		data.FieldConfig.Defaults.Custom.FillOpacity = types.Int64Value(70)
 	}
 }

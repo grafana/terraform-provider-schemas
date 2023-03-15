@@ -33,30 +33,6 @@ func NewPanelAlertGroupsDataSource() datasource.DataSource {
 // PanelAlertGroupsDataSource defines the data source implementation.
 type PanelAlertGroupsDataSource struct{}
 
-type PanelAlertGroupsDataSourceModel_Options struct {
-	Labels       types.String `tfsdk:"labels"`
-	Alertmanager types.String `tfsdk:"alertmanager"`
-	ExpandAll    types.Bool   `tfsdk:"expand_all"`
-}
-
-func (m PanelAlertGroupsDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelAlertGroupsDataSourceModel_Options struct {
-		Labels       string `json:"labels"`
-		Alertmanager string `json:"alertmanager"`
-		ExpandAll    bool   `json:"expandAll"`
-	}
-	attr_labels := m.Labels.ValueString()
-	attr_alertmanager := m.Alertmanager.ValueString()
-	attr_expandall := m.ExpandAll.ValueBool()
-
-	model := &jsonPanelAlertGroupsDataSourceModel_Options{
-		Labels:       attr_labels,
-		Alertmanager: attr_alertmanager,
-		ExpandAll:    attr_expandall,
-	}
-	return json.Marshal(model)
-}
-
 type PanelAlertGroupsDataSourceModel_Targets struct {
 }
 
@@ -234,6 +210,30 @@ func (m PanelAlertGroupsDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, err
 	model := &jsonPanelAlertGroupsDataSourceModel_LibraryPanel{
 		Name: attr_name,
 		Uid:  attr_uid,
+	}
+	return json.Marshal(model)
+}
+
+type PanelAlertGroupsDataSourceModel_Options struct {
+	Labels       types.String `tfsdk:"labels"`
+	Alertmanager types.String `tfsdk:"alertmanager"`
+	ExpandAll    types.Bool   `tfsdk:"expand_all"`
+}
+
+func (m PanelAlertGroupsDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelAlertGroupsDataSourceModel_Options struct {
+		Labels       string `json:"labels"`
+		Alertmanager string `json:"alertmanager"`
+		ExpandAll    bool   `json:"expandAll"`
+	}
+	attr_labels := m.Labels.ValueString()
+	attr_alertmanager := m.Alertmanager.ValueString()
+	attr_expandall := m.ExpandAll.ValueBool()
+
+	model := &jsonPanelAlertGroupsDataSourceModel_Options{
+		Labels:       attr_labels,
+		Alertmanager: attr_alertmanager,
+		ExpandAll:    attr_expandall,
 	}
 	return json.Marshal(model)
 }
@@ -430,16 +430,19 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Overrides_Properties) Marsha
 }
 
 type PanelAlertGroupsDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    PanelAlertGroupsDataSourceModel_FieldConfig_Overrides_Matcher      `tfsdk:"matcher"`
+	Matcher    *PanelAlertGroupsDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
 	Properties []PanelAlertGroupsDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
 func (m PanelAlertGroupsDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
 	type jsonPanelAlertGroupsDataSourceModel_FieldConfig_Overrides struct {
-		Matcher    interface{}   `json:"matcher"`
+		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
-	var attr_matcher interface{} = m.Matcher
+	var attr_matcher interface{}
+	if m.Matcher != nil {
+		attr_matcher = m.Matcher
+	}
 	attr_properties := []interface{}{}
 	for _, v := range m.Properties {
 		attr_properties = append(attr_properties, v)
@@ -453,16 +456,19 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]
 }
 
 type PanelAlertGroupsDataSourceModel_FieldConfig struct {
-	Defaults  PanelAlertGroupsDataSourceModel_FieldConfig_Defaults    `tfsdk:"defaults"`
+	Defaults  *PanelAlertGroupsDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
 	Overrides []PanelAlertGroupsDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
 func (m PanelAlertGroupsDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 	type jsonPanelAlertGroupsDataSourceModel_FieldConfig struct {
-		Defaults  interface{}   `json:"defaults"`
+		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
-	var attr_defaults interface{} = m.Defaults
+	var attr_defaults interface{}
+	if m.Defaults != nil {
+		attr_defaults = m.Defaults
+	}
 	attr_overrides := []interface{}{}
 	for _, v := range m.Overrides {
 		attr_overrides = append(attr_overrides, v)
@@ -477,7 +483,6 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig) MarshalJSON() ([]byte, erro
 
 type PanelAlertGroupsDataSourceModel struct {
 	ToJSON          types.String                                      `tfsdk:"to_json"`
-	Options         PanelAlertGroupsDataSourceModel_Options           `tfsdk:"options"`
 	Type            types.String                                      `tfsdk:"type"`
 	Id              types.Int64                                       `tfsdk:"id"`
 	PluginVersion   types.String                                      `tfsdk:"plugin_version"`
@@ -498,12 +503,12 @@ type PanelAlertGroupsDataSourceModel struct {
 	TimeFrom        types.String                                      `tfsdk:"time_from"`
 	TimeShift       types.String                                      `tfsdk:"time_shift"`
 	LibraryPanel    *PanelAlertGroupsDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	FieldConfig     PanelAlertGroupsDataSourceModel_FieldConfig       `tfsdk:"field_config"`
+	Options         *PanelAlertGroupsDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelAlertGroupsDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
 func (m PanelAlertGroupsDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonPanelAlertGroupsDataSourceModel struct {
-		Options         interface{}   `json:"options"`
 		Type            string        `json:"type"`
 		Id              *int64        `json:"id,omitempty"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
@@ -524,9 +529,9 @@ func (m PanelAlertGroupsDataSourceModel) MarshalJSON() ([]byte, error) {
 		TimeFrom        *string       `json:"timeFrom,omitempty"`
 		TimeShift       *string       `json:"timeShift,omitempty"`
 		LibraryPanel    interface{}   `json:"libraryPanel,omitempty"`
-		FieldConfig     interface{}   `json:"fieldConfig"`
+		Options         interface{}   `json:"options,omitempty"`
+		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
-	var attr_options interface{} = m.Options
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()
@@ -568,10 +573,16 @@ func (m PanelAlertGroupsDataSourceModel) MarshalJSON() ([]byte, error) {
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
 	}
-	var attr_fieldconfig interface{} = m.FieldConfig
+	var attr_options interface{}
+	if m.Options != nil {
+		attr_options = m.Options
+	}
+	var attr_fieldconfig interface{}
+	if m.FieldConfig != nil {
+		attr_fieldconfig = m.FieldConfig
+	}
 
 	model := &jsonPanelAlertGroupsDataSourceModel{
-		Options:         attr_options,
 		Type:            attr_type,
 		Id:              &attr_id,
 		PluginVersion:   &attr_pluginversion,
@@ -592,6 +603,7 @@ func (m PanelAlertGroupsDataSourceModel) MarshalJSON() ([]byte, error) {
 		TimeFrom:        &attr_timefrom,
 		TimeShift:       &attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
+		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,
 	}
 	return json.Marshal(model)
@@ -606,32 +618,6 @@ func (d *PanelAlertGroupsDataSource) Schema(ctx context.Context, req datasource.
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-				Attributes: map[string]schema.Attribute{
-					"labels": schema.StringAttribute{
-						MarkdownDescription: `Comma-separated list of values used to filter alert results`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-					"alertmanager": schema.StringAttribute{
-						MarkdownDescription: `Name of the alertmanager used as a source for alerts`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-					"expand_all": schema.BoolAttribute{
-						MarkdownDescription: `Expand all alert groups by default`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-				},
-			},
 			"type": schema.StringAttribute{
 				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "alertgroups".`,
 				Computed:            true,
@@ -683,7 +669,7 @@ func (d *PanelAlertGroupsDataSource) Schema(ctx context.Context, req datasource.
 			},
 			"datasource": schema.SingleNestedAttribute{
 				MarkdownDescription: `The datasource used in all targets.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -703,7 +689,7 @@ func (d *PanelAlertGroupsDataSource) Schema(ctx context.Context, req datasource.
 			},
 			"grid_pos": schema.SingleNestedAttribute{
 				MarkdownDescription: `Grid position.`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -858,7 +844,7 @@ TODO this is probably optional. Defaults to "h".`,
 						},
 						"filter": schema.SingleNestedAttribute{
 							MarkdownDescription: `Optional frame matcher.  When missing it will be applied to all results`,
-							Computed:            false,
+							Computed:            true,
 							Optional:            true,
 							Required:            false,
 							Attributes: map[string]schema.Attribute{
@@ -896,7 +882,7 @@ TODO tighter constraint`,
 			},
 			"library_panel": schema.SingleNestedAttribute{
 				MarkdownDescription: `Dynamically load the panel`,
-				Computed:            false,
+				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
@@ -914,17 +900,43 @@ TODO tighter constraint`,
 					},
 				},
 			},
-			"field_config": schema.SingleNestedAttribute{
+			"options": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 				Attributes: map[string]schema.Attribute{
-					"defaults": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
+					"labels": schema.StringAttribute{
+						MarkdownDescription: `Comma-separated list of values used to filter alert results`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
+					},
+					"alertmanager": schema.StringAttribute{
+						MarkdownDescription: `Name of the alertmanager used as a source for alerts`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+					"expand_all": schema.BoolAttribute{
+						MarkdownDescription: `Expand all alert groups by default`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+				},
+			},
+			"field_config": schema.SingleNestedAttribute{
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"defaults": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 						Attributes: map[string]schema.Attribute{
 							"display_name": schema.StringAttribute{
 								MarkdownDescription: `The display value for this field.  This supports template variables blank is auto`,
@@ -993,7 +1005,7 @@ may be used to update the results`,
 							},
 							"thresholds": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map numeric values to states`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1038,7 +1050,7 @@ Some seem to be listed in typescript comment`,
 							},
 							"color": schema.SingleNestedAttribute{
 								MarkdownDescription: `Map values to a display color`,
-								Computed:            false,
+								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
@@ -1071,7 +1083,7 @@ Some seem to be listed in typescript comment`,
 							"custom": schema.SingleNestedAttribute{
 								MarkdownDescription: `custom is specified by the PanelFieldConfig field
 in panel plugin schemas.`,
-								Computed: false,
+								Computed: true,
 								Optional: true,
 								Required: false,
 							},
@@ -1086,9 +1098,9 @@ in panel plugin schemas.`,
 							Attributes: map[string]schema.Attribute{
 								"matcher": schema.SingleNestedAttribute{
 									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
 									Attributes: map[string]schema.Attribute{
 										"id": schema.StringAttribute{
 											MarkdownDescription: ` Defaults to "".`,
@@ -1160,6 +1172,33 @@ func (d *PanelAlertGroupsDataSource) Read(ctx context.Context, req datasource.Re
 }
 
 func (d *PanelAlertGroupsDataSource) applyDefaults(data *PanelAlertGroupsDataSourceModel) {
+	if data.Datasource == nil {
+		data.Datasource = &PanelAlertGroupsDataSourceModel_Datasource{}
+	}
+	if data.GridPos == nil {
+		data.GridPos = &PanelAlertGroupsDataSourceModel_GridPos{}
+	}
+	if data.LibraryPanel == nil {
+		data.LibraryPanel = &PanelAlertGroupsDataSourceModel_LibraryPanel{}
+	}
+	if data.Options == nil {
+		data.Options = &PanelAlertGroupsDataSourceModel_Options{}
+	}
+	if data.FieldConfig == nil {
+		data.FieldConfig = &PanelAlertGroupsDataSourceModel_FieldConfig{}
+	}
+	if data.FieldConfig.Defaults == nil {
+		data.FieldConfig.Defaults = &PanelAlertGroupsDataSourceModel_FieldConfig_Defaults{}
+	}
+	if data.FieldConfig.Defaults.Thresholds == nil {
+		data.FieldConfig.Defaults.Thresholds = &PanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Thresholds{}
+	}
+	if data.FieldConfig.Defaults.Color == nil {
+		data.FieldConfig.Defaults.Color = &PanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Color{}
+	}
+	if data.FieldConfig.Defaults.Custom == nil {
+		data.FieldConfig.Defaults.Custom = &PanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Custom{}
+	}
 	if data.Type.IsNull() {
 		data.Type = types.StringValue(`alertgroups`)
 	}
