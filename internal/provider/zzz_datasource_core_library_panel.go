@@ -56,6 +56,7 @@ func (m CoreLibraryPanelDataSourceModel_Meta_CreatedBy) MarshalJSON() ([]byte, e
 		Name      string `json:"name"`
 		AvatarUrl string `json:"avatarUrl"`
 	}
+
 	attr_id := m.Id.ValueInt64()
 	attr_name := m.Name.ValueString()
 	attr_avatarurl := m.AvatarUrl.ValueString()
@@ -80,6 +81,7 @@ func (m CoreLibraryPanelDataSourceModel_Meta_UpdatedBy) MarshalJSON() ([]byte, e
 		Name      string `json:"name"`
 		AvatarUrl string `json:"avatarUrl"`
 	}
+
 	attr_id := m.Id.ValueInt64()
 	attr_name := m.Name.ValueString()
 	attr_avatarurl := m.AvatarUrl.ValueString()
@@ -112,6 +114,7 @@ func (m CoreLibraryPanelDataSourceModel_Meta) MarshalJSON() ([]byte, error) {
 		CreatedBy           interface{} `json:"createdBy,omitempty"`
 		UpdatedBy           interface{} `json:"updatedBy,omitempty"`
 	}
+
 	attr_foldername := m.FolderName.ValueString()
 	attr_folderuid := m.FolderUid.ValueString()
 	attr_connecteddashboards := m.ConnectedDashboards.ValueInt64()
@@ -163,6 +166,7 @@ func (m CoreLibraryPanelDataSourceModel) MarshalJSON() ([]byte, error) {
 		Model         interface{} `json:"model,omitempty"`
 		Meta          interface{} `json:"meta,omitempty"`
 	}
+
 	attr_folderuid := m.FolderUid.ValueString()
 	attr_uid := m.Uid.ValueString()
 	attr_name := m.Name.ValueString()

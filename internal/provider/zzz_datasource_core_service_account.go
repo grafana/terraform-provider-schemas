@@ -75,6 +75,7 @@ func (m CoreServiceAccountDataSourceModel) MarshalJSON() ([]byte, error) {
 		Created       *int64      `json:"created,omitempty"`
 		Updated       *int64      `json:"updated,omitempty"`
 	}
+
 	attr_id := m.Id.ValueInt64()
 	attr_orgid := m.OrgId.ValueInt64()
 	attr_name := m.Name.ValueString()

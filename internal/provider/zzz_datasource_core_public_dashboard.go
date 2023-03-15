@@ -52,6 +52,7 @@ func (m CorePublicDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 		AnnotationsEnabled   bool    `json:"annotationsEnabled"`
 		TimeSelectionEnabled bool    `json:"timeSelectionEnabled"`
 	}
+
 	attr_uid := m.Uid.ValueString()
 	attr_dashboarduid := m.DashboardUid.ValueString()
 	attr_accesstoken := m.AccessToken.ValueString()

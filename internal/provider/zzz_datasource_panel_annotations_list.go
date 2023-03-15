@@ -54,6 +54,7 @@ func (m PanelAnnotationsListDataSourceModel_Datasource) MarshalJSON() ([]byte, e
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -80,6 +81,7 @@ func (m PanelAnnotationsListDataSourceModel_GridPos) MarshalJSON() ([]byte, erro
 		Y      int64 `json:"y"`
 		Static *bool `json:"static,omitempty"`
 	}
+
 	attr_h := m.H.ValueInt64()
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
@@ -122,6 +124,7 @@ func (m PanelAnnotationsListDataSourceModel_Links) MarshalJSON() ([]byte, error)
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
 	}
+
 	attr_title := m.Title.ValueString()
 	attr_type := m.Type.ValueString()
 	attr_icon := m.Icon.ValueString()
@@ -159,6 +162,7 @@ func (m PanelAnnotationsListDataSourceModel_Transformations_Filter) MarshalJSON(
 	type jsonPanelAnnotationsListDataSourceModel_Transformations_Filter struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelAnnotationsListDataSourceModel_Transformations_Filter{
@@ -179,6 +183,7 @@ func (m PanelAnnotationsListDataSourceModel_Transformations) MarshalJSON() ([]by
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
+
 	attr_id := m.Id.ValueString()
 	attr_disabled := m.Disabled.ValueBool()
 	var attr_filter interface{}
@@ -204,6 +209,7 @@ func (m PanelAnnotationsListDataSourceModel_LibraryPanel) MarshalJSON() ([]byte,
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
+
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -240,6 +246,7 @@ func (m PanelAnnotationsListDataSourceModel_Options) MarshalJSON() ([]byte, erro
 		NavigateBefore        string   `json:"navigateBefore"`
 		NavigateAfter         string   `json:"navigateAfter"`
 	}
+
 	attr_onlyfromthisdashboard := m.OnlyFromThisDashboard.ValueBool()
 	attr_onlyintimerange := m.OnlyInTimeRange.ValueBool()
 	attr_tags := []string{}
@@ -281,6 +288,7 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds_Step
 		Color string   `json:"color"`
 		State *string  `json:"state,omitempty"`
 	}
+
 	attr_value := m.Value.ValueFloat64()
 	attr_color := m.Color.ValueString()
 	attr_state := m.State.ValueString()
@@ -303,6 +311,7 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds) Mar
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_steps := []interface{}{}
 	for _, v := range m.Steps {
@@ -328,6 +337,7 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Color) MarshalJ
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
@@ -385,6 +395,7 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults) MarshalJSON() 
 		NoValue           *string     `json:"noValue,omitempty"`
 		Custom            interface{} `json:"custom,omitempty"`
 	}
+
 	attr_displayname := m.DisplayName.ValueString()
 	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
 	attr_description := m.Description.ValueString()
@@ -436,6 +447,7 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Matcher) Marsh
 	type jsonPanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Matcher struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Matcher{
@@ -452,6 +464,7 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Properties) Ma
 	type jsonPanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Properties struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Properties{
@@ -470,6 +483,7 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Overrides) MarshalJSON()
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
+
 	var attr_matcher interface{}
 	if m.Matcher != nil {
 		attr_matcher = m.Matcher
@@ -496,6 +510,7 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig) MarshalJSON() ([]byte, 
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
+
 	var attr_defaults interface{}
 	if m.Defaults != nil {
 		attr_defaults = m.Defaults
@@ -563,6 +578,7 @@ func (m PanelAnnotationsListDataSourceModel) MarshalJSON() ([]byte, error) {
 		Options         interface{}   `json:"options,omitempty"`
 		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()

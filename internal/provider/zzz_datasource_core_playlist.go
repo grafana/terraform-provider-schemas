@@ -45,6 +45,7 @@ func (m CorePlaylistDataSourceModel_Items) MarshalJSON() ([]byte, error) {
 		Value string  `json:"value"`
 		Title *string `json:"title,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_value := m.Value.ValueString()
 	attr_title := m.Title.ValueString()
@@ -72,6 +73,7 @@ func (m CorePlaylistDataSourceModel) MarshalJSON() ([]byte, error) {
 		Interval string        `json:"interval"`
 		Items    []interface{} `json:"items,omitempty"`
 	}
+
 	attr_uid := m.Uid.ValueString()
 	attr_name := m.Name.ValueString()
 	attr_interval := m.Interval.ValueString()

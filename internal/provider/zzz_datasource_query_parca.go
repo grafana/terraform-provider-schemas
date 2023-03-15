@@ -52,6 +52,7 @@ func (m QueryParcaDataSourceModel) MarshalJSON() ([]byte, error) {
 		Key           *string `json:"key,omitempty"`
 		QueryType     *string `json:"queryType,omitempty"`
 	}
+
 	attr_labelselector := m.LabelSelector.ValueString()
 	attr_profiletypeid := m.ProfileTypeId.ValueString()
 	attr_refid := m.RefId.ValueString()

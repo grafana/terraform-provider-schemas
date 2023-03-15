@@ -54,6 +54,7 @@ func (m PanelAlertGroupsDataSourceModel_Datasource) MarshalJSON() ([]byte, error
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -80,6 +81,7 @@ func (m PanelAlertGroupsDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 		Y      int64 `json:"y"`
 		Static *bool `json:"static,omitempty"`
 	}
+
 	attr_h := m.H.ValueInt64()
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
@@ -122,6 +124,7 @@ func (m PanelAlertGroupsDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
 	}
+
 	attr_title := m.Title.ValueString()
 	attr_type := m.Type.ValueString()
 	attr_icon := m.Icon.ValueString()
@@ -159,6 +162,7 @@ func (m PanelAlertGroupsDataSourceModel_Transformations_Filter) MarshalJSON() ([
 	type jsonPanelAlertGroupsDataSourceModel_Transformations_Filter struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelAlertGroupsDataSourceModel_Transformations_Filter{
@@ -179,6 +183,7 @@ func (m PanelAlertGroupsDataSourceModel_Transformations) MarshalJSON() ([]byte, 
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
+
 	attr_id := m.Id.ValueString()
 	attr_disabled := m.Disabled.ValueBool()
 	var attr_filter interface{}
@@ -204,6 +209,7 @@ func (m PanelAlertGroupsDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, err
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
+
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -226,6 +232,7 @@ func (m PanelAlertGroupsDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 		Alertmanager string `json:"alertmanager"`
 		ExpandAll    bool   `json:"expandAll"`
 	}
+
 	attr_labels := m.Labels.ValueString()
 	attr_alertmanager := m.Alertmanager.ValueString()
 	attr_expandall := m.ExpandAll.ValueBool()
@@ -250,6 +257,7 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) M
 		Color string   `json:"color"`
 		State *string  `json:"state,omitempty"`
 	}
+
 	attr_value := m.Value.ValueFloat64()
 	attr_color := m.Color.ValueString()
 	attr_state := m.State.ValueString()
@@ -272,6 +280,7 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Thresholds) Marshal
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_steps := []interface{}{}
 	for _, v := range m.Steps {
@@ -297,6 +306,7 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON(
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
@@ -354,6 +364,7 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]b
 		NoValue           *string     `json:"noValue,omitempty"`
 		Custom            interface{} `json:"custom,omitempty"`
 	}
+
 	attr_displayname := m.DisplayName.ValueString()
 	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
 	attr_description := m.Description.ValueString()
@@ -405,6 +416,7 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJS
 	type jsonPanelAlertGroupsDataSourceModel_FieldConfig_Overrides_Matcher struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelAlertGroupsDataSourceModel_FieldConfig_Overrides_Matcher{
@@ -421,6 +433,7 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Overrides_Properties) Marsha
 	type jsonPanelAlertGroupsDataSourceModel_FieldConfig_Overrides_Properties struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelAlertGroupsDataSourceModel_FieldConfig_Overrides_Properties{
@@ -439,6 +452,7 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
+
 	var attr_matcher interface{}
 	if m.Matcher != nil {
 		attr_matcher = m.Matcher
@@ -465,6 +479,7 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig) MarshalJSON() ([]byte, erro
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
+
 	var attr_defaults interface{}
 	if m.Defaults != nil {
 		attr_defaults = m.Defaults
@@ -532,6 +547,7 @@ func (m PanelAlertGroupsDataSourceModel) MarshalJSON() ([]byte, error) {
 		Options         interface{}   `json:"options,omitempty"`
 		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()

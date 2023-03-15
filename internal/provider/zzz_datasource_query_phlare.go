@@ -54,6 +54,7 @@ func (m QueryPhlareDataSourceModel) MarshalJSON() ([]byte, error) {
 		Key           *string  `json:"key,omitempty"`
 		QueryType     *string  `json:"queryType,omitempty"`
 	}
+
 	attr_labelselector := m.LabelSelector.ValueString()
 	attr_profiletypeid := m.ProfileTypeId.ValueString()
 	attr_groupby := []string{}

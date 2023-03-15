@@ -43,6 +43,7 @@ func (m CoreDashboardDataSourceModel_Time) MarshalJSON() ([]byte, error) {
 		From string `json:"from"`
 		To   string `json:"to"`
 	}
+
 	attr_from := m.From.ValueString()
 	attr_to := m.To.ValueString()
 
@@ -69,6 +70,7 @@ func (m CoreDashboardDataSourceModel_Timepicker) MarshalJSON() ([]byte, error) {
 		RefreshIntervals []string `json:"refresh_intervals"`
 		TimeOptions      []string `json:"time_options"`
 	}
+
 	attr_collapse := m.Collapse.ValueBool()
 	attr_enable := m.Enable.ValueBool()
 	attr_hidden := m.Hidden.ValueBool()
@@ -112,6 +114,7 @@ func (m CoreDashboardDataSourceModel_Templating_List_Datasource) MarshalJSON() (
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -154,6 +157,7 @@ func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, err
 		Description  *string     `json:"description,omitempty"`
 		Datasource   interface{} `json:"datasource,omitempty"`
 	}
+
 	attr_id := m.Id.ValueString()
 	attr_type := m.Type.ValueString()
 	attr_name := m.Name.ValueString()
@@ -200,6 +204,7 @@ func (m CoreDashboardDataSourceModel_Templating) MarshalJSON() ([]byte, error) {
 	type jsonCoreDashboardDataSourceModel_Templating struct {
 		List []interface{} `json:"list,omitempty"`
 	}
+
 	attr_list := []interface{}{}
 	for _, v := range m.List {
 		attr_list = append(attr_list, v)
@@ -221,6 +226,7 @@ func (m CoreDashboardDataSourceModel_Annotations_List_Datasource) MarshalJSON() 
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -245,6 +251,7 @@ func (m CoreDashboardDataSourceModel_Annotations_List_Target) MarshalJSON() ([]b
 		Tags     []string `json:"tags"`
 		Type     string   `json:"type"`
 	}
+
 	attr_limit := m.Limit.ValueInt64()
 	attr_matchany := m.MatchAny.ValueBool()
 	attr_tags := []string{}
@@ -288,6 +295,7 @@ func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, er
 		ShowIn     int64       `json:"showIn"`
 		Target     interface{} `json:"target,omitempty"`
 	}
+
 	var attr_datasource interface{}
 	if m.Datasource != nil {
 		attr_datasource = m.Datasource
@@ -328,6 +336,7 @@ func (m CoreDashboardDataSourceModel_Annotations) MarshalJSON() ([]byte, error) 
 	type jsonCoreDashboardDataSourceModel_Annotations struct {
 		List []interface{} `json:"list,omitempty"`
 	}
+
 	attr_list := []interface{}{}
 	for _, v := range m.List {
 		attr_list = append(attr_list, v)
@@ -365,6 +374,7 @@ func (m CoreDashboardDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
 	}
+
 	attr_title := m.Title.ValueString()
 	attr_type := m.Type.ValueString()
 	attr_icon := m.Icon.ValueString()
@@ -422,6 +432,7 @@ func (m CoreDashboardDataSourceModel_Snapshot) MarshalJSON() ([]byte, error) {
 		Url         *string `json:"url,omitempty"`
 		UserId      int64   `json:"userId"`
 	}
+
 	attr_created := m.Created.ValueString()
 	attr_expires := m.Expires.ValueString()
 	attr_external := m.External.ValueBool()
@@ -503,6 +514,7 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 		Links                []interface{} `json:"links,omitempty"`
 		Snapshot             interface{}   `json:"snapshot,omitempty"`
 	}
+
 	attr_id := m.Id.ValueInt64()
 	attr_uid := m.Uid.ValueString()
 	attr_title := m.Title.ValueString()

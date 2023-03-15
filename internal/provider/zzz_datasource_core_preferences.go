@@ -41,6 +41,7 @@ func (m CorePreferencesDataSourceModel_QueryHistory) MarshalJSON() ([]byte, erro
 	type jsonCorePreferencesDataSourceModel_QueryHistory struct {
 		HomeTab *string `json:"homeTab,omitempty"`
 	}
+
 	attr_hometab := m.HomeTab.ValueString()
 
 	model := &jsonCorePreferencesDataSourceModel_QueryHistory{
@@ -68,6 +69,7 @@ func (m CorePreferencesDataSourceModel) MarshalJSON() ([]byte, error) {
 		Language         *string     `json:"language,omitempty"`
 		QueryHistory     interface{} `json:"queryHistory,omitempty"`
 	}
+
 	attr_homedashboarduid := m.HomeDashboardUID.ValueString()
 	attr_timezone := m.Timezone.ValueString()
 	attr_weekstart := m.WeekStart.ValueString()

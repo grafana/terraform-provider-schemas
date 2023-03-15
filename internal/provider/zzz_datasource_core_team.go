@@ -69,6 +69,7 @@ func (m CoreTeamDataSourceModel) MarshalJSON() ([]byte, error) {
 		Created       int64       `json:"created"`
 		Updated       int64       `json:"updated"`
 	}
+
 	attr_orgid := m.OrgId.ValueInt64()
 	attr_name := m.Name.ValueString()
 	attr_email := m.Email.ValueString()

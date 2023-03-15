@@ -62,6 +62,7 @@ func (m QueryLokiDataSourceModel) MarshalJSON() ([]byte, error) {
 		Key          *string `json:"key,omitempty"`
 		QueryType    *string `json:"queryType,omitempty"`
 	}
+
 	attr_expr := m.Expr.ValueString()
 	attr_legendformat := m.LegendFormat.ValueString()
 	attr_maxlines := m.MaxLines.ValueInt64()

@@ -51,6 +51,7 @@ func (m QueryTestDataDataSourceModel_Stream) MarshalJSON() ([]byte, error) {
 		Bands  *int64  `json:"bands,omitempty"`
 		Url    *string `json:"url,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_speed := m.Speed.ValueInt64()
 	attr_spread := m.Spread.ValueInt64()
@@ -85,6 +86,7 @@ func (m QueryTestDataDataSourceModel_PulseWave) MarshalJSON() ([]byte, error) {
 		OnValue  *float64 `json:"onValue,omitempty"`
 		OffValue *float64 `json:"offValue,omitempty"`
 	}
+
 	attr_timestep := m.TimeStep.ValueInt64()
 	attr_oncount := m.OnCount.ValueInt64()
 	attr_offcount := m.OffCount.ValueInt64()
@@ -113,6 +115,7 @@ func (m QueryTestDataDataSourceModel_Sim_Key) MarshalJSON() ([]byte, error) {
 		Tick float64 `json:"tick"`
 		Uid  *string `json:"uid,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_tick := m.Tick.ValueFloat64()
 	attr_uid := m.Uid.ValueString()
@@ -150,6 +153,7 @@ func (m QueryTestDataDataSourceModel_Sim) MarshalJSON() ([]byte, error) {
 		Stream *bool       `json:"stream,omitempty"`
 		Last   *bool       `json:"last,omitempty"`
 	}
+
 	var attr_key interface{}
 	if m.Key != nil {
 		attr_key = m.Key
@@ -184,6 +188,7 @@ func (m QueryTestDataDataSourceModel_CsvWave) MarshalJSON() ([]byte, error) {
 		ValuesCSV *string `json:"valuesCSV,omitempty"`
 		Labels    *string `json:"labels,omitempty"`
 	}
+
 	attr_timestep := m.TimeStep.ValueInt64()
 	attr_name := m.Name.ValueString()
 	attr_valuescsv := m.ValuesCSV.ValueString()
@@ -208,6 +213,7 @@ func (m QueryTestDataDataSourceModel_Nodes) MarshalJSON() ([]byte, error) {
 		Type  *string `json:"type,omitempty"`
 		Count *int64  `json:"count,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_count := m.Count.ValueInt64()
 
@@ -232,6 +238,7 @@ func (m QueryTestDataDataSourceModel_Usa) MarshalJSON() ([]byte, error) {
 		Fields []string `json:"fields,omitempty"`
 		States []string `json:"states,omitempty"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_period := m.Period.ValueString()
 	attr_fields := []string{}
@@ -305,6 +312,7 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 		Key             *string       `json:"key,omitempty"`
 		QueryType       *string       `json:"queryType,omitempty"`
 	}
+
 	attr_alias := m.Alias.ValueString()
 	attr_scenarioid := m.ScenarioId.ValueString()
 	attr_stringinput := m.StringInput.ValueString()

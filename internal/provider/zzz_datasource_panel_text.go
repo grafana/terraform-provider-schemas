@@ -54,6 +54,7 @@ func (m PanelTextDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -80,6 +81,7 @@ func (m PanelTextDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 		Y      int64 `json:"y"`
 		Static *bool `json:"static,omitempty"`
 	}
+
 	attr_h := m.H.ValueInt64()
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
@@ -122,6 +124,7 @@ func (m PanelTextDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
 	}
+
 	attr_title := m.Title.ValueString()
 	attr_type := m.Type.ValueString()
 	attr_icon := m.Icon.ValueString()
@@ -159,6 +162,7 @@ func (m PanelTextDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, 
 	type jsonPanelTextDataSourceModel_Transformations_Filter struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelTextDataSourceModel_Transformations_Filter{
@@ -179,6 +183,7 @@ func (m PanelTextDataSourceModel_Transformations) MarshalJSON() ([]byte, error) 
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
+
 	attr_id := m.Id.ValueString()
 	attr_disabled := m.Disabled.ValueBool()
 	var attr_filter interface{}
@@ -204,6 +209,7 @@ func (m PanelTextDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
+
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -226,6 +232,7 @@ func (m PanelTextDataSourceModel_Options_Code) MarshalJSON() ([]byte, error) {
 		ShowLineNumbers bool   `json:"showLineNumbers"`
 		ShowMiniMap     bool   `json:"showMiniMap"`
 	}
+
 	attr_language := m.Language.ValueString()
 	attr_showlinenumbers := m.ShowLineNumbers.ValueBool()
 	attr_showminimap := m.ShowMiniMap.ValueBool()
@@ -250,6 +257,7 @@ func (m PanelTextDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 		Code    interface{} `json:"code,omitempty"`
 		Content string      `json:"content"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	var attr_code interface{}
 	if m.Code != nil {
@@ -277,6 +285,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJ
 		Color string   `json:"color"`
 		State *string  `json:"state,omitempty"`
 	}
+
 	attr_value := m.Value.ValueFloat64()
 	attr_color := m.Color.ValueString()
 	attr_state := m.State.ValueString()
@@ -299,6 +308,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() 
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_steps := []interface{}{}
 	for _, v := range m.Steps {
@@ -324,6 +334,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]by
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
@@ -348,6 +359,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJS
 		Legend  bool `json:"legend"`
 		Viz     bool `json:"viz"`
 	}
+
 	attr_tooltip := m.Tooltip.ValueBool()
 	attr_legend := m.Legend.ValueBool()
 	attr_viz := m.Viz.ValueBool()
@@ -372,6 +384,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]b
 		HideFrom    interface{} `json:"hideFrom,omitempty"`
 		FillOpacity *int64      `json:"fillOpacity,omitempty"`
 	}
+
 	attr_linewidth := m.LineWidth.ValueInt64()
 	var attr_hidefrom interface{}
 	if m.HideFrom != nil {
@@ -421,6 +434,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, er
 		NoValue           *string     `json:"noValue,omitempty"`
 		Custom            interface{} `json:"custom,omitempty"`
 	}
+
 	attr_displayname := m.DisplayName.ValueString()
 	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
 	attr_description := m.Description.ValueString()
@@ -472,6 +486,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([
 	type jsonPanelTextDataSourceModel_FieldConfig_Overrides_Matcher struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelTextDataSourceModel_FieldConfig_Overrides_Matcher{
@@ -488,6 +503,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON()
 	type jsonPanelTextDataSourceModel_FieldConfig_Overrides_Properties struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelTextDataSourceModel_FieldConfig_Overrides_Properties{
@@ -506,6 +522,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, e
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
+
 	var attr_matcher interface{}
 	if m.Matcher != nil {
 		attr_matcher = m.Matcher
@@ -532,6 +549,7 @@ func (m PanelTextDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
+
 	var attr_defaults interface{}
 	if m.Defaults != nil {
 		attr_defaults = m.Defaults
@@ -599,6 +617,7 @@ func (m PanelTextDataSourceModel) MarshalJSON() ([]byte, error) {
 		Options         interface{}   `json:"options,omitempty"`
 		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()

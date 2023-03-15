@@ -54,6 +54,7 @@ func (m PanelPieChartDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -80,6 +81,7 @@ func (m PanelPieChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 		Y      int64 `json:"y"`
 		Static *bool `json:"static,omitempty"`
 	}
+
 	attr_h := m.H.ValueInt64()
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
@@ -122,6 +124,7 @@ func (m PanelPieChartDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
 	}
+
 	attr_title := m.Title.ValueString()
 	attr_type := m.Type.ValueString()
 	attr_icon := m.Icon.ValueString()
@@ -159,6 +162,7 @@ func (m PanelPieChartDataSourceModel_Transformations_Filter) MarshalJSON() ([]by
 	type jsonPanelPieChartDataSourceModel_Transformations_Filter struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelPieChartDataSourceModel_Transformations_Filter{
@@ -179,6 +183,7 @@ func (m PanelPieChartDataSourceModel_Transformations) MarshalJSON() ([]byte, err
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
+
 	attr_id := m.Id.ValueString()
 	attr_disabled := m.Disabled.ValueBool()
 	var attr_filter interface{}
@@ -204,6 +209,7 @@ func (m PanelPieChartDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error)
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
+
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -224,6 +230,7 @@ func (m PanelPieChartDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, err
 		Mode string `json:"mode"`
 		Sort string `json:"sort"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_sort := m.Sort.ValueString()
 
@@ -248,6 +255,7 @@ func (m PanelPieChartDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byt
 		Calcs  []string `json:"calcs"`
 		Fields *string  `json:"fields,omitempty"`
 	}
+
 	attr_values := m.Values.ValueBool()
 	attr_limit := m.Limit.ValueFloat64()
 	attr_calcs := []string{}
@@ -275,6 +283,7 @@ func (m PanelPieChartDataSourceModel_Options_Text) MarshalJSON() ([]byte, error)
 		TitleSize *float64 `json:"titleSize,omitempty"`
 		ValueSize *float64 `json:"valueSize,omitempty"`
 	}
+
 	attr_titlesize := m.TitleSize.ValueFloat64()
 	attr_valuesize := m.ValueSize.ValueFloat64()
 
@@ -311,6 +320,7 @@ func (m PanelPieChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, erro
 		Width       *float64 `json:"width,omitempty"`
 		Calcs       []string `json:"calcs"`
 	}
+
 	attr_values := []string{}
 	for _, v := range m.Values.Elements() {
 		attr_values = append(attr_values, v.(types.String).ValueString())
@@ -363,6 +373,7 @@ func (m PanelPieChartDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 		Legend        interface{} `json:"legend,omitempty"`
 		Orientation   string      `json:"orientation"`
 	}
+
 	attr_pietype := m.PieType.ValueString()
 	attr_displaylabels := []string{}
 	for _, v := range m.DisplayLabels.Elements() {
@@ -410,6 +421,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Mars
 		Color string   `json:"color"`
 		State *string  `json:"state,omitempty"`
 	}
+
 	attr_value := m.Value.ValueFloat64()
 	attr_color := m.Color.ValueString()
 	attr_state := m.State.ValueString()
@@ -432,6 +444,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSO
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_steps := []interface{}{}
 	for _, v := range m.Steps {
@@ -457,6 +470,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() (
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
@@ -481,6 +495,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) Marsh
 		Legend  bool `json:"legend"`
 		Viz     bool `json:"viz"`
 	}
+
 	attr_tooltip := m.Tooltip.ValueBool()
 	attr_legend := m.Legend.ValueBool()
 	attr_viz := m.Viz.ValueBool()
@@ -501,6 +516,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() 
 	type jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Custom struct {
 		HideFrom interface{} `json:"hideFrom,omitempty"`
 	}
+
 	var attr_hidefrom interface{}
 	if m.HideFrom != nil {
 		attr_hidefrom = m.HideFrom
@@ -546,6 +562,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte
 		NoValue           *string     `json:"noValue,omitempty"`
 		Custom            interface{} `json:"custom,omitempty"`
 	}
+
 	attr_displayname := m.DisplayName.ValueString()
 	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
 	attr_description := m.Description.ValueString()
@@ -597,6 +614,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON(
 	type jsonPanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher{
@@ -613,6 +631,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Overrides_Properties) MarshalJS
 	type jsonPanelPieChartDataSourceModel_FieldConfig_Overrides_Properties struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Overrides_Properties{
@@ -631,6 +650,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byt
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
+
 	var attr_matcher interface{}
 	if m.Matcher != nil {
 		attr_matcher = m.Matcher
@@ -657,6 +677,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) 
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
+
 	var attr_defaults interface{}
 	if m.Defaults != nil {
 		attr_defaults = m.Defaults
@@ -724,6 +745,7 @@ func (m PanelPieChartDataSourceModel) MarshalJSON() ([]byte, error) {
 		Options         interface{}   `json:"options,omitempty"`
 		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()

@@ -54,6 +54,7 @@ func (m QueryElasticsearchDataSourceModel) MarshalJSON() ([]byte, error) {
 		Key       *string `json:"key,omitempty"`
 		QueryType *string `json:"queryType,omitempty"`
 	}
+
 	attr_alias := m.Alias.ValueString()
 	attr_query := m.Query.ValueString()
 	attr_timefield := m.TimeField.ValueString()

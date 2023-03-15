@@ -64,6 +64,7 @@ func (m QueryTempoDataSourceModel) MarshalJSON() ([]byte, error) {
 		Key             *string `json:"key,omitempty"`
 		QueryType       *string `json:"queryType,omitempty"`
 	}
+
 	attr_query := m.Query.ValueString()
 	attr_search := m.Search.ValueString()
 	attr_servicename := m.ServiceName.ValueString()

@@ -54,6 +54,7 @@ func (m PanelGaugeDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -80,6 +81,7 @@ func (m PanelGaugeDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 		Y      int64 `json:"y"`
 		Static *bool `json:"static,omitempty"`
 	}
+
 	attr_h := m.H.ValueInt64()
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
@@ -122,6 +124,7 @@ func (m PanelGaugeDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
 	}
+
 	attr_title := m.Title.ValueString()
 	attr_type := m.Type.ValueString()
 	attr_icon := m.Icon.ValueString()
@@ -159,6 +162,7 @@ func (m PanelGaugeDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte,
 	type jsonPanelGaugeDataSourceModel_Transformations_Filter struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelGaugeDataSourceModel_Transformations_Filter{
@@ -179,6 +183,7 @@ func (m PanelGaugeDataSourceModel_Transformations) MarshalJSON() ([]byte, error)
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
+
 	attr_id := m.Id.ValueString()
 	attr_disabled := m.Disabled.ValueBool()
 	var attr_filter interface{}
@@ -204,6 +209,7 @@ func (m PanelGaugeDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
+
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -228,6 +234,7 @@ func (m PanelGaugeDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byte, 
 		Calcs  []string `json:"calcs"`
 		Fields *string  `json:"fields,omitempty"`
 	}
+
 	attr_values := m.Values.ValueBool()
 	attr_limit := m.Limit.ValueFloat64()
 	attr_calcs := []string{}
@@ -255,6 +262,7 @@ func (m PanelGaugeDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
 		TitleSize *float64 `json:"titleSize,omitempty"`
 		ValueSize *float64 `json:"valueSize,omitempty"`
 	}
+
 	attr_titlesize := m.TitleSize.ValueFloat64()
 	attr_valuesize := m.ValueSize.ValueFloat64()
 
@@ -281,6 +289,7 @@ func (m PanelGaugeDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 		ShowThresholdMarkers bool        `json:"showThresholdMarkers"`
 		Orientation          string      `json:"orientation"`
 	}
+
 	attr_showthresholdlabels := m.ShowThresholdLabels.ValueBool()
 	var attr_reduceoptions interface{}
 	if m.ReduceOptions != nil {
@@ -315,6 +324,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Marshal
 		Color string   `json:"color"`
 		State *string  `json:"state,omitempty"`
 	}
+
 	attr_value := m.Value.ValueFloat64()
 	attr_color := m.Color.ValueString()
 	attr_state := m.State.ValueString()
@@ -337,6 +347,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON()
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_steps := []interface{}{}
 	for _, v := range m.Steps {
@@ -362,6 +373,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]b
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
@@ -386,6 +398,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution)
 		Log             *float64 `json:"log,omitempty"`
 		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_log := m.Log.ValueFloat64()
 	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
@@ -410,6 +423,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJ
 		Legend  bool `json:"legend"`
 		Viz     bool `json:"viz"`
 	}
+
 	attr_tooltip := m.Tooltip.ValueBool()
 	attr_legend := m.Legend.ValueBool()
 	attr_viz := m.Viz.ValueBool()
@@ -430,6 +444,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) M
 	type jsonPanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
 		Mode string `json:"mode"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 
 	model := &jsonPanelGaugeDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
@@ -472,6 +487,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]
 		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
 		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
 	}
+
 	attr_linewidth := m.LineWidth.ValueInt64()
 	attr_fillopacity := m.FillOpacity.ValueInt64()
 	attr_gradientmode := m.GradientMode.ValueString()
@@ -549,6 +565,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, e
 		NoValue           *string     `json:"noValue,omitempty"`
 		Custom            interface{} `json:"custom,omitempty"`
 	}
+
 	attr_displayname := m.DisplayName.ValueString()
 	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
 	attr_description := m.Description.ValueString()
@@ -600,6 +617,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() (
 	type jsonPanelGaugeDataSourceModel_FieldConfig_Overrides_Matcher struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelGaugeDataSourceModel_FieldConfig_Overrides_Matcher{
@@ -616,6 +634,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON(
 	type jsonPanelGaugeDataSourceModel_FieldConfig_Overrides_Properties struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelGaugeDataSourceModel_FieldConfig_Overrides_Properties{
@@ -634,6 +653,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, 
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
+
 	var attr_matcher interface{}
 	if m.Matcher != nil {
 		attr_matcher = m.Matcher
@@ -660,6 +680,7 @@ func (m PanelGaugeDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
+
 	var attr_defaults interface{}
 	if m.Defaults != nil {
 		attr_defaults = m.Defaults
@@ -727,6 +748,7 @@ func (m PanelGaugeDataSourceModel) MarshalJSON() ([]byte, error) {
 		Options         interface{}   `json:"options,omitempty"`
 		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()

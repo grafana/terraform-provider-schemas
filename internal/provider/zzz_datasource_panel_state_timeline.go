@@ -54,6 +54,7 @@ func (m PanelStateTimelineDataSourceModel_Datasource) MarshalJSON() ([]byte, err
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -80,6 +81,7 @@ func (m PanelStateTimelineDataSourceModel_GridPos) MarshalJSON() ([]byte, error)
 		Y      int64 `json:"y"`
 		Static *bool `json:"static,omitempty"`
 	}
+
 	attr_h := m.H.ValueInt64()
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
@@ -122,6 +124,7 @@ func (m PanelStateTimelineDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
 	}
+
 	attr_title := m.Title.ValueString()
 	attr_type := m.Type.ValueString()
 	attr_icon := m.Icon.ValueString()
@@ -159,6 +162,7 @@ func (m PanelStateTimelineDataSourceModel_Transformations_Filter) MarshalJSON() 
 	type jsonPanelStateTimelineDataSourceModel_Transformations_Filter struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelStateTimelineDataSourceModel_Transformations_Filter{
@@ -179,6 +183,7 @@ func (m PanelStateTimelineDataSourceModel_Transformations) MarshalJSON() ([]byte
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
+
 	attr_id := m.Id.ValueString()
 	attr_disabled := m.Disabled.ValueBool()
 	var attr_filter interface{}
@@ -204,6 +209,7 @@ func (m PanelStateTimelineDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, e
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
+
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -238,6 +244,7 @@ func (m PanelStateTimelineDataSourceModel_Options_Legend) MarshalJSON() ([]byte,
 		Width       *float64 `json:"width,omitempty"`
 		Calcs       []string `json:"calcs"`
 	}
+
 	attr_displaymode := m.DisplayMode.ValueString()
 	attr_placement := m.Placement.ValueString()
 	attr_showlegend := m.ShowLegend.ValueBool()
@@ -275,6 +282,7 @@ func (m PanelStateTimelineDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte
 		Mode string `json:"mode"`
 		Sort string `json:"sort"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_sort := m.Sort.ValueString()
 
@@ -305,6 +313,7 @@ func (m PanelStateTimelineDataSourceModel_Options) MarshalJSON() ([]byte, error)
 		Timezone    []string    `json:"timezone,omitempty"`
 		AlignValue  *string     `json:"alignValue,omitempty"`
 	}
+
 	attr_showvalue := m.ShowValue.ValueString()
 	attr_rowheight := m.RowHeight.ValueFloat64()
 	attr_mergevalues := m.MergeValues.ValueBool()
@@ -346,6 +355,7 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Thresholds_Steps)
 		Color string   `json:"color"`
 		State *string  `json:"state,omitempty"`
 	}
+
 	attr_value := m.Value.ValueFloat64()
 	attr_color := m.Color.ValueString()
 	attr_state := m.State.ValueString()
@@ -368,6 +378,7 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Thresholds) Marsh
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_steps := []interface{}{}
 	for _, v := range m.Steps {
@@ -393,6 +404,7 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Color) MarshalJSO
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
@@ -417,6 +429,7 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) 
 		Legend  bool `json:"legend"`
 		Viz     bool `json:"viz"`
 	}
+
 	attr_tooltip := m.Tooltip.ValueBool()
 	attr_legend := m.Legend.ValueBool()
 	attr_viz := m.Viz.ValueBool()
@@ -441,6 +454,7 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom) MarshalJS
 		HideFrom    interface{} `json:"hideFrom,omitempty"`
 		FillOpacity *int64      `json:"fillOpacity,omitempty"`
 	}
+
 	attr_linewidth := m.LineWidth.ValueInt64()
 	var attr_hidefrom interface{}
 	if m.HideFrom != nil {
@@ -490,6 +504,7 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([
 		NoValue           *string     `json:"noValue,omitempty"`
 		Custom            interface{} `json:"custom,omitempty"`
 	}
+
 	attr_displayname := m.DisplayName.ValueString()
 	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
 	attr_description := m.Description.ValueString()
@@ -541,6 +556,7 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig_Overrides_Matcher) Marshal
 	type jsonPanelStateTimelineDataSourceModel_FieldConfig_Overrides_Matcher struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelStateTimelineDataSourceModel_FieldConfig_Overrides_Matcher{
@@ -557,6 +573,7 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig_Overrides_Properties) Mars
 	type jsonPanelStateTimelineDataSourceModel_FieldConfig_Overrides_Properties struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelStateTimelineDataSourceModel_FieldConfig_Overrides_Properties{
@@ -575,6 +592,7 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig_Overrides) MarshalJSON() (
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
+
 	var attr_matcher interface{}
 	if m.Matcher != nil {
 		attr_matcher = m.Matcher
@@ -601,6 +619,7 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig) MarshalJSON() ([]byte, er
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
+
 	var attr_defaults interface{}
 	if m.Defaults != nil {
 		attr_defaults = m.Defaults
@@ -668,6 +687,7 @@ func (m PanelStateTimelineDataSourceModel) MarshalJSON() ([]byte, error) {
 		Options         interface{}   `json:"options,omitempty"`
 		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()

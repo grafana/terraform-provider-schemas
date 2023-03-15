@@ -54,6 +54,7 @@ func (m PanelXYChartDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -80,6 +81,7 @@ func (m PanelXYChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 		Y      int64 `json:"y"`
 		Static *bool `json:"static,omitempty"`
 	}
+
 	attr_h := m.H.ValueInt64()
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
@@ -122,6 +124,7 @@ func (m PanelXYChartDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
 	}
+
 	attr_title := m.Title.ValueString()
 	attr_type := m.Type.ValueString()
 	attr_icon := m.Icon.ValueString()
@@ -159,6 +162,7 @@ func (m PanelXYChartDataSourceModel_Transformations_Filter) MarshalJSON() ([]byt
 	type jsonPanelXYChartDataSourceModel_Transformations_Filter struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelXYChartDataSourceModel_Transformations_Filter{
@@ -179,6 +183,7 @@ func (m PanelXYChartDataSourceModel_Transformations) MarshalJSON() ([]byte, erro
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
+
 	attr_id := m.Id.ValueString()
 	attr_disabled := m.Disabled.ValueBool()
 	var attr_filter interface{}
@@ -204,6 +209,7 @@ func (m PanelXYChartDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) 
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
+
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -226,6 +232,7 @@ func (m PanelXYChartDataSourceModel_Options_Dims) MarshalJSON() ([]byte, error) 
 		X       *string  `json:"x,omitempty"`
 		Exclude []string `json:"exclude,omitempty"`
 	}
+
 	attr_frame := m.Frame.ValueInt64()
 	attr_x := m.X.ValueString()
 	attr_exclude := []string{}
@@ -265,6 +272,7 @@ func (m PanelXYChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error
 		Width       *float64 `json:"width,omitempty"`
 		Calcs       []string `json:"calcs"`
 	}
+
 	attr_displaymode := m.DisplayMode.ValueString()
 	attr_placement := m.Placement.ValueString()
 	attr_showlegend := m.ShowLegend.ValueBool()
@@ -302,6 +310,7 @@ func (m PanelXYChartDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, erro
 		Mode string `json:"mode"`
 		Sort string `json:"sort"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_sort := m.Sort.ValueString()
 
@@ -324,6 +333,7 @@ func (m PanelXYChartDataSourceModel_Options_Series_PointSize) MarshalJSON() ([]b
 		Field *string `json:"field,omitempty"`
 		Max   int64   `json:"max"`
 	}
+
 	attr_min := m.Min.ValueInt64()
 	attr_field := m.Field.ValueString()
 	attr_max := m.Max.ValueInt64()
@@ -344,6 +354,7 @@ func (m PanelXYChartDataSourceModel_Options_Series_LineColor) MarshalJSON() ([]b
 	type jsonPanelXYChartDataSourceModel_Options_Series_LineColor struct {
 		Field *string `json:"field,omitempty"`
 	}
+
 	attr_field := m.Field.ValueString()
 
 	model := &jsonPanelXYChartDataSourceModel_Options_Series_LineColor{
@@ -360,6 +371,7 @@ func (m PanelXYChartDataSourceModel_Options_Series_PointColor) MarshalJSON() ([]
 	type jsonPanelXYChartDataSourceModel_Options_Series_PointColor struct {
 		Field *string `json:"field,omitempty"`
 	}
+
 	attr_field := m.Field.ValueString()
 
 	model := &jsonPanelXYChartDataSourceModel_Options_Series_PointColor{
@@ -378,6 +390,7 @@ func (m PanelXYChartDataSourceModel_Options_Series_LabelValue) MarshalJSON() ([]
 		Mode  string  `json:"mode"`
 		Field *string `json:"field,omitempty"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_field := m.Field.ValueString()
 
@@ -398,6 +411,7 @@ func (m PanelXYChartDataSourceModel_Options_Series_LineStyle) MarshalJSON() ([]b
 		Fill *string   `json:"fill,omitempty"`
 		Dash []float64 `json:"dash,omitempty"`
 	}
+
 	attr_fill := m.Fill.ValueString()
 	attr_dash := []float64{}
 	for _, v := range m.Dash.Elements() {
@@ -423,6 +437,7 @@ func (m PanelXYChartDataSourceModel_Options_Series_HideFrom) MarshalJSON() ([]by
 		Legend  bool `json:"legend"`
 		Viz     bool `json:"viz"`
 	}
+
 	attr_tooltip := m.Tooltip.ValueBool()
 	attr_legend := m.Legend.ValueBool()
 	attr_viz := m.Viz.ValueBool()
@@ -447,6 +462,7 @@ func (m PanelXYChartDataSourceModel_Options_Series_ScaleDistribution) MarshalJSO
 		Log             *float64 `json:"log,omitempty"`
 		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_log := m.Log.ValueFloat64()
 	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
@@ -507,6 +523,7 @@ func (m PanelXYChartDataSourceModel_Options_Series) MarshalJSON() ([]byte, error
 		Label             *string     `json:"label,omitempty"`
 		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
 	}
+
 	attr_x := m.X.ValueString()
 	attr_y := m.Y.ValueString()
 	attr_show := m.Show.ValueString()
@@ -592,6 +609,7 @@ func (m PanelXYChartDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 		Tooltip       interface{}   `json:"tooltip,omitempty"`
 		Series        []interface{} `json:"series"`
 	}
+
 	attr_seriesmapping := m.SeriesMapping.ValueString()
 	var attr_dims interface{}
 	if m.Dims != nil {
@@ -632,6 +650,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Marsh
 		Color string   `json:"color"`
 		State *string  `json:"state,omitempty"`
 	}
+
 	attr_value := m.Value.ValueFloat64()
 	attr_color := m.Color.ValueString()
 	attr_state := m.State.ValueString()
@@ -654,6 +673,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_steps := []interface{}{}
 	for _, v := range m.Steps {
@@ -679,6 +699,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
 	}
+
 	attr_mode := m.Mode.ValueString()
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
@@ -703,6 +724,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) Marsha
 		Legend  bool `json:"legend"`
 		Viz     bool `json:"viz"`
 	}
+
 	attr_tooltip := m.Tooltip.ValueBool()
 	attr_legend := m.Legend.ValueBool()
 	attr_viz := m.Viz.ValueBool()
@@ -727,6 +749,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() (
 		HideFrom    interface{} `json:"hideFrom,omitempty"`
 		FillOpacity *int64      `json:"fillOpacity,omitempty"`
 	}
+
 	attr_linewidth := m.LineWidth.ValueInt64()
 	var attr_hidefrom interface{}
 	if m.HideFrom != nil {
@@ -776,6 +799,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte,
 		NoValue           *string     `json:"noValue,omitempty"`
 		Custom            interface{} `json:"custom,omitempty"`
 	}
+
 	attr_displayname := m.DisplayName.ValueString()
 	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
 	attr_description := m.Description.ValueString()
@@ -827,6 +851,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON()
 	type jsonPanelXYChartDataSourceModel_FieldConfig_Overrides_Matcher struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Overrides_Matcher{
@@ -843,6 +868,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSO
 	type jsonPanelXYChartDataSourceModel_FieldConfig_Overrides_Properties struct {
 		Id string `json:"id"`
 	}
+
 	attr_id := m.Id.ValueString()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Overrides_Properties{
@@ -861,6 +887,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties"`
 	}
+
 	var attr_matcher interface{}
 	if m.Matcher != nil {
 		attr_matcher = m.Matcher
@@ -887,6 +914,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides"`
 	}
+
 	var attr_defaults interface{}
 	if m.Defaults != nil {
 		attr_defaults = m.Defaults
@@ -954,6 +982,7 @@ func (m PanelXYChartDataSourceModel) MarshalJSON() ([]byte, error) {
 		Options         interface{}   `json:"options,omitempty"`
 		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
+
 	attr_type := m.Type.ValueString()
 	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()
