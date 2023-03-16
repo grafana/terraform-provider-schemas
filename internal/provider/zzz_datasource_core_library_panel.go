@@ -140,11 +140,11 @@ func (m CoreLibraryPanelDataSourceModel_Meta) MarshalJSON() ([]byte, error) {
 	attr_updated := m.Updated.ValueString()
 	var attr_createdby interface{}
 	if m.CreatedBy != nil {
-		attr_createdby = m.CreatedBy.ApplyDefaults()
+		attr_createdby = m.CreatedBy
 	}
 	var attr_updatedby interface{}
 	if m.UpdatedBy != nil {
-		attr_updatedby = m.UpdatedBy.ApplyDefaults()
+		attr_updatedby = m.UpdatedBy
 	}
 
 	model := &jsonCoreLibraryPanelDataSourceModel_Meta{
@@ -200,11 +200,11 @@ func (m CoreLibraryPanelDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_version := m.Version.ValueInt64()
 	var attr_model interface{}
 	if m.Model != nil {
-		attr_model = m.Model.ApplyDefaults()
+		attr_model = m.Model
 	}
 	var attr_meta interface{}
 	if m.Meta != nil {
-		attr_meta = m.Meta.ApplyDefaults()
+		attr_meta = m.Meta
 	}
 
 	model := &jsonCoreLibraryPanelDataSourceModel{

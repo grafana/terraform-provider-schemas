@@ -218,12 +218,12 @@ func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, err
 	attr_state := m.State.ValueString()
 	var attr_error interface{}
 	if m.Error != nil {
-		attr_error = m.Error.ApplyDefaults()
+		attr_error = m.Error
 	}
 	attr_description := m.Description.ValueString()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
-		attr_datasource = m.Datasource.ApplyDefaults()
+		attr_datasource = m.Datasource
 	}
 
 	model := &jsonCoreDashboardDataSourceModel_Templating_List{
@@ -268,7 +268,6 @@ func (m CoreDashboardDataSourceModel_Templating) MarshalJSON() ([]byte, error) {
 	m = m.ApplyDefaults()
 	attr_list := []interface{}{}
 	for _, v := range m.List {
-		v := v.ApplyDefaults()
 		attr_list = append(attr_list, v)
 	}
 
@@ -380,7 +379,7 @@ func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, er
 	m = m.ApplyDefaults()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
-		attr_datasource = m.Datasource.ApplyDefaults()
+		attr_datasource = m.Datasource
 	}
 	attr_enable := m.Enable.ValueBool()
 	attr_name := m.Name.ValueString()
@@ -392,7 +391,7 @@ func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, er
 	attr_showin := m.ShowIn.ValueInt64()
 	var attr_target interface{}
 	if m.Target != nil {
-		attr_target = m.Target.ApplyDefaults()
+		attr_target = m.Target
 	}
 
 	model := &jsonCoreDashboardDataSourceModel_Annotations_List{
@@ -441,7 +440,6 @@ func (m CoreDashboardDataSourceModel_Annotations) MarshalJSON() ([]byte, error) 
 	m = m.ApplyDefaults()
 	attr_list := []interface{}{}
 	for _, v := range m.List {
-		v := v.ApplyDefaults()
 		attr_list = append(attr_list, v)
 	}
 
@@ -659,11 +657,11 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_graphtooltip := m.GraphTooltip.ValueInt64()
 	var attr_time interface{}
 	if m.Time != nil {
-		attr_time = m.Time.ApplyDefaults()
+		attr_time = m.Time
 	}
 	var attr_timepicker interface{}
 	if m.Timepicker != nil {
-		attr_timepicker = m.Timepicker.ApplyDefaults()
+		attr_timepicker = m.Timepicker
 	}
 	attr_fiscalyearstartmonth := m.FiscalYearStartMonth.ValueInt64()
 	attr_livenow := m.LiveNow.ValueBool()
@@ -676,20 +674,19 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 	}
 	var attr_templating interface{}
 	if m.Templating != nil {
-		attr_templating = m.Templating.ApplyDefaults()
+		attr_templating = m.Templating
 	}
 	var attr_annotations interface{}
 	if m.Annotations != nil {
-		attr_annotations = m.Annotations.ApplyDefaults()
+		attr_annotations = m.Annotations
 	}
 	attr_links := []interface{}{}
 	for _, v := range m.Links {
-		v := v.ApplyDefaults()
 		attr_links = append(attr_links, v)
 	}
 	var attr_snapshot interface{}
 	if m.Snapshot != nil {
-		attr_snapshot = m.Snapshot.ApplyDefaults()
+		attr_snapshot = m.Snapshot
 	}
 
 	model := &jsonCoreDashboardDataSourceModel{

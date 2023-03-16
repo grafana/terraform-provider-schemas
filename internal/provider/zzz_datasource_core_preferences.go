@@ -90,7 +90,7 @@ func (m CorePreferencesDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_language := m.Language.ValueString()
 	var attr_queryhistory interface{}
 	if m.QueryHistory != nil {
-		attr_queryhistory = m.QueryHistory.ApplyDefaults()
+		attr_queryhistory = m.QueryHistory
 	}
 
 	model := &jsonCorePreferencesDataSourceModel{

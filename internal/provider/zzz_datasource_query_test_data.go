@@ -188,11 +188,11 @@ func (m QueryTestDataDataSourceModel_Sim) MarshalJSON() ([]byte, error) {
 	m = m.ApplyDefaults()
 	var attr_key interface{}
 	if m.Key != nil {
-		attr_key = m.Key.ApplyDefaults()
+		attr_key = m.Key
 	}
 	var attr_config interface{}
 	if m.Config != nil {
-		attr_config = m.Config.ApplyDefaults()
+		attr_config = m.Config
 	}
 	attr_stream := m.Stream.ValueBool()
 	attr_last := m.Last.ValueBool()
@@ -379,19 +379,18 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_stringinput := m.StringInput.ValueString()
 	var attr_stream interface{}
 	if m.Stream != nil {
-		attr_stream = m.Stream.ApplyDefaults()
+		attr_stream = m.Stream
 	}
 	var attr_pulsewave interface{}
 	if m.PulseWave != nil {
-		attr_pulsewave = m.PulseWave.ApplyDefaults()
+		attr_pulsewave = m.PulseWave
 	}
 	var attr_sim interface{}
 	if m.Sim != nil {
-		attr_sim = m.Sim.ApplyDefaults()
+		attr_sim = m.Sim
 	}
 	attr_csvwave := []interface{}{}
 	for _, v := range m.CsvWave {
-		v := v.ApplyDefaults()
 		attr_csvwave = append(attr_csvwave, v)
 	}
 	attr_labels := m.Labels.ValueString()
@@ -400,7 +399,7 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_channel := m.Channel.ValueString()
 	var attr_nodes interface{}
 	if m.Nodes != nil {
-		attr_nodes = m.Nodes.ApplyDefaults()
+		attr_nodes = m.Nodes
 	}
 	attr_csvfilename := m.CsvFileName.ValueString()
 	attr_csvcontent := m.CsvContent.ValueString()
@@ -408,7 +407,7 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_seriescount := m.SeriesCount.ValueInt64()
 	var attr_usa interface{}
 	if m.Usa != nil {
-		attr_usa = m.Usa.ApplyDefaults()
+		attr_usa = m.Usa
 	}
 	attr_errortype := m.ErrorType.ValueString()
 	attr_spancount := m.SpanCount.ValueInt64()

@@ -92,7 +92,6 @@ func (m CorePlaylistDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_interval := m.Interval.ValueString()
 	attr_items := []interface{}{}
 	for _, v := range m.Items {
-		v := v.ApplyDefaults()
 		attr_items = append(attr_items, v)
 	}
 

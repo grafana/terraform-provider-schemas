@@ -35,7 +35,6 @@ data "schemas_panel_text" "test" {
     w = 24
   }
 
-
   title = "test title"
 }
 
@@ -43,7 +42,6 @@ data "schemas_core_dashboard" "example" {
   uid    = "test"
   title  = "test"
   panels = [data.schemas_panel_text.test.to_json]
-
 }
 
 resource "local_file" "foo" {

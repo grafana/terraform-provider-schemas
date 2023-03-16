@@ -97,7 +97,7 @@ func (m CoreServiceAccountDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_avatarurl := m.AvatarUrl.ValueString()
 	var attr_accesscontrol interface{}
 	if m.AccessControl != nil {
-		attr_accesscontrol = m.AccessControl.ApplyDefaults()
+		attr_accesscontrol = m.AccessControl
 	}
 	attr_teams := []string{}
 	for _, v := range m.Teams.Elements() {

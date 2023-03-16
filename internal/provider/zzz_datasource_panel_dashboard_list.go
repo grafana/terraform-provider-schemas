@@ -243,7 +243,7 @@ func (m PanelDashboardListDataSourceModel_Transformations) MarshalJSON() ([]byte
 	attr_disabled := m.Disabled.ValueBool()
 	var attr_filter interface{}
 	if m.Filter != nil {
-		attr_filter = m.Filter.ApplyDefaults()
+		attr_filter = m.Filter
 	}
 
 	model := &jsonPanelDashboardListDataSourceModel_Transformations{
@@ -412,7 +412,6 @@ func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults_Thresholds) Marsh
 	attr_mode := m.Mode.ValueString()
 	attr_steps := []interface{}{}
 	for _, v := range m.Steps {
-		v := v.ApplyDefaults()
 		attr_steps = append(attr_steps, v)
 	}
 
@@ -592,15 +591,15 @@ func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom) MarshalJS
 	attr_axisgridshow := m.AxisGridShow.ValueBool()
 	var attr_scaledistribution interface{}
 	if m.ScaleDistribution != nil {
-		attr_scaledistribution = m.ScaleDistribution.ApplyDefaults()
+		attr_scaledistribution = m.ScaleDistribution
 	}
 	var attr_hidefrom interface{}
 	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom.ApplyDefaults()
+		attr_hidefrom = m.HideFrom
 	}
 	var attr_thresholdsstyle interface{}
 	if m.ThresholdsStyle != nil {
-		attr_thresholdsstyle = m.ThresholdsStyle.ApplyDefaults()
+		attr_thresholdsstyle = m.ThresholdsStyle
 	}
 	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
 
@@ -684,16 +683,16 @@ func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([
 	attr_max := m.Max.ValueFloat64()
 	var attr_thresholds interface{}
 	if m.Thresholds != nil {
-		attr_thresholds = m.Thresholds.ApplyDefaults()
+		attr_thresholds = m.Thresholds
 	}
 	var attr_color interface{}
 	if m.Color != nil {
-		attr_color = m.Color.ApplyDefaults()
+		attr_color = m.Color
 	}
 	attr_novalue := m.NoValue.ValueString()
 	var attr_custom interface{}
 	if m.Custom != nil {
-		attr_custom = m.Custom.ApplyDefaults()
+		attr_custom = m.Custom
 	}
 
 	model := &jsonPanelDashboardListDataSourceModel_FieldConfig_Defaults{
@@ -770,11 +769,10 @@ func (m PanelDashboardListDataSourceModel_FieldConfig_Overrides) MarshalJSON() (
 	m = m.ApplyDefaults()
 	var attr_matcher interface{}
 	if m.Matcher != nil {
-		attr_matcher = m.Matcher.ApplyDefaults()
+		attr_matcher = m.Matcher
 	}
 	attr_properties := []interface{}{}
 	for _, v := range m.Properties {
-		v := v.ApplyDefaults()
 		attr_properties = append(attr_properties, v)
 	}
 
@@ -804,11 +802,10 @@ func (m PanelDashboardListDataSourceModel_FieldConfig) MarshalJSON() ([]byte, er
 	m = m.ApplyDefaults()
 	var attr_defaults interface{}
 	if m.Defaults != nil {
-		attr_defaults = m.Defaults.ApplyDefaults()
+		attr_defaults = m.Defaults
 	}
 	attr_overrides := []interface{}{}
 	for _, v := range m.Overrides {
-		v := v.ApplyDefaults()
 		attr_overrides = append(attr_overrides, v)
 	}
 
@@ -883,7 +880,6 @@ func (m PanelDashboardListDataSourceModel) MarshalJSON() ([]byte, error) {
 	}
 	attr_targets := []interface{}{}
 	for _, v := range m.Targets {
-		v := v.ApplyDefaults()
 		attr_targets = append(attr_targets, v)
 	}
 	attr_title := m.Title.ValueString()
@@ -891,15 +887,14 @@ func (m PanelDashboardListDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
-		attr_datasource = m.Datasource.ApplyDefaults()
+		attr_datasource = m.Datasource
 	}
 	var attr_gridpos interface{}
 	if m.GridPos != nil {
-		attr_gridpos = m.GridPos.ApplyDefaults()
+		attr_gridpos = m.GridPos
 	}
 	attr_links := []interface{}{}
 	for _, v := range m.Links {
-		v := v.ApplyDefaults()
 		attr_links = append(attr_links, v)
 	}
 	attr_repeat := m.Repeat.ValueString()
@@ -908,7 +903,6 @@ func (m PanelDashboardListDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
-		v := v.ApplyDefaults()
 		attr_transformations = append(attr_transformations, v)
 	}
 	attr_interval := m.Interval.ValueString()
@@ -916,15 +910,15 @@ func (m PanelDashboardListDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_timeshift := m.TimeShift.ValueString()
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
-		attr_librarypanel = m.LibraryPanel.ApplyDefaults()
+		attr_librarypanel = m.LibraryPanel
 	}
 	var attr_options interface{}
 	if m.Options != nil {
-		attr_options = m.Options.ApplyDefaults()
+		attr_options = m.Options
 	}
 	var attr_fieldconfig interface{}
 	if m.FieldConfig != nil {
-		attr_fieldconfig = m.FieldConfig.ApplyDefaults()
+		attr_fieldconfig = m.FieldConfig
 	}
 
 	model := &jsonPanelDashboardListDataSourceModel{

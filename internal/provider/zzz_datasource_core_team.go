@@ -92,7 +92,7 @@ func (m CoreTeamDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_permission := m.Permission.ValueInt64()
 	var attr_accesscontrol interface{}
 	if m.AccessControl != nil {
-		attr_accesscontrol = m.AccessControl.ApplyDefaults()
+		attr_accesscontrol = m.AccessControl
 	}
 	attr_created := m.Created.ValueInt64()
 	attr_updated := m.Updated.ValueInt64()
