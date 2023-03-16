@@ -19,7 +19,6 @@ TODO description
 
 - `avatar_url` (String) AvatarUrl is the service account's avatar URL. It allows the frontend to display a picture in front
 of the service account.
-- `id` (Number) ID is the unique identifier of the service account in the database.
 - `is_disabled` (Boolean) IsDisabled indicates if the service account is disabled.
 - `login` (String) Login of the service account.
 - `name` (String) Name of the service account.

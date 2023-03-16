@@ -12,8 +12,6 @@ terraform {
 }
 
 data "schemas_panel_text" "test" {
-  transformations = [
-  ]
   options = {
     content = "# test content"
   }
@@ -21,7 +19,6 @@ data "schemas_panel_text" "test" {
     h = 10
     w = 24
   }
-
 
   title = "test title"
 }

@@ -14,11 +14,17 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
+
+// Ensure that the imports are used to avoid compiler errors.
+var _ attr.Value
+var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
@@ -44,6 +50,7 @@ func (m CoreDashboardDataSourceModel_Time) MarshalJSON() ([]byte, error) {
 		To   string `json:"to"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_from := m.From.ValueString()
 	attr_to := m.To.ValueString()
 
@@ -52,6 +59,16 @@ func (m CoreDashboardDataSourceModel_Time) MarshalJSON() ([]byte, error) {
 		To:   attr_to,
 	}
 	return json.Marshal(model)
+}
+
+func (m CoreDashboardDataSourceModel_Time) ApplyDefaults() CoreDashboardDataSourceModel_Time {
+	if m.From.IsNull() {
+		m.From = types.StringValue(`now-6h`)
+	}
+	if m.To.IsNull() {
+		m.To = types.StringValue(`now`)
+	}
+	return m
 }
 
 type CoreDashboardDataSourceModel_Timepicker struct {
@@ -67,10 +84,11 @@ func (m CoreDashboardDataSourceModel_Timepicker) MarshalJSON() ([]byte, error) {
 		Collapse         bool     `json:"collapse"`
 		Enable           bool     `json:"enable"`
 		Hidden           bool     `json:"hidden"`
-		RefreshIntervals []string `json:"refresh_intervals"`
-		TimeOptions      []string `json:"time_options"`
+		RefreshIntervals []string `json:"refresh_intervals,omitempty"`
+		TimeOptions      []string `json:"time_options,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_collapse := m.Collapse.ValueBool()
 	attr_enable := m.Enable.ValueBool()
 	attr_hidden := m.Hidden.ValueBool()
@@ -93,6 +111,25 @@ func (m CoreDashboardDataSourceModel_Timepicker) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+func (m CoreDashboardDataSourceModel_Timepicker) ApplyDefaults() CoreDashboardDataSourceModel_Timepicker {
+	if m.Collapse.IsNull() {
+		m.Collapse = types.BoolValue(false)
+	}
+	if m.Enable.IsNull() {
+		m.Enable = types.BoolValue(true)
+	}
+	if m.Hidden.IsNull() {
+		m.Hidden = types.BoolValue(false)
+	}
+	if len(m.RefreshIntervals.Elements()) == 0 {
+		m.RefreshIntervals, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	if len(m.TimeOptions.Elements()) == 0 {
+		m.TimeOptions, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	return m
+}
+
 type CoreDashboardDataSourceModel_Templating_List_Error struct {
 }
 
@@ -100,8 +137,15 @@ func (m CoreDashboardDataSourceModel_Templating_List_Error) MarshalJSON() ([]byt
 	type jsonCoreDashboardDataSourceModel_Templating_List_Error struct {
 	}
 
+	m = m.ApplyDefaults()
+
 	model := &jsonCoreDashboardDataSourceModel_Templating_List_Error{}
 	return json.Marshal(model)
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List_Error) ApplyDefaults() CoreDashboardDataSourceModel_Templating_List_Error {
+
+	return m
 }
 
 type CoreDashboardDataSourceModel_Templating_List_Datasource struct {
@@ -115,6 +159,7 @@ func (m CoreDashboardDataSourceModel_Templating_List_Datasource) MarshalJSON() (
 		Uid  *string `json:"uid,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -125,8 +170,12 @@ func (m CoreDashboardDataSourceModel_Templating_List_Datasource) MarshalJSON() (
 	return json.Marshal(model)
 }
 
+func (m CoreDashboardDataSourceModel_Templating_List_Datasource) ApplyDefaults() CoreDashboardDataSourceModel_Templating_List_Datasource {
+
+	return m
+}
+
 type CoreDashboardDataSourceModel_Templating_List struct {
-	Id           types.String                                             `tfsdk:"id"`
 	Type         types.String                                             `tfsdk:"type"`
 	Name         types.String                                             `tfsdk:"name"`
 	Label        types.String                                             `tfsdk:"label"`
@@ -143,7 +192,6 @@ type CoreDashboardDataSourceModel_Templating_List struct {
 
 func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, error) {
 	type jsonCoreDashboardDataSourceModel_Templating_List struct {
-		Id           string      `json:"id"`
 		Type         string      `json:"type"`
 		Name         string      `json:"name"`
 		Label        *string     `json:"label,omitempty"`
@@ -158,7 +206,7 @@ func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, err
 		Datasource   interface{} `json:"datasource,omitempty"`
 	}
 
-	attr_id := m.Id.ValueString()
+	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_name := m.Name.ValueString()
 	attr_label := m.Label.ValueString()
@@ -170,16 +218,15 @@ func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, err
 	attr_state := m.State.ValueString()
 	var attr_error interface{}
 	if m.Error != nil {
-		attr_error = m.Error
+		attr_error = m.Error.ApplyDefaults()
 	}
 	attr_description := m.Description.ValueString()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
-		attr_datasource = m.Datasource
+		attr_datasource = m.Datasource.ApplyDefaults()
 	}
 
 	model := &jsonCoreDashboardDataSourceModel_Templating_List{
-		Id:           attr_id,
 		Type:         attr_type,
 		Name:         attr_name,
 		Label:        &attr_label,
@@ -196,6 +243,19 @@ func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, err
 	return json.Marshal(model)
 }
 
+func (m CoreDashboardDataSourceModel_Templating_List) ApplyDefaults() CoreDashboardDataSourceModel_Templating_List {
+	if m.Global.IsNull() {
+		m.Global = types.BoolValue(false)
+	}
+	if m.SkipUrlSync.IsNull() {
+		m.SkipUrlSync = types.BoolValue(false)
+	}
+	if m.Index.IsNull() {
+		m.Index = types.Int64Value(-1)
+	}
+	return m
+}
+
 type CoreDashboardDataSourceModel_Templating struct {
 	List []CoreDashboardDataSourceModel_Templating_List `tfsdk:"list"`
 }
@@ -205,8 +265,10 @@ func (m CoreDashboardDataSourceModel_Templating) MarshalJSON() ([]byte, error) {
 		List []interface{} `json:"list,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_list := []interface{}{}
 	for _, v := range m.List {
+		v := v.ApplyDefaults()
 		attr_list = append(attr_list, v)
 	}
 
@@ -214,6 +276,11 @@ func (m CoreDashboardDataSourceModel_Templating) MarshalJSON() ([]byte, error) {
 		List: attr_list,
 	}
 	return json.Marshal(model)
+}
+
+func (m CoreDashboardDataSourceModel_Templating) ApplyDefaults() CoreDashboardDataSourceModel_Templating {
+
+	return m
 }
 
 type CoreDashboardDataSourceModel_Annotations_List_Datasource struct {
@@ -227,6 +294,7 @@ func (m CoreDashboardDataSourceModel_Annotations_List_Datasource) MarshalJSON() 
 		Uid  *string `json:"uid,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -235,6 +303,11 @@ func (m CoreDashboardDataSourceModel_Annotations_List_Datasource) MarshalJSON() 
 		Uid:  &attr_uid,
 	}
 	return json.Marshal(model)
+}
+
+func (m CoreDashboardDataSourceModel_Annotations_List_Datasource) ApplyDefaults() CoreDashboardDataSourceModel_Annotations_List_Datasource {
+
+	return m
 }
 
 type CoreDashboardDataSourceModel_Annotations_List_Target struct {
@@ -248,10 +321,11 @@ func (m CoreDashboardDataSourceModel_Annotations_List_Target) MarshalJSON() ([]b
 	type jsonCoreDashboardDataSourceModel_Annotations_List_Target struct {
 		Limit    int64    `json:"limit"`
 		MatchAny bool     `json:"matchAny"`
-		Tags     []string `json:"tags"`
+		Tags     []string `json:"tags,omitempty"`
 		Type     string   `json:"type"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_limit := m.Limit.ValueInt64()
 	attr_matchany := m.MatchAny.ValueBool()
 	attr_tags := []string{}
@@ -267,6 +341,13 @@ func (m CoreDashboardDataSourceModel_Annotations_List_Target) MarshalJSON() ([]b
 		Type:     attr_type,
 	}
 	return json.Marshal(model)
+}
+
+func (m CoreDashboardDataSourceModel_Annotations_List_Target) ApplyDefaults() CoreDashboardDataSourceModel_Annotations_List_Target {
+	if len(m.Tags.Elements()) == 0 {
+		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	return m
 }
 
 type CoreDashboardDataSourceModel_Annotations_List struct {
@@ -296,9 +377,10 @@ func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, er
 		Target     interface{} `json:"target,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
-		attr_datasource = m.Datasource
+		attr_datasource = m.Datasource.ApplyDefaults()
 	}
 	attr_enable := m.Enable.ValueBool()
 	attr_name := m.Name.ValueString()
@@ -310,7 +392,7 @@ func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, er
 	attr_showin := m.ShowIn.ValueInt64()
 	var attr_target interface{}
 	if m.Target != nil {
-		attr_target = m.Target
+		attr_target = m.Target.ApplyDefaults()
 	}
 
 	model := &jsonCoreDashboardDataSourceModel_Annotations_List{
@@ -328,6 +410,25 @@ func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, er
 	return json.Marshal(model)
 }
 
+func (m CoreDashboardDataSourceModel_Annotations_List) ApplyDefaults() CoreDashboardDataSourceModel_Annotations_List {
+	if m.Enable.IsNull() {
+		m.Enable = types.BoolValue(true)
+	}
+	if m.BuiltIn.IsNull() {
+		m.BuiltIn = types.Int64Value(0)
+	}
+	if m.Hide.IsNull() {
+		m.Hide = types.BoolValue(false)
+	}
+	if m.Type.IsNull() {
+		m.Type = types.StringValue(`dashboard`)
+	}
+	if m.ShowIn.IsNull() {
+		m.ShowIn = types.Int64Value(0)
+	}
+	return m
+}
+
 type CoreDashboardDataSourceModel_Annotations struct {
 	List []CoreDashboardDataSourceModel_Annotations_List `tfsdk:"list"`
 }
@@ -337,8 +438,10 @@ func (m CoreDashboardDataSourceModel_Annotations) MarshalJSON() ([]byte, error) 
 		List []interface{} `json:"list,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_list := []interface{}{}
 	for _, v := range m.List {
+		v := v.ApplyDefaults()
 		attr_list = append(attr_list, v)
 	}
 
@@ -346,6 +449,11 @@ func (m CoreDashboardDataSourceModel_Annotations) MarshalJSON() ([]byte, error) 
 		List: attr_list,
 	}
 	return json.Marshal(model)
+}
+
+func (m CoreDashboardDataSourceModel_Annotations) ApplyDefaults() CoreDashboardDataSourceModel_Annotations {
+
+	return m
 }
 
 type CoreDashboardDataSourceModel_Links struct {
@@ -368,13 +476,14 @@ func (m CoreDashboardDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 		Icon        string   `json:"icon"`
 		Tooltip     string   `json:"tooltip"`
 		Url         string   `json:"url"`
-		Tags        []string `json:"tags"`
+		Tags        []string `json:"tags,omitempty"`
 		AsDropdown  bool     `json:"asDropdown"`
 		TargetBlank bool     `json:"targetBlank"`
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_title := m.Title.ValueString()
 	attr_type := m.Type.ValueString()
 	attr_icon := m.Icon.ValueString()
@@ -404,12 +513,30 @@ func (m CoreDashboardDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+func (m CoreDashboardDataSourceModel_Links) ApplyDefaults() CoreDashboardDataSourceModel_Links {
+	if len(m.Tags.Elements()) == 0 {
+		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	if m.AsDropdown.IsNull() {
+		m.AsDropdown = types.BoolValue(false)
+	}
+	if m.TargetBlank.IsNull() {
+		m.TargetBlank = types.BoolValue(false)
+	}
+	if m.IncludeVars.IsNull() {
+		m.IncludeVars = types.BoolValue(false)
+	}
+	if m.KeepTime.IsNull() {
+		m.KeepTime = types.BoolValue(false)
+	}
+	return m
+}
+
 type CoreDashboardDataSourceModel_Snapshot struct {
 	Created     types.String `tfsdk:"created"`
 	Expires     types.String `tfsdk:"expires"`
 	External    types.Bool   `tfsdk:"external"`
 	ExternalUrl types.String `tfsdk:"external_url"`
-	Id          types.Int64  `tfsdk:"id"`
 	Key         types.String `tfsdk:"key"`
 	Name        types.String `tfsdk:"name"`
 	OrgId       types.Int64  `tfsdk:"org_id"`
@@ -424,7 +551,6 @@ func (m CoreDashboardDataSourceModel_Snapshot) MarshalJSON() ([]byte, error) {
 		Expires     string  `json:"expires"`
 		External    bool    `json:"external"`
 		ExternalUrl string  `json:"externalUrl"`
-		Id          int64   `json:"id"`
 		Key         string  `json:"key"`
 		Name        string  `json:"name"`
 		OrgId       int64   `json:"orgId"`
@@ -433,11 +559,11 @@ func (m CoreDashboardDataSourceModel_Snapshot) MarshalJSON() ([]byte, error) {
 		UserId      int64   `json:"userId"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_created := m.Created.ValueString()
 	attr_expires := m.Expires.ValueString()
 	attr_external := m.External.ValueBool()
 	attr_externalurl := m.ExternalUrl.ValueString()
-	attr_id := m.Id.ValueInt64()
 	attr_key := m.Key.ValueString()
 	attr_name := m.Name.ValueString()
 	attr_orgid := m.OrgId.ValueInt64()
@@ -450,7 +576,6 @@ func (m CoreDashboardDataSourceModel_Snapshot) MarshalJSON() ([]byte, error) {
 		Expires:     attr_expires,
 		External:    attr_external,
 		ExternalUrl: attr_externalurl,
-		Id:          attr_id,
 		Key:         attr_key,
 		Name:        attr_name,
 		OrgId:       attr_orgid,
@@ -461,9 +586,13 @@ func (m CoreDashboardDataSourceModel_Snapshot) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+func (m CoreDashboardDataSourceModel_Snapshot) ApplyDefaults() CoreDashboardDataSourceModel_Snapshot {
+
+	return m
+}
+
 type CoreDashboardDataSourceModel struct {
 	ToJSON               types.String                              `tfsdk:"to_json"`
-	Id                   types.Int64                               `tfsdk:"id"`
 	Uid                  types.String                              `tfsdk:"uid"`
 	Title                types.String                              `tfsdk:"title"`
 	Description          types.String                              `tfsdk:"description"`
@@ -490,7 +619,6 @@ type CoreDashboardDataSourceModel struct {
 
 func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonCoreDashboardDataSourceModel struct {
-		Id                   *int64        `json:"id,omitempty"`
 		Uid                  *string       `json:"uid,omitempty"`
 		Title                *string       `json:"title,omitempty"`
 		Description          *string       `json:"description,omitempty"`
@@ -515,7 +643,7 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 		Snapshot             interface{}   `json:"snapshot,omitempty"`
 	}
 
-	attr_id := m.Id.ValueInt64()
+	m = m.ApplyDefaults()
 	attr_uid := m.Uid.ValueString()
 	attr_title := m.Title.ValueString()
 	attr_description := m.Description.ValueString()
@@ -531,11 +659,11 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_graphtooltip := m.GraphTooltip.ValueInt64()
 	var attr_time interface{}
 	if m.Time != nil {
-		attr_time = m.Time
+		attr_time = m.Time.ApplyDefaults()
 	}
 	var attr_timepicker interface{}
 	if m.Timepicker != nil {
-		attr_timepicker = m.Timepicker
+		attr_timepicker = m.Timepicker.ApplyDefaults()
 	}
 	attr_fiscalyearstartmonth := m.FiscalYearStartMonth.ValueInt64()
 	attr_livenow := m.LiveNow.ValueBool()
@@ -548,23 +676,23 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 	}
 	var attr_templating interface{}
 	if m.Templating != nil {
-		attr_templating = m.Templating
+		attr_templating = m.Templating.ApplyDefaults()
 	}
 	var attr_annotations interface{}
 	if m.Annotations != nil {
-		attr_annotations = m.Annotations
+		attr_annotations = m.Annotations.ApplyDefaults()
 	}
 	attr_links := []interface{}{}
 	for _, v := range m.Links {
+		v := v.ApplyDefaults()
 		attr_links = append(attr_links, v)
 	}
 	var attr_snapshot interface{}
 	if m.Snapshot != nil {
-		attr_snapshot = m.Snapshot
+		attr_snapshot = m.Snapshot.ApplyDefaults()
 	}
 
 	model := &jsonCoreDashboardDataSourceModel{
-		Id:                   &attr_id,
 		Uid:                  &attr_uid,
 		Title:                &attr_title,
 		Description:          &attr_description,
@@ -591,6 +719,37 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+func (m CoreDashboardDataSourceModel) ApplyDefaults() CoreDashboardDataSourceModel {
+	if m.Revision.IsNull() {
+		m.Revision = types.Int64Value(-1)
+	}
+	if len(m.Tags.Elements()) == 0 {
+		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	if m.Style.IsNull() {
+		m.Style = types.StringValue(`dark`)
+	}
+	if m.Timezone.IsNull() {
+		m.Timezone = types.StringValue(`browser`)
+	}
+	if m.Editable.IsNull() {
+		m.Editable = types.BoolValue(true)
+	}
+	if m.GraphTooltip.IsNull() {
+		m.GraphTooltip = types.Int64Value(0)
+	}
+	if m.FiscalYearStartMonth.IsNull() {
+		m.FiscalYearStartMonth = types.Int64Value(0)
+	}
+	if m.SchemaVersion.IsNull() {
+		m.SchemaVersion = types.Int64Value(36)
+	}
+	if len(m.Panels.Elements()) == 0 {
+		m.Panels, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	return m
+}
+
 func (d *CoreDashboardDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_core_dashboard"
 }
@@ -600,13 +759,6 @@ func (d *CoreDashboardDataSource) Schema(ctx context.Context, req datasource.Sch
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"id": schema.Int64Attribute{
-				MarkdownDescription: `Unique numeric identifier for the dashboard.
-TODO must isolate or remove identifiers local to a Grafana instance...?`,
-				Computed: false,
-				Optional: true,
-				Required: false,
-			},
 			"uid": schema.StringAttribute{
 				MarkdownDescription: `Unique dashboard identifier that can be generated by anyone. string (8-40)`,
 				Computed:            false,
@@ -716,15 +868,15 @@ TODO this appears to be spread all over in the frontend. Concepts will likely ne
 					"refresh_intervals": schema.ListAttribute{
 						MarkdownDescription: `Selectable intervals for auto-refresh.`,
 						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Optional:            true,
+						Required:            false,
 						ElementType:         types.StringType,
 					},
 					"time_options": schema.ListAttribute{
 						MarkdownDescription: `TODO docs`,
 						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Optional:            true,
+						Required:            false,
 						ElementType:         types.StringType,
 					},
 				},
@@ -781,12 +933,6 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 						Required:            false,
 						NestedObject: schema.NestedAttributeObject{
 							Attributes: map[string]schema.Attribute{
-								"id": schema.StringAttribute{
-									MarkdownDescription: ` Defaults to "00000000-0000-0000-0000-000000000000".`,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-								},
 								"type": schema.StringAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
@@ -980,8 +1126,8 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 										"tags": schema.ListAttribute{
 											MarkdownDescription: ``,
 											Computed:            false,
-											Optional:            false,
-											Required:            true,
+											Optional:            true,
+											Required:            false,
 											ElementType:         types.StringType,
 										},
 										"type": schema.StringAttribute{
@@ -1037,8 +1183,8 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 						"tags": schema.ListAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
-							Optional:            false,
-							Required:            true,
+							Optional:            true,
+							Required:            false,
 							ElementType:         types.StringType,
 						},
 						"as_dropdown": schema.BoolAttribute{
@@ -1093,12 +1239,6 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 						Required:            true,
 					},
 					"external_url": schema.StringAttribute{
-						MarkdownDescription: `TODO docs`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-					"id": schema.Int64Attribute{
 						MarkdownDescription: `TODO docs`,
 						Computed:            false,
 						Optional:            false,
@@ -1164,7 +1304,6 @@ func (d *CoreDashboardDataSource) Read(ctx context.Context, req datasource.ReadR
 		return
 	}
 
-	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -1208,58 +1347,4 @@ func (d *CoreDashboardDataSource) Read(ctx context.Context, req datasource.ReadR
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d *CoreDashboardDataSource) applyDefaults(data *CoreDashboardDataSourceModel) {
-	if data.Time == nil {
-		data.Time = &CoreDashboardDataSourceModel_Time{}
-	}
-	if data.Timepicker == nil {
-		data.Timepicker = &CoreDashboardDataSourceModel_Timepicker{}
-	}
-	if data.Templating == nil {
-		data.Templating = &CoreDashboardDataSourceModel_Templating{}
-	}
-	if data.Annotations == nil {
-		data.Annotations = &CoreDashboardDataSourceModel_Annotations{}
-	}
-	if data.Snapshot == nil {
-		data.Snapshot = &CoreDashboardDataSourceModel_Snapshot{}
-	}
-	if data.Revision.IsNull() {
-		data.Revision = types.Int64Value(-1)
-	}
-	if data.Style.IsNull() {
-		data.Style = types.StringValue(`dark`)
-	}
-	if data.Timezone.IsNull() {
-		data.Timezone = types.StringValue(`browser`)
-	}
-	if data.Editable.IsNull() {
-		data.Editable = types.BoolValue(true)
-	}
-	if data.GraphTooltip.IsNull() {
-		data.GraphTooltip = types.Int64Value(0)
-	}
-	if data.Time != nil && data.Time.From.IsNull() {
-		data.Time.From = types.StringValue(`now-6h`)
-	}
-	if data.Time != nil && data.Time.To.IsNull() {
-		data.Time.To = types.StringValue(`now`)
-	}
-	if data.Timepicker != nil && data.Timepicker.Collapse.IsNull() {
-		data.Timepicker.Collapse = types.BoolValue(false)
-	}
-	if data.Timepicker != nil && data.Timepicker.Enable.IsNull() {
-		data.Timepicker.Enable = types.BoolValue(true)
-	}
-	if data.Timepicker != nil && data.Timepicker.Hidden.IsNull() {
-		data.Timepicker.Hidden = types.BoolValue(false)
-	}
-	if data.FiscalYearStartMonth.IsNull() {
-		data.FiscalYearStartMonth = types.Int64Value(0)
-	}
-	if data.SchemaVersion.IsNull() {
-		data.SchemaVersion = types.Int64Value(36)
-	}
 }

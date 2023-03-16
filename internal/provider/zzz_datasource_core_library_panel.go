@@ -14,11 +14,17 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
+
+// Ensure that the imports are used to avoid compiler errors.
+var _ attr.Value
+var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
@@ -40,58 +46,69 @@ func (m CoreLibraryPanelDataSourceModel_Model) MarshalJSON() ([]byte, error) {
 	type jsonCoreLibraryPanelDataSourceModel_Model struct {
 	}
 
+	m = m.ApplyDefaults()
+
 	model := &jsonCoreLibraryPanelDataSourceModel_Model{}
 	return json.Marshal(model)
 }
 
+func (m CoreLibraryPanelDataSourceModel_Model) ApplyDefaults() CoreLibraryPanelDataSourceModel_Model {
+
+	return m
+}
+
 type CoreLibraryPanelDataSourceModel_Meta_CreatedBy struct {
-	Id        types.Int64  `tfsdk:"id"`
 	Name      types.String `tfsdk:"name"`
 	AvatarUrl types.String `tfsdk:"avatar_url"`
 }
 
 func (m CoreLibraryPanelDataSourceModel_Meta_CreatedBy) MarshalJSON() ([]byte, error) {
 	type jsonCoreLibraryPanelDataSourceModel_Meta_CreatedBy struct {
-		Id        int64  `json:"id"`
 		Name      string `json:"name"`
 		AvatarUrl string `json:"avatarUrl"`
 	}
 
-	attr_id := m.Id.ValueInt64()
+	m = m.ApplyDefaults()
 	attr_name := m.Name.ValueString()
 	attr_avatarurl := m.AvatarUrl.ValueString()
 
 	model := &jsonCoreLibraryPanelDataSourceModel_Meta_CreatedBy{
-		Id:        attr_id,
 		Name:      attr_name,
 		AvatarUrl: attr_avatarurl,
 	}
 	return json.Marshal(model)
 }
 
+func (m CoreLibraryPanelDataSourceModel_Meta_CreatedBy) ApplyDefaults() CoreLibraryPanelDataSourceModel_Meta_CreatedBy {
+
+	return m
+}
+
 type CoreLibraryPanelDataSourceModel_Meta_UpdatedBy struct {
-	Id        types.Int64  `tfsdk:"id"`
 	Name      types.String `tfsdk:"name"`
 	AvatarUrl types.String `tfsdk:"avatar_url"`
 }
 
 func (m CoreLibraryPanelDataSourceModel_Meta_UpdatedBy) MarshalJSON() ([]byte, error) {
 	type jsonCoreLibraryPanelDataSourceModel_Meta_UpdatedBy struct {
-		Id        int64  `json:"id"`
 		Name      string `json:"name"`
 		AvatarUrl string `json:"avatarUrl"`
 	}
 
-	attr_id := m.Id.ValueInt64()
+	m = m.ApplyDefaults()
 	attr_name := m.Name.ValueString()
 	attr_avatarurl := m.AvatarUrl.ValueString()
 
 	model := &jsonCoreLibraryPanelDataSourceModel_Meta_UpdatedBy{
-		Id:        attr_id,
 		Name:      attr_name,
 		AvatarUrl: attr_avatarurl,
 	}
 	return json.Marshal(model)
+}
+
+func (m CoreLibraryPanelDataSourceModel_Meta_UpdatedBy) ApplyDefaults() CoreLibraryPanelDataSourceModel_Meta_UpdatedBy {
+
+	return m
 }
 
 type CoreLibraryPanelDataSourceModel_Meta struct {
@@ -115,6 +132,7 @@ func (m CoreLibraryPanelDataSourceModel_Meta) MarshalJSON() ([]byte, error) {
 		UpdatedBy           interface{} `json:"updatedBy,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_foldername := m.FolderName.ValueString()
 	attr_folderuid := m.FolderUid.ValueString()
 	attr_connecteddashboards := m.ConnectedDashboards.ValueInt64()
@@ -122,11 +140,11 @@ func (m CoreLibraryPanelDataSourceModel_Meta) MarshalJSON() ([]byte, error) {
 	attr_updated := m.Updated.ValueString()
 	var attr_createdby interface{}
 	if m.CreatedBy != nil {
-		attr_createdby = m.CreatedBy
+		attr_createdby = m.CreatedBy.ApplyDefaults()
 	}
 	var attr_updatedby interface{}
 	if m.UpdatedBy != nil {
-		attr_updatedby = m.UpdatedBy
+		attr_updatedby = m.UpdatedBy.ApplyDefaults()
 	}
 
 	model := &jsonCoreLibraryPanelDataSourceModel_Meta{
@@ -139,6 +157,11 @@ func (m CoreLibraryPanelDataSourceModel_Meta) MarshalJSON() ([]byte, error) {
 		UpdatedBy:           attr_updatedby,
 	}
 	return json.Marshal(model)
+}
+
+func (m CoreLibraryPanelDataSourceModel_Meta) ApplyDefaults() CoreLibraryPanelDataSourceModel_Meta {
+
+	return m
 }
 
 type CoreLibraryPanelDataSourceModel struct {
@@ -167,6 +190,7 @@ func (m CoreLibraryPanelDataSourceModel) MarshalJSON() ([]byte, error) {
 		Meta          interface{} `json:"meta,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_folderuid := m.FolderUid.ValueString()
 	attr_uid := m.Uid.ValueString()
 	attr_name := m.Name.ValueString()
@@ -176,11 +200,11 @@ func (m CoreLibraryPanelDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_version := m.Version.ValueInt64()
 	var attr_model interface{}
 	if m.Model != nil {
-		attr_model = m.Model
+		attr_model = m.Model.ApplyDefaults()
 	}
 	var attr_meta interface{}
 	if m.Meta != nil {
-		attr_meta = m.Meta
+		attr_meta = m.Meta.ApplyDefaults()
 	}
 
 	model := &jsonCoreLibraryPanelDataSourceModel{
@@ -195,6 +219,11 @@ func (m CoreLibraryPanelDataSourceModel) MarshalJSON() ([]byte, error) {
 		Meta:          attr_meta,
 	}
 	return json.Marshal(model)
+}
+
+func (m CoreLibraryPanelDataSourceModel) ApplyDefaults() CoreLibraryPanelDataSourceModel {
+
+	return m
 }
 
 func (d *CoreLibraryPanelDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -297,12 +326,6 @@ Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
 						Optional:            true,
 						Required:            false,
 						Attributes: map[string]schema.Attribute{
-							"id": schema.Int64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
 							"name": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -323,12 +346,6 @@ Typescript: Omit<Panel, 'gridPos' | 'id' | 'libraryPanel'>;`,
 						Optional:            true,
 						Required:            false,
 						Attributes: map[string]schema.Attribute{
-							"id": schema.Int64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
 							"name": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
@@ -367,7 +384,6 @@ func (d *CoreLibraryPanelDataSource) Read(ctx context.Context, req datasource.Re
 		return
 	}
 
-	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -383,19 +399,4 @@ func (d *CoreLibraryPanelDataSource) Read(ctx context.Context, req datasource.Re
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d *CoreLibraryPanelDataSource) applyDefaults(data *CoreLibraryPanelDataSourceModel) {
-	if data.Model == nil {
-		data.Model = &CoreLibraryPanelDataSourceModel_Model{}
-	}
-	if data.Meta == nil {
-		data.Meta = &CoreLibraryPanelDataSourceModel_Meta{}
-	}
-	if data.Meta.CreatedBy == nil {
-		data.Meta.CreatedBy = &CoreLibraryPanelDataSourceModel_Meta_CreatedBy{}
-	}
-	if data.Meta.UpdatedBy == nil {
-		data.Meta.UpdatedBy = &CoreLibraryPanelDataSourceModel_Meta_UpdatedBy{}
-	}
 }

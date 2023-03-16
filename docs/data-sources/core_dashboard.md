@@ -27,8 +27,6 @@ terraform {
 }
 
 data "schemas_panel_text" "test" {
-  transformations = [
-  ]
   options = {
     content = "# test content"
   }
@@ -74,8 +72,6 @@ resource "grafana_dashboard" "example" {
 - `fiscal_year_start_month` (Number) The month that the fiscal year starts on.  0 = January, 11 = December. Defaults to 0.
 - `gnet_id` (String)
 - `graph_tooltip` (Number) Configuration of dashboard cursor sync behavior. Defaults to 0.
-- `id` (Number) Unique numeric identifier for the dashboard.
-TODO must isolate or remove identifiers local to a Grafana instance...?
 - `links` (Attributes List) TODO docs (see [below for nested schema](#nestedatt--links))
 - `live_now` (Boolean) TODO docs
 - `panels` (List of String)
@@ -139,8 +135,11 @@ Required:
 
 - `limit` (Number)
 - `match_any` (Boolean)
-- `tags` (List of String)
 - `type` (String)
+
+Optional:
+
+- `tags` (List of String)
 
 
 
@@ -151,7 +150,6 @@ Required:
 Required:
 
 - `icon` (String)
-- `tags` (List of String)
 - `title` (String)
 - `tooltip` (String)
 - `type` (String)
@@ -162,6 +160,7 @@ Optional:
 - `as_dropdown` (Boolean) Defaults to false.
 - `include_vars` (Boolean) Defaults to false.
 - `keep_time` (Boolean) Defaults to false.
+- `tags` (List of String)
 - `target_blank` (Boolean) Defaults to false.
 
 
@@ -174,7 +173,6 @@ Required:
 - `expires` (String) TODO docs
 - `external` (Boolean) TODO docs
 - `external_url` (String) TODO docs
-- `id` (Number) TODO docs
 - `key` (String) TODO docs
 - `name` (String) TODO docs
 - `org_id` (Number) TODO docs
@@ -209,7 +207,6 @@ Optional:
 - `description` (String)
 - `error` (Attributes) (see [below for nested schema](#nestedatt--templating--list--error))
 - `global` (Boolean) Defaults to false.
-- `id` (String) Defaults to "00000000-0000-0000-0000-000000000000".
 - `index` (Number) Defaults to -1.
 - `label` (String)
 - `root_state_key` (String)
@@ -242,15 +239,12 @@ Optional:
 <a id="nestedatt--timepicker"></a>
 ### Nested Schema for `timepicker`
 
-Required:
-
-- `refresh_intervals` (List of String) Selectable intervals for auto-refresh.
-- `time_options` (List of String) TODO docs
-
 Optional:
 
 - `collapse` (Boolean) Whether timepicker is collapsed or not. Defaults to false.
 - `enable` (Boolean) Whether timepicker is enabled or not. Defaults to true.
 - `hidden` (Boolean) Whether timepicker is visible or not. Defaults to false.
+- `refresh_intervals` (List of String) Selectable intervals for auto-refresh.
+- `time_options` (List of String) TODO docs
 
 

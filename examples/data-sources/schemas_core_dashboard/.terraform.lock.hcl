@@ -46,6 +46,6 @@ provider "terraform.local/grafana/schemas" {
   version     = "1.0.0"
   constraints = "1.0.0"
   hashes = [
-    "h1:6soDEWehVwuHo6rNE366wWdsVsnvRfXzWJ6UDadbeqQ=",
+    "h1:13AaDTc+KbFRtT0td5bcFyIgquhxJBUQUvxdWNBdX+A=",
   ]
 }

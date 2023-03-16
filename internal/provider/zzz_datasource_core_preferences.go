@@ -14,11 +14,17 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
+
+// Ensure that the imports are used to avoid compiler errors.
+var _ attr.Value
+var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
@@ -42,12 +48,18 @@ func (m CorePreferencesDataSourceModel_QueryHistory) MarshalJSON() ([]byte, erro
 		HomeTab *string `json:"homeTab,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_hometab := m.HomeTab.ValueString()
 
 	model := &jsonCorePreferencesDataSourceModel_QueryHistory{
 		HomeTab: &attr_hometab,
 	}
 	return json.Marshal(model)
+}
+
+func (m CorePreferencesDataSourceModel_QueryHistory) ApplyDefaults() CorePreferencesDataSourceModel_QueryHistory {
+
+	return m
 }
 
 type CorePreferencesDataSourceModel struct {
@@ -70,6 +82,7 @@ func (m CorePreferencesDataSourceModel) MarshalJSON() ([]byte, error) {
 		QueryHistory     interface{} `json:"queryHistory,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_homedashboarduid := m.HomeDashboardUID.ValueString()
 	attr_timezone := m.Timezone.ValueString()
 	attr_weekstart := m.WeekStart.ValueString()
@@ -77,7 +90,7 @@ func (m CorePreferencesDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_language := m.Language.ValueString()
 	var attr_queryhistory interface{}
 	if m.QueryHistory != nil {
-		attr_queryhistory = m.QueryHistory
+		attr_queryhistory = m.QueryHistory.ApplyDefaults()
 	}
 
 	model := &jsonCorePreferencesDataSourceModel{
@@ -89,6 +102,11 @@ func (m CorePreferencesDataSourceModel) MarshalJSON() ([]byte, error) {
 		QueryHistory:     attr_queryhistory,
 	}
 	return json.Marshal(model)
+}
+
+func (m CorePreferencesDataSourceModel) ApplyDefaults() CorePreferencesDataSourceModel {
+
+	return m
 }
 
 func (d *CorePreferencesDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -167,7 +185,6 @@ func (d *CorePreferencesDataSource) Read(ctx context.Context, req datasource.Rea
 		return
 	}
 
-	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -183,10 +200,4 @@ func (d *CorePreferencesDataSource) Read(ctx context.Context, req datasource.Rea
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d *CorePreferencesDataSource) applyDefaults(data *CorePreferencesDataSourceModel) {
-	if data.QueryHistory == nil {
-		data.QueryHistory = &CorePreferencesDataSourceModel_QueryHistory{}
-	}
 }

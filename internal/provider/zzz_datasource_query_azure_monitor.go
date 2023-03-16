@@ -14,11 +14,17 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
+
+// Ensure that the imports are used to avoid compiler errors.
+var _ attr.Value
+var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
@@ -41,8 +47,15 @@ func (m QueryAzureMonitorDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonQueryAzureMonitorDataSourceModel struct {
 	}
 
+	m = m.ApplyDefaults()
+
 	model := &jsonQueryAzureMonitorDataSourceModel{}
 	return json.Marshal(model)
+}
+
+func (m QueryAzureMonitorDataSourceModel) ApplyDefaults() QueryAzureMonitorDataSourceModel {
+
+	return m
 }
 
 func (d *QueryAzureMonitorDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {

@@ -14,11 +14,17 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
+
+// Ensure that the imports are used to avoid compiler errors.
+var _ attr.Value
+var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
@@ -40,13 +46,19 @@ func (m CoreServiceAccountDataSourceModel_AccessControl) MarshalJSON() ([]byte, 
 	type jsonCoreServiceAccountDataSourceModel_AccessControl struct {
 	}
 
+	m = m.ApplyDefaults()
+
 	model := &jsonCoreServiceAccountDataSourceModel_AccessControl{}
 	return json.Marshal(model)
 }
 
+func (m CoreServiceAccountDataSourceModel_AccessControl) ApplyDefaults() CoreServiceAccountDataSourceModel_AccessControl {
+
+	return m
+}
+
 type CoreServiceAccountDataSourceModel struct {
 	ToJSON        types.String                                     `tfsdk:"to_json"`
-	Id            types.Int64                                      `tfsdk:"id"`
 	OrgId         types.Int64                                      `tfsdk:"org_id"`
 	Name          types.String                                     `tfsdk:"name"`
 	Login         types.String                                     `tfsdk:"login"`
@@ -62,7 +74,6 @@ type CoreServiceAccountDataSourceModel struct {
 
 func (m CoreServiceAccountDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonCoreServiceAccountDataSourceModel struct {
-		Id            int64       `json:"id"`
 		OrgId         int64       `json:"orgId"`
 		Name          string      `json:"name"`
 		Login         string      `json:"login"`
@@ -76,7 +87,7 @@ func (m CoreServiceAccountDataSourceModel) MarshalJSON() ([]byte, error) {
 		Updated       *int64      `json:"updated,omitempty"`
 	}
 
-	attr_id := m.Id.ValueInt64()
+	m = m.ApplyDefaults()
 	attr_orgid := m.OrgId.ValueInt64()
 	attr_name := m.Name.ValueString()
 	attr_login := m.Login.ValueString()
@@ -86,7 +97,7 @@ func (m CoreServiceAccountDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_avatarurl := m.AvatarUrl.ValueString()
 	var attr_accesscontrol interface{}
 	if m.AccessControl != nil {
-		attr_accesscontrol = m.AccessControl
+		attr_accesscontrol = m.AccessControl.ApplyDefaults()
 	}
 	attr_teams := []string{}
 	for _, v := range m.Teams.Elements() {
@@ -96,7 +107,6 @@ func (m CoreServiceAccountDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_updated := m.Updated.ValueInt64()
 
 	model := &jsonCoreServiceAccountDataSourceModel{
-		Id:            attr_id,
 		OrgId:         attr_orgid,
 		Name:          attr_name,
 		Login:         attr_login,
@@ -112,6 +122,13 @@ func (m CoreServiceAccountDataSourceModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+func (m CoreServiceAccountDataSourceModel) ApplyDefaults() CoreServiceAccountDataSourceModel {
+	if len(m.Teams.Elements()) == 0 {
+		m.Teams, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	return m
+}
+
 func (d *CoreServiceAccountDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_core_service_account"
 }
@@ -121,12 +138,6 @@ func (d *CoreServiceAccountDataSource) Schema(ctx context.Context, req datasourc
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"id": schema.Int64Attribute{
-				MarkdownDescription: `ID is the unique identifier of the service account in the database.`,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-			},
 			"org_id": schema.Int64Attribute{
 				MarkdownDescription: `OrgId is the ID of an organisation the service account belongs to.`,
 				Computed:            false,
@@ -218,7 +229,6 @@ func (d *CoreServiceAccountDataSource) Read(ctx context.Context, req datasource.
 		return
 	}
 
-	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -234,10 +244,4 @@ func (d *CoreServiceAccountDataSource) Read(ctx context.Context, req datasource.
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d *CoreServiceAccountDataSource) applyDefaults(data *CoreServiceAccountDataSourceModel) {
-	if data.AccessControl == nil {
-		data.AccessControl = &CoreServiceAccountDataSourceModel_AccessControl{}
-	}
 }

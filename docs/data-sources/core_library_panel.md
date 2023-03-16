@@ -57,7 +57,6 @@ Optional:
 Required:
 
 - `avatar_url` (String)
-- `id` (Number)
 - `name` (String)
 
 
@@ -67,7 +66,6 @@ Required:
 Required:
 
 - `avatar_url` (String)
-- `id` (Number)
 - `name` (String)
 
 

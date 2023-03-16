@@ -14,11 +14,17 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
+
+// Ensure that the imports are used to avoid compiler errors.
+var _ attr.Value
+var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
@@ -53,6 +59,7 @@ func (m CorePublicDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 		TimeSelectionEnabled bool    `json:"timeSelectionEnabled"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_uid := m.Uid.ValueString()
 	attr_dashboarduid := m.DashboardUid.ValueString()
 	attr_accesstoken := m.AccessToken.ValueString()
@@ -69,6 +76,11 @@ func (m CorePublicDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 		TimeSelectionEnabled: attr_timeselectionenabled,
 	}
 	return json.Marshal(model)
+}
+
+func (m CorePublicDashboardDataSourceModel) ApplyDefaults() CorePublicDashboardDataSourceModel {
+
+	return m
 }
 
 func (d *CorePublicDashboardDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {

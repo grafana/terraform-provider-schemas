@@ -17,12 +17,12 @@ TODO description
 
 ### Required
 
-- `group_by` (List of String) Allows to group the results.
 - `profile_type_id` (String) Specifies the type of profile to query.
 - `ref_id` (String) A - Z
 
 ### Optional
 
+- `group_by` (List of String) Allows to group the results.
 - `hide` (Boolean) true if query is disabled (ie should not be returned to the dashboard)
 - `key` (String) Unique, guid like, string used in explore mode
 - `label_selector` (String) Specifies the query label selectors. Defaults to "{}".

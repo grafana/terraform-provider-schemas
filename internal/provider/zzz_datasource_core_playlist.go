@@ -14,11 +14,17 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
+
+// Ensure that the imports are used to avoid compiler errors.
+var _ attr.Value
+var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
@@ -46,6 +52,7 @@ func (m CorePlaylistDataSourceModel_Items) MarshalJSON() ([]byte, error) {
 		Title *string `json:"title,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_value := m.Value.ValueString()
 	attr_title := m.Title.ValueString()
@@ -56,6 +63,11 @@ func (m CorePlaylistDataSourceModel_Items) MarshalJSON() ([]byte, error) {
 		Title: &attr_title,
 	}
 	return json.Marshal(model)
+}
+
+func (m CorePlaylistDataSourceModel_Items) ApplyDefaults() CorePlaylistDataSourceModel_Items {
+
+	return m
 }
 
 type CorePlaylistDataSourceModel struct {
@@ -74,11 +86,13 @@ func (m CorePlaylistDataSourceModel) MarshalJSON() ([]byte, error) {
 		Items    []interface{} `json:"items,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_uid := m.Uid.ValueString()
 	attr_name := m.Name.ValueString()
 	attr_interval := m.Interval.ValueString()
 	attr_items := []interface{}{}
 	for _, v := range m.Items {
+		v := v.ApplyDefaults()
 		attr_items = append(attr_items, v)
 	}
 
@@ -89,6 +103,13 @@ func (m CorePlaylistDataSourceModel) MarshalJSON() ([]byte, error) {
 		Items:    attr_items,
 	}
 	return json.Marshal(model)
+}
+
+func (m CorePlaylistDataSourceModel) ApplyDefaults() CorePlaylistDataSourceModel {
+	if m.Interval.IsNull() {
+		m.Interval = types.StringValue(`5m`)
+	}
+	return m
 }
 
 func (d *CorePlaylistDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -178,7 +199,6 @@ func (d *CorePlaylistDataSource) Read(ctx context.Context, req datasource.ReadRe
 		return
 	}
 
-	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -194,10 +214,4 @@ func (d *CorePlaylistDataSource) Read(ctx context.Context, req datasource.ReadRe
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d *CorePlaylistDataSource) applyDefaults(data *CorePlaylistDataSourceModel) {
-	if data.Interval.IsNull() {
-		data.Interval = types.StringValue(`5m`)
-	}
 }

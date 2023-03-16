@@ -4,31 +4,10 @@
   "fiscalYearStartMonth": 0,
   "gnetId": "",
   "graphTooltip": 0,
-  "id": 0,
   "liveNow": false,
   "panels": [
     {
       "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "fillOpacity": 70,
-            "lineWidth": 1
-          },
-          "decimals": 0,
-          "description": "",
-          "displayName": "",
-          "displayNameFromDS": "",
-          "filterable": false,
-          "max": 0,
-          "min": 0,
-          "noValue": "",
-          "path": "",
-          "unit": "",
-          "writeable": false
-        },
-        "overrides": []
-      },
       "gridPos": {
         "h": 10,
         "static": false,
@@ -36,7 +15,6 @@
         "x": 0,
         "y": 0
       },
-      "id": 0,
       "interval": "",
       "maxDataPoints": 0,
       "options": {
@@ -50,7 +28,6 @@
       "timeFrom": "",
       "timeShift": "",
       "title": "test title",
-      "transformations": [],
       "transparent": false,
       "type": "text"
     }

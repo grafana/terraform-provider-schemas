@@ -14,11 +14,17 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
+
+// Ensure that the imports are used to avoid compiler errors.
+var _ attr.Value
+var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
@@ -40,8 +46,15 @@ func (m PanelAnnotationsListDataSourceModel_Targets) MarshalJSON() ([]byte, erro
 	type jsonPanelAnnotationsListDataSourceModel_Targets struct {
 	}
 
+	m = m.ApplyDefaults()
+
 	model := &jsonPanelAnnotationsListDataSourceModel_Targets{}
 	return json.Marshal(model)
+}
+
+func (m PanelAnnotationsListDataSourceModel_Targets) ApplyDefaults() PanelAnnotationsListDataSourceModel_Targets {
+
+	return m
 }
 
 type PanelAnnotationsListDataSourceModel_Datasource struct {
@@ -55,6 +68,7 @@ func (m PanelAnnotationsListDataSourceModel_Datasource) MarshalJSON() ([]byte, e
 		Uid  *string `json:"uid,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -63,6 +77,11 @@ func (m PanelAnnotationsListDataSourceModel_Datasource) MarshalJSON() ([]byte, e
 		Uid:  &attr_uid,
 	}
 	return json.Marshal(model)
+}
+
+func (m PanelAnnotationsListDataSourceModel_Datasource) ApplyDefaults() PanelAnnotationsListDataSourceModel_Datasource {
+
+	return m
 }
 
 type PanelAnnotationsListDataSourceModel_GridPos struct {
@@ -82,6 +101,7 @@ func (m PanelAnnotationsListDataSourceModel_GridPos) MarshalJSON() ([]byte, erro
 		Static *bool `json:"static,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_h := m.H.ValueInt64()
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
@@ -96,6 +116,22 @@ func (m PanelAnnotationsListDataSourceModel_GridPos) MarshalJSON() ([]byte, erro
 		Static: &attr_static,
 	}
 	return json.Marshal(model)
+}
+
+func (m PanelAnnotationsListDataSourceModel_GridPos) ApplyDefaults() PanelAnnotationsListDataSourceModel_GridPos {
+	if m.H.IsNull() {
+		m.H = types.Int64Value(9)
+	}
+	if m.W.IsNull() {
+		m.W = types.Int64Value(12)
+	}
+	if m.X.IsNull() {
+		m.X = types.Int64Value(0)
+	}
+	if m.Y.IsNull() {
+		m.Y = types.Int64Value(0)
+	}
+	return m
 }
 
 type PanelAnnotationsListDataSourceModel_Links struct {
@@ -118,13 +154,14 @@ func (m PanelAnnotationsListDataSourceModel_Links) MarshalJSON() ([]byte, error)
 		Icon        string   `json:"icon"`
 		Tooltip     string   `json:"tooltip"`
 		Url         string   `json:"url"`
-		Tags        []string `json:"tags"`
+		Tags        []string `json:"tags,omitempty"`
 		AsDropdown  bool     `json:"asDropdown"`
 		TargetBlank bool     `json:"targetBlank"`
 		IncludeVars bool     `json:"includeVars"`
 		KeepTime    bool     `json:"keepTime"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_title := m.Title.ValueString()
 	attr_type := m.Type.ValueString()
 	attr_icon := m.Icon.ValueString()
@@ -154,49 +191,71 @@ func (m PanelAnnotationsListDataSourceModel_Links) MarshalJSON() ([]byte, error)
 	return json.Marshal(model)
 }
 
+func (m PanelAnnotationsListDataSourceModel_Links) ApplyDefaults() PanelAnnotationsListDataSourceModel_Links {
+	if len(m.Tags.Elements()) == 0 {
+		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	if m.AsDropdown.IsNull() {
+		m.AsDropdown = types.BoolValue(false)
+	}
+	if m.TargetBlank.IsNull() {
+		m.TargetBlank = types.BoolValue(false)
+	}
+	if m.IncludeVars.IsNull() {
+		m.IncludeVars = types.BoolValue(false)
+	}
+	if m.KeepTime.IsNull() {
+		m.KeepTime = types.BoolValue(false)
+	}
+	return m
+}
+
 type PanelAnnotationsListDataSourceModel_Transformations_Filter struct {
-	Id types.String `tfsdk:"id"`
 }
 
 func (m PanelAnnotationsListDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
 	type jsonPanelAnnotationsListDataSourceModel_Transformations_Filter struct {
-		Id string `json:"id"`
 	}
 
-	attr_id := m.Id.ValueString()
+	m = m.ApplyDefaults()
 
-	model := &jsonPanelAnnotationsListDataSourceModel_Transformations_Filter{
-		Id: attr_id,
-	}
+	model := &jsonPanelAnnotationsListDataSourceModel_Transformations_Filter{}
 	return json.Marshal(model)
 }
 
+func (m PanelAnnotationsListDataSourceModel_Transformations_Filter) ApplyDefaults() PanelAnnotationsListDataSourceModel_Transformations_Filter {
+
+	return m
+}
+
 type PanelAnnotationsListDataSourceModel_Transformations struct {
-	Id       types.String                                                `tfsdk:"id"`
 	Disabled types.Bool                                                  `tfsdk:"disabled"`
 	Filter   *PanelAnnotationsListDataSourceModel_Transformations_Filter `tfsdk:"filter"`
 }
 
 func (m PanelAnnotationsListDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
 	type jsonPanelAnnotationsListDataSourceModel_Transformations struct {
-		Id       string      `json:"id"`
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
 
-	attr_id := m.Id.ValueString()
+	m = m.ApplyDefaults()
 	attr_disabled := m.Disabled.ValueBool()
 	var attr_filter interface{}
 	if m.Filter != nil {
-		attr_filter = m.Filter
+		attr_filter = m.Filter.ApplyDefaults()
 	}
 
 	model := &jsonPanelAnnotationsListDataSourceModel_Transformations{
-		Id:       attr_id,
 		Disabled: &attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
+}
+
+func (m PanelAnnotationsListDataSourceModel_Transformations) ApplyDefaults() PanelAnnotationsListDataSourceModel_Transformations {
+
+	return m
 }
 
 type PanelAnnotationsListDataSourceModel_LibraryPanel struct {
@@ -210,6 +269,7 @@ func (m PanelAnnotationsListDataSourceModel_LibraryPanel) MarshalJSON() ([]byte,
 		Uid  string `json:"uid"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
@@ -218,6 +278,11 @@ func (m PanelAnnotationsListDataSourceModel_LibraryPanel) MarshalJSON() ([]byte,
 		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
+}
+
+func (m PanelAnnotationsListDataSourceModel_LibraryPanel) ApplyDefaults() PanelAnnotationsListDataSourceModel_LibraryPanel {
+
+	return m
 }
 
 type PanelAnnotationsListDataSourceModel_Options struct {
@@ -237,7 +302,7 @@ func (m PanelAnnotationsListDataSourceModel_Options) MarshalJSON() ([]byte, erro
 	type jsonPanelAnnotationsListDataSourceModel_Options struct {
 		OnlyFromThisDashboard bool     `json:"onlyFromThisDashboard"`
 		OnlyInTimeRange       bool     `json:"onlyInTimeRange"`
-		Tags                  []string `json:"tags"`
+		Tags                  []string `json:"tags,omitempty"`
 		Limit                 int64    `json:"limit"`
 		ShowUser              bool     `json:"showUser"`
 		ShowTime              bool     `json:"showTime"`
@@ -247,6 +312,7 @@ func (m PanelAnnotationsListDataSourceModel_Options) MarshalJSON() ([]byte, erro
 		NavigateAfter         string   `json:"navigateAfter"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_onlyfromthisdashboard := m.OnlyFromThisDashboard.ValueBool()
 	attr_onlyintimerange := m.OnlyInTimeRange.ValueBool()
 	attr_tags := []string{}
@@ -276,6 +342,40 @@ func (m PanelAnnotationsListDataSourceModel_Options) MarshalJSON() ([]byte, erro
 	return json.Marshal(model)
 }
 
+func (m PanelAnnotationsListDataSourceModel_Options) ApplyDefaults() PanelAnnotationsListDataSourceModel_Options {
+	if m.OnlyFromThisDashboard.IsNull() {
+		m.OnlyFromThisDashboard = types.BoolValue(false)
+	}
+	if m.OnlyInTimeRange.IsNull() {
+		m.OnlyInTimeRange = types.BoolValue(false)
+	}
+	if len(m.Tags.Elements()) == 0 {
+		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	if m.Limit.IsNull() {
+		m.Limit = types.Int64Value(10)
+	}
+	if m.ShowUser.IsNull() {
+		m.ShowUser = types.BoolValue(true)
+	}
+	if m.ShowTime.IsNull() {
+		m.ShowTime = types.BoolValue(true)
+	}
+	if m.ShowTags.IsNull() {
+		m.ShowTags = types.BoolValue(true)
+	}
+	if m.NavigateToPanel.IsNull() {
+		m.NavigateToPanel = types.BoolValue(true)
+	}
+	if m.NavigateBefore.IsNull() {
+		m.NavigateBefore = types.StringValue(`10m`)
+	}
+	if m.NavigateAfter.IsNull() {
+		m.NavigateAfter = types.StringValue(`10m`)
+	}
+	return m
+}
+
 type PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.Float64 `tfsdk:"value"`
 	Color types.String  `tfsdk:"color"`
@@ -289,6 +389,7 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds_Step
 		State *string  `json:"state,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_value := m.Value.ValueFloat64()
 	attr_color := m.Color.ValueString()
 	attr_state := m.State.ValueString()
@@ -301,6 +402,11 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds_Step
 	return json.Marshal(model)
 }
 
+func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
+
+	return m
+}
+
 type PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 	Mode  types.String                                                                `tfsdk:"mode"`
 	Steps []PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
@@ -309,12 +415,14 @@ type PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds struct 
 func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
 	type jsonPanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 		Mode  string        `json:"mode"`
-		Steps []interface{} `json:"steps"`
+		Steps []interface{} `json:"steps,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
 	attr_steps := []interface{}{}
 	for _, v := range m.Steps {
+		v := v.ApplyDefaults()
 		attr_steps = append(attr_steps, v)
 	}
 
@@ -323,6 +431,11 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds) Mar
 		Steps: attr_steps,
 	}
 	return json.Marshal(model)
+}
+
+func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds {
+
+	return m
 }
 
 type PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Color struct {
@@ -338,6 +451,7 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Color) MarshalJ
 		SeriesBy   *string `json:"seriesBy,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
@@ -350,6 +464,11 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Color) MarshalJ
 	return json.Marshal(model)
 }
 
+func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Color {
+
+	return m
+}
+
 type PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Custom struct {
 }
 
@@ -357,8 +476,15 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Custom) Marshal
 	type jsonPanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Custom struct {
 	}
 
+	m = m.ApplyDefaults()
+
 	model := &jsonPanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Custom{}
 	return json.Marshal(model)
+}
+
+func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Custom {
+
+	return m
 }
 
 type PanelAnnotationsListDataSourceModel_FieldConfig_Defaults struct {
@@ -396,6 +522,7 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults) MarshalJSON() 
 		Custom            interface{} `json:"custom,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_displayname := m.DisplayName.ValueString()
 	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
 	attr_description := m.Description.ValueString()
@@ -408,16 +535,16 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults) MarshalJSON() 
 	attr_max := m.Max.ValueFloat64()
 	var attr_thresholds interface{}
 	if m.Thresholds != nil {
-		attr_thresholds = m.Thresholds
+		attr_thresholds = m.Thresholds.ApplyDefaults()
 	}
 	var attr_color interface{}
 	if m.Color != nil {
-		attr_color = m.Color
+		attr_color = m.Color.ApplyDefaults()
 	}
 	attr_novalue := m.NoValue.ValueString()
 	var attr_custom interface{}
 	if m.Custom != nil {
-		attr_custom = m.Custom
+		attr_custom = m.Custom.ApplyDefaults()
 	}
 
 	model := &jsonPanelAnnotationsListDataSourceModel_FieldConfig_Defaults{
@@ -439,38 +566,45 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults) MarshalJSON() 
 	return json.Marshal(model)
 }
 
+func (m PanelAnnotationsListDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelAnnotationsListDataSourceModel_FieldConfig_Defaults {
+
+	return m
+}
+
 type PanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Matcher struct {
-	Id types.String `tfsdk:"id"`
 }
 
 func (m PanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
 	type jsonPanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Matcher struct {
-		Id string `json:"id"`
 	}
 
-	attr_id := m.Id.ValueString()
+	m = m.ApplyDefaults()
 
-	model := &jsonPanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Matcher{
-		Id: attr_id,
-	}
+	model := &jsonPanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Matcher{}
 	return json.Marshal(model)
 }
 
+func (m PanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Matcher {
+
+	return m
+}
+
 type PanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Properties struct {
-	Id types.String `tfsdk:"id"`
 }
 
 func (m PanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
 	type jsonPanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Properties struct {
-		Id string `json:"id"`
 	}
 
-	attr_id := m.Id.ValueString()
+	m = m.ApplyDefaults()
 
-	model := &jsonPanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Properties{
-		Id: attr_id,
-	}
+	model := &jsonPanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Properties{}
 	return json.Marshal(model)
+}
+
+func (m PanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelAnnotationsListDataSourceModel_FieldConfig_Overrides_Properties {
+
+	return m
 }
 
 type PanelAnnotationsListDataSourceModel_FieldConfig_Overrides struct {
@@ -481,15 +615,17 @@ type PanelAnnotationsListDataSourceModel_FieldConfig_Overrides struct {
 func (m PanelAnnotationsListDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
 	type jsonPanelAnnotationsListDataSourceModel_FieldConfig_Overrides struct {
 		Matcher    interface{}   `json:"matcher,omitempty"`
-		Properties []interface{} `json:"properties"`
+		Properties []interface{} `json:"properties,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	var attr_matcher interface{}
 	if m.Matcher != nil {
-		attr_matcher = m.Matcher
+		attr_matcher = m.Matcher.ApplyDefaults()
 	}
 	attr_properties := []interface{}{}
 	for _, v := range m.Properties {
+		v := v.ApplyDefaults()
 		attr_properties = append(attr_properties, v)
 	}
 
@@ -500,6 +636,11 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig_Overrides) MarshalJSON()
 	return json.Marshal(model)
 }
 
+func (m PanelAnnotationsListDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelAnnotationsListDataSourceModel_FieldConfig_Overrides {
+
+	return m
+}
+
 type PanelAnnotationsListDataSourceModel_FieldConfig struct {
 	Defaults  *PanelAnnotationsListDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
 	Overrides []PanelAnnotationsListDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
@@ -508,15 +649,17 @@ type PanelAnnotationsListDataSourceModel_FieldConfig struct {
 func (m PanelAnnotationsListDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 	type jsonPanelAnnotationsListDataSourceModel_FieldConfig struct {
 		Defaults  interface{}   `json:"defaults,omitempty"`
-		Overrides []interface{} `json:"overrides"`
+		Overrides []interface{} `json:"overrides,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	var attr_defaults interface{}
 	if m.Defaults != nil {
-		attr_defaults = m.Defaults
+		attr_defaults = m.Defaults.ApplyDefaults()
 	}
 	attr_overrides := []interface{}{}
 	for _, v := range m.Overrides {
+		v := v.ApplyDefaults()
 		attr_overrides = append(attr_overrides, v)
 	}
 
@@ -527,10 +670,14 @@ func (m PanelAnnotationsListDataSourceModel_FieldConfig) MarshalJSON() ([]byte, 
 	return json.Marshal(model)
 }
 
+func (m PanelAnnotationsListDataSourceModel_FieldConfig) ApplyDefaults() PanelAnnotationsListDataSourceModel_FieldConfig {
+
+	return m
+}
+
 type PanelAnnotationsListDataSourceModel struct {
 	ToJSON          types.String                                          `tfsdk:"to_json"`
 	Type            types.String                                          `tfsdk:"type"`
-	Id              types.Int64                                           `tfsdk:"id"`
 	PluginVersion   types.String                                          `tfsdk:"plugin_version"`
 	Tags            types.List                                            `tfsdk:"tags"`
 	Targets         []PanelAnnotationsListDataSourceModel_Targets         `tfsdk:"targets"`
@@ -556,7 +703,6 @@ type PanelAnnotationsListDataSourceModel struct {
 func (m PanelAnnotationsListDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonPanelAnnotationsListDataSourceModel struct {
 		Type            string        `json:"type"`
-		Id              *int64        `json:"id,omitempty"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
 		Tags            []string      `json:"tags,omitempty"`
 		Targets         []interface{} `json:"targets,omitempty"`
@@ -570,7 +716,7 @@ func (m PanelAnnotationsListDataSourceModel) MarshalJSON() ([]byte, error) {
 		RepeatDirection string        `json:"repeatDirection"`
 		RepeatPanelId   *int64        `json:"repeatPanelId,omitempty"`
 		MaxDataPoints   *float64      `json:"maxDataPoints,omitempty"`
-		Transformations []interface{} `json:"transformations"`
+		Transformations []interface{} `json:"transformations,omitempty"`
 		Interval        *string       `json:"interval,omitempty"`
 		TimeFrom        *string       `json:"timeFrom,omitempty"`
 		TimeShift       *string       `json:"timeShift,omitempty"`
@@ -579,8 +725,8 @@ func (m PanelAnnotationsListDataSourceModel) MarshalJSON() ([]byte, error) {
 		FieldConfig     interface{}   `json:"fieldConfig,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_id := m.Id.ValueInt64()
 	attr_pluginversion := m.PluginVersion.ValueString()
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
@@ -588,6 +734,7 @@ func (m PanelAnnotationsListDataSourceModel) MarshalJSON() ([]byte, error) {
 	}
 	attr_targets := []interface{}{}
 	for _, v := range m.Targets {
+		v := v.ApplyDefaults()
 		attr_targets = append(attr_targets, v)
 	}
 	attr_title := m.Title.ValueString()
@@ -595,14 +742,15 @@ func (m PanelAnnotationsListDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
-		attr_datasource = m.Datasource
+		attr_datasource = m.Datasource.ApplyDefaults()
 	}
 	var attr_gridpos interface{}
 	if m.GridPos != nil {
-		attr_gridpos = m.GridPos
+		attr_gridpos = m.GridPos.ApplyDefaults()
 	}
 	attr_links := []interface{}{}
 	for _, v := range m.Links {
+		v := v.ApplyDefaults()
 		attr_links = append(attr_links, v)
 	}
 	attr_repeat := m.Repeat.ValueString()
@@ -611,6 +759,7 @@ func (m PanelAnnotationsListDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
+		v := v.ApplyDefaults()
 		attr_transformations = append(attr_transformations, v)
 	}
 	attr_interval := m.Interval.ValueString()
@@ -618,20 +767,19 @@ func (m PanelAnnotationsListDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_timeshift := m.TimeShift.ValueString()
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
-		attr_librarypanel = m.LibraryPanel
+		attr_librarypanel = m.LibraryPanel.ApplyDefaults()
 	}
 	var attr_options interface{}
 	if m.Options != nil {
-		attr_options = m.Options
+		attr_options = m.Options.ApplyDefaults()
 	}
 	var attr_fieldconfig interface{}
 	if m.FieldConfig != nil {
-		attr_fieldconfig = m.FieldConfig
+		attr_fieldconfig = m.FieldConfig.ApplyDefaults()
 	}
 
 	model := &jsonPanelAnnotationsListDataSourceModel{
 		Type:            attr_type,
-		Id:              &attr_id,
 		PluginVersion:   &attr_pluginversion,
 		Tags:            attr_tags,
 		Targets:         attr_targets,
@@ -656,6 +804,22 @@ func (m PanelAnnotationsListDataSourceModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+func (m PanelAnnotationsListDataSourceModel) ApplyDefaults() PanelAnnotationsListDataSourceModel {
+	if m.Type.IsNull() {
+		m.Type = types.StringValue(`annotationslist`)
+	}
+	if len(m.Tags.Elements()) == 0 {
+		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	if m.Transparent.IsNull() {
+		m.Transparent = types.BoolValue(false)
+	}
+	if m.RepeatDirection.IsNull() {
+		m.RepeatDirection = types.StringValue(`h`)
+	}
+	return m
+}
+
 func (d *PanelAnnotationsListDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
 	resp.TypeName = req.ProviderTypeName + "_panel_annotations_list"
 }
@@ -668,12 +832,6 @@ func (d *PanelAnnotationsListDataSource) Schema(ctx context.Context, req datasou
 			"type": schema.StringAttribute{
 				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "annotationslist".`,
 				Computed:            true,
-				Optional:            true,
-				Required:            false,
-			},
-			"id": schema.Int64Attribute{
-				MarkdownDescription: `TODO docs`,
-				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
@@ -813,8 +971,8 @@ TODO fill this out - seems there are a couple variants?`,
 						"tags": schema.ListAttribute{
 							MarkdownDescription: ``,
 							Computed:            false,
-							Optional:            false,
-							Required:            true,
+							Optional:            true,
+							Required:            false,
 							ElementType:         types.StringType,
 						},
 						"as_dropdown": schema.BoolAttribute{
@@ -873,16 +1031,10 @@ TODO this is probably optional. Defaults to "h".`,
 			"transformations": schema.ListNestedAttribute{
 				MarkdownDescription: ``,
 				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				Optional:            true,
+				Required:            false,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
-						"id": schema.StringAttribute{
-							MarkdownDescription: `Unique identifier of transformer`,
-							Computed:            false,
-							Optional:            false,
-							Required:            true,
-						},
 						"disabled": schema.BoolAttribute{
 							MarkdownDescription: `Disabled transformations are skipped`,
 							Computed:            false,
@@ -894,14 +1046,6 @@ TODO this is probably optional. Defaults to "h".`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
-							Attributes: map[string]schema.Attribute{
-								"id": schema.StringAttribute{
-									MarkdownDescription: ` Defaults to "".`,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-								},
-							},
 						},
 					},
 				},
@@ -968,8 +1112,8 @@ TODO tighter constraint`,
 					"tags": schema.ListAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Optional:            true,
+						Required:            false,
 						ElementType:         types.StringType,
 					},
 					"limit": schema.Int64Attribute{
@@ -1108,8 +1252,8 @@ may be used to update the results`,
 									"steps": schema.ListNestedAttribute{
 										MarkdownDescription: `Must be sorted by 'value', first value is always -Infinity`,
 										Computed:            false,
-										Optional:            false,
-										Required:            true,
+										Optional:            true,
+										Required:            false,
 										NestedObject: schema.NestedAttributeObject{
 											Attributes: map[string]schema.Attribute{
 												"value": schema.Float64Attribute{
@@ -1182,8 +1326,8 @@ in panel plugin schemas.`,
 					"overrides": schema.ListNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Optional:            true,
+						Required:            false,
 						NestedObject: schema.NestedAttributeObject{
 							Attributes: map[string]schema.Attribute{
 								"matcher": schema.SingleNestedAttribute{
@@ -1191,30 +1335,12 @@ in panel plugin schemas.`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
-									Attributes: map[string]schema.Attribute{
-										"id": schema.StringAttribute{
-											MarkdownDescription: ` Defaults to "".`,
-											Computed:            true,
-											Optional:            true,
-											Required:            false,
-										},
-									},
 								},
 								"properties": schema.ListNestedAttribute{
 									MarkdownDescription: ``,
 									Computed:            false,
-									Optional:            false,
-									Required:            true,
-									NestedObject: schema.NestedAttributeObject{
-										Attributes: map[string]schema.Attribute{
-											"id": schema.StringAttribute{
-												MarkdownDescription: ` Defaults to "".`,
-												Computed:            true,
-												Optional:            true,
-												Required:            false,
-											},
-										},
-									},
+									Optional:            true,
+									Required:            false,
 								},
 							},
 						},
@@ -1243,7 +1369,6 @@ func (d *PanelAnnotationsListDataSource) Read(ctx context.Context, req datasourc
 		return
 	}
 
-	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -1259,82 +1384,4 @@ func (d *PanelAnnotationsListDataSource) Read(ctx context.Context, req datasourc
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d *PanelAnnotationsListDataSource) applyDefaults(data *PanelAnnotationsListDataSourceModel) {
-	if data.Datasource == nil {
-		data.Datasource = &PanelAnnotationsListDataSourceModel_Datasource{}
-	}
-	if data.GridPos == nil {
-		data.GridPos = &PanelAnnotationsListDataSourceModel_GridPos{}
-	}
-	if data.LibraryPanel == nil {
-		data.LibraryPanel = &PanelAnnotationsListDataSourceModel_LibraryPanel{}
-	}
-	if data.Options == nil {
-		data.Options = &PanelAnnotationsListDataSourceModel_Options{}
-	}
-	if data.FieldConfig == nil {
-		data.FieldConfig = &PanelAnnotationsListDataSourceModel_FieldConfig{}
-	}
-	if data.FieldConfig.Defaults == nil {
-		data.FieldConfig.Defaults = &PanelAnnotationsListDataSourceModel_FieldConfig_Defaults{}
-	}
-	if data.FieldConfig.Defaults.Thresholds == nil {
-		data.FieldConfig.Defaults.Thresholds = &PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Thresholds{}
-	}
-	if data.FieldConfig.Defaults.Color == nil {
-		data.FieldConfig.Defaults.Color = &PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Color{}
-	}
-	if data.FieldConfig.Defaults.Custom == nil {
-		data.FieldConfig.Defaults.Custom = &PanelAnnotationsListDataSourceModel_FieldConfig_Defaults_Custom{}
-	}
-	if data.Type.IsNull() {
-		data.Type = types.StringValue(`annotationslist`)
-	}
-	if data.Transparent.IsNull() {
-		data.Transparent = types.BoolValue(false)
-	}
-	if data.GridPos != nil && data.GridPos.H.IsNull() {
-		data.GridPos.H = types.Int64Value(9)
-	}
-	if data.GridPos != nil && data.GridPos.W.IsNull() {
-		data.GridPos.W = types.Int64Value(12)
-	}
-	if data.GridPos != nil && data.GridPos.X.IsNull() {
-		data.GridPos.X = types.Int64Value(0)
-	}
-	if data.GridPos != nil && data.GridPos.Y.IsNull() {
-		data.GridPos.Y = types.Int64Value(0)
-	}
-	if data.RepeatDirection.IsNull() {
-		data.RepeatDirection = types.StringValue(`h`)
-	}
-	if data.Options != nil && data.Options.OnlyFromThisDashboard.IsNull() {
-		data.Options.OnlyFromThisDashboard = types.BoolValue(false)
-	}
-	if data.Options != nil && data.Options.OnlyInTimeRange.IsNull() {
-		data.Options.OnlyInTimeRange = types.BoolValue(false)
-	}
-	if data.Options != nil && data.Options.Limit.IsNull() {
-		data.Options.Limit = types.Int64Value(10)
-	}
-	if data.Options != nil && data.Options.ShowUser.IsNull() {
-		data.Options.ShowUser = types.BoolValue(true)
-	}
-	if data.Options != nil && data.Options.ShowTime.IsNull() {
-		data.Options.ShowTime = types.BoolValue(true)
-	}
-	if data.Options != nil && data.Options.ShowTags.IsNull() {
-		data.Options.ShowTags = types.BoolValue(true)
-	}
-	if data.Options != nil && data.Options.NavigateToPanel.IsNull() {
-		data.Options.NavigateToPanel = types.BoolValue(true)
-	}
-	if data.Options != nil && data.Options.NavigateBefore.IsNull() {
-		data.Options.NavigateBefore = types.StringValue(`10m`)
-	}
-	if data.Options != nil && data.Options.NavigateAfter.IsNull() {
-		data.Options.NavigateAfter = types.StringValue(`10m`)
-	}
 }

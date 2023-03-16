@@ -14,11 +14,17 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
+
+// Ensure that the imports are used to avoid compiler errors.
+var _ attr.Value
+var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
@@ -40,8 +46,15 @@ func (m CoreTeamDataSourceModel_AccessControl) MarshalJSON() ([]byte, error) {
 	type jsonCoreTeamDataSourceModel_AccessControl struct {
 	}
 
+	m = m.ApplyDefaults()
+
 	model := &jsonCoreTeamDataSourceModel_AccessControl{}
 	return json.Marshal(model)
+}
+
+func (m CoreTeamDataSourceModel_AccessControl) ApplyDefaults() CoreTeamDataSourceModel_AccessControl {
+
+	return m
 }
 
 type CoreTeamDataSourceModel struct {
@@ -70,6 +83,7 @@ func (m CoreTeamDataSourceModel) MarshalJSON() ([]byte, error) {
 		Updated       int64       `json:"updated"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_orgid := m.OrgId.ValueInt64()
 	attr_name := m.Name.ValueString()
 	attr_email := m.Email.ValueString()
@@ -78,7 +92,7 @@ func (m CoreTeamDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_permission := m.Permission.ValueInt64()
 	var attr_accesscontrol interface{}
 	if m.AccessControl != nil {
-		attr_accesscontrol = m.AccessControl
+		attr_accesscontrol = m.AccessControl.ApplyDefaults()
 	}
 	attr_created := m.Created.ValueInt64()
 	attr_updated := m.Updated.ValueInt64()
@@ -95,6 +109,11 @@ func (m CoreTeamDataSourceModel) MarshalJSON() ([]byte, error) {
 		Updated:       attr_updated,
 	}
 	return json.Marshal(model)
+}
+
+func (m CoreTeamDataSourceModel) ApplyDefaults() CoreTeamDataSourceModel {
+
+	return m
 }
 
 func (d *CoreTeamDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -182,7 +201,6 @@ func (d *CoreTeamDataSource) Read(ctx context.Context, req datasource.ReadReques
 		return
 	}
 
-	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -198,10 +216,4 @@ func (d *CoreTeamDataSource) Read(ctx context.Context, req datasource.ReadReques
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d *CoreTeamDataSource) applyDefaults(data *CoreTeamDataSourceModel) {
-	if data.AccessControl == nil {
-		data.AccessControl = &CoreTeamDataSourceModel_AccessControl{}
-	}
 }

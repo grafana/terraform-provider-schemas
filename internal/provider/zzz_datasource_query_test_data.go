@@ -14,11 +14,17 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
+
+// Ensure that the imports are used to avoid compiler errors.
+var _ attr.Value
+var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
@@ -52,6 +58,7 @@ func (m QueryTestDataDataSourceModel_Stream) MarshalJSON() ([]byte, error) {
 		Url    *string `json:"url,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_speed := m.Speed.ValueInt64()
 	attr_spread := m.Spread.ValueInt64()
@@ -68,6 +75,11 @@ func (m QueryTestDataDataSourceModel_Stream) MarshalJSON() ([]byte, error) {
 		Url:    &attr_url,
 	}
 	return json.Marshal(model)
+}
+
+func (m QueryTestDataDataSourceModel_Stream) ApplyDefaults() QueryTestDataDataSourceModel_Stream {
+
+	return m
 }
 
 type QueryTestDataDataSourceModel_PulseWave struct {
@@ -87,6 +99,7 @@ func (m QueryTestDataDataSourceModel_PulseWave) MarshalJSON() ([]byte, error) {
 		OffValue *float64 `json:"offValue,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_timestep := m.TimeStep.ValueInt64()
 	attr_oncount := m.OnCount.ValueInt64()
 	attr_offcount := m.OffCount.ValueInt64()
@@ -103,6 +116,11 @@ func (m QueryTestDataDataSourceModel_PulseWave) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+func (m QueryTestDataDataSourceModel_PulseWave) ApplyDefaults() QueryTestDataDataSourceModel_PulseWave {
+
+	return m
+}
+
 type QueryTestDataDataSourceModel_Sim_Key struct {
 	Type types.String  `tfsdk:"type"`
 	Tick types.Float64 `tfsdk:"tick"`
@@ -116,6 +134,7 @@ func (m QueryTestDataDataSourceModel_Sim_Key) MarshalJSON() ([]byte, error) {
 		Uid  *string `json:"uid,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_tick := m.Tick.ValueFloat64()
 	attr_uid := m.Uid.ValueString()
@@ -128,6 +147,11 @@ func (m QueryTestDataDataSourceModel_Sim_Key) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+func (m QueryTestDataDataSourceModel_Sim_Key) ApplyDefaults() QueryTestDataDataSourceModel_Sim_Key {
+
+	return m
+}
+
 type QueryTestDataDataSourceModel_Sim_Config struct {
 }
 
@@ -135,8 +159,15 @@ func (m QueryTestDataDataSourceModel_Sim_Config) MarshalJSON() ([]byte, error) {
 	type jsonQueryTestDataDataSourceModel_Sim_Config struct {
 	}
 
+	m = m.ApplyDefaults()
+
 	model := &jsonQueryTestDataDataSourceModel_Sim_Config{}
 	return json.Marshal(model)
+}
+
+func (m QueryTestDataDataSourceModel_Sim_Config) ApplyDefaults() QueryTestDataDataSourceModel_Sim_Config {
+
+	return m
 }
 
 type QueryTestDataDataSourceModel_Sim struct {
@@ -154,13 +185,14 @@ func (m QueryTestDataDataSourceModel_Sim) MarshalJSON() ([]byte, error) {
 		Last   *bool       `json:"last,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	var attr_key interface{}
 	if m.Key != nil {
-		attr_key = m.Key
+		attr_key = m.Key.ApplyDefaults()
 	}
 	var attr_config interface{}
 	if m.Config != nil {
-		attr_config = m.Config
+		attr_config = m.Config.ApplyDefaults()
 	}
 	attr_stream := m.Stream.ValueBool()
 	attr_last := m.Last.ValueBool()
@@ -172,6 +204,11 @@ func (m QueryTestDataDataSourceModel_Sim) MarshalJSON() ([]byte, error) {
 		Last:   &attr_last,
 	}
 	return json.Marshal(model)
+}
+
+func (m QueryTestDataDataSourceModel_Sim) ApplyDefaults() QueryTestDataDataSourceModel_Sim {
+
+	return m
 }
 
 type QueryTestDataDataSourceModel_CsvWave struct {
@@ -189,6 +226,7 @@ func (m QueryTestDataDataSourceModel_CsvWave) MarshalJSON() ([]byte, error) {
 		Labels    *string `json:"labels,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_timestep := m.TimeStep.ValueInt64()
 	attr_name := m.Name.ValueString()
 	attr_valuescsv := m.ValuesCSV.ValueString()
@@ -203,6 +241,11 @@ func (m QueryTestDataDataSourceModel_CsvWave) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
+func (m QueryTestDataDataSourceModel_CsvWave) ApplyDefaults() QueryTestDataDataSourceModel_CsvWave {
+
+	return m
+}
+
 type QueryTestDataDataSourceModel_Nodes struct {
 	Type  types.String `tfsdk:"type"`
 	Count types.Int64  `tfsdk:"count"`
@@ -214,6 +257,7 @@ func (m QueryTestDataDataSourceModel_Nodes) MarshalJSON() ([]byte, error) {
 		Count *int64  `json:"count,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_count := m.Count.ValueInt64()
 
@@ -222,6 +266,11 @@ func (m QueryTestDataDataSourceModel_Nodes) MarshalJSON() ([]byte, error) {
 		Count: &attr_count,
 	}
 	return json.Marshal(model)
+}
+
+func (m QueryTestDataDataSourceModel_Nodes) ApplyDefaults() QueryTestDataDataSourceModel_Nodes {
+
+	return m
 }
 
 type QueryTestDataDataSourceModel_Usa struct {
@@ -239,6 +288,7 @@ func (m QueryTestDataDataSourceModel_Usa) MarshalJSON() ([]byte, error) {
 		States []string `json:"states,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
 	attr_period := m.Period.ValueString()
 	attr_fields := []string{}
@@ -257,6 +307,16 @@ func (m QueryTestDataDataSourceModel_Usa) MarshalJSON() ([]byte, error) {
 		States: attr_states,
 	}
 	return json.Marshal(model)
+}
+
+func (m QueryTestDataDataSourceModel_Usa) ApplyDefaults() QueryTestDataDataSourceModel_Usa {
+	if len(m.Fields.Elements()) == 0 {
+		m.Fields, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	if len(m.States.Elements()) == 0 {
+		m.States, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	return m
 }
 
 type QueryTestDataDataSourceModel struct {
@@ -313,23 +373,25 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 		QueryType       *string       `json:"queryType,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_alias := m.Alias.ValueString()
 	attr_scenarioid := m.ScenarioId.ValueString()
 	attr_stringinput := m.StringInput.ValueString()
 	var attr_stream interface{}
 	if m.Stream != nil {
-		attr_stream = m.Stream
+		attr_stream = m.Stream.ApplyDefaults()
 	}
 	var attr_pulsewave interface{}
 	if m.PulseWave != nil {
-		attr_pulsewave = m.PulseWave
+		attr_pulsewave = m.PulseWave.ApplyDefaults()
 	}
 	var attr_sim interface{}
 	if m.Sim != nil {
-		attr_sim = m.Sim
+		attr_sim = m.Sim.ApplyDefaults()
 	}
 	attr_csvwave := []interface{}{}
 	for _, v := range m.CsvWave {
+		v := v.ApplyDefaults()
 		attr_csvwave = append(attr_csvwave, v)
 	}
 	attr_labels := m.Labels.ValueString()
@@ -338,7 +400,7 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_channel := m.Channel.ValueString()
 	var attr_nodes interface{}
 	if m.Nodes != nil {
-		attr_nodes = m.Nodes
+		attr_nodes = m.Nodes.ApplyDefaults()
 	}
 	attr_csvfilename := m.CsvFileName.ValueString()
 	attr_csvcontent := m.CsvContent.ValueString()
@@ -346,7 +408,7 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_seriescount := m.SeriesCount.ValueInt64()
 	var attr_usa interface{}
 	if m.Usa != nil {
-		attr_usa = m.Usa
+		attr_usa = m.Usa.ApplyDefaults()
 	}
 	attr_errortype := m.ErrorType.ValueString()
 	attr_spancount := m.SpanCount.ValueInt64()
@@ -381,6 +443,13 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 		QueryType:       &attr_querytype,
 	}
 	return json.Marshal(model)
+}
+
+func (m QueryTestDataDataSourceModel) ApplyDefaults() QueryTestDataDataSourceModel {
+	if m.ScenarioId.IsNull() {
+		m.ScenarioId = types.StringValue(`random_walk`)
+	}
+	return m
 }
 
 func (d *QueryTestDataDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -739,7 +808,6 @@ func (d *QueryTestDataDataSource) Read(ctx context.Context, req datasource.ReadR
 		return
 	}
 
-	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -755,31 +823,4 @@ func (d *QueryTestDataDataSource) Read(ctx context.Context, req datasource.ReadR
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d *QueryTestDataDataSource) applyDefaults(data *QueryTestDataDataSourceModel) {
-	if data.Stream == nil {
-		data.Stream = &QueryTestDataDataSourceModel_Stream{}
-	}
-	if data.PulseWave == nil {
-		data.PulseWave = &QueryTestDataDataSourceModel_PulseWave{}
-	}
-	if data.Sim == nil {
-		data.Sim = &QueryTestDataDataSourceModel_Sim{}
-	}
-	if data.Sim.Key == nil {
-		data.Sim.Key = &QueryTestDataDataSourceModel_Sim_Key{}
-	}
-	if data.Sim.Config == nil {
-		data.Sim.Config = &QueryTestDataDataSourceModel_Sim_Config{}
-	}
-	if data.Nodes == nil {
-		data.Nodes = &QueryTestDataDataSourceModel_Nodes{}
-	}
-	if data.Usa == nil {
-		data.Usa = &QueryTestDataDataSourceModel_Usa{}
-	}
-	if data.ScenarioId.IsNull() {
-		data.ScenarioId = types.StringValue(`random_walk`)
-	}
 }

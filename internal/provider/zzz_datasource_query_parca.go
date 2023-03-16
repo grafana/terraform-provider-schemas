@@ -14,11 +14,17 @@ import (
 	"context"
 	"encoding/json"
 
+	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
+
+// Ensure that the imports are used to avoid compiler errors.
+var _ attr.Value
+var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
@@ -53,6 +59,7 @@ func (m QueryParcaDataSourceModel) MarshalJSON() ([]byte, error) {
 		QueryType     *string `json:"queryType,omitempty"`
 	}
 
+	m = m.ApplyDefaults()
 	attr_labelselector := m.LabelSelector.ValueString()
 	attr_profiletypeid := m.ProfileTypeId.ValueString()
 	attr_refid := m.RefId.ValueString()
@@ -69,6 +76,13 @@ func (m QueryParcaDataSourceModel) MarshalJSON() ([]byte, error) {
 		QueryType:     &attr_querytype,
 	}
 	return json.Marshal(model)
+}
+
+func (m QueryParcaDataSourceModel) ApplyDefaults() QueryParcaDataSourceModel {
+	if m.LabelSelector.IsNull() {
+		m.LabelSelector = types.StringValue(`{}`)
+	}
+	return m
 }
 
 func (d *QueryParcaDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
@@ -139,7 +153,6 @@ func (d *QueryParcaDataSource) Read(ctx context.Context, req datasource.ReadRequ
 		return
 	}
 
-	d.applyDefaults(&data)
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
@@ -155,10 +168,4 @@ func (d *QueryParcaDataSource) Read(ctx context.Context, req datasource.ReadRequ
 
 	// Save data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)
-}
-
-func (d *QueryParcaDataSource) applyDefaults(data *QueryParcaDataSourceModel) {
-	if data.LabelSelector.IsNull() {
-		data.LabelSelector = types.StringValue(`{}`)
-	}
 }
