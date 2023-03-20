@@ -28,24 +28,24 @@ var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &PanelTextDataSource{}
-	_ datasource.DataSourceWithConfigure = &PanelTextDataSource{}
+	_ datasource.DataSource              = &PanelCandlestickDataSource{}
+	_ datasource.DataSourceWithConfigure = &PanelCandlestickDataSource{}
 )
 
-func NewPanelTextDataSource() datasource.DataSource {
-	return &PanelTextDataSource{}
+func NewPanelCandlestickDataSource() datasource.DataSource {
+	return &PanelCandlestickDataSource{}
 }
 
-// PanelTextDataSource defines the data source implementation.
-type PanelTextDataSource struct{}
+// PanelCandlestickDataSource defines the data source implementation.
+type PanelCandlestickDataSource struct{}
 
-type PanelTextDataSourceModel_Datasource struct {
+type PanelCandlestickDataSourceModel_Datasource struct {
 	Type types.String `tfsdk:"type"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelTextDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Datasource struct {
+func (m PanelCandlestickDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Datasource struct {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
@@ -54,19 +54,19 @@ func (m PanelTextDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelTextDataSourceModel_Datasource{
+	model := &jsonPanelCandlestickDataSourceModel_Datasource{
 		Type: &attr_type,
 		Uid:  &attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_Datasource) ApplyDefaults() PanelTextDataSourceModel_Datasource {
+func (m PanelCandlestickDataSourceModel_Datasource) ApplyDefaults() PanelCandlestickDataSourceModel_Datasource {
 
 	return m
 }
 
-type PanelTextDataSourceModel_GridPos struct {
+type PanelCandlestickDataSourceModel_GridPos struct {
 	H      types.Int64 `tfsdk:"h"`
 	W      types.Int64 `tfsdk:"w"`
 	X      types.Int64 `tfsdk:"x"`
@@ -74,8 +74,8 @@ type PanelTextDataSourceModel_GridPos struct {
 	Static types.Bool  `tfsdk:"static"`
 }
 
-func (m PanelTextDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_GridPos struct {
+func (m PanelCandlestickDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_GridPos struct {
 		H      int64 `json:"h"`
 		W      int64 `json:"w"`
 		X      int64 `json:"x"`
@@ -90,7 +90,7 @@ func (m PanelTextDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_y := m.Y.ValueInt64()
 	attr_static := m.Static.ValueBool()
 
-	model := &jsonPanelTextDataSourceModel_GridPos{
+	model := &jsonPanelCandlestickDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
@@ -100,7 +100,7 @@ func (m PanelTextDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_GridPos) ApplyDefaults() PanelTextDataSourceModel_GridPos {
+func (m PanelCandlestickDataSourceModel_GridPos) ApplyDefaults() PanelCandlestickDataSourceModel_GridPos {
 	if m.H.IsNull() {
 		m.H = types.Int64Value(9)
 	}
@@ -116,7 +116,7 @@ func (m PanelTextDataSourceModel_GridPos) ApplyDefaults() PanelTextDataSourceMod
 	return m
 }
 
-type PanelTextDataSourceModel_Links struct {
+type PanelCandlestickDataSourceModel_Links struct {
 	Title       types.String `tfsdk:"title"`
 	Type        types.String `tfsdk:"type"`
 	Icon        types.String `tfsdk:"icon"`
@@ -129,8 +129,8 @@ type PanelTextDataSourceModel_Links struct {
 	KeepTime    types.Bool   `tfsdk:"keep_time"`
 }
 
-func (m PanelTextDataSourceModel_Links) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Links struct {
+func (m PanelCandlestickDataSourceModel_Links) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Links struct {
 		Title       string   `json:"title"`
 		Type        string   `json:"type"`
 		Icon        string   `json:"icon"`
@@ -158,7 +158,7 @@ func (m PanelTextDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	attr_includevars := m.IncludeVars.ValueBool()
 	attr_keeptime := m.KeepTime.ValueBool()
 
-	model := &jsonPanelTextDataSourceModel_Links{
+	model := &jsonPanelCandlestickDataSourceModel_Links{
 		Title:       attr_title,
 		Type:        attr_type,
 		Icon:        attr_icon,
@@ -173,7 +173,7 @@ func (m PanelTextDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_Links) ApplyDefaults() PanelTextDataSourceModel_Links {
+func (m PanelCandlestickDataSourceModel_Links) ApplyDefaults() PanelCandlestickDataSourceModel_Links {
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
@@ -192,31 +192,31 @@ func (m PanelTextDataSourceModel_Links) ApplyDefaults() PanelTextDataSourceModel
 	return m
 }
 
-type PanelTextDataSourceModel_Transformations_Filter struct {
+type PanelCandlestickDataSourceModel_Transformations_Filter struct {
 }
 
-func (m PanelTextDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Transformations_Filter struct {
+func (m PanelCandlestickDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Transformations_Filter struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelTextDataSourceModel_Transformations_Filter{}
+	model := &jsonPanelCandlestickDataSourceModel_Transformations_Filter{}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_Transformations_Filter) ApplyDefaults() PanelTextDataSourceModel_Transformations_Filter {
+func (m PanelCandlestickDataSourceModel_Transformations_Filter) ApplyDefaults() PanelCandlestickDataSourceModel_Transformations_Filter {
 
 	return m
 }
 
-type PanelTextDataSourceModel_Transformations struct {
-	Disabled types.Bool                                       `tfsdk:"disabled"`
-	Filter   *PanelTextDataSourceModel_Transformations_Filter `tfsdk:"filter"`
+type PanelCandlestickDataSourceModel_Transformations struct {
+	Disabled types.Bool                                              `tfsdk:"disabled"`
+	Filter   *PanelCandlestickDataSourceModel_Transformations_Filter `tfsdk:"filter"`
 }
 
-func (m PanelTextDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Transformations struct {
+func (m PanelCandlestickDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Transformations struct {
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
@@ -228,25 +228,25 @@ func (m PanelTextDataSourceModel_Transformations) MarshalJSON() ([]byte, error) 
 		attr_filter = m.Filter
 	}
 
-	model := &jsonPanelTextDataSourceModel_Transformations{
+	model := &jsonPanelCandlestickDataSourceModel_Transformations{
 		Disabled: &attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_Transformations) ApplyDefaults() PanelTextDataSourceModel_Transformations {
+func (m PanelCandlestickDataSourceModel_Transformations) ApplyDefaults() PanelCandlestickDataSourceModel_Transformations {
 
 	return m
 }
 
-type PanelTextDataSourceModel_LibraryPanel struct {
+type PanelCandlestickDataSourceModel_LibraryPanel struct {
 	Name types.String `tfsdk:"name"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelTextDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_LibraryPanel struct {
+func (m PanelCandlestickDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_LibraryPanel struct {
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
@@ -255,106 +255,44 @@ func (m PanelTextDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelTextDataSourceModel_LibraryPanel{
+	model := &jsonPanelCandlestickDataSourceModel_LibraryPanel{
 		Name: attr_name,
 		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_LibraryPanel) ApplyDefaults() PanelTextDataSourceModel_LibraryPanel {
+func (m PanelCandlestickDataSourceModel_LibraryPanel) ApplyDefaults() PanelCandlestickDataSourceModel_LibraryPanel {
 
 	return m
 }
 
-type PanelTextDataSourceModel_Options_Code struct {
-	Language        types.String `tfsdk:"language"`
-	ShowLineNumbers types.Bool   `tfsdk:"show_line_numbers"`
-	ShowMiniMap     types.Bool   `tfsdk:"show_mini_map"`
+type PanelCandlestickDataSourceModel_Options struct {
 }
 
-func (m PanelTextDataSourceModel_Options_Code) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Options_Code struct {
-		Language        string `json:"language"`
-		ShowLineNumbers bool   `json:"showLineNumbers"`
-		ShowMiniMap     bool   `json:"showMiniMap"`
+func (m PanelCandlestickDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Options struct {
 	}
 
 	m = m.ApplyDefaults()
-	attr_language := m.Language.ValueString()
-	attr_showlinenumbers := m.ShowLineNumbers.ValueBool()
-	attr_showminimap := m.ShowMiniMap.ValueBool()
 
-	model := &jsonPanelTextDataSourceModel_Options_Code{
-		Language:        attr_language,
-		ShowLineNumbers: attr_showlinenumbers,
-		ShowMiniMap:     attr_showminimap,
-	}
+	model := &jsonPanelCandlestickDataSourceModel_Options{}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_Options_Code) ApplyDefaults() PanelTextDataSourceModel_Options_Code {
-	if m.Language.IsNull() {
-		m.Language = types.StringValue(`plaintext`)
-	}
-	if m.ShowLineNumbers.IsNull() {
-		m.ShowLineNumbers = types.BoolValue(false)
-	}
-	if m.ShowMiniMap.IsNull() {
-		m.ShowMiniMap = types.BoolValue(false)
-	}
+func (m PanelCandlestickDataSourceModel_Options) ApplyDefaults() PanelCandlestickDataSourceModel_Options {
+
 	return m
 }
 
-type PanelTextDataSourceModel_Options struct {
-	Mode    types.String                           `tfsdk:"mode"`
-	Code    *PanelTextDataSourceModel_Options_Code `tfsdk:"code"`
-	Content types.String                           `tfsdk:"content"`
-}
-
-func (m PanelTextDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Options struct {
-		Mode    string      `json:"mode"`
-		Code    interface{} `json:"code,omitempty"`
-		Content string      `json:"content"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	var attr_code interface{}
-	if m.Code != nil {
-		attr_code = m.Code
-	}
-	attr_content := m.Content.ValueString()
-
-	model := &jsonPanelTextDataSourceModel_Options{
-		Mode:    attr_mode,
-		Code:    attr_code,
-		Content: attr_content,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTextDataSourceModel_Options) ApplyDefaults() PanelTextDataSourceModel_Options {
-	if m.Mode.IsNull() {
-		m.Mode = types.StringValue(`markdown`)
-	}
-	if m.Content.IsNull() {
-		m.Content = types.StringValue(`# Title
-
-For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)`)
-	}
-	return m
-}
-
-type PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.Float64 `tfsdk:"value"`
 	Color types.String  `tfsdk:"color"`
 	State types.String  `tfsdk:"state"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 		Value *float64 `json:"value,omitempty"`
 		Color string   `json:"color"`
 		State *string  `json:"state,omitempty"`
@@ -365,7 +303,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJ
 	attr_color := m.Color.ValueString()
 	attr_state := m.State.ValueString()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
 		Value: &attr_value,
 		Color: attr_color,
 		State: &attr_state,
@@ -373,18 +311,18 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJ
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds struct {
-	Mode  types.String                                                     `tfsdk:"mode"`
-	Steps []PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+	Mode  types.String                                                            `tfsdk:"mode"`
+	Steps []PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps,omitempty"`
 	}
@@ -396,26 +334,26 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() 
 		attr_steps = append(attr_steps, v)
 	}
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Thresholds{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds{
 		Mode:  attr_mode,
 		Steps: attr_steps,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Defaults_Color struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color struct {
 	Mode       types.String `tfsdk:"mode"`
 	FixedColor types.String `tfsdk:"fixed_color"`
 	SeriesBy   types.String `tfsdk:"series_by"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Color struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Color struct {
 		Mode       string  `json:"mode"`
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
@@ -426,7 +364,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]by
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Color{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
 		FixedColor: &attr_fixedcolor,
 		SeriesBy:   &attr_seriesby,
@@ -434,100 +372,48 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]by
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Color {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-	Tooltip types.Bool `tfsdk:"tooltip"`
-	Legend  types.Bool `tfsdk:"legend"`
-	Viz     types.Bool `tfsdk:"viz"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom struct {
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-		Tooltip bool `json:"tooltip"`
-		Legend  bool `json:"legend"`
-		Viz     bool `json:"viz"`
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom struct {
 	}
 
 	m = m.ApplyDefaults()
-	attr_tooltip := m.Tooltip.ValueBool()
-	attr_legend := m.Legend.ValueBool()
-	attr_viz := m.Viz.ValueBool()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
-		Tooltip: attr_tooltip,
-		Legend:  attr_legend,
-		Viz:     attr_viz,
-	}
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom{}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Defaults_Custom struct {
-	LineWidth   types.Int64                                                    `tfsdk:"line_width"`
-	HideFrom    *PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
-	FillOpacity types.Int64                                                    `tfsdk:"fill_opacity"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults struct {
+	DisplayName       types.String                                                     `tfsdk:"display_name"`
+	DisplayNameFromDS types.String                                                     `tfsdk:"display_name_from_ds"`
+	Description       types.String                                                     `tfsdk:"description"`
+	Path              types.String                                                     `tfsdk:"path"`
+	Writeable         types.Bool                                                       `tfsdk:"writeable"`
+	Filterable        types.Bool                                                       `tfsdk:"filterable"`
+	Unit              types.String                                                     `tfsdk:"unit"`
+	Decimals          types.Float64                                                    `tfsdk:"decimals"`
+	Min               types.Float64                                                    `tfsdk:"min"`
+	Max               types.Float64                                                    `tfsdk:"max"`
+	Thresholds        *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
+	Color             *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
+	NoValue           types.String                                                     `tfsdk:"no_value"`
+	Custom            *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom struct {
-		LineWidth   *int64      `json:"lineWidth,omitempty"`
-		HideFrom    interface{} `json:"hideFrom,omitempty"`
-		FillOpacity *int64      `json:"fillOpacity,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_linewidth := m.LineWidth.ValueInt64()
-	var attr_hidefrom interface{}
-	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom
-	}
-	attr_fillopacity := m.FillOpacity.ValueInt64()
-
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom{
-		LineWidth:   &attr_linewidth,
-		HideFrom:    attr_hidefrom,
-		FillOpacity: &attr_fillopacity,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Custom {
-	if m.LineWidth.IsNull() {
-		m.LineWidth = types.Int64Value(1)
-	}
-	if m.FillOpacity.IsNull() {
-		m.FillOpacity = types.Int64Value(70)
-	}
-	return m
-}
-
-type PanelTextDataSourceModel_FieldConfig_Defaults struct {
-	DisplayName       types.String                                              `tfsdk:"display_name"`
-	DisplayNameFromDS types.String                                              `tfsdk:"display_name_from_ds"`
-	Description       types.String                                              `tfsdk:"description"`
-	Path              types.String                                              `tfsdk:"path"`
-	Writeable         types.Bool                                                `tfsdk:"writeable"`
-	Filterable        types.Bool                                                `tfsdk:"filterable"`
-	Unit              types.String                                              `tfsdk:"unit"`
-	Decimals          types.Float64                                             `tfsdk:"decimals"`
-	Min               types.Float64                                             `tfsdk:"min"`
-	Max               types.Float64                                             `tfsdk:"max"`
-	Thresholds        *PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
-	Color             *PanelTextDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
-	NoValue           types.String                                              `tfsdk:"no_value"`
-	Custom            *PanelTextDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
-}
-
-func (m PanelTextDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults struct {
 		DisplayName       *string     `json:"displayName,omitempty"`
 		DisplayNameFromDS *string     `json:"displayNameFromDS,omitempty"`
 		Description       *string     `json:"description,omitempty"`
@@ -569,7 +455,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, er
 		attr_custom = m.Custom
 	}
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults{
 		DisplayName:       &attr_displayname,
 		DisplayNameFromDS: &attr_displaynamefromds,
 		Description:       &attr_description,
@@ -588,54 +474,54 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, er
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Overrides_Matcher struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher struct {
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Overrides_Matcher struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Overrides_Matcher{}
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher{}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Overrides_Matcher {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Overrides_Properties struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties struct {
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Overrides_Properties struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Overrides_Properties{}
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties{}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Overrides_Properties {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    *PanelTextDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
-	Properties []PanelTextDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
+type PanelCandlestickDataSourceModel_FieldConfig_Overrides struct {
+	Matcher    *PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
+	Properties []PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Overrides struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides struct {
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties,omitempty"`
 	}
@@ -650,25 +536,25 @@ func (m PanelTextDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, e
 		attr_properties = append(attr_properties, v)
 	}
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Overrides{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides{
 		Matcher:    attr_matcher,
 		Properties: attr_properties,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Overrides {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Overrides {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig struct {
-	Defaults  *PanelTextDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
-	Overrides []PanelTextDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
+type PanelCandlestickDataSourceModel_FieldConfig struct {
+	Defaults  *PanelCandlestickDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
+	Overrides []PanelCandlestickDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig struct {
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides,omitempty"`
 	}
@@ -683,45 +569,45 @@ func (m PanelTextDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 		attr_overrides = append(attr_overrides, v)
 	}
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig{
 		Defaults:  attr_defaults,
 		Overrides: attr_overrides,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig) ApplyDefaults() PanelTextDataSourceModel_FieldConfig {
+func (m PanelCandlestickDataSourceModel_FieldConfig) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig {
 
 	return m
 }
 
-type PanelTextDataSourceModel struct {
-	ToJSON          types.String                               `tfsdk:"to_json"`
-	Type            types.String                               `tfsdk:"type"`
-	PluginVersion   types.String                               `tfsdk:"plugin_version"`
-	Tags            types.List                                 `tfsdk:"tags"`
-	Targets         types.List                                 `tfsdk:"targets"`
-	Title           types.String                               `tfsdk:"title"`
-	Description     types.String                               `tfsdk:"description"`
-	Transparent     types.Bool                                 `tfsdk:"transparent"`
-	Datasource      *PanelTextDataSourceModel_Datasource       `tfsdk:"datasource"`
-	GridPos         *PanelTextDataSourceModel_GridPos          `tfsdk:"grid_pos"`
-	Links           []PanelTextDataSourceModel_Links           `tfsdk:"links"`
-	Repeat          types.String                               `tfsdk:"repeat"`
-	RepeatDirection types.String                               `tfsdk:"repeat_direction"`
-	RepeatPanelId   types.Int64                                `tfsdk:"repeat_panel_id"`
-	MaxDataPoints   types.Float64                              `tfsdk:"max_data_points"`
-	Transformations []PanelTextDataSourceModel_Transformations `tfsdk:"transformations"`
-	Interval        types.String                               `tfsdk:"interval"`
-	TimeFrom        types.String                               `tfsdk:"time_from"`
-	TimeShift       types.String                               `tfsdk:"time_shift"`
-	LibraryPanel    *PanelTextDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	Options         *PanelTextDataSourceModel_Options          `tfsdk:"options"`
-	FieldConfig     *PanelTextDataSourceModel_FieldConfig      `tfsdk:"field_config"`
+type PanelCandlestickDataSourceModel struct {
+	ToJSON          types.String                                      `tfsdk:"to_json"`
+	Type            types.String                                      `tfsdk:"type"`
+	PluginVersion   types.String                                      `tfsdk:"plugin_version"`
+	Tags            types.List                                        `tfsdk:"tags"`
+	Targets         types.List                                        `tfsdk:"targets"`
+	Title           types.String                                      `tfsdk:"title"`
+	Description     types.String                                      `tfsdk:"description"`
+	Transparent     types.Bool                                        `tfsdk:"transparent"`
+	Datasource      *PanelCandlestickDataSourceModel_Datasource       `tfsdk:"datasource"`
+	GridPos         *PanelCandlestickDataSourceModel_GridPos          `tfsdk:"grid_pos"`
+	Links           []PanelCandlestickDataSourceModel_Links           `tfsdk:"links"`
+	Repeat          types.String                                      `tfsdk:"repeat"`
+	RepeatDirection types.String                                      `tfsdk:"repeat_direction"`
+	RepeatPanelId   types.Int64                                       `tfsdk:"repeat_panel_id"`
+	MaxDataPoints   types.Float64                                     `tfsdk:"max_data_points"`
+	Transformations []PanelCandlestickDataSourceModel_Transformations `tfsdk:"transformations"`
+	Interval        types.String                                      `tfsdk:"interval"`
+	TimeFrom        types.String                                      `tfsdk:"time_from"`
+	TimeShift       types.String                                      `tfsdk:"time_shift"`
+	LibraryPanel    *PanelCandlestickDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
+	Options         *PanelCandlestickDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelCandlestickDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
-func (m PanelTextDataSourceModel) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel struct {
+func (m PanelCandlestickDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel struct {
 		Type            string        `json:"type"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
 		Tags            []string      `json:"tags,omitempty"`
@@ -795,7 +681,7 @@ func (m PanelTextDataSourceModel) MarshalJSON() ([]byte, error) {
 		attr_fieldconfig = m.FieldConfig
 	}
 
-	model := &jsonPanelTextDataSourceModel{
+	model := &jsonPanelCandlestickDataSourceModel{
 		Type:            attr_type,
 		PluginVersion:   &attr_pluginversion,
 		Tags:            attr_tags,
@@ -821,9 +707,9 @@ func (m PanelTextDataSourceModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel) ApplyDefaults() PanelTextDataSourceModel {
+func (m PanelCandlestickDataSourceModel) ApplyDefaults() PanelCandlestickDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`text`)
+		m.Type = types.StringValue(`candlestick`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -840,17 +726,17 @@ func (m PanelTextDataSourceModel) ApplyDefaults() PanelTextDataSourceModel {
 	return m
 }
 
-func (d *PanelTextDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_panel_text"
+func (d *PanelCandlestickDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_panel_candlestick"
 }
 
-func (d *PanelTextDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *PanelCandlestickDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "text".`,
+				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "candlestick".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -1117,48 +1003,6 @@ TODO tighter constraint`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
-				Attributes: map[string]schema.Attribute{
-					"mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "markdown".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"code": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"language": schema.StringAttribute{
-								MarkdownDescription: `The language passed to monaco code editor. Defaults to "plaintext".`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_line_numbers": schema.BoolAttribute{
-								MarkdownDescription: ` Defaults to false.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_mini_map": schema.BoolAttribute{
-								MarkdownDescription: ` Defaults to false.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"content": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "# Title
-
-For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)".`,
-						Computed: true,
-						Optional: true,
-						Required: false,
-					},
-				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1319,46 +1163,6 @@ Some seem to be listed in typescript comment`,
 								Computed:            true,
 								Optional:            true,
 								Required:            false,
-								Attributes: map[string]schema.Attribute{
-									"line_width": schema.Int64Attribute{
-										MarkdownDescription: ` Defaults to 1.`,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-									},
-									"hide_from": schema.SingleNestedAttribute{
-										MarkdownDescription: ``,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"tooltip": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"legend": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"viz": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-										},
-									},
-									"fill_opacity": schema.Int64Attribute{
-										MarkdownDescription: ` Defaults to 70.`,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-									},
-								},
 							},
 						},
 					},
@@ -1395,11 +1199,11 @@ Some seem to be listed in typescript comment`,
 	}
 }
 
-func (d *PanelTextDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *PanelCandlestickDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *PanelTextDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data PanelTextDataSourceModel
+func (d *PanelCandlestickDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data PanelCandlestickDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

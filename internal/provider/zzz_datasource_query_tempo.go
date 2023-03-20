@@ -40,65 +40,16 @@ func NewQueryTempoDataSource() datasource.DataSource {
 type QueryTempoDataSource struct{}
 
 type QueryTempoDataSourceModel struct {
-	ToJSON          types.String `tfsdk:"to_json"`
-	Query           types.String `tfsdk:"query"`
-	Search          types.String `tfsdk:"search"`
-	ServiceName     types.String `tfsdk:"service_name"`
-	SpanName        types.String `tfsdk:"span_name"`
-	MinDuration     types.String `tfsdk:"min_duration"`
-	MaxDuration     types.String `tfsdk:"max_duration"`
-	ServiceMapQuery types.String `tfsdk:"service_map_query"`
-	Limit           types.Int64  `tfsdk:"limit"`
-	RefId           types.String `tfsdk:"ref_id"`
-	Hide            types.Bool   `tfsdk:"hide"`
-	Key             types.String `tfsdk:"key"`
-	QueryType       types.String `tfsdk:"query_type"`
+	ToJSON types.String `tfsdk:"to_json"`
 }
 
 func (m QueryTempoDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonQueryTempoDataSourceModel struct {
-		Query           string  `json:"query"`
-		Search          *string `json:"search,omitempty"`
-		ServiceName     *string `json:"serviceName,omitempty"`
-		SpanName        *string `json:"spanName,omitempty"`
-		MinDuration     *string `json:"minDuration,omitempty"`
-		MaxDuration     *string `json:"maxDuration,omitempty"`
-		ServiceMapQuery *string `json:"serviceMapQuery,omitempty"`
-		Limit           *int64  `json:"limit,omitempty"`
-		RefId           string  `json:"refId"`
-		Hide            *bool   `json:"hide,omitempty"`
-		Key             *string `json:"key,omitempty"`
-		QueryType       *string `json:"queryType,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_query := m.Query.ValueString()
-	attr_search := m.Search.ValueString()
-	attr_servicename := m.ServiceName.ValueString()
-	attr_spanname := m.SpanName.ValueString()
-	attr_minduration := m.MinDuration.ValueString()
-	attr_maxduration := m.MaxDuration.ValueString()
-	attr_servicemapquery := m.ServiceMapQuery.ValueString()
-	attr_limit := m.Limit.ValueInt64()
-	attr_refid := m.RefId.ValueString()
-	attr_hide := m.Hide.ValueBool()
-	attr_key := m.Key.ValueString()
-	attr_querytype := m.QueryType.ValueString()
 
-	model := &jsonQueryTempoDataSourceModel{
-		Query:           attr_query,
-		Search:          &attr_search,
-		ServiceName:     &attr_servicename,
-		SpanName:        &attr_spanname,
-		MinDuration:     &attr_minduration,
-		MaxDuration:     &attr_maxduration,
-		ServiceMapQuery: &attr_servicemapquery,
-		Limit:           &attr_limit,
-		RefId:           attr_refid,
-		Hide:            &attr_hide,
-		Key:             &attr_key,
-		QueryType:       &attr_querytype,
-	}
+	model := &jsonQueryTempoDataSourceModel{}
 	return json.Marshal(model)
 }
 
@@ -116,79 +67,6 @@ func (d *QueryTempoDataSource) Schema(ctx context.Context, req datasource.Schema
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"query": schema.StringAttribute{
-				MarkdownDescription: `TraceQL query or trace ID`,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-			},
-			"search": schema.StringAttribute{
-				MarkdownDescription: `Logfmt query to filter traces by their tags. Example: http.status_code=200 error=true`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"service_name": schema.StringAttribute{
-				MarkdownDescription: `Query traces by service name`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"span_name": schema.StringAttribute{
-				MarkdownDescription: `Query traces by span name`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"min_duration": schema.StringAttribute{
-				MarkdownDescription: `Define the minimum duration to select traces. Use duration format, for example: 1.2s, 100ms`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"max_duration": schema.StringAttribute{
-				MarkdownDescription: `Define the maximum duration to select traces. Use duration format, for example: 1.2s, 100ms`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"service_map_query": schema.StringAttribute{
-				MarkdownDescription: `Filters to be included in a PromQL query to select data for the service graph. Example: {client="app",service="app"}`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"limit": schema.Int64Attribute{
-				MarkdownDescription: `Defines the maximum number of traces that are returned from Tempo`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"ref_id": schema.StringAttribute{
-				MarkdownDescription: `A - Z`,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-			},
-			"hide": schema.BoolAttribute{
-				MarkdownDescription: `true if query is disabled (ie should not be returned to the dashboard)`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"key": schema.StringAttribute{
-				MarkdownDescription: `Unique, guid like, string used in explore mode`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"query_type": schema.StringAttribute{
-				MarkdownDescription: `Specify the query flavor
-TODO make this required and give it a default`,
-				Computed: false,
-				Optional: true,
-				Required: false,
-			},
 
 			"to_json": schema.StringAttribute{
 				Computed:            true,

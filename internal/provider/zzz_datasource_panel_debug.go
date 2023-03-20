@@ -39,24 +39,6 @@ func NewPanelDebugDataSource() datasource.DataSource {
 // PanelDebugDataSource defines the data source implementation.
 type PanelDebugDataSource struct{}
 
-type PanelDebugDataSourceModel_Targets struct {
-}
-
-func (m PanelDebugDataSourceModel_Targets) MarshalJSON() ([]byte, error) {
-	type jsonPanelDebugDataSourceModel_Targets struct {
-	}
-
-	m = m.ApplyDefaults()
-
-	model := &jsonPanelDebugDataSourceModel_Targets{}
-	return json.Marshal(model)
-}
-
-func (m PanelDebugDataSourceModel_Targets) ApplyDefaults() PanelDebugDataSourceModel_Targets {
-
-	return m
-}
-
 type PanelDebugDataSourceModel_Datasource struct {
 	Type types.String `tfsdk:"type"`
 	Uid  types.String `tfsdk:"uid"`
@@ -438,180 +420,21 @@ func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() Pa
 	return m
 }
 
-type PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
-	Type            types.String  `tfsdk:"type"`
-	Log             types.Float64 `tfsdk:"log"`
-	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
-}
-
-func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
-	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
-		Type            string   `json:"type"`
-		Log             *float64 `json:"log,omitempty"`
-		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
-
-	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
-		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
-
-	return m
-}
-
-type PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-	Tooltip types.Bool `tfsdk:"tooltip"`
-	Legend  types.Bool `tfsdk:"legend"`
-	Viz     types.Bool `tfsdk:"viz"`
-}
-
-func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-		Tooltip bool `json:"tooltip"`
-		Legend  bool `json:"legend"`
-		Viz     bool `json:"viz"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_tooltip := m.Tooltip.ValueBool()
-	attr_legend := m.Legend.ValueBool()
-	attr_viz := m.Viz.ValueBool()
-
-	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
-		Tooltip: attr_tooltip,
-		Legend:  attr_legend,
-		Viz:     attr_viz,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
-
-	return m
-}
-
-type PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
-	Mode types.String `tfsdk:"mode"`
-}
-
-func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
-	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
-		Mode string `json:"mode"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-
-	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
-		Mode: attr_mode,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle {
-
-	return m
-}
-
 type PanelDebugDataSourceModel_FieldConfig_Defaults_Custom struct {
-	LineWidth         types.Int64                                                              `tfsdk:"line_width"`
-	FillOpacity       types.Int64                                                              `tfsdk:"fill_opacity"`
-	GradientMode      types.String                                                             `tfsdk:"gradient_mode"`
-	AxisPlacement     types.String                                                             `tfsdk:"axis_placement"`
-	AxisColorMode     types.String                                                             `tfsdk:"axis_color_mode"`
-	AxisLabel         types.String                                                             `tfsdk:"axis_label"`
-	AxisWidth         types.Float64                                                            `tfsdk:"axis_width"`
-	AxisSoftMin       types.Float64                                                            `tfsdk:"axis_soft_min"`
-	AxisSoftMax       types.Float64                                                            `tfsdk:"axis_soft_max"`
-	AxisGridShow      types.Bool                                                               `tfsdk:"axis_grid_show"`
-	ScaleDistribution *PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
-	HideFrom          *PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
-	ThresholdsStyle   *PanelDebugDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
-	AxisCenteredZero  types.Bool                                                               `tfsdk:"axis_centered_zero"`
 }
 
 func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Custom struct {
-		LineWidth         *int64      `json:"lineWidth,omitempty"`
-		FillOpacity       *int64      `json:"fillOpacity,omitempty"`
-		GradientMode      *string     `json:"gradientMode,omitempty"`
-		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
-		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
-		AxisLabel         *string     `json:"axisLabel,omitempty"`
-		AxisWidth         *float64    `json:"axisWidth,omitempty"`
-		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
-		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
-		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
-		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
-		HideFrom          interface{} `json:"hideFrom,omitempty"`
-		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
-		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_linewidth := m.LineWidth.ValueInt64()
-	attr_fillopacity := m.FillOpacity.ValueInt64()
-	attr_gradientmode := m.GradientMode.ValueString()
-	attr_axisplacement := m.AxisPlacement.ValueString()
-	attr_axiscolormode := m.AxisColorMode.ValueString()
-	attr_axislabel := m.AxisLabel.ValueString()
-	attr_axiswidth := m.AxisWidth.ValueFloat64()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
-	attr_axisgridshow := m.AxisGridShow.ValueBool()
-	var attr_scaledistribution interface{}
-	if m.ScaleDistribution != nil {
-		attr_scaledistribution = m.ScaleDistribution
-	}
-	var attr_hidefrom interface{}
-	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom
-	}
-	var attr_thresholdsstyle interface{}
-	if m.ThresholdsStyle != nil {
-		attr_thresholdsstyle = m.ThresholdsStyle
-	}
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
 
-	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Custom{
-		LineWidth:         &attr_linewidth,
-		FillOpacity:       &attr_fillopacity,
-		GradientMode:      &attr_gradientmode,
-		AxisPlacement:     &attr_axisplacement,
-		AxisColorMode:     &attr_axiscolormode,
-		AxisLabel:         &attr_axislabel,
-		AxisWidth:         &attr_axiswidth,
-		AxisSoftMin:       &attr_axissoftmin,
-		AxisSoftMax:       &attr_axissoftmax,
-		AxisGridShow:      &attr_axisgridshow,
-		ScaleDistribution: attr_scaledistribution,
-		HideFrom:          attr_hidefrom,
-		ThresholdsStyle:   attr_thresholdsstyle,
-		AxisCenteredZero:  &attr_axiscenteredzero,
-	}
+	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Custom{}
 	return json.Marshal(model)
 }
 
 func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Custom {
-	if m.LineWidth.IsNull() {
-		m.LineWidth = types.Int64Value(1)
-	}
-	if m.FillOpacity.IsNull() {
-		m.FillOpacity = types.Int64Value(80)
-	}
-	if m.GradientMode.IsNull() {
-		m.GradientMode = types.StringValue(`none`)
-	}
+
 	return m
 }
 
@@ -806,7 +629,7 @@ type PanelDebugDataSourceModel struct {
 	Type            types.String                                `tfsdk:"type"`
 	PluginVersion   types.String                                `tfsdk:"plugin_version"`
 	Tags            types.List                                  `tfsdk:"tags"`
-	Targets         []PanelDebugDataSourceModel_Targets         `tfsdk:"targets"`
+	Targets         types.List                                  `tfsdk:"targets"`
 	Title           types.String                                `tfsdk:"title"`
 	Description     types.String                                `tfsdk:"description"`
 	Transparent     types.Bool                                  `tfsdk:"transparent"`
@@ -831,7 +654,7 @@ func (m PanelDebugDataSourceModel) MarshalJSON() ([]byte, error) {
 		Type            string        `json:"type"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
 		Tags            []string      `json:"tags,omitempty"`
-		Targets         []interface{} `json:"targets,omitempty"`
+		Targets         []string      `json:"targets,omitempty"`
 		Title           *string       `json:"title,omitempty"`
 		Description     *string       `json:"description,omitempty"`
 		Transparent     bool          `json:"transparent"`
@@ -858,9 +681,9 @@ func (m PanelDebugDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
 	}
-	attr_targets := []interface{}{}
-	for _, v := range m.Targets {
-		attr_targets = append(attr_targets, v)
+	attr_targets := []string{}
+	for _, v := range m.Targets.Elements() {
+		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
 	attr_title := m.Title.ValueString()
 	attr_description := m.Description.ValueString()
@@ -934,6 +757,9 @@ func (m PanelDebugDataSourceModel) ApplyDefaults() PanelDebugDataSourceModel {
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
+	if len(m.Targets.Elements()) == 0 {
+		m.Targets, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
 	if m.Transparent.IsNull() {
 		m.Transparent = types.BoolValue(false)
 	}
@@ -971,11 +797,12 @@ func (d *PanelDebugDataSource) Schema(ctx context.Context, req datasource.Schema
 				Required:            false,
 				ElementType:         types.StringType,
 			},
-			"targets": schema.ListNestedAttribute{
+			"targets": schema.ListAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
+				ElementType:         types.StringType,
 			},
 			"title": schema.StringAttribute{
 				MarkdownDescription: `Panel title.`,
@@ -1413,141 +1240,6 @@ Some seem to be listed in typescript comment`,
 								Computed:            true,
 								Optional:            true,
 								Required:            false,
-								Attributes: map[string]schema.Attribute{
-									"line_width": schema.Int64Attribute{
-										MarkdownDescription: `Controls line width of the bars. Defaults to 1.`,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-									},
-									"fill_opacity": schema.Int64Attribute{
-										MarkdownDescription: `Controls the fill opacity of the bars. Defaults to 80.`,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-									},
-									"gradient_mode": schema.StringAttribute{
-										MarkdownDescription: `Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
-Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".`,
-										Computed: true,
-										Optional: true,
-										Required: false,
-									},
-									"axis_placement": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_color_mode": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_label": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_width": schema.Float64Attribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_soft_min": schema.Float64Attribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_soft_max": schema.Float64Attribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_grid_show": schema.BoolAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"scale_distribution": schema.SingleNestedAttribute{
-										MarkdownDescription: ``,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"type": schema.StringAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"log": schema.Float64Attribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            true,
-												Required:            false,
-											},
-											"linear_threshold": schema.Float64Attribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            true,
-												Required:            false,
-											},
-										},
-									},
-									"hide_from": schema.SingleNestedAttribute{
-										MarkdownDescription: ``,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"tooltip": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"legend": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"viz": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-										},
-									},
-									"thresholds_style": schema.SingleNestedAttribute{
-										MarkdownDescription: `Threshold rendering`,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"mode": schema.StringAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-										},
-									},
-									"axis_centered_zero": schema.BoolAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-								},
 							},
 						},
 					},
@@ -1600,6 +1292,34 @@ func (d *PanelDebugDataSource) Read(ctx context.Context, req datasource.ReadRequ
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
+		return
+	}
+
+	// fix up the targets Attribute
+	// Read into a map[string]interface{} and then marshal it back to JSON
+	// This is a workaround for the fact that the targets attribute should be a list of maps but is a list of json strings
+	dataMap := make(map[string]interface{})
+	err = json.Unmarshal(JSONConfig, &dataMap)
+	if err != nil {
+		resp.Diagnostics.AddError("error unmarshalling config into Go map", err.Error())
+		return
+	}
+	targets := data.Targets.Elements()
+	targetsMaps := make([]map[string]interface{}, len(targets))
+	for i, target := range targets {
+		targetMap := make(map[string]interface{})
+		err = json.Unmarshal([]byte(target.(types.String).ValueString()), &targetMap)
+		if err != nil {
+			resp.Diagnostics.AddError("error unmarshalling target into go map", err.Error())
+			return
+		}
+		targetsMaps[i] = targetMap
+	}
+
+	dataMap["targets"] = targetsMaps
+	JSONConfig, err = json.MarshalIndent(dataMap, "", "  ")
+	if err != nil {
+		resp.Diagnostics.AddError("error marshalling go map into json", err.Error())
 		return
 	}
 

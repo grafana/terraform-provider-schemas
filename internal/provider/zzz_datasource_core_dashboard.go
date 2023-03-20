@@ -620,7 +620,7 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 		Uid                  *string       `json:"uid,omitempty"`
 		Title                *string       `json:"title,omitempty"`
 		Description          *string       `json:"description,omitempty"`
-		Revision             int64         `json:"revision"`
+		Revision             *int64        `json:"revision,omitempty"`
 		GnetId               *string       `json:"gnetId,omitempty"`
 		Tags                 []string      `json:"tags,omitempty"`
 		Style                string        `json:"style"`
@@ -693,7 +693,7 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 		Uid:                  &attr_uid,
 		Title:                &attr_title,
 		Description:          &attr_description,
-		Revision:             attr_revision,
+		Revision:             &attr_revision,
 		GnetId:               &attr_gnetid,
 		Tags:                 attr_tags,
 		Style:                attr_style,
@@ -717,9 +717,6 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 }
 
 func (m CoreDashboardDataSourceModel) ApplyDefaults() CoreDashboardDataSourceModel {
-	if m.Revision.IsNull() {
-		m.Revision = types.Int64Value(-1)
-	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
@@ -775,13 +772,15 @@ func (d *CoreDashboardDataSource) Schema(ctx context.Context, req datasource.Sch
 				Required:            false,
 			},
 			"revision": schema.Int64Attribute{
-				MarkdownDescription: `Version of the current dashboard data. Defaults to -1.`,
-				Computed:            true,
-				Optional:            true,
-				Required:            false,
+				MarkdownDescription: `This property should only be used in dashboards defined by plugins.  It is a quick check
+to see if the version has changed since the last time.  Unclear why using the version property
+is insufficient.`,
+				Computed: false,
+				Optional: true,
+				Required: false,
 			},
 			"gnet_id": schema.StringAttribute{
-				MarkdownDescription: ``,
+				MarkdownDescription: `For dashboards imported from the https://grafana.com/grafana/dashboards/ portal`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
@@ -885,10 +884,12 @@ TODO this appears to be spread all over in the frontend. Concepts will likely ne
 				Required:            false,
 			},
 			"live_now": schema.BoolAttribute{
-				MarkdownDescription: `TODO docs`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
+				MarkdownDescription: `When set to true, the dashboard will redraw panels at an interval matching the pixel width.
+This will keep data "moving left" regardless of the query refresh rate.  This setting helps
+avoid dashboards presenting stale live data`,
+				Computed: false,
+				Optional: true,
+				Required: false,
 			},
 			"week_start": schema.StringAttribute{
 				MarkdownDescription: `TODO docs`,

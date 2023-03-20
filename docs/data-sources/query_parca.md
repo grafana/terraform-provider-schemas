@@ -18,12 +18,15 @@ TODO description
 ### Required
 
 - `profile_type_id` (String) Specifies the type of profile to query.
-- `ref_id` (String) A - Z
+- `ref_id` (String) A unique identifier for the query within the list of targets.
+In server side expressions, the refId is used as a variable name to identify results.
+By default, the UI will assign A->Z; however setting meaningful names may be useful.
 
 ### Optional
 
 - `hide` (Boolean) true if query is disabled (ie should not be returned to the dashboard)
-- `key` (String) Unique, guid like, string used in explore mode
+Note this does not always imply that the query should not be executed since
+the results from a hidden query may be used as the input to other queries (SSE etc)
 - `label_selector` (String) Specifies the query label selectors. Defaults to "{}".
 - `query_type` (String) Specify the query flavor
 TODO make this required and give it a default

@@ -28,24 +28,24 @@ var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &PanelPieChartDataSource{}
-	_ datasource.DataSourceWithConfigure = &PanelPieChartDataSource{}
+	_ datasource.DataSource              = &PanelGeomapDataSource{}
+	_ datasource.DataSourceWithConfigure = &PanelGeomapDataSource{}
 )
 
-func NewPanelPieChartDataSource() datasource.DataSource {
-	return &PanelPieChartDataSource{}
+func NewPanelGeomapDataSource() datasource.DataSource {
+	return &PanelGeomapDataSource{}
 }
 
-// PanelPieChartDataSource defines the data source implementation.
-type PanelPieChartDataSource struct{}
+// PanelGeomapDataSource defines the data source implementation.
+type PanelGeomapDataSource struct{}
 
-type PanelPieChartDataSourceModel_Datasource struct {
+type PanelGeomapDataSourceModel_Datasource struct {
 	Type types.String `tfsdk:"type"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelPieChartDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Datasource struct {
+func (m PanelGeomapDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Datasource struct {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
@@ -54,19 +54,19 @@ func (m PanelPieChartDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelPieChartDataSourceModel_Datasource{
+	model := &jsonPanelGeomapDataSourceModel_Datasource{
 		Type: &attr_type,
 		Uid:  &attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_Datasource) ApplyDefaults() PanelPieChartDataSourceModel_Datasource {
+func (m PanelGeomapDataSourceModel_Datasource) ApplyDefaults() PanelGeomapDataSourceModel_Datasource {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_GridPos struct {
+type PanelGeomapDataSourceModel_GridPos struct {
 	H      types.Int64 `tfsdk:"h"`
 	W      types.Int64 `tfsdk:"w"`
 	X      types.Int64 `tfsdk:"x"`
@@ -74,8 +74,8 @@ type PanelPieChartDataSourceModel_GridPos struct {
 	Static types.Bool  `tfsdk:"static"`
 }
 
-func (m PanelPieChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_GridPos struct {
+func (m PanelGeomapDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_GridPos struct {
 		H      int64 `json:"h"`
 		W      int64 `json:"w"`
 		X      int64 `json:"x"`
@@ -90,7 +90,7 @@ func (m PanelPieChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_y := m.Y.ValueInt64()
 	attr_static := m.Static.ValueBool()
 
-	model := &jsonPanelPieChartDataSourceModel_GridPos{
+	model := &jsonPanelGeomapDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
@@ -100,7 +100,7 @@ func (m PanelPieChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_GridPos) ApplyDefaults() PanelPieChartDataSourceModel_GridPos {
+func (m PanelGeomapDataSourceModel_GridPos) ApplyDefaults() PanelGeomapDataSourceModel_GridPos {
 	if m.H.IsNull() {
 		m.H = types.Int64Value(9)
 	}
@@ -116,7 +116,7 @@ func (m PanelPieChartDataSourceModel_GridPos) ApplyDefaults() PanelPieChartDataS
 	return m
 }
 
-type PanelPieChartDataSourceModel_Links struct {
+type PanelGeomapDataSourceModel_Links struct {
 	Title       types.String `tfsdk:"title"`
 	Type        types.String `tfsdk:"type"`
 	Icon        types.String `tfsdk:"icon"`
@@ -129,8 +129,8 @@ type PanelPieChartDataSourceModel_Links struct {
 	KeepTime    types.Bool   `tfsdk:"keep_time"`
 }
 
-func (m PanelPieChartDataSourceModel_Links) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Links struct {
+func (m PanelGeomapDataSourceModel_Links) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Links struct {
 		Title       string   `json:"title"`
 		Type        string   `json:"type"`
 		Icon        string   `json:"icon"`
@@ -158,7 +158,7 @@ func (m PanelPieChartDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	attr_includevars := m.IncludeVars.ValueBool()
 	attr_keeptime := m.KeepTime.ValueBool()
 
-	model := &jsonPanelPieChartDataSourceModel_Links{
+	model := &jsonPanelGeomapDataSourceModel_Links{
 		Title:       attr_title,
 		Type:        attr_type,
 		Icon:        attr_icon,
@@ -173,7 +173,7 @@ func (m PanelPieChartDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_Links) ApplyDefaults() PanelPieChartDataSourceModel_Links {
+func (m PanelGeomapDataSourceModel_Links) ApplyDefaults() PanelGeomapDataSourceModel_Links {
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
@@ -192,31 +192,31 @@ func (m PanelPieChartDataSourceModel_Links) ApplyDefaults() PanelPieChartDataSou
 	return m
 }
 
-type PanelPieChartDataSourceModel_Transformations_Filter struct {
+type PanelGeomapDataSourceModel_Transformations_Filter struct {
 }
 
-func (m PanelPieChartDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Transformations_Filter struct {
+func (m PanelGeomapDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Transformations_Filter struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelPieChartDataSourceModel_Transformations_Filter{}
+	model := &jsonPanelGeomapDataSourceModel_Transformations_Filter{}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_Transformations_Filter) ApplyDefaults() PanelPieChartDataSourceModel_Transformations_Filter {
+func (m PanelGeomapDataSourceModel_Transformations_Filter) ApplyDefaults() PanelGeomapDataSourceModel_Transformations_Filter {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_Transformations struct {
-	Disabled types.Bool                                           `tfsdk:"disabled"`
-	Filter   *PanelPieChartDataSourceModel_Transformations_Filter `tfsdk:"filter"`
+type PanelGeomapDataSourceModel_Transformations struct {
+	Disabled types.Bool                                         `tfsdk:"disabled"`
+	Filter   *PanelGeomapDataSourceModel_Transformations_Filter `tfsdk:"filter"`
 }
 
-func (m PanelPieChartDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Transformations struct {
+func (m PanelGeomapDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Transformations struct {
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
@@ -228,25 +228,25 @@ func (m PanelPieChartDataSourceModel_Transformations) MarshalJSON() ([]byte, err
 		attr_filter = m.Filter
 	}
 
-	model := &jsonPanelPieChartDataSourceModel_Transformations{
+	model := &jsonPanelGeomapDataSourceModel_Transformations{
 		Disabled: &attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_Transformations) ApplyDefaults() PanelPieChartDataSourceModel_Transformations {
+func (m PanelGeomapDataSourceModel_Transformations) ApplyDefaults() PanelGeomapDataSourceModel_Transformations {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_LibraryPanel struct {
+type PanelGeomapDataSourceModel_LibraryPanel struct {
 	Name types.String `tfsdk:"name"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelPieChartDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_LibraryPanel struct {
+func (m PanelGeomapDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_LibraryPanel struct {
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
@@ -255,254 +255,394 @@ func (m PanelPieChartDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error)
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelPieChartDataSourceModel_LibraryPanel{
+	model := &jsonPanelGeomapDataSourceModel_LibraryPanel{
 		Name: attr_name,
 		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_LibraryPanel) ApplyDefaults() PanelPieChartDataSourceModel_LibraryPanel {
+func (m PanelGeomapDataSourceModel_LibraryPanel) ApplyDefaults() PanelGeomapDataSourceModel_LibraryPanel {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_Options_Tooltip struct {
-	Mode types.String `tfsdk:"mode"`
-	Sort types.String `tfsdk:"sort"`
+type PanelGeomapDataSourceModel_Options_View struct {
+	Lat       types.Int64  `tfsdk:"lat"`
+	Lon       types.Int64  `tfsdk:"lon"`
+	Zoom      types.Int64  `tfsdk:"zoom"`
+	MinZoom   types.Int64  `tfsdk:"min_zoom"`
+	MaxZoom   types.Int64  `tfsdk:"max_zoom"`
+	Padding   types.Int64  `tfsdk:"padding"`
+	AllLayers types.Bool   `tfsdk:"all_layers"`
+	LastOnly  types.Bool   `tfsdk:"last_only"`
+	Layer     types.String `tfsdk:"layer"`
+	Shared    types.Bool   `tfsdk:"shared"`
 }
 
-func (m PanelPieChartDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Options_Tooltip struct {
-		Mode string `json:"mode"`
-		Sort string `json:"sort"`
+func (m PanelGeomapDataSourceModel_Options_View) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_View struct {
+		Lat       *int64  `json:"lat,omitempty"`
+		Lon       *int64  `json:"lon,omitempty"`
+		Zoom      *int64  `json:"zoom,omitempty"`
+		MinZoom   *int64  `json:"minZoom,omitempty"`
+		MaxZoom   *int64  `json:"maxZoom,omitempty"`
+		Padding   *int64  `json:"padding,omitempty"`
+		AllLayers *bool   `json:"allLayers,omitempty"`
+		LastOnly  *bool   `json:"lastOnly,omitempty"`
+		Layer     *string `json:"layer,omitempty"`
+		Shared    *bool   `json:"shared,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_lat := m.Lat.ValueInt64()
+	attr_lon := m.Lon.ValueInt64()
+	attr_zoom := m.Zoom.ValueInt64()
+	attr_minzoom := m.MinZoom.ValueInt64()
+	attr_maxzoom := m.MaxZoom.ValueInt64()
+	attr_padding := m.Padding.ValueInt64()
+	attr_alllayers := m.AllLayers.ValueBool()
+	attr_lastonly := m.LastOnly.ValueBool()
+	attr_layer := m.Layer.ValueString()
+	attr_shared := m.Shared.ValueBool()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_View{
+		Lat:       &attr_lat,
+		Lon:       &attr_lon,
+		Zoom:      &attr_zoom,
+		MinZoom:   &attr_minzoom,
+		MaxZoom:   &attr_maxzoom,
+		Padding:   &attr_padding,
+		AllLayers: &attr_alllayers,
+		LastOnly:  &attr_lastonly,
+		Layer:     &attr_layer,
+		Shared:    &attr_shared,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_View) ApplyDefaults() PanelGeomapDataSourceModel_Options_View {
+	if m.Lat.IsNull() {
+		m.Lat = types.Int64Value(0)
+	}
+	if m.Lon.IsNull() {
+		m.Lon = types.Int64Value(0)
+	}
+	if m.Zoom.IsNull() {
+		m.Zoom = types.Int64Value(1)
+	}
+	if m.AllLayers.IsNull() {
+		m.AllLayers = types.BoolValue(true)
+	}
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Controls struct {
+	ShowZoom        types.Bool `tfsdk:"show_zoom"`
+	MouseWheelZoom  types.Bool `tfsdk:"mouse_wheel_zoom"`
+	ShowAttribution types.Bool `tfsdk:"show_attribution"`
+	ShowScale       types.Bool `tfsdk:"show_scale"`
+	ShowDebug       types.Bool `tfsdk:"show_debug"`
+	ShowMeasure     types.Bool `tfsdk:"show_measure"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Controls) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Controls struct {
+		ShowZoom        *bool `json:"showZoom,omitempty"`
+		MouseWheelZoom  *bool `json:"mouseWheelZoom,omitempty"`
+		ShowAttribution *bool `json:"showAttribution,omitempty"`
+		ShowScale       *bool `json:"showScale,omitempty"`
+		ShowDebug       *bool `json:"showDebug,omitempty"`
+		ShowMeasure     *bool `json:"showMeasure,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_showzoom := m.ShowZoom.ValueBool()
+	attr_mousewheelzoom := m.MouseWheelZoom.ValueBool()
+	attr_showattribution := m.ShowAttribution.ValueBool()
+	attr_showscale := m.ShowScale.ValueBool()
+	attr_showdebug := m.ShowDebug.ValueBool()
+	attr_showmeasure := m.ShowMeasure.ValueBool()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_Controls{
+		ShowZoom:        &attr_showzoom,
+		MouseWheelZoom:  &attr_mousewheelzoom,
+		ShowAttribution: &attr_showattribution,
+		ShowScale:       &attr_showscale,
+		ShowDebug:       &attr_showdebug,
+		ShowMeasure:     &attr_showmeasure,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_Controls) ApplyDefaults() PanelGeomapDataSourceModel_Options_Controls {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Basemap_Location struct {
+	Mode      types.String `tfsdk:"mode"`
+	Geohash   types.String `tfsdk:"geohash"`
+	Latitude  types.String `tfsdk:"latitude"`
+	Longitude types.String `tfsdk:"longitude"`
+	Wkt       types.String `tfsdk:"wkt"`
+	Lookup    types.String `tfsdk:"lookup"`
+	Gazetteer types.String `tfsdk:"gazetteer"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Basemap_Location) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Basemap_Location struct {
+		Mode      string  `json:"mode"`
+		Geohash   *string `json:"geohash,omitempty"`
+		Latitude  *string `json:"latitude,omitempty"`
+		Longitude *string `json:"longitude,omitempty"`
+		Wkt       *string `json:"wkt,omitempty"`
+		Lookup    *string `json:"lookup,omitempty"`
+		Gazetteer *string `json:"gazetteer,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_sort := m.Sort.ValueString()
+	attr_geohash := m.Geohash.ValueString()
+	attr_latitude := m.Latitude.ValueString()
+	attr_longitude := m.Longitude.ValueString()
+	attr_wkt := m.Wkt.ValueString()
+	attr_lookup := m.Lookup.ValueString()
+	attr_gazetteer := m.Gazetteer.ValueString()
 
-	model := &jsonPanelPieChartDataSourceModel_Options_Tooltip{
+	model := &jsonPanelGeomapDataSourceModel_Options_Basemap_Location{
+		Mode:      attr_mode,
+		Geohash:   &attr_geohash,
+		Latitude:  &attr_latitude,
+		Longitude: &attr_longitude,
+		Wkt:       &attr_wkt,
+		Lookup:    &attr_lookup,
+		Gazetteer: &attr_gazetteer,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_Basemap_Location) ApplyDefaults() PanelGeomapDataSourceModel_Options_Basemap_Location {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Basemap struct {
+	Type     types.String                                         `tfsdk:"type"`
+	Name     types.String                                         `tfsdk:"name"`
+	Location *PanelGeomapDataSourceModel_Options_Basemap_Location `tfsdk:"location"`
+	Opacity  types.Int64                                          `tfsdk:"opacity"`
+	Tooltip  types.Bool                                           `tfsdk:"tooltip"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Basemap) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Basemap struct {
+		Type     string      `json:"type"`
+		Name     string      `json:"name"`
+		Location interface{} `json:"location,omitempty"`
+		Opacity  *int64      `json:"opacity,omitempty"`
+		Tooltip  *bool       `json:"tooltip,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	attr_name := m.Name.ValueString()
+	var attr_location interface{}
+	if m.Location != nil {
+		attr_location = m.Location
+	}
+	attr_opacity := m.Opacity.ValueInt64()
+	attr_tooltip := m.Tooltip.ValueBool()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_Basemap{
+		Type:     attr_type,
+		Name:     attr_name,
+		Location: attr_location,
+		Opacity:  &attr_opacity,
+		Tooltip:  &attr_tooltip,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_Basemap) ApplyDefaults() PanelGeomapDataSourceModel_Options_Basemap {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Layers_Location struct {
+	Mode      types.String `tfsdk:"mode"`
+	Geohash   types.String `tfsdk:"geohash"`
+	Latitude  types.String `tfsdk:"latitude"`
+	Longitude types.String `tfsdk:"longitude"`
+	Wkt       types.String `tfsdk:"wkt"`
+	Lookup    types.String `tfsdk:"lookup"`
+	Gazetteer types.String `tfsdk:"gazetteer"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Layers_Location) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Layers_Location struct {
+		Mode      string  `json:"mode"`
+		Geohash   *string `json:"geohash,omitempty"`
+		Latitude  *string `json:"latitude,omitempty"`
+		Longitude *string `json:"longitude,omitempty"`
+		Wkt       *string `json:"wkt,omitempty"`
+		Lookup    *string `json:"lookup,omitempty"`
+		Gazetteer *string `json:"gazetteer,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+	attr_geohash := m.Geohash.ValueString()
+	attr_latitude := m.Latitude.ValueString()
+	attr_longitude := m.Longitude.ValueString()
+	attr_wkt := m.Wkt.ValueString()
+	attr_lookup := m.Lookup.ValueString()
+	attr_gazetteer := m.Gazetteer.ValueString()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_Layers_Location{
+		Mode:      attr_mode,
+		Geohash:   &attr_geohash,
+		Latitude:  &attr_latitude,
+		Longitude: &attr_longitude,
+		Wkt:       &attr_wkt,
+		Lookup:    &attr_lookup,
+		Gazetteer: &attr_gazetteer,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_Layers_Location) ApplyDefaults() PanelGeomapDataSourceModel_Options_Layers_Location {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Layers struct {
+	Type     types.String                                        `tfsdk:"type"`
+	Name     types.String                                        `tfsdk:"name"`
+	Location *PanelGeomapDataSourceModel_Options_Layers_Location `tfsdk:"location"`
+	Opacity  types.Int64                                         `tfsdk:"opacity"`
+	Tooltip  types.Bool                                          `tfsdk:"tooltip"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Layers) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Layers struct {
+		Type     string      `json:"type"`
+		Name     string      `json:"name"`
+		Location interface{} `json:"location,omitempty"`
+		Opacity  *int64      `json:"opacity,omitempty"`
+		Tooltip  *bool       `json:"tooltip,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	attr_name := m.Name.ValueString()
+	var attr_location interface{}
+	if m.Location != nil {
+		attr_location = m.Location
+	}
+	attr_opacity := m.Opacity.ValueInt64()
+	attr_tooltip := m.Tooltip.ValueBool()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_Layers{
+		Type:     attr_type,
+		Name:     attr_name,
+		Location: attr_location,
+		Opacity:  &attr_opacity,
+		Tooltip:  &attr_tooltip,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_Layers) ApplyDefaults() PanelGeomapDataSourceModel_Options_Layers {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Tooltip struct {
+	Mode types.String `tfsdk:"mode"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Tooltip struct {
+		Mode string `json:"mode"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_Tooltip{
 		Mode: attr_mode,
-		Sort: attr_sort,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_Options_Tooltip) ApplyDefaults() PanelPieChartDataSourceModel_Options_Tooltip {
+func (m PanelGeomapDataSourceModel_Options_Tooltip) ApplyDefaults() PanelGeomapDataSourceModel_Options_Tooltip {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_Options_ReduceOptions struct {
-	Values types.Bool    `tfsdk:"values"`
-	Limit  types.Float64 `tfsdk:"limit"`
-	Calcs  types.List    `tfsdk:"calcs"`
-	Fields types.String  `tfsdk:"fields"`
+type PanelGeomapDataSourceModel_Options struct {
+	View     *PanelGeomapDataSourceModel_Options_View     `tfsdk:"view"`
+	Controls *PanelGeomapDataSourceModel_Options_Controls `tfsdk:"controls"`
+	Basemap  *PanelGeomapDataSourceModel_Options_Basemap  `tfsdk:"basemap"`
+	Layers   []PanelGeomapDataSourceModel_Options_Layers  `tfsdk:"layers"`
+	Tooltip  *PanelGeomapDataSourceModel_Options_Tooltip  `tfsdk:"tooltip"`
 }
 
-func (m PanelPieChartDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Options_ReduceOptions struct {
-		Values *bool    `json:"values,omitempty"`
-		Limit  *float64 `json:"limit,omitempty"`
-		Calcs  []string `json:"calcs,omitempty"`
-		Fields *string  `json:"fields,omitempty"`
+func (m PanelGeomapDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options struct {
+		View     interface{}   `json:"view,omitempty"`
+		Controls interface{}   `json:"controls,omitempty"`
+		Basemap  interface{}   `json:"basemap,omitempty"`
+		Layers   []interface{} `json:"layers,omitempty"`
+		Tooltip  interface{}   `json:"tooltip,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_values := m.Values.ValueBool()
-	attr_limit := m.Limit.ValueFloat64()
-	attr_calcs := []string{}
-	for _, v := range m.Calcs.Elements() {
-		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	var attr_view interface{}
+	if m.View != nil {
+		attr_view = m.View
 	}
-	attr_fields := m.Fields.ValueString()
-
-	model := &jsonPanelPieChartDataSourceModel_Options_ReduceOptions{
-		Values: &attr_values,
-		Limit:  &attr_limit,
-		Calcs:  attr_calcs,
-		Fields: &attr_fields,
+	var attr_controls interface{}
+	if m.Controls != nil {
+		attr_controls = m.Controls
 	}
-	return json.Marshal(model)
-}
-
-func (m PanelPieChartDataSourceModel_Options_ReduceOptions) ApplyDefaults() PanelPieChartDataSourceModel_Options_ReduceOptions {
-	if len(m.Calcs.Elements()) == 0 {
-		m.Calcs, _ = types.ListValue(types.StringType, []attr.Value{})
+	var attr_basemap interface{}
+	if m.Basemap != nil {
+		attr_basemap = m.Basemap
 	}
-	return m
-}
-
-type PanelPieChartDataSourceModel_Options_Text struct {
-	TitleSize types.Float64 `tfsdk:"title_size"`
-	ValueSize types.Float64 `tfsdk:"value_size"`
-}
-
-func (m PanelPieChartDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Options_Text struct {
-		TitleSize *float64 `json:"titleSize,omitempty"`
-		ValueSize *float64 `json:"valueSize,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_titlesize := m.TitleSize.ValueFloat64()
-	attr_valuesize := m.ValueSize.ValueFloat64()
-
-	model := &jsonPanelPieChartDataSourceModel_Options_Text{
-		TitleSize: &attr_titlesize,
-		ValueSize: &attr_valuesize,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelPieChartDataSourceModel_Options_Text) ApplyDefaults() PanelPieChartDataSourceModel_Options_Text {
-
-	return m
-}
-
-type PanelPieChartDataSourceModel_Options_Legend struct {
-	Values      types.List    `tfsdk:"values"`
-	DisplayMode types.String  `tfsdk:"display_mode"`
-	Placement   types.String  `tfsdk:"placement"`
-	ShowLegend  types.Bool    `tfsdk:"show_legend"`
-	AsTable     types.Bool    `tfsdk:"as_table"`
-	IsVisible   types.Bool    `tfsdk:"is_visible"`
-	SortBy      types.String  `tfsdk:"sort_by"`
-	SortDesc    types.Bool    `tfsdk:"sort_desc"`
-	Width       types.Float64 `tfsdk:"width"`
-	Calcs       types.List    `tfsdk:"calcs"`
-}
-
-func (m PanelPieChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Options_Legend struct {
-		Values      []string `json:"values,omitempty"`
-		DisplayMode string   `json:"displayMode"`
-		Placement   string   `json:"placement"`
-		ShowLegend  bool     `json:"showLegend"`
-		AsTable     *bool    `json:"asTable,omitempty"`
-		IsVisible   *bool    `json:"isVisible,omitempty"`
-		SortBy      *string  `json:"sortBy,omitempty"`
-		SortDesc    *bool    `json:"sortDesc,omitempty"`
-		Width       *float64 `json:"width,omitempty"`
-		Calcs       []string `json:"calcs,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_values := []string{}
-	for _, v := range m.Values.Elements() {
-		attr_values = append(attr_values, v.(types.String).ValueString())
-	}
-	attr_displaymode := m.DisplayMode.ValueString()
-	attr_placement := m.Placement.ValueString()
-	attr_showlegend := m.ShowLegend.ValueBool()
-	attr_astable := m.AsTable.ValueBool()
-	attr_isvisible := m.IsVisible.ValueBool()
-	attr_sortby := m.SortBy.ValueString()
-	attr_sortdesc := m.SortDesc.ValueBool()
-	attr_width := m.Width.ValueFloat64()
-	attr_calcs := []string{}
-	for _, v := range m.Calcs.Elements() {
-		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
-	}
-
-	model := &jsonPanelPieChartDataSourceModel_Options_Legend{
-		Values:      attr_values,
-		DisplayMode: attr_displaymode,
-		Placement:   attr_placement,
-		ShowLegend:  attr_showlegend,
-		AsTable:     &attr_astable,
-		IsVisible:   &attr_isvisible,
-		SortBy:      &attr_sortby,
-		SortDesc:    &attr_sortdesc,
-		Width:       &attr_width,
-		Calcs:       attr_calcs,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelPieChartDataSourceModel_Options_Legend) ApplyDefaults() PanelPieChartDataSourceModel_Options_Legend {
-	if len(m.Values.Elements()) == 0 {
-		m.Values, _ = types.ListValue(types.StringType, []attr.Value{})
-	}
-	if len(m.Calcs.Elements()) == 0 {
-		m.Calcs, _ = types.ListValue(types.StringType, []attr.Value{})
-	}
-	return m
-}
-
-type PanelPieChartDataSourceModel_Options struct {
-	PieType       types.String                                        `tfsdk:"pie_type"`
-	DisplayLabels types.List                                          `tfsdk:"display_labels"`
-	Tooltip       *PanelPieChartDataSourceModel_Options_Tooltip       `tfsdk:"tooltip"`
-	ReduceOptions *PanelPieChartDataSourceModel_Options_ReduceOptions `tfsdk:"reduce_options"`
-	Text          *PanelPieChartDataSourceModel_Options_Text          `tfsdk:"text"`
-	Legend        *PanelPieChartDataSourceModel_Options_Legend        `tfsdk:"legend"`
-	Orientation   types.String                                        `tfsdk:"orientation"`
-}
-
-func (m PanelPieChartDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_Options struct {
-		PieType       string      `json:"pieType"`
-		DisplayLabels []string    `json:"displayLabels,omitempty"`
-		Tooltip       interface{} `json:"tooltip,omitempty"`
-		ReduceOptions interface{} `json:"reduceOptions,omitempty"`
-		Text          interface{} `json:"text,omitempty"`
-		Legend        interface{} `json:"legend,omitempty"`
-		Orientation   string      `json:"orientation"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_pietype := m.PieType.ValueString()
-	attr_displaylabels := []string{}
-	for _, v := range m.DisplayLabels.Elements() {
-		attr_displaylabels = append(attr_displaylabels, v.(types.String).ValueString())
+	attr_layers := []interface{}{}
+	for _, v := range m.Layers {
+		attr_layers = append(attr_layers, v)
 	}
 	var attr_tooltip interface{}
 	if m.Tooltip != nil {
 		attr_tooltip = m.Tooltip
 	}
-	var attr_reduceoptions interface{}
-	if m.ReduceOptions != nil {
-		attr_reduceoptions = m.ReduceOptions
-	}
-	var attr_text interface{}
-	if m.Text != nil {
-		attr_text = m.Text
-	}
-	var attr_legend interface{}
-	if m.Legend != nil {
-		attr_legend = m.Legend
-	}
-	attr_orientation := m.Orientation.ValueString()
 
-	model := &jsonPanelPieChartDataSourceModel_Options{
-		PieType:       attr_pietype,
-		DisplayLabels: attr_displaylabels,
-		Tooltip:       attr_tooltip,
-		ReduceOptions: attr_reduceoptions,
-		Text:          attr_text,
-		Legend:        attr_legend,
-		Orientation:   attr_orientation,
+	model := &jsonPanelGeomapDataSourceModel_Options{
+		View:     attr_view,
+		Controls: attr_controls,
+		Basemap:  attr_basemap,
+		Layers:   attr_layers,
+		Tooltip:  attr_tooltip,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_Options) ApplyDefaults() PanelPieChartDataSourceModel_Options {
-	if len(m.DisplayLabels.Elements()) == 0 {
-		m.DisplayLabels, _ = types.ListValue(types.StringType, []attr.Value{})
-	}
+func (m PanelGeomapDataSourceModel_Options) ApplyDefaults() PanelGeomapDataSourceModel_Options {
+
 	return m
 }
 
-type PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+type PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.Float64 `tfsdk:"value"`
 	Color types.String  `tfsdk:"color"`
 	State types.String  `tfsdk:"state"`
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 		Value *float64 `json:"value,omitempty"`
 		Color string   `json:"color"`
 		State *string  `json:"state,omitempty"`
@@ -513,7 +653,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Mars
 	attr_color := m.Color.ValueString()
 	attr_state := m.State.ValueString()
 
-	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
 		Value: &attr_value,
 		Color: attr_color,
 		State: &attr_state,
@@ -521,18 +661,18 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Mars
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds struct {
-	Mode  types.String                                                         `tfsdk:"mode"`
-	Steps []PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
+type PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+	Mode  types.String                                                       `tfsdk:"mode"`
+	Steps []PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps,omitempty"`
 	}
@@ -544,26 +684,26 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSO
 		attr_steps = append(attr_steps, v)
 	}
 
-	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds{
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds{
 		Mode:  attr_mode,
 		Steps: attr_steps,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds {
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_FieldConfig_Defaults_Color struct {
+type PanelGeomapDataSourceModel_FieldConfig_Defaults_Color struct {
 	Mode       types.String `tfsdk:"mode"`
 	FixedColor types.String `tfsdk:"fixed_color"`
 	SeriesBy   types.String `tfsdk:"series_by"`
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Color struct {
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Color struct {
 		Mode       string  `json:"mode"`
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
@@ -574,7 +714,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() (
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
 
-	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Color{
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
 		FixedColor: &attr_fixedcolor,
 		SeriesBy:   &attr_seriesby,
@@ -582,87 +722,48 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() (
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelPieChartDataSourceModel_FieldConfig_Defaults_Color {
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Color {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-	Tooltip types.Bool `tfsdk:"tooltip"`
-	Legend  types.Bool `tfsdk:"legend"`
-	Viz     types.Bool `tfsdk:"viz"`
+type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom struct {
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-		Tooltip bool `json:"tooltip"`
-		Legend  bool `json:"legend"`
-		Viz     bool `json:"viz"`
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom struct {
 	}
 
 	m = m.ApplyDefaults()
-	attr_tooltip := m.Tooltip.ValueBool()
-	attr_legend := m.Legend.ValueBool()
-	attr_viz := m.Viz.ValueBool()
 
-	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
-		Tooltip: attr_tooltip,
-		Legend:  attr_legend,
-		Viz:     attr_viz,
-	}
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom{}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom struct {
-	HideFrom *PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
+type PanelGeomapDataSourceModel_FieldConfig_Defaults struct {
+	DisplayName       types.String                                                `tfsdk:"display_name"`
+	DisplayNameFromDS types.String                                                `tfsdk:"display_name_from_ds"`
+	Description       types.String                                                `tfsdk:"description"`
+	Path              types.String                                                `tfsdk:"path"`
+	Writeable         types.Bool                                                  `tfsdk:"writeable"`
+	Filterable        types.Bool                                                  `tfsdk:"filterable"`
+	Unit              types.String                                                `tfsdk:"unit"`
+	Decimals          types.Float64                                               `tfsdk:"decimals"`
+	Min               types.Float64                                               `tfsdk:"min"`
+	Max               types.Float64                                               `tfsdk:"max"`
+	Thresholds        *PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
+	Color             *PanelGeomapDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
+	NoValue           types.String                                                `tfsdk:"no_value"`
+	Custom            *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Custom struct {
-		HideFrom interface{} `json:"hideFrom,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	var attr_hidefrom interface{}
-	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom
-	}
-
-	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Custom{
-		HideFrom: attr_hidefrom,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom {
-
-	return m
-}
-
-type PanelPieChartDataSourceModel_FieldConfig_Defaults struct {
-	DisplayName       types.String                                                  `tfsdk:"display_name"`
-	DisplayNameFromDS types.String                                                  `tfsdk:"display_name_from_ds"`
-	Description       types.String                                                  `tfsdk:"description"`
-	Path              types.String                                                  `tfsdk:"path"`
-	Writeable         types.Bool                                                    `tfsdk:"writeable"`
-	Filterable        types.Bool                                                    `tfsdk:"filterable"`
-	Unit              types.String                                                  `tfsdk:"unit"`
-	Decimals          types.Float64                                                 `tfsdk:"decimals"`
-	Min               types.Float64                                                 `tfsdk:"min"`
-	Max               types.Float64                                                 `tfsdk:"max"`
-	Thresholds        *PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
-	Color             *PanelPieChartDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
-	NoValue           types.String                                                  `tfsdk:"no_value"`
-	Custom            *PanelPieChartDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
-}
-
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_FieldConfig_Defaults struct {
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults struct {
 		DisplayName       *string     `json:"displayName,omitempty"`
 		DisplayNameFromDS *string     `json:"displayNameFromDS,omitempty"`
 		Description       *string     `json:"description,omitempty"`
@@ -704,7 +805,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte
 		attr_custom = m.Custom
 	}
 
-	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults{
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults{
 		DisplayName:       &attr_displayname,
 		DisplayNameFromDS: &attr_displaynamefromds,
 		Description:       &attr_description,
@@ -723,54 +824,54 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelPieChartDataSourceModel_FieldConfig_Defaults {
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher struct {
+type PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher struct {
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher struct {
+func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher{}
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher{}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher {
+func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_FieldConfig_Overrides_Properties struct {
+type PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties struct {
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_FieldConfig_Overrides_Properties struct {
+func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Properties struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Overrides_Properties{}
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Properties{}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelPieChartDataSourceModel_FieldConfig_Overrides_Properties {
+func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    *PanelPieChartDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
-	Properties []PanelPieChartDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
+type PanelGeomapDataSourceModel_FieldConfig_Overrides struct {
+	Matcher    *PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
+	Properties []PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_FieldConfig_Overrides struct {
+func (m PanelGeomapDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig_Overrides struct {
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties,omitempty"`
 	}
@@ -785,25 +886,25 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byt
 		attr_properties = append(attr_properties, v)
 	}
 
-	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Overrides{
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Overrides{
 		Matcher:    attr_matcher,
 		Properties: attr_properties,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelPieChartDataSourceModel_FieldConfig_Overrides {
+func (m PanelGeomapDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Overrides {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel_FieldConfig struct {
-	Defaults  *PanelPieChartDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
-	Overrides []PanelPieChartDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
+type PanelGeomapDataSourceModel_FieldConfig struct {
+	Defaults  *PanelGeomapDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
+	Overrides []PanelGeomapDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel_FieldConfig struct {
+func (m PanelGeomapDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig struct {
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides,omitempty"`
 	}
@@ -818,45 +919,45 @@ func (m PanelPieChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) 
 		attr_overrides = append(attr_overrides, v)
 	}
 
-	model := &jsonPanelPieChartDataSourceModel_FieldConfig{
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig{
 		Defaults:  attr_defaults,
 		Overrides: attr_overrides,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel_FieldConfig) ApplyDefaults() PanelPieChartDataSourceModel_FieldConfig {
+func (m PanelGeomapDataSourceModel_FieldConfig) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig {
 
 	return m
 }
 
-type PanelPieChartDataSourceModel struct {
-	ToJSON          types.String                                   `tfsdk:"to_json"`
-	Type            types.String                                   `tfsdk:"type"`
-	PluginVersion   types.String                                   `tfsdk:"plugin_version"`
-	Tags            types.List                                     `tfsdk:"tags"`
-	Targets         types.List                                     `tfsdk:"targets"`
-	Title           types.String                                   `tfsdk:"title"`
-	Description     types.String                                   `tfsdk:"description"`
-	Transparent     types.Bool                                     `tfsdk:"transparent"`
-	Datasource      *PanelPieChartDataSourceModel_Datasource       `tfsdk:"datasource"`
-	GridPos         *PanelPieChartDataSourceModel_GridPos          `tfsdk:"grid_pos"`
-	Links           []PanelPieChartDataSourceModel_Links           `tfsdk:"links"`
-	Repeat          types.String                                   `tfsdk:"repeat"`
-	RepeatDirection types.String                                   `tfsdk:"repeat_direction"`
-	RepeatPanelId   types.Int64                                    `tfsdk:"repeat_panel_id"`
-	MaxDataPoints   types.Float64                                  `tfsdk:"max_data_points"`
-	Transformations []PanelPieChartDataSourceModel_Transformations `tfsdk:"transformations"`
-	Interval        types.String                                   `tfsdk:"interval"`
-	TimeFrom        types.String                                   `tfsdk:"time_from"`
-	TimeShift       types.String                                   `tfsdk:"time_shift"`
-	LibraryPanel    *PanelPieChartDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	Options         *PanelPieChartDataSourceModel_Options          `tfsdk:"options"`
-	FieldConfig     *PanelPieChartDataSourceModel_FieldConfig      `tfsdk:"field_config"`
+type PanelGeomapDataSourceModel struct {
+	ToJSON          types.String                                 `tfsdk:"to_json"`
+	Type            types.String                                 `tfsdk:"type"`
+	PluginVersion   types.String                                 `tfsdk:"plugin_version"`
+	Tags            types.List                                   `tfsdk:"tags"`
+	Targets         types.List                                   `tfsdk:"targets"`
+	Title           types.String                                 `tfsdk:"title"`
+	Description     types.String                                 `tfsdk:"description"`
+	Transparent     types.Bool                                   `tfsdk:"transparent"`
+	Datasource      *PanelGeomapDataSourceModel_Datasource       `tfsdk:"datasource"`
+	GridPos         *PanelGeomapDataSourceModel_GridPos          `tfsdk:"grid_pos"`
+	Links           []PanelGeomapDataSourceModel_Links           `tfsdk:"links"`
+	Repeat          types.String                                 `tfsdk:"repeat"`
+	RepeatDirection types.String                                 `tfsdk:"repeat_direction"`
+	RepeatPanelId   types.Int64                                  `tfsdk:"repeat_panel_id"`
+	MaxDataPoints   types.Float64                                `tfsdk:"max_data_points"`
+	Transformations []PanelGeomapDataSourceModel_Transformations `tfsdk:"transformations"`
+	Interval        types.String                                 `tfsdk:"interval"`
+	TimeFrom        types.String                                 `tfsdk:"time_from"`
+	TimeShift       types.String                                 `tfsdk:"time_shift"`
+	LibraryPanel    *PanelGeomapDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
+	Options         *PanelGeomapDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelGeomapDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
-func (m PanelPieChartDataSourceModel) MarshalJSON() ([]byte, error) {
-	type jsonPanelPieChartDataSourceModel struct {
+func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel struct {
 		Type            string        `json:"type"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
 		Tags            []string      `json:"tags,omitempty"`
@@ -930,7 +1031,7 @@ func (m PanelPieChartDataSourceModel) MarshalJSON() ([]byte, error) {
 		attr_fieldconfig = m.FieldConfig
 	}
 
-	model := &jsonPanelPieChartDataSourceModel{
+	model := &jsonPanelGeomapDataSourceModel{
 		Type:            attr_type,
 		PluginVersion:   &attr_pluginversion,
 		Tags:            attr_tags,
@@ -956,9 +1057,9 @@ func (m PanelPieChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelPieChartDataSourceModel) ApplyDefaults() PanelPieChartDataSourceModel {
+func (m PanelGeomapDataSourceModel) ApplyDefaults() PanelGeomapDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`piechart`)
+		m.Type = types.StringValue(`geomap`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -975,17 +1076,17 @@ func (m PanelPieChartDataSourceModel) ApplyDefaults() PanelPieChartDataSourceMod
 	return m
 }
 
-func (d *PanelPieChartDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_panel_pie_chart"
+func (d *PanelGeomapDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_panel_geomap"
 }
 
-func (d *PanelPieChartDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *PanelGeomapDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "piechart".`,
+				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "geomap".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -1253,18 +1354,287 @@ TODO tighter constraint`,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
-					"pie_type": schema.StringAttribute{
+					"view": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"lat": schema.Int64Attribute{
+								MarkdownDescription: ` Defaults to 0.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"lon": schema.Int64Attribute{
+								MarkdownDescription: ` Defaults to 0.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"zoom": schema.Int64Attribute{
+								MarkdownDescription: ` Defaults to 1.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"min_zoom": schema.Int64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"max_zoom": schema.Int64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"padding": schema.Int64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"all_layers": schema.BoolAttribute{
+								MarkdownDescription: ` Defaults to true.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"last_only": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"layer": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"shared": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
 					},
-					"display_labels": schema.ListAttribute{
+					"controls": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"show_zoom": schema.BoolAttribute{
+								MarkdownDescription: `Zoom (upper left)`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"mouse_wheel_zoom": schema.BoolAttribute{
+								MarkdownDescription: `let the mouse wheel zoom`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_attribution": schema.BoolAttribute{
+								MarkdownDescription: `Lower right`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_scale": schema.BoolAttribute{
+								MarkdownDescription: `Scale options`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_debug": schema.BoolAttribute{
+								MarkdownDescription: `Show debug`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_measure": schema.BoolAttribute{
+								MarkdownDescription: `Show measure`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"basemap": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"type": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"name": schema.StringAttribute{
+								MarkdownDescription: `configured unique display name`,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"location": schema.SingleNestedAttribute{
+								MarkdownDescription: `Common method to define geometry fields`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            false,
+										Required:            true,
+									},
+									"geohash": schema.StringAttribute{
+										MarkdownDescription: `Field mappings`,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"latitude": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"longitude": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"wkt": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"lookup": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"gazetteer": schema.StringAttribute{
+										MarkdownDescription: `Path to Gazetteer`,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+								},
+							},
+							"opacity": schema.Int64Attribute{
+								MarkdownDescription: `Common properties:
+https://openlayers.org/en/latest/apidoc/module-ol_layer_Base-BaseLayer.html
+Layer opacity (0-1)`,
+								Computed: false,
+								Optional: true,
+								Required: false,
+							},
+							"tooltip": schema.BoolAttribute{
+								MarkdownDescription: `Check tooltip (defaults to true)`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"layers": schema.ListNestedAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
-						ElementType:         types.StringType,
+						NestedObject: schema.NestedAttributeObject{
+							Attributes: map[string]schema.Attribute{
+								"type": schema.StringAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+								"name": schema.StringAttribute{
+									MarkdownDescription: `configured unique display name`,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+								"location": schema.SingleNestedAttribute{
+									MarkdownDescription: `Common method to define geometry fields`,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
+									Attributes: map[string]schema.Attribute{
+										"mode": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            false,
+											Required:            true,
+										},
+										"geohash": schema.StringAttribute{
+											MarkdownDescription: `Field mappings`,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"latitude": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"longitude": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"wkt": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"lookup": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"gazetteer": schema.StringAttribute{
+											MarkdownDescription: `Path to Gazetteer`,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+									},
+								},
+								"opacity": schema.Int64Attribute{
+									MarkdownDescription: `Common properties:
+https://openlayers.org/en/latest/apidoc/module-ol_layer_Base-BaseLayer.html
+Layer opacity (0-1)`,
+									Computed: false,
+									Optional: true,
+									Required: false,
+								},
+								"tooltip": schema.BoolAttribute{
+									MarkdownDescription: `Check tooltip (defaults to true)`,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+							},
+						},
 					},
 					"tooltip": schema.SingleNestedAttribute{
 						MarkdownDescription: ``,
@@ -1278,142 +1648,7 @@ TODO tighter constraint`,
 								Optional:            false,
 								Required:            true,
 							},
-							"sort": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
 						},
-					},
-					"reduce_options": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"values": schema.BoolAttribute{
-								MarkdownDescription: `If true show each row value`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"limit": schema.Float64Attribute{
-								MarkdownDescription: `if showing all values limit`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"calcs": schema.ListAttribute{
-								MarkdownDescription: `When !values, pick one value for the whole field`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-								ElementType:         types.StringType,
-							},
-							"fields": schema.StringAttribute{
-								MarkdownDescription: `Which fields to show.  By default this is only numeric fields`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"text": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"title_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit title text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"value_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit value text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"legend": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"values": schema.ListAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-								ElementType:         types.StringType,
-							},
-							"display_mode": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"placement": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"show_legend": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"as_table": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"is_visible": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"sort_by": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"sort_desc": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"width": schema.Float64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"calcs": schema.ListAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-								ElementType:         types.StringType,
-							},
-						},
-					},
-					"orientation": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
 					},
 				},
 			},
@@ -1576,34 +1811,6 @@ Some seem to be listed in typescript comment`,
 								Computed:            true,
 								Optional:            true,
 								Required:            false,
-								Attributes: map[string]schema.Attribute{
-									"hide_from": schema.SingleNestedAttribute{
-										MarkdownDescription: ``,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"tooltip": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"legend": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"viz": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-										},
-									},
-								},
 							},
 						},
 					},
@@ -1640,11 +1847,11 @@ Some seem to be listed in typescript comment`,
 	}
 }
 
-func (d *PanelPieChartDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *PanelGeomapDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *PanelPieChartDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data PanelPieChartDataSourceModel
+func (d *PanelGeomapDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data PanelGeomapDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

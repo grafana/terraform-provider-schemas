@@ -28,124 +28,114 @@ var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &QueryLokiDataSource{}
-	_ datasource.DataSourceWithConfigure = &QueryLokiDataSource{}
+	_ datasource.DataSource              = &QueryPrometheusDataSource{}
+	_ datasource.DataSourceWithConfigure = &QueryPrometheusDataSource{}
 )
 
-func NewQueryLokiDataSource() datasource.DataSource {
-	return &QueryLokiDataSource{}
+func NewQueryPrometheusDataSource() datasource.DataSource {
+	return &QueryPrometheusDataSource{}
 }
 
-// QueryLokiDataSource defines the data source implementation.
-type QueryLokiDataSource struct{}
+// QueryPrometheusDataSource defines the data source implementation.
+type QueryPrometheusDataSource struct{}
 
-type QueryLokiDataSourceModel struct {
-	ToJSON       types.String `tfsdk:"to_json"`
-	Expr         types.String `tfsdk:"expr"`
-	LegendFormat types.String `tfsdk:"legend_format"`
-	MaxLines     types.Int64  `tfsdk:"max_lines"`
-	Resolution   types.Int64  `tfsdk:"resolution"`
-	EditorMode   types.String `tfsdk:"editor_mode"`
-	Range        types.Bool   `tfsdk:"range"`
-	Instant      types.Bool   `tfsdk:"instant"`
-	RefId        types.String `tfsdk:"ref_id"`
-	Hide         types.Bool   `tfsdk:"hide"`
-	QueryType    types.String `tfsdk:"query_type"`
+type QueryPrometheusDataSourceModel struct {
+	ToJSON     types.String `tfsdk:"to_json"`
+	Expr       types.String `tfsdk:"expr"`
+	Instant    types.Bool   `tfsdk:"instant"`
+	Range      types.Bool   `tfsdk:"range"`
+	Exemplar   types.Bool   `tfsdk:"exemplar"`
+	EditorMode types.String `tfsdk:"editor_mode"`
+	Format     types.String `tfsdk:"format"`
+	RefId      types.String `tfsdk:"ref_id"`
+	Hide       types.Bool   `tfsdk:"hide"`
+	QueryType  types.String `tfsdk:"query_type"`
 }
 
-func (m QueryLokiDataSourceModel) MarshalJSON() ([]byte, error) {
-	type jsonQueryLokiDataSourceModel struct {
-		Expr         string  `json:"expr"`
-		LegendFormat *string `json:"legendFormat,omitempty"`
-		MaxLines     *int64  `json:"maxLines,omitempty"`
-		Resolution   *int64  `json:"resolution,omitempty"`
-		EditorMode   *string `json:"editorMode,omitempty"`
-		Range        *bool   `json:"range,omitempty"`
-		Instant      *bool   `json:"instant,omitempty"`
-		RefId        string  `json:"refId"`
-		Hide         *bool   `json:"hide,omitempty"`
-		QueryType    *string `json:"queryType,omitempty"`
+func (m QueryPrometheusDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonQueryPrometheusDataSourceModel struct {
+		Expr       string  `json:"expr"`
+		Instant    *bool   `json:"instant,omitempty"`
+		Range      *bool   `json:"range,omitempty"`
+		Exemplar   *bool   `json:"exemplar,omitempty"`
+		EditorMode *string `json:"editorMode,omitempty"`
+		Format     *string `json:"format,omitempty"`
+		RefId      string  `json:"refId"`
+		Hide       *bool   `json:"hide,omitempty"`
+		QueryType  *string `json:"queryType,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_expr := m.Expr.ValueString()
-	attr_legendformat := m.LegendFormat.ValueString()
-	attr_maxlines := m.MaxLines.ValueInt64()
-	attr_resolution := m.Resolution.ValueInt64()
-	attr_editormode := m.EditorMode.ValueString()
-	attr_range := m.Range.ValueBool()
 	attr_instant := m.Instant.ValueBool()
+	attr_range := m.Range.ValueBool()
+	attr_exemplar := m.Exemplar.ValueBool()
+	attr_editormode := m.EditorMode.ValueString()
+	attr_format := m.Format.ValueString()
 	attr_refid := m.RefId.ValueString()
 	attr_hide := m.Hide.ValueBool()
 	attr_querytype := m.QueryType.ValueString()
 
-	model := &jsonQueryLokiDataSourceModel{
-		Expr:         attr_expr,
-		LegendFormat: &attr_legendformat,
-		MaxLines:     &attr_maxlines,
-		Resolution:   &attr_resolution,
-		EditorMode:   &attr_editormode,
-		Range:        &attr_range,
-		Instant:      &attr_instant,
-		RefId:        attr_refid,
-		Hide:         &attr_hide,
-		QueryType:    &attr_querytype,
+	model := &jsonQueryPrometheusDataSourceModel{
+		Expr:       attr_expr,
+		Instant:    &attr_instant,
+		Range:      &attr_range,
+		Exemplar:   &attr_exemplar,
+		EditorMode: &attr_editormode,
+		Format:     &attr_format,
+		RefId:      attr_refid,
+		Hide:       &attr_hide,
+		QueryType:  &attr_querytype,
 	}
 	return json.Marshal(model)
 }
 
-func (m QueryLokiDataSourceModel) ApplyDefaults() QueryLokiDataSourceModel {
+func (m QueryPrometheusDataSourceModel) ApplyDefaults() QueryPrometheusDataSourceModel {
 
 	return m
 }
 
-func (d *QueryLokiDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_query_loki"
+func (d *QueryPrometheusDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_query_prometheus"
 }
 
-func (d *QueryLokiDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *QueryPrometheusDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
 			"expr": schema.StringAttribute{
-				MarkdownDescription: `The LogQL query.`,
+				MarkdownDescription: `The actual expression/query that will be evaluated by Prometheus`,
 				Computed:            false,
 				Optional:            false,
 				Required:            true,
 			},
-			"legend_format": schema.StringAttribute{
-				MarkdownDescription: `Used to override the name of the series.`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"max_lines": schema.Int64Attribute{
-				MarkdownDescription: `Used to limit the number of log rows returned.`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"resolution": schema.Int64Attribute{
-				MarkdownDescription: `Used to scale the interval value.`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"editor_mode": schema.StringAttribute{
-				MarkdownDescription: ``,
+			"instant": schema.BoolAttribute{
+				MarkdownDescription: `Returns only the latest value that Prometheus has scraped for the requested time series`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
 			"range": schema.BoolAttribute{
-				MarkdownDescription: `@deprecated, now use queryType.`,
+				MarkdownDescription: `Returns a Range vector, comprised of a set of time series containing a range of data points over time for each time series`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
-			"instant": schema.BoolAttribute{
-				MarkdownDescription: `@deprecated, now use queryType.`,
+			"exemplar": schema.BoolAttribute{
+				MarkdownDescription: `Execute an additional query to identify interesting raw samples relevant for the given expr`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+			},
+			"editor_mode": schema.StringAttribute{
+				MarkdownDescription: `Specifies which editor is being used to prepare the query. It can be "code" or "builder"`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+			},
+			"format": schema.StringAttribute{
+				MarkdownDescription: `Query format to determine how to display data points in panel. It can be "time_series", "table", "heatmap"`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
@@ -182,11 +172,11 @@ TODO make this required and give it a default`,
 	}
 }
 
-func (d *QueryLokiDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *QueryPrometheusDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *QueryLokiDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data QueryLokiDataSourceModel
+func (d *QueryPrometheusDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data QueryPrometheusDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

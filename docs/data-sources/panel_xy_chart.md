@@ -35,7 +35,7 @@ TODO fill this out - seems there are a couple variants? (see [below for nested s
 TODO this is probably optional. Defaults to "h".
 - `repeat_panel_id` (Number) Id of the repeating panel.
 - `tags` (List of String) TODO docs
-- `targets` (Attributes List) TODO docs (see [below for nested schema](#nestedatt--targets))
+- `targets` (List of String) TODO docs
 - `time_from` (String) TODO docs
 TODO tighter constraint
 - `time_shift` (String) TODO docs
@@ -109,18 +109,83 @@ Optional:
 
 Optional:
 
-- `fill_opacity` (Number) Defaults to 70.
+- `axis_centered_zero` (Boolean)
+- `axis_color_mode` (String)
+- `axis_grid_show` (Boolean)
+- `axis_label` (String)
+- `axis_placement` (String)
+- `axis_soft_max` (Number)
+- `axis_soft_min` (Number)
+- `axis_width` (Number)
+- `bar_alignment` (Number)
+- `bar_max_width` (Number)
+- `bar_width_factor` (Number)
+- `draw_style` (String)
+- `fill_below_to` (String)
+- `fill_color` (String)
+- `fill_opacity` (Number)
+- `gradient_mode` (String)
 - `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
-- `line_width` (Number) Defaults to 1.
+- `line_color` (String)
+- `line_interpolation` (String)
+- `line_style` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--line_style))
+- `line_width` (Number)
+- `point_color` (String)
+- `point_size` (Number)
+- `point_symbol` (String)
+- `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--scale_distribution))
+- `show_points` (String)
+- `stacking` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--stacking))
+- `thresholds_style` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--thresholds_style))
+- `transform` (String)
 
 <a id="nestedatt--field_config--defaults--custom--hide_from"></a>
-### Nested Schema for `field_config.defaults.custom.line_width`
+### Nested Schema for `field_config.defaults.custom.transform`
 
 Required:
 
 - `legend` (Boolean)
 - `tooltip` (Boolean)
 - `viz` (Boolean)
+
+
+<a id="nestedatt--field_config--defaults--custom--line_style"></a>
+### Nested Schema for `field_config.defaults.custom.transform`
+
+Optional:
+
+- `dash` (List of Number)
+- `fill` (String)
+
+
+<a id="nestedatt--field_config--defaults--custom--scale_distribution"></a>
+### Nested Schema for `field_config.defaults.custom.transform`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `linear_threshold` (Number)
+- `log` (Number)
+
+
+<a id="nestedatt--field_config--defaults--custom--stacking"></a>
+### Nested Schema for `field_config.defaults.custom.transform`
+
+Optional:
+
+- `group` (String)
+- `mode` (String)
+
+
+<a id="nestedatt--field_config--defaults--custom--thresholds_style"></a>
+### Nested Schema for `field_config.defaults.custom.transform`
+
+Required:
+
+- `mode` (String)
 
 
 
@@ -364,10 +429,6 @@ Required:
 - `mode` (String)
 - `sort` (String)
 
-
-
-<a id="nestedatt--targets"></a>
-### Nested Schema for `targets`
 
 
 <a id="nestedatt--transformations"></a>

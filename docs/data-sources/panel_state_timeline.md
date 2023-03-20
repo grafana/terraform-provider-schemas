@@ -35,7 +35,7 @@ TODO fill this out - seems there are a couple variants? (see [below for nested s
 TODO this is probably optional. Defaults to "h".
 - `repeat_panel_id` (Number) Id of the repeating panel.
 - `tags` (List of String) TODO docs
-- `targets` (Attributes List) TODO docs (see [below for nested schema](#nestedatt--targets))
+- `targets` (List of String) TODO docs
 - `time_from` (String) TODO docs
 TODO tighter constraint
 - `time_shift` (String) TODO docs
@@ -252,10 +252,6 @@ Required:
 - `mode` (String)
 - `sort` (String)
 
-
-
-<a id="nestedatt--targets"></a>
-### Nested Schema for `targets`
 
 
 <a id="nestedatt--transformations"></a>

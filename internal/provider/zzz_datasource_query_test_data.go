@@ -342,7 +342,6 @@ type QueryTestDataDataSourceModel struct {
 	SpanCount       types.Int64                             `tfsdk:"span_count"`
 	RefId           types.String                            `tfsdk:"ref_id"`
 	Hide            types.Bool                              `tfsdk:"hide"`
-	Key             types.String                            `tfsdk:"key"`
 	QueryType       types.String                            `tfsdk:"query_type"`
 }
 
@@ -369,7 +368,6 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 		SpanCount       *int64        `json:"spanCount,omitempty"`
 		RefId           string        `json:"refId"`
 		Hide            *bool         `json:"hide,omitempty"`
-		Key             *string       `json:"key,omitempty"`
 		QueryType       *string       `json:"queryType,omitempty"`
 	}
 
@@ -413,7 +411,6 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_spancount := m.SpanCount.ValueInt64()
 	attr_refid := m.RefId.ValueString()
 	attr_hide := m.Hide.ValueBool()
-	attr_key := m.Key.ValueString()
 	attr_querytype := m.QueryType.ValueString()
 
 	model := &jsonQueryTestDataDataSourceModel{
@@ -438,7 +435,6 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 		SpanCount:       &attr_spancount,
 		RefId:           attr_refid,
 		Hide:            &attr_hide,
-		Key:             &attr_key,
 		QueryType:       &attr_querytype,
 	}
 	return json.Marshal(model)
@@ -761,22 +757,20 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 				Required:            false,
 			},
 			"ref_id": schema.StringAttribute{
-				MarkdownDescription: `A - Z`,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
+				MarkdownDescription: `A unique identifier for the query within the list of targets.
+In server side expressions, the refId is used as a variable name to identify results.
+By default, the UI will assign A->Z; however setting meaningful names may be useful.`,
+				Computed: false,
+				Optional: false,
+				Required: true,
 			},
 			"hide": schema.BoolAttribute{
-				MarkdownDescription: `true if query is disabled (ie should not be returned to the dashboard)`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
-			"key": schema.StringAttribute{
-				MarkdownDescription: `Unique, guid like, string used in explore mode`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
+				MarkdownDescription: `true if query is disabled (ie should not be returned to the dashboard)
+Note this does not always imply that the query should not be executed since
+the results from a hidden query may be used as the input to other queries (SSE etc)`,
+				Computed: false,
+				Optional: true,
+				Required: false,
 			},
 			"query_type": schema.StringAttribute{
 				MarkdownDescription: `Specify the query flavor

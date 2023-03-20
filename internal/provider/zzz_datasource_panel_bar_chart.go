@@ -39,24 +39,6 @@ func NewPanelBarChartDataSource() datasource.DataSource {
 // PanelBarChartDataSource defines the data source implementation.
 type PanelBarChartDataSource struct{}
 
-type PanelBarChartDataSourceModel_Targets struct {
-}
-
-func (m PanelBarChartDataSourceModel_Targets) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_Targets struct {
-	}
-
-	m = m.ApplyDefaults()
-
-	model := &jsonPanelBarChartDataSourceModel_Targets{}
-	return json.Marshal(model)
-}
-
-func (m PanelBarChartDataSourceModel_Targets) ApplyDefaults() PanelBarChartDataSourceModel_Targets {
-
-	return m
-}
-
 type PanelBarChartDataSourceModel_Datasource struct {
 	Type types.String `tfsdk:"type"`
 	Uid  types.String `tfsdk:"uid"`
@@ -970,7 +952,7 @@ type PanelBarChartDataSourceModel struct {
 	Type            types.String                                   `tfsdk:"type"`
 	PluginVersion   types.String                                   `tfsdk:"plugin_version"`
 	Tags            types.List                                     `tfsdk:"tags"`
-	Targets         []PanelBarChartDataSourceModel_Targets         `tfsdk:"targets"`
+	Targets         types.List                                     `tfsdk:"targets"`
 	Title           types.String                                   `tfsdk:"title"`
 	Description     types.String                                   `tfsdk:"description"`
 	Transparent     types.Bool                                     `tfsdk:"transparent"`
@@ -995,7 +977,7 @@ func (m PanelBarChartDataSourceModel) MarshalJSON() ([]byte, error) {
 		Type            string        `json:"type"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
 		Tags            []string      `json:"tags,omitempty"`
-		Targets         []interface{} `json:"targets,omitempty"`
+		Targets         []string      `json:"targets,omitempty"`
 		Title           *string       `json:"title,omitempty"`
 		Description     *string       `json:"description,omitempty"`
 		Transparent     bool          `json:"transparent"`
@@ -1022,9 +1004,9 @@ func (m PanelBarChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
 	}
-	attr_targets := []interface{}{}
-	for _, v := range m.Targets {
-		attr_targets = append(attr_targets, v)
+	attr_targets := []string{}
+	for _, v := range m.Targets.Elements() {
+		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
 	attr_title := m.Title.ValueString()
 	attr_description := m.Description.ValueString()
@@ -1098,6 +1080,9 @@ func (m PanelBarChartDataSourceModel) ApplyDefaults() PanelBarChartDataSourceMod
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
+	if len(m.Targets.Elements()) == 0 {
+		m.Targets, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
 	if m.Transparent.IsNull() {
 		m.Transparent = types.BoolValue(false)
 	}
@@ -1135,11 +1120,12 @@ func (d *PanelBarChartDataSource) Schema(ctx context.Context, req datasource.Sch
 				Required:            false,
 				ElementType:         types.StringType,
 			},
-			"targets": schema.ListNestedAttribute{
+			"targets": schema.ListAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
+				ElementType:         types.StringType,
 			},
 			"title": schema.StringAttribute{
 				MarkdownDescription: `Panel title.`,
@@ -1909,6 +1895,34 @@ func (d *PanelBarChartDataSource) Read(ctx context.Context, req datasource.ReadR
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
+		return
+	}
+
+	// fix up the targets Attribute
+	// Read into a map[string]interface{} and then marshal it back to JSON
+	// This is a workaround for the fact that the targets attribute should be a list of maps but is a list of json strings
+	dataMap := make(map[string]interface{})
+	err = json.Unmarshal(JSONConfig, &dataMap)
+	if err != nil {
+		resp.Diagnostics.AddError("error unmarshalling config into Go map", err.Error())
+		return
+	}
+	targets := data.Targets.Elements()
+	targetsMaps := make([]map[string]interface{}, len(targets))
+	for i, target := range targets {
+		targetMap := make(map[string]interface{})
+		err = json.Unmarshal([]byte(target.(types.String).ValueString()), &targetMap)
+		if err != nil {
+			resp.Diagnostics.AddError("error unmarshalling target into go map", err.Error())
+			return
+		}
+		targetsMaps[i] = targetMap
+	}
+
+	dataMap["targets"] = targetsMaps
+	JSONConfig, err = json.MarshalIndent(dataMap, "", "  ")
+	if err != nil {
+		resp.Diagnostics.AddError("error marshalling go map into json", err.Error())
 		return
 	}
 

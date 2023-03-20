@@ -28,24 +28,24 @@ var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &PanelTextDataSource{}
-	_ datasource.DataSourceWithConfigure = &PanelTextDataSource{}
+	_ datasource.DataSource              = &PanelLogsDataSource{}
+	_ datasource.DataSourceWithConfigure = &PanelLogsDataSource{}
 )
 
-func NewPanelTextDataSource() datasource.DataSource {
-	return &PanelTextDataSource{}
+func NewPanelLogsDataSource() datasource.DataSource {
+	return &PanelLogsDataSource{}
 }
 
-// PanelTextDataSource defines the data source implementation.
-type PanelTextDataSource struct{}
+// PanelLogsDataSource defines the data source implementation.
+type PanelLogsDataSource struct{}
 
-type PanelTextDataSourceModel_Datasource struct {
+type PanelLogsDataSourceModel_Datasource struct {
 	Type types.String `tfsdk:"type"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelTextDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Datasource struct {
+func (m PanelLogsDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_Datasource struct {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
@@ -54,19 +54,19 @@ func (m PanelTextDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelTextDataSourceModel_Datasource{
+	model := &jsonPanelLogsDataSourceModel_Datasource{
 		Type: &attr_type,
 		Uid:  &attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_Datasource) ApplyDefaults() PanelTextDataSourceModel_Datasource {
+func (m PanelLogsDataSourceModel_Datasource) ApplyDefaults() PanelLogsDataSourceModel_Datasource {
 
 	return m
 }
 
-type PanelTextDataSourceModel_GridPos struct {
+type PanelLogsDataSourceModel_GridPos struct {
 	H      types.Int64 `tfsdk:"h"`
 	W      types.Int64 `tfsdk:"w"`
 	X      types.Int64 `tfsdk:"x"`
@@ -74,8 +74,8 @@ type PanelTextDataSourceModel_GridPos struct {
 	Static types.Bool  `tfsdk:"static"`
 }
 
-func (m PanelTextDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_GridPos struct {
+func (m PanelLogsDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_GridPos struct {
 		H      int64 `json:"h"`
 		W      int64 `json:"w"`
 		X      int64 `json:"x"`
@@ -90,7 +90,7 @@ func (m PanelTextDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_y := m.Y.ValueInt64()
 	attr_static := m.Static.ValueBool()
 
-	model := &jsonPanelTextDataSourceModel_GridPos{
+	model := &jsonPanelLogsDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
@@ -100,7 +100,7 @@ func (m PanelTextDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_GridPos) ApplyDefaults() PanelTextDataSourceModel_GridPos {
+func (m PanelLogsDataSourceModel_GridPos) ApplyDefaults() PanelLogsDataSourceModel_GridPos {
 	if m.H.IsNull() {
 		m.H = types.Int64Value(9)
 	}
@@ -116,7 +116,7 @@ func (m PanelTextDataSourceModel_GridPos) ApplyDefaults() PanelTextDataSourceMod
 	return m
 }
 
-type PanelTextDataSourceModel_Links struct {
+type PanelLogsDataSourceModel_Links struct {
 	Title       types.String `tfsdk:"title"`
 	Type        types.String `tfsdk:"type"`
 	Icon        types.String `tfsdk:"icon"`
@@ -129,8 +129,8 @@ type PanelTextDataSourceModel_Links struct {
 	KeepTime    types.Bool   `tfsdk:"keep_time"`
 }
 
-func (m PanelTextDataSourceModel_Links) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Links struct {
+func (m PanelLogsDataSourceModel_Links) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_Links struct {
 		Title       string   `json:"title"`
 		Type        string   `json:"type"`
 		Icon        string   `json:"icon"`
@@ -158,7 +158,7 @@ func (m PanelTextDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	attr_includevars := m.IncludeVars.ValueBool()
 	attr_keeptime := m.KeepTime.ValueBool()
 
-	model := &jsonPanelTextDataSourceModel_Links{
+	model := &jsonPanelLogsDataSourceModel_Links{
 		Title:       attr_title,
 		Type:        attr_type,
 		Icon:        attr_icon,
@@ -173,7 +173,7 @@ func (m PanelTextDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_Links) ApplyDefaults() PanelTextDataSourceModel_Links {
+func (m PanelLogsDataSourceModel_Links) ApplyDefaults() PanelLogsDataSourceModel_Links {
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
@@ -192,31 +192,31 @@ func (m PanelTextDataSourceModel_Links) ApplyDefaults() PanelTextDataSourceModel
 	return m
 }
 
-type PanelTextDataSourceModel_Transformations_Filter struct {
+type PanelLogsDataSourceModel_Transformations_Filter struct {
 }
 
-func (m PanelTextDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Transformations_Filter struct {
+func (m PanelLogsDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_Transformations_Filter struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelTextDataSourceModel_Transformations_Filter{}
+	model := &jsonPanelLogsDataSourceModel_Transformations_Filter{}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_Transformations_Filter) ApplyDefaults() PanelTextDataSourceModel_Transformations_Filter {
+func (m PanelLogsDataSourceModel_Transformations_Filter) ApplyDefaults() PanelLogsDataSourceModel_Transformations_Filter {
 
 	return m
 }
 
-type PanelTextDataSourceModel_Transformations struct {
+type PanelLogsDataSourceModel_Transformations struct {
 	Disabled types.Bool                                       `tfsdk:"disabled"`
-	Filter   *PanelTextDataSourceModel_Transformations_Filter `tfsdk:"filter"`
+	Filter   *PanelLogsDataSourceModel_Transformations_Filter `tfsdk:"filter"`
 }
 
-func (m PanelTextDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Transformations struct {
+func (m PanelLogsDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_Transformations struct {
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
@@ -228,25 +228,25 @@ func (m PanelTextDataSourceModel_Transformations) MarshalJSON() ([]byte, error) 
 		attr_filter = m.Filter
 	}
 
-	model := &jsonPanelTextDataSourceModel_Transformations{
+	model := &jsonPanelLogsDataSourceModel_Transformations{
 		Disabled: &attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_Transformations) ApplyDefaults() PanelTextDataSourceModel_Transformations {
+func (m PanelLogsDataSourceModel_Transformations) ApplyDefaults() PanelLogsDataSourceModel_Transformations {
 
 	return m
 }
 
-type PanelTextDataSourceModel_LibraryPanel struct {
+type PanelLogsDataSourceModel_LibraryPanel struct {
 	Name types.String `tfsdk:"name"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelTextDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_LibraryPanel struct {
+func (m PanelLogsDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_LibraryPanel struct {
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
@@ -255,106 +255,77 @@ func (m PanelTextDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelTextDataSourceModel_LibraryPanel{
+	model := &jsonPanelLogsDataSourceModel_LibraryPanel{
 		Name: attr_name,
 		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_LibraryPanel) ApplyDefaults() PanelTextDataSourceModel_LibraryPanel {
+func (m PanelLogsDataSourceModel_LibraryPanel) ApplyDefaults() PanelLogsDataSourceModel_LibraryPanel {
 
 	return m
 }
 
-type PanelTextDataSourceModel_Options_Code struct {
-	Language        types.String `tfsdk:"language"`
-	ShowLineNumbers types.Bool   `tfsdk:"show_line_numbers"`
-	ShowMiniMap     types.Bool   `tfsdk:"show_mini_map"`
+type PanelLogsDataSourceModel_Options struct {
+	ShowLabels         types.Bool   `tfsdk:"show_labels"`
+	ShowCommonLabels   types.Bool   `tfsdk:"show_common_labels"`
+	ShowTime           types.Bool   `tfsdk:"show_time"`
+	WrapLogMessage     types.Bool   `tfsdk:"wrap_log_message"`
+	PrettifyLogMessage types.Bool   `tfsdk:"prettify_log_message"`
+	EnableLogDetails   types.Bool   `tfsdk:"enable_log_details"`
+	SortOrder          types.String `tfsdk:"sort_order"`
+	DedupStrategy      types.String `tfsdk:"dedup_strategy"`
 }
 
-func (m PanelTextDataSourceModel_Options_Code) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Options_Code struct {
-		Language        string `json:"language"`
-		ShowLineNumbers bool   `json:"showLineNumbers"`
-		ShowMiniMap     bool   `json:"showMiniMap"`
+func (m PanelLogsDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_Options struct {
+		ShowLabels         bool   `json:"showLabels"`
+		ShowCommonLabels   bool   `json:"showCommonLabels"`
+		ShowTime           bool   `json:"showTime"`
+		WrapLogMessage     bool   `json:"wrapLogMessage"`
+		PrettifyLogMessage bool   `json:"prettifyLogMessage"`
+		EnableLogDetails   bool   `json:"enableLogDetails"`
+		SortOrder          string `json:"sortOrder"`
+		DedupStrategy      string `json:"dedupStrategy"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_language := m.Language.ValueString()
-	attr_showlinenumbers := m.ShowLineNumbers.ValueBool()
-	attr_showminimap := m.ShowMiniMap.ValueBool()
+	attr_showlabels := m.ShowLabels.ValueBool()
+	attr_showcommonlabels := m.ShowCommonLabels.ValueBool()
+	attr_showtime := m.ShowTime.ValueBool()
+	attr_wraplogmessage := m.WrapLogMessage.ValueBool()
+	attr_prettifylogmessage := m.PrettifyLogMessage.ValueBool()
+	attr_enablelogdetails := m.EnableLogDetails.ValueBool()
+	attr_sortorder := m.SortOrder.ValueString()
+	attr_dedupstrategy := m.DedupStrategy.ValueString()
 
-	model := &jsonPanelTextDataSourceModel_Options_Code{
-		Language:        attr_language,
-		ShowLineNumbers: attr_showlinenumbers,
-		ShowMiniMap:     attr_showminimap,
+	model := &jsonPanelLogsDataSourceModel_Options{
+		ShowLabels:         attr_showlabels,
+		ShowCommonLabels:   attr_showcommonlabels,
+		ShowTime:           attr_showtime,
+		WrapLogMessage:     attr_wraplogmessage,
+		PrettifyLogMessage: attr_prettifylogmessage,
+		EnableLogDetails:   attr_enablelogdetails,
+		SortOrder:          attr_sortorder,
+		DedupStrategy:      attr_dedupstrategy,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_Options_Code) ApplyDefaults() PanelTextDataSourceModel_Options_Code {
-	if m.Language.IsNull() {
-		m.Language = types.StringValue(`plaintext`)
-	}
-	if m.ShowLineNumbers.IsNull() {
-		m.ShowLineNumbers = types.BoolValue(false)
-	}
-	if m.ShowMiniMap.IsNull() {
-		m.ShowMiniMap = types.BoolValue(false)
-	}
+func (m PanelLogsDataSourceModel_Options) ApplyDefaults() PanelLogsDataSourceModel_Options {
+
 	return m
 }
 
-type PanelTextDataSourceModel_Options struct {
-	Mode    types.String                           `tfsdk:"mode"`
-	Code    *PanelTextDataSourceModel_Options_Code `tfsdk:"code"`
-	Content types.String                           `tfsdk:"content"`
-}
-
-func (m PanelTextDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Options struct {
-		Mode    string      `json:"mode"`
-		Code    interface{} `json:"code,omitempty"`
-		Content string      `json:"content"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	var attr_code interface{}
-	if m.Code != nil {
-		attr_code = m.Code
-	}
-	attr_content := m.Content.ValueString()
-
-	model := &jsonPanelTextDataSourceModel_Options{
-		Mode:    attr_mode,
-		Code:    attr_code,
-		Content: attr_content,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTextDataSourceModel_Options) ApplyDefaults() PanelTextDataSourceModel_Options {
-	if m.Mode.IsNull() {
-		m.Mode = types.StringValue(`markdown`)
-	}
-	if m.Content.IsNull() {
-		m.Content = types.StringValue(`# Title
-
-For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)`)
-	}
-	return m
-}
-
-type PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+type PanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.Float64 `tfsdk:"value"`
 	Color types.String  `tfsdk:"color"`
 	State types.String  `tfsdk:"state"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 		Value *float64 `json:"value,omitempty"`
 		Color string   `json:"color"`
 		State *string  `json:"state,omitempty"`
@@ -365,7 +336,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJ
 	attr_color := m.Color.ValueString()
 	attr_state := m.State.ValueString()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
+	model := &jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
 		Value: &attr_value,
 		Color: attr_color,
 		State: &attr_state,
@@ -373,18 +344,18 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJ
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+type PanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 	Mode  types.String                                                     `tfsdk:"mode"`
-	Steps []PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
+	Steps []PanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps,omitempty"`
 	}
@@ -396,26 +367,26 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() 
 		attr_steps = append(attr_steps, v)
 	}
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Thresholds{
+	model := &jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds{
 		Mode:  attr_mode,
 		Steps: attr_steps,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds {
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Defaults_Color struct {
+type PanelLogsDataSourceModel_FieldConfig_Defaults_Color struct {
 	Mode       types.String `tfsdk:"mode"`
 	FixedColor types.String `tfsdk:"fixed_color"`
 	SeriesBy   types.String `tfsdk:"series_by"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Color struct {
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Color struct {
 		Mode       string  `json:"mode"`
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
@@ -426,7 +397,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]by
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Color{
+	model := &jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
 		FixedColor: &attr_fixedcolor,
 		SeriesBy:   &attr_seriesby,
@@ -434,19 +405,50 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]by
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Color {
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelLogsDataSourceModel_FieldConfig_Defaults_Color {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+type PanelLogsDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+	Type            types.String  `tfsdk:"type"`
+	Log             types.Float64 `tfsdk:"log"`
+	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+}
+
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+		Type            string   `json:"type"`
+		Log             *float64 `json:"log,omitempty"`
+		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	attr_log := m.Log.ValueFloat64()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+
+	model := &jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
+		Type:            attr_type,
+		Log:             &attr_log,
+		LinearThreshold: &attr_linearthreshold,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelLogsDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
+
+	return m
+}
+
+type PanelLogsDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
 	Tooltip types.Bool `tfsdk:"tooltip"`
 	Legend  types.Bool `tfsdk:"legend"`
 	Viz     types.Bool `tfsdk:"viz"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
 		Tooltip bool `json:"tooltip"`
 		Legend  bool `json:"legend"`
 		Viz     bool `json:"viz"`
@@ -457,7 +459,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJS
 	attr_legend := m.Legend.ValueBool()
 	attr_viz := m.Viz.ValueBool()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+	model := &jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
 		Tooltip: attr_tooltip,
 		Legend:  attr_legend,
 		Viz:     attr_viz,
@@ -465,51 +467,97 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJS
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelLogsDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Defaults_Custom struct {
-	LineWidth   types.Int64                                                    `tfsdk:"line_width"`
-	HideFrom    *PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
-	FillOpacity types.Int64                                                    `tfsdk:"fill_opacity"`
+type PanelLogsDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth         types.Int64                                                             `tfsdk:"line_width"`
+	FillOpacity       types.Int64                                                             `tfsdk:"fill_opacity"`
+	AxisPlacement     types.String                                                            `tfsdk:"axis_placement"`
+	AxisColorMode     types.String                                                            `tfsdk:"axis_color_mode"`
+	AxisLabel         types.String                                                            `tfsdk:"axis_label"`
+	AxisWidth         types.Float64                                                           `tfsdk:"axis_width"`
+	AxisSoftMin       types.Float64                                                           `tfsdk:"axis_soft_min"`
+	AxisSoftMax       types.Float64                                                           `tfsdk:"axis_soft_max"`
+	AxisGridShow      types.Bool                                                              `tfsdk:"axis_grid_show"`
+	ScaleDistribution *PanelLogsDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
+	HideFrom          *PanelLogsDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
+	GradientMode      types.String                                                            `tfsdk:"gradient_mode"`
+	AxisCenteredZero  types.Bool                                                              `tfsdk:"axis_centered_zero"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom struct {
-		LineWidth   *int64      `json:"lineWidth,omitempty"`
-		HideFrom    interface{} `json:"hideFrom,omitempty"`
-		FillOpacity *int64      `json:"fillOpacity,omitempty"`
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth         *int64      `json:"lineWidth,omitempty"`
+		FillOpacity       *int64      `json:"fillOpacity,omitempty"`
+		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
+		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
+		AxisLabel         *string     `json:"axisLabel,omitempty"`
+		AxisWidth         *float64    `json:"axisWidth,omitempty"`
+		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
+		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
+		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
+		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
+		HideFrom          interface{} `json:"hideFrom,omitempty"`
+		GradientMode      *string     `json:"gradientMode,omitempty"`
+		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_linewidth := m.LineWidth.ValueInt64()
+	attr_fillopacity := m.FillOpacity.ValueInt64()
+	attr_axisplacement := m.AxisPlacement.ValueString()
+	attr_axiscolormode := m.AxisColorMode.ValueString()
+	attr_axislabel := m.AxisLabel.ValueString()
+	attr_axiswidth := m.AxisWidth.ValueFloat64()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
+	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	var attr_scaledistribution interface{}
+	if m.ScaleDistribution != nil {
+		attr_scaledistribution = m.ScaleDistribution
+	}
 	var attr_hidefrom interface{}
 	if m.HideFrom != nil {
 		attr_hidefrom = m.HideFrom
 	}
-	attr_fillopacity := m.FillOpacity.ValueInt64()
+	attr_gradientmode := m.GradientMode.ValueString()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom{
-		LineWidth:   &attr_linewidth,
-		HideFrom:    attr_hidefrom,
-		FillOpacity: &attr_fillopacity,
+	model := &jsonPanelLogsDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:         &attr_linewidth,
+		FillOpacity:       &attr_fillopacity,
+		AxisPlacement:     &attr_axisplacement,
+		AxisColorMode:     &attr_axiscolormode,
+		AxisLabel:         &attr_axislabel,
+		AxisWidth:         &attr_axiswidth,
+		AxisSoftMin:       &attr_axissoftmin,
+		AxisSoftMax:       &attr_axissoftmax,
+		AxisGridShow:      &attr_axisgridshow,
+		ScaleDistribution: attr_scaledistribution,
+		HideFrom:          attr_hidefrom,
+		GradientMode:      &attr_gradientmode,
+		AxisCenteredZero:  &attr_axiscenteredzero,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Custom {
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelLogsDataSourceModel_FieldConfig_Defaults_Custom {
 	if m.LineWidth.IsNull() {
 		m.LineWidth = types.Int64Value(1)
 	}
 	if m.FillOpacity.IsNull() {
-		m.FillOpacity = types.Int64Value(70)
+		m.FillOpacity = types.Int64Value(80)
+	}
+	if m.GradientMode.IsNull() {
+		m.GradientMode = types.StringValue(`none`)
 	}
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Defaults struct {
+type PanelLogsDataSourceModel_FieldConfig_Defaults struct {
 	DisplayName       types.String                                              `tfsdk:"display_name"`
 	DisplayNameFromDS types.String                                              `tfsdk:"display_name_from_ds"`
 	Description       types.String                                              `tfsdk:"description"`
@@ -520,14 +568,14 @@ type PanelTextDataSourceModel_FieldConfig_Defaults struct {
 	Decimals          types.Float64                                             `tfsdk:"decimals"`
 	Min               types.Float64                                             `tfsdk:"min"`
 	Max               types.Float64                                             `tfsdk:"max"`
-	Thresholds        *PanelTextDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
-	Color             *PanelTextDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
+	Thresholds        *PanelLogsDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
+	Color             *PanelLogsDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
 	NoValue           types.String                                              `tfsdk:"no_value"`
-	Custom            *PanelTextDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
+	Custom            *PanelLogsDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults struct {
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_FieldConfig_Defaults struct {
 		DisplayName       *string     `json:"displayName,omitempty"`
 		DisplayNameFromDS *string     `json:"displayNameFromDS,omitempty"`
 		Description       *string     `json:"description,omitempty"`
@@ -569,7 +617,7 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, er
 		attr_custom = m.Custom
 	}
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults{
+	model := &jsonPanelLogsDataSourceModel_FieldConfig_Defaults{
 		DisplayName:       &attr_displayname,
 		DisplayNameFromDS: &attr_displaynamefromds,
 		Description:       &attr_description,
@@ -588,54 +636,54 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, er
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults {
+func (m PanelLogsDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelLogsDataSourceModel_FieldConfig_Defaults {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Overrides_Matcher struct {
+type PanelLogsDataSourceModel_FieldConfig_Overrides_Matcher struct {
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Overrides_Matcher struct {
+func (m PanelLogsDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_FieldConfig_Overrides_Matcher struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Overrides_Matcher{}
+	model := &jsonPanelLogsDataSourceModel_FieldConfig_Overrides_Matcher{}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Overrides_Matcher {
+func (m PanelLogsDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelLogsDataSourceModel_FieldConfig_Overrides_Matcher {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Overrides_Properties struct {
+type PanelLogsDataSourceModel_FieldConfig_Overrides_Properties struct {
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Overrides_Properties struct {
+func (m PanelLogsDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_FieldConfig_Overrides_Properties struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Overrides_Properties{}
+	model := &jsonPanelLogsDataSourceModel_FieldConfig_Overrides_Properties{}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Overrides_Properties {
+func (m PanelLogsDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelLogsDataSourceModel_FieldConfig_Overrides_Properties {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    *PanelTextDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
-	Properties []PanelTextDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
+type PanelLogsDataSourceModel_FieldConfig_Overrides struct {
+	Matcher    *PanelLogsDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
+	Properties []PanelLogsDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Overrides struct {
+func (m PanelLogsDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_FieldConfig_Overrides struct {
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties,omitempty"`
 	}
@@ -650,25 +698,25 @@ func (m PanelTextDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, e
 		attr_properties = append(attr_properties, v)
 	}
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Overrides{
+	model := &jsonPanelLogsDataSourceModel_FieldConfig_Overrides{
 		Matcher:    attr_matcher,
 		Properties: attr_properties,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Overrides {
+func (m PanelLogsDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelLogsDataSourceModel_FieldConfig_Overrides {
 
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig struct {
-	Defaults  *PanelTextDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
-	Overrides []PanelTextDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
+type PanelLogsDataSourceModel_FieldConfig struct {
+	Defaults  *PanelLogsDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
+	Overrides []PanelLogsDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
-func (m PanelTextDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig struct {
+func (m PanelLogsDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel_FieldConfig struct {
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides,omitempty"`
 	}
@@ -683,19 +731,19 @@ func (m PanelTextDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 		attr_overrides = append(attr_overrides, v)
 	}
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig{
+	model := &jsonPanelLogsDataSourceModel_FieldConfig{
 		Defaults:  attr_defaults,
 		Overrides: attr_overrides,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel_FieldConfig) ApplyDefaults() PanelTextDataSourceModel_FieldConfig {
+func (m PanelLogsDataSourceModel_FieldConfig) ApplyDefaults() PanelLogsDataSourceModel_FieldConfig {
 
 	return m
 }
 
-type PanelTextDataSourceModel struct {
+type PanelLogsDataSourceModel struct {
 	ToJSON          types.String                               `tfsdk:"to_json"`
 	Type            types.String                               `tfsdk:"type"`
 	PluginVersion   types.String                               `tfsdk:"plugin_version"`
@@ -704,24 +752,24 @@ type PanelTextDataSourceModel struct {
 	Title           types.String                               `tfsdk:"title"`
 	Description     types.String                               `tfsdk:"description"`
 	Transparent     types.Bool                                 `tfsdk:"transparent"`
-	Datasource      *PanelTextDataSourceModel_Datasource       `tfsdk:"datasource"`
-	GridPos         *PanelTextDataSourceModel_GridPos          `tfsdk:"grid_pos"`
-	Links           []PanelTextDataSourceModel_Links           `tfsdk:"links"`
+	Datasource      *PanelLogsDataSourceModel_Datasource       `tfsdk:"datasource"`
+	GridPos         *PanelLogsDataSourceModel_GridPos          `tfsdk:"grid_pos"`
+	Links           []PanelLogsDataSourceModel_Links           `tfsdk:"links"`
 	Repeat          types.String                               `tfsdk:"repeat"`
 	RepeatDirection types.String                               `tfsdk:"repeat_direction"`
 	RepeatPanelId   types.Int64                                `tfsdk:"repeat_panel_id"`
 	MaxDataPoints   types.Float64                              `tfsdk:"max_data_points"`
-	Transformations []PanelTextDataSourceModel_Transformations `tfsdk:"transformations"`
+	Transformations []PanelLogsDataSourceModel_Transformations `tfsdk:"transformations"`
 	Interval        types.String                               `tfsdk:"interval"`
 	TimeFrom        types.String                               `tfsdk:"time_from"`
 	TimeShift       types.String                               `tfsdk:"time_shift"`
-	LibraryPanel    *PanelTextDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	Options         *PanelTextDataSourceModel_Options          `tfsdk:"options"`
-	FieldConfig     *PanelTextDataSourceModel_FieldConfig      `tfsdk:"field_config"`
+	LibraryPanel    *PanelLogsDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
+	Options         *PanelLogsDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelLogsDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
-func (m PanelTextDataSourceModel) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel struct {
+func (m PanelLogsDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonPanelLogsDataSourceModel struct {
 		Type            string        `json:"type"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
 		Tags            []string      `json:"tags,omitempty"`
@@ -795,7 +843,7 @@ func (m PanelTextDataSourceModel) MarshalJSON() ([]byte, error) {
 		attr_fieldconfig = m.FieldConfig
 	}
 
-	model := &jsonPanelTextDataSourceModel{
+	model := &jsonPanelLogsDataSourceModel{
 		Type:            attr_type,
 		PluginVersion:   &attr_pluginversion,
 		Tags:            attr_tags,
@@ -821,9 +869,9 @@ func (m PanelTextDataSourceModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelTextDataSourceModel) ApplyDefaults() PanelTextDataSourceModel {
+func (m PanelLogsDataSourceModel) ApplyDefaults() PanelLogsDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`text`)
+		m.Type = types.StringValue(`logs`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -840,17 +888,17 @@ func (m PanelTextDataSourceModel) ApplyDefaults() PanelTextDataSourceModel {
 	return m
 }
 
-func (d *PanelTextDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_panel_text"
+func (d *PanelLogsDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_panel_logs"
 }
 
-func (d *PanelTextDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *PanelLogsDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "text".`,
+				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "logs".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -1118,45 +1166,53 @@ TODO tighter constraint`,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
-					"mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "markdown".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"code": schema.SingleNestedAttribute{
+					"show_labels": schema.BoolAttribute{
 						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"language": schema.StringAttribute{
-								MarkdownDescription: `The language passed to monaco code editor. Defaults to "plaintext".`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_line_numbers": schema.BoolAttribute{
-								MarkdownDescription: ` Defaults to false.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_mini_map": schema.BoolAttribute{
-								MarkdownDescription: ` Defaults to false.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-						},
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
 					},
-					"content": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "# Title
-
-For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)".`,
-						Computed: true,
-						Optional: true,
-						Required: false,
+					"show_common_labels": schema.BoolAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+					"show_time": schema.BoolAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+					"wrap_log_message": schema.BoolAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+					"prettify_log_message": schema.BoolAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+					"enable_log_details": schema.BoolAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+					"sort_order": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+					"dedup_strategy": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
 					},
 				},
 			},
@@ -1321,10 +1377,84 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
 									"line_width": schema.Int64Attribute{
-										MarkdownDescription: ` Defaults to 1.`,
+										MarkdownDescription: `Controls line width of the bars. Defaults to 1.`,
 										Computed:            true,
 										Optional:            true,
 										Required:            false,
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: `Controls the fill opacity of the bars. Defaults to 80.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_placement": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_color_mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_label": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_min": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_max": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_grid_show": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"scale_distribution": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"type": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"log": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"linear_threshold": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+										},
 									},
 									"hide_from": schema.SingleNestedAttribute{
 										MarkdownDescription: ``,
@@ -1352,9 +1482,16 @@ Some seem to be listed in typescript comment`,
 											},
 										},
 									},
-									"fill_opacity": schema.Int64Attribute{
-										MarkdownDescription: ` Defaults to 70.`,
-										Computed:            true,
+									"gradient_mode": schema.StringAttribute{
+										MarkdownDescription: `Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".`,
+										Computed: true,
+										Optional: true,
+										Required: false,
+									},
+									"axis_centered_zero": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
 										Optional:            true,
 										Required:            false,
 									},
@@ -1395,11 +1532,11 @@ Some seem to be listed in typescript comment`,
 	}
 }
 
-func (d *PanelTextDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *PanelLogsDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *PanelTextDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data PanelTextDataSourceModel
+func (d *PanelLogsDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data PanelLogsDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

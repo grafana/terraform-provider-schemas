@@ -17,7 +17,9 @@ TODO description
 
 ### Required
 
-- `ref_id` (String) A - Z
+- `ref_id` (String) A unique identifier for the query within the list of targets.
+In server side expressions, the refId is used as a variable name to identify results.
+By default, the UI will assign A->Z; however setting meaningful names may be useful.
 
 ### Optional
 
@@ -28,7 +30,8 @@ TODO description
 - `csv_wave` (Attributes List) (see [below for nested schema](#nestedatt--csv_wave))
 - `error_type` (String)
 - `hide` (Boolean) true if query is disabled (ie should not be returned to the dashboard)
-- `key` (String) Unique, guid like, string used in explore mode
+Note this does not always imply that the query should not be executed since
+the results from a hidden query may be used as the input to other queries (SSE etc)
 - `labels` (String)
 - `level_column` (Boolean)
 - `lines` (Number)

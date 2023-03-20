@@ -35,7 +35,7 @@ TODO fill this out - seems there are a couple variants? (see [below for nested s
 TODO this is probably optional. Defaults to "h".
 - `repeat_panel_id` (Number) Id of the repeating panel.
 - `tags` (List of String) TODO docs
-- `targets` (Attributes List) TODO docs (see [below for nested schema](#nestedatt--targets))
+- `targets` (List of String) TODO docs
 - `time_from` (String) TODO docs
 TODO tighter constraint
 - `time_shift` (String) TODO docs
@@ -106,55 +106,6 @@ Optional:
 
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
-
-Optional:
-
-- `axis_centered_zero` (Boolean)
-- `axis_color_mode` (String)
-- `axis_grid_show` (Boolean)
-- `axis_label` (String)
-- `axis_placement` (String)
-- `axis_soft_max` (Number)
-- `axis_soft_min` (Number)
-- `axis_width` (Number)
-- `fill_opacity` (Number) Controls the fill opacity of the bars. Defaults to 80.
-- `gradient_mode` (String) Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
-Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".
-- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
-- `line_width` (Number) Controls line width of the bars. Defaults to 1.
-- `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--scale_distribution))
-- `thresholds_style` (Attributes) Threshold rendering (see [below for nested schema](#nestedatt--field_config--defaults--custom--thresholds_style))
-
-<a id="nestedatt--field_config--defaults--custom--hide_from"></a>
-### Nested Schema for `field_config.defaults.custom.thresholds_style`
-
-Required:
-
-- `legend` (Boolean)
-- `tooltip` (Boolean)
-- `viz` (Boolean)
-
-
-<a id="nestedatt--field_config--defaults--custom--scale_distribution"></a>
-### Nested Schema for `field_config.defaults.custom.thresholds_style`
-
-Required:
-
-- `type` (String)
-
-Optional:
-
-- `linear_threshold` (Number)
-- `log` (Number)
-
-
-<a id="nestedatt--field_config--defaults--custom--thresholds_style"></a>
-### Nested Schema for `field_config.defaults.custom.thresholds_style`
-
-Required:
-
-- `mode` (String)
-
 
 
 <a id="nestedatt--field_config--defaults--thresholds"></a>
@@ -259,10 +210,6 @@ Optional:
 - `show_search` (Boolean) Defaults to false.
 - `show_starred` (Boolean) Defaults to true.
 - `tags` (List of String)
-
-
-<a id="nestedatt--targets"></a>
-### Nested Schema for `targets`
 
 
 <a id="nestedatt--transformations"></a>

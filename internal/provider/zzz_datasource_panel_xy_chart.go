@@ -39,24 +39,6 @@ func NewPanelXYChartDataSource() datasource.DataSource {
 // PanelXYChartDataSource defines the data source implementation.
 type PanelXYChartDataSource struct{}
 
-type PanelXYChartDataSourceModel_Targets struct {
-}
-
-func (m PanelXYChartDataSourceModel_Targets) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Targets struct {
-	}
-
-	m = m.ApplyDefaults()
-
-	model := &jsonPanelXYChartDataSourceModel_Targets{}
-	return json.Marshal(model)
-}
-
-func (m PanelXYChartDataSourceModel_Targets) ApplyDefaults() PanelXYChartDataSourceModel_Targets {
-
-	return m
-}
-
 type PanelXYChartDataSourceModel_Datasource struct {
 	Type types.String `tfsdk:"type"`
 	Uid  types.String `tfsdk:"uid"`
@@ -878,6 +860,119 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() 
 	return m
 }
 
+type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+	Mode types.String `tfsdk:"mode"`
+}
+
+func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+		Mode string `json:"mode"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+
+	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
+		Mode: attr_mode,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle {
+
+	return m
+}
+
+type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
+	Fill types.String `tfsdk:"fill"`
+	Dash types.List   `tfsdk:"dash"`
+}
+
+func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
+		Fill *string   `json:"fill,omitempty"`
+		Dash []float64 `json:"dash,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_fill := m.Fill.ValueString()
+	attr_dash := []float64{}
+	for _, v := range m.Dash.Elements() {
+		attr_dash = append(attr_dash, v.(types.Float64).ValueFloat64())
+	}
+
+	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle{
+		Fill: &attr_fill,
+		Dash: attr_dash,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle {
+	if len(m.Dash.Elements()) == 0 {
+		m.Dash, _ = types.ListValue(types.Float64Type, []attr.Value{})
+	}
+	return m
+}
+
+type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+	Type            types.String  `tfsdk:"type"`
+	Log             types.Float64 `tfsdk:"log"`
+	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+}
+
+func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+		Type            string   `json:"type"`
+		Log             *float64 `json:"log,omitempty"`
+		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	attr_log := m.Log.ValueFloat64()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+
+	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
+		Type:            attr_type,
+		Log:             &attr_log,
+		LinearThreshold: &attr_linearthreshold,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
+
+	return m
+}
+
+type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
+	Mode  types.String `tfsdk:"mode"`
+	Group types.String `tfsdk:"group"`
+}
+
+func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking) MarshalJSON() ([]byte, error) {
+	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
+		Mode  *string `json:"mode,omitempty"`
+		Group *string `json:"group,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+	attr_group := m.Group.ValueString()
+
+	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking{
+		Mode:  &attr_mode,
+		Group: &attr_group,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking {
+
+	return m
+}
+
 type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
 	Tooltip types.Bool `tfsdk:"tooltip"`
 	Legend  types.Bool `tfsdk:"legend"`
@@ -910,41 +1005,152 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyD
 }
 
 type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom struct {
-	LineWidth   types.Int64                                                       `tfsdk:"line_width"`
-	HideFrom    *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
-	FillOpacity types.Int64                                                       `tfsdk:"fill_opacity"`
+	DrawStyle         types.String                                                               `tfsdk:"draw_style"`
+	GradientMode      types.String                                                               `tfsdk:"gradient_mode"`
+	ThresholdsStyle   *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
+	LineColor         types.String                                                               `tfsdk:"line_color"`
+	LineWidth         types.Float64                                                              `tfsdk:"line_width"`
+	LineInterpolation types.String                                                               `tfsdk:"line_interpolation"`
+	LineStyle         *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle         `tfsdk:"line_style"`
+	FillColor         types.String                                                               `tfsdk:"fill_color"`
+	FillOpacity       types.Float64                                                              `tfsdk:"fill_opacity"`
+	ShowPoints        types.String                                                               `tfsdk:"show_points"`
+	PointSize         types.Float64                                                              `tfsdk:"point_size"`
+	PointColor        types.String                                                               `tfsdk:"point_color"`
+	AxisPlacement     types.String                                                               `tfsdk:"axis_placement"`
+	AxisColorMode     types.String                                                               `tfsdk:"axis_color_mode"`
+	AxisLabel         types.String                                                               `tfsdk:"axis_label"`
+	AxisWidth         types.Float64                                                              `tfsdk:"axis_width"`
+	AxisSoftMin       types.Float64                                                              `tfsdk:"axis_soft_min"`
+	AxisSoftMax       types.Float64                                                              `tfsdk:"axis_soft_max"`
+	AxisGridShow      types.Bool                                                                 `tfsdk:"axis_grid_show"`
+	ScaleDistribution *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
+	BarAlignment      types.Int64                                                                `tfsdk:"bar_alignment"`
+	BarWidthFactor    types.Float64                                                              `tfsdk:"bar_width_factor"`
+	Stacking          *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking          `tfsdk:"stacking"`
+	HideFrom          *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
+	Transform         types.String                                                               `tfsdk:"transform"`
+	FillBelowTo       types.String                                                               `tfsdk:"fill_below_to"`
+	PointSymbol       types.String                                                               `tfsdk:"point_symbol"`
+	AxisCenteredZero  types.Bool                                                                 `tfsdk:"axis_centered_zero"`
+	BarMaxWidth       types.Float64                                                              `tfsdk:"bar_max_width"`
 }
 
 func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom struct {
-		LineWidth   *int64      `json:"lineWidth,omitempty"`
-		HideFrom    interface{} `json:"hideFrom,omitempty"`
-		FillOpacity *int64      `json:"fillOpacity,omitempty"`
+		DrawStyle         *string     `json:"drawStyle,omitempty"`
+		GradientMode      *string     `json:"gradientMode,omitempty"`
+		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
+		LineColor         *string     `json:"lineColor,omitempty"`
+		LineWidth         *float64    `json:"lineWidth,omitempty"`
+		LineInterpolation *string     `json:"lineInterpolation,omitempty"`
+		LineStyle         interface{} `json:"lineStyle,omitempty"`
+		FillColor         *string     `json:"fillColor,omitempty"`
+		FillOpacity       *float64    `json:"fillOpacity,omitempty"`
+		ShowPoints        *string     `json:"showPoints,omitempty"`
+		PointSize         *float64    `json:"pointSize,omitempty"`
+		PointColor        *string     `json:"pointColor,omitempty"`
+		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
+		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
+		AxisLabel         *string     `json:"axisLabel,omitempty"`
+		AxisWidth         *float64    `json:"axisWidth,omitempty"`
+		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
+		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
+		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
+		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
+		BarAlignment      *int64      `json:"barAlignment,omitempty"`
+		BarWidthFactor    *float64    `json:"barWidthFactor,omitempty"`
+		Stacking          interface{} `json:"stacking,omitempty"`
+		HideFrom          interface{} `json:"hideFrom,omitempty"`
+		Transform         *string     `json:"transform,omitempty"`
+		FillBelowTo       *string     `json:"fillBelowTo,omitempty"`
+		PointSymbol       *string     `json:"pointSymbol,omitempty"`
+		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
+		BarMaxWidth       *float64    `json:"barMaxWidth,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_linewidth := m.LineWidth.ValueInt64()
+	attr_drawstyle := m.DrawStyle.ValueString()
+	attr_gradientmode := m.GradientMode.ValueString()
+	var attr_thresholdsstyle interface{}
+	if m.ThresholdsStyle != nil {
+		attr_thresholdsstyle = m.ThresholdsStyle
+	}
+	attr_linecolor := m.LineColor.ValueString()
+	attr_linewidth := m.LineWidth.ValueFloat64()
+	attr_lineinterpolation := m.LineInterpolation.ValueString()
+	var attr_linestyle interface{}
+	if m.LineStyle != nil {
+		attr_linestyle = m.LineStyle
+	}
+	attr_fillcolor := m.FillColor.ValueString()
+	attr_fillopacity := m.FillOpacity.ValueFloat64()
+	attr_showpoints := m.ShowPoints.ValueString()
+	attr_pointsize := m.PointSize.ValueFloat64()
+	attr_pointcolor := m.PointColor.ValueString()
+	attr_axisplacement := m.AxisPlacement.ValueString()
+	attr_axiscolormode := m.AxisColorMode.ValueString()
+	attr_axislabel := m.AxisLabel.ValueString()
+	attr_axiswidth := m.AxisWidth.ValueFloat64()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
+	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	var attr_scaledistribution interface{}
+	if m.ScaleDistribution != nil {
+		attr_scaledistribution = m.ScaleDistribution
+	}
+	attr_baralignment := m.BarAlignment.ValueInt64()
+	attr_barwidthfactor := m.BarWidthFactor.ValueFloat64()
+	var attr_stacking interface{}
+	if m.Stacking != nil {
+		attr_stacking = m.Stacking
+	}
 	var attr_hidefrom interface{}
 	if m.HideFrom != nil {
 		attr_hidefrom = m.HideFrom
 	}
-	attr_fillopacity := m.FillOpacity.ValueInt64()
+	attr_transform := m.Transform.ValueString()
+	attr_fillbelowto := m.FillBelowTo.ValueString()
+	attr_pointsymbol := m.PointSymbol.ValueString()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
+	attr_barmaxwidth := m.BarMaxWidth.ValueFloat64()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom{
-		LineWidth:   &attr_linewidth,
-		HideFrom:    attr_hidefrom,
-		FillOpacity: &attr_fillopacity,
+		DrawStyle:         &attr_drawstyle,
+		GradientMode:      &attr_gradientmode,
+		ThresholdsStyle:   attr_thresholdsstyle,
+		LineColor:         &attr_linecolor,
+		LineWidth:         &attr_linewidth,
+		LineInterpolation: &attr_lineinterpolation,
+		LineStyle:         attr_linestyle,
+		FillColor:         &attr_fillcolor,
+		FillOpacity:       &attr_fillopacity,
+		ShowPoints:        &attr_showpoints,
+		PointSize:         &attr_pointsize,
+		PointColor:        &attr_pointcolor,
+		AxisPlacement:     &attr_axisplacement,
+		AxisColorMode:     &attr_axiscolormode,
+		AxisLabel:         &attr_axislabel,
+		AxisWidth:         &attr_axiswidth,
+		AxisSoftMin:       &attr_axissoftmin,
+		AxisSoftMax:       &attr_axissoftmax,
+		AxisGridShow:      &attr_axisgridshow,
+		ScaleDistribution: attr_scaledistribution,
+		BarAlignment:      &attr_baralignment,
+		BarWidthFactor:    &attr_barwidthfactor,
+		Stacking:          attr_stacking,
+		HideFrom:          attr_hidefrom,
+		Transform:         &attr_transform,
+		FillBelowTo:       &attr_fillbelowto,
+		PointSymbol:       &attr_pointsymbol,
+		AxisCenteredZero:  &attr_axiscenteredzero,
+		BarMaxWidth:       &attr_barmaxwidth,
 	}
 	return json.Marshal(model)
 }
 
 func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom {
-	if m.LineWidth.IsNull() {
-		m.LineWidth = types.Int64Value(1)
-	}
-	if m.FillOpacity.IsNull() {
-		m.FillOpacity = types.Int64Value(70)
-	}
+
 	return m
 }
 
@@ -1139,7 +1345,7 @@ type PanelXYChartDataSourceModel struct {
 	Type            types.String                                  `tfsdk:"type"`
 	PluginVersion   types.String                                  `tfsdk:"plugin_version"`
 	Tags            types.List                                    `tfsdk:"tags"`
-	Targets         []PanelXYChartDataSourceModel_Targets         `tfsdk:"targets"`
+	Targets         types.List                                    `tfsdk:"targets"`
 	Title           types.String                                  `tfsdk:"title"`
 	Description     types.String                                  `tfsdk:"description"`
 	Transparent     types.Bool                                    `tfsdk:"transparent"`
@@ -1164,7 +1370,7 @@ func (m PanelXYChartDataSourceModel) MarshalJSON() ([]byte, error) {
 		Type            string        `json:"type"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
 		Tags            []string      `json:"tags,omitempty"`
-		Targets         []interface{} `json:"targets,omitempty"`
+		Targets         []string      `json:"targets,omitempty"`
 		Title           *string       `json:"title,omitempty"`
 		Description     *string       `json:"description,omitempty"`
 		Transparent     bool          `json:"transparent"`
@@ -1191,9 +1397,9 @@ func (m PanelXYChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
 	}
-	attr_targets := []interface{}{}
-	for _, v := range m.Targets {
-		attr_targets = append(attr_targets, v)
+	attr_targets := []string{}
+	for _, v := range m.Targets.Elements() {
+		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
 	attr_title := m.Title.ValueString()
 	attr_description := m.Description.ValueString()
@@ -1267,6 +1473,9 @@ func (m PanelXYChartDataSourceModel) ApplyDefaults() PanelXYChartDataSourceModel
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
+	if len(m.Targets.Elements()) == 0 {
+		m.Targets, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
 	if m.Transparent.IsNull() {
 		m.Transparent = types.BoolValue(false)
 	}
@@ -1304,11 +1513,12 @@ func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.Sche
 				Required:            false,
 				ElementType:         types.StringType,
 			},
-			"targets": schema.ListNestedAttribute{
+			"targets": schema.ListAttribute{
 				MarkdownDescription: `TODO docs`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
+				ElementType:         types.StringType,
 			},
 			"title": schema.StringAttribute{
 				MarkdownDescription: `Panel title.`,
@@ -2072,11 +2282,200 @@ Some seem to be listed in typescript comment`,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
-									"line_width": schema.Int64Attribute{
-										MarkdownDescription: ` Defaults to 1.`,
+									"draw_style": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"gradient_mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"thresholds_style": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
 										Computed:            true,
 										Optional:            true,
 										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"mode": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"line_color": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"line_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"line_interpolation": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"line_style": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"fill": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"dash": schema.ListAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+												ElementType:         types.Float64Type,
+											},
+										},
+									},
+									"fill_color": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"fill_opacity": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"show_points": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"point_size": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"point_color": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_placement": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_color_mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_label": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_min": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_max": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_grid_show": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"scale_distribution": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"type": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"log": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"linear_threshold": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+										},
+									},
+									"bar_alignment": schema.Int64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"bar_width_factor": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"stacking": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"mode": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"group": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+										},
 									},
 									"hide_from": schema.SingleNestedAttribute{
 										MarkdownDescription: ``,
@@ -2104,9 +2503,33 @@ Some seem to be listed in typescript comment`,
 											},
 										},
 									},
-									"fill_opacity": schema.Int64Attribute{
-										MarkdownDescription: ` Defaults to 70.`,
-										Computed:            true,
+									"transform": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"fill_below_to": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"point_symbol": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_centered_zero": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"bar_max_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
 										Optional:            true,
 										Required:            false,
 									},
@@ -2163,6 +2586,34 @@ func (d *PanelXYChartDataSource) Read(ctx context.Context, req datasource.ReadRe
 	JSONConfig, err := json.Marshal(data)
 	if err != nil {
 		resp.Diagnostics.AddError("JSON marshalling error", err.Error())
+		return
+	}
+
+	// fix up the targets Attribute
+	// Read into a map[string]interface{} and then marshal it back to JSON
+	// This is a workaround for the fact that the targets attribute should be a list of maps but is a list of json strings
+	dataMap := make(map[string]interface{})
+	err = json.Unmarshal(JSONConfig, &dataMap)
+	if err != nil {
+		resp.Diagnostics.AddError("error unmarshalling config into Go map", err.Error())
+		return
+	}
+	targets := data.Targets.Elements()
+	targetsMaps := make([]map[string]interface{}, len(targets))
+	for i, target := range targets {
+		targetMap := make(map[string]interface{})
+		err = json.Unmarshal([]byte(target.(types.String).ValueString()), &targetMap)
+		if err != nil {
+			resp.Diagnostics.AddError("error unmarshalling target into go map", err.Error())
+			return
+		}
+		targetsMaps[i] = targetMap
+	}
+
+	dataMap["targets"] = targetsMaps
+	JSONConfig, err = json.MarshalIndent(dataMap, "", "  ")
+	if err != nil {
+		resp.Diagnostics.AddError("error marshalling go map into json", err.Error())
 		return
 	}
 
