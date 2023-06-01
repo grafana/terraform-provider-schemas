@@ -156,6 +156,7 @@ Required:
 
 Optional:
 
+- `index` (Number) Threshold index, an old property that is not needed an should only appear in older dashboards
 - `state` (String) TODO docs
 TODO are the values here enumerable into a disjunction?
 Some seem to be listed in typescript comment

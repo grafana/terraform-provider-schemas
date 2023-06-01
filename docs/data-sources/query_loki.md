@@ -28,12 +28,12 @@ By default, the UI will assign A->Z; however setting meaningful names may be use
 - `hide` (Boolean) true if query is disabled (ie should not be returned to the dashboard)
 Note this does not always imply that the query should not be executed since
 the results from a hidden query may be used as the input to other queries (SSE etc)
-- `instant` (Boolean) @deprecated, now use queryType.
+- `instant` (Boolean, Deprecated) @deprecated, now use queryType.
 - `legend_format` (String) Used to override the name of the series.
 - `max_lines` (Number) Used to limit the number of log rows returned.
 - `query_type` (String) Specify the query flavor
 TODO make this required and give it a default
-- `range` (Boolean) @deprecated, now use queryType.
+- `range` (Boolean, Deprecated) @deprecated, now use queryType.
 - `resolution` (Number) Used to scale the interval value.
 
 ### Read-Only

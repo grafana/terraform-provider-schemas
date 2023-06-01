@@ -177,6 +177,7 @@ Required:
 
 Optional:
 
+- `index` (Number) Threshold index, an old property that is not needed an should only appear in older dashboards
 - `state` (String) TODO docs
 TODO are the values here enumerable into a disjunction?
 Some seem to be listed in typescript comment
@@ -260,6 +261,7 @@ Optional:
 - `reduce_options` (Attributes) (see [below for nested schema](#nestedatt--options--reduce_options))
 - `show_unfilled` (Boolean) Defaults to true.
 - `text` (Attributes) (see [below for nested schema](#nestedatt--options--text))
+- `value_mode` (String) Defaults to "color".
 
 <a id="nestedatt--options--reduce_options"></a>
 ### Nested Schema for `options.reduce_options`

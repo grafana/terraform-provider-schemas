@@ -209,6 +209,7 @@ Required:
 
 Optional:
 
+- `index` (Number) Threshold index, an old property that is not needed an should only appear in older dashboards
 - `state` (String) TODO docs
 TODO are the values here enumerable into a disjunction?
 Some seem to be listed in typescript comment
@@ -283,6 +284,7 @@ Optional:
 Optional:
 
 - `legend` (Attributes) (see [below for nested schema](#nestedatt--options--legend))
+- `timezone` (List of String)
 - `tooltip` (Attributes) (see [below for nested schema](#nestedatt--options--tooltip))
 
 <a id="nestedatt--options--legend"></a>

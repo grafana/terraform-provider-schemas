@@ -30,9 +30,9 @@ Tokens are used to authenticate the service account against Grafana.
 ### Optional
 
 - `access_control` (Attributes) AccessControl metadata associated with a given resource. (see [below for nested schema](#nestedatt--access_control))
-- `created` (Number) Created indicates when the service account was created.
+- `created` (String) Created indicates when the service account was created.
 - `teams` (List of String) Teams is a list of teams the service account belongs to.
-- `updated` (Number) Updated indicates when the service account was updated.
+- `updated` (String) Updated indicates when the service account was updated.
 
 ### Read-Only
 

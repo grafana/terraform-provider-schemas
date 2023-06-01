@@ -144,6 +144,7 @@ Required:
 
 Optional:
 
+- `index` (Number) Threshold index, an old property that is not needed an should only appear in older dashboards
 - `state` (String) TODO docs
 TODO are the values here enumerable into a disjunction?
 Some seem to be listed in typescript comment
@@ -221,19 +222,21 @@ Required:
 
 Optional:
 
+- `cell_height` (String) Controls the height of the rows. Defaults to "sm".
+- `footer` (Attributes) Controls footer options (see [below for nested schema](#nestedatt--options--footer))
 - `show_header` (Boolean) Controls whether the panel should show the header. Defaults to true.
 - `show_row_nums` (Boolean) Controls whether the columns should be numbered. Defaults to false.
 - `show_type_icons` (Boolean) Controls whether the header should show icons for the column types. Defaults to false.
-- `sort_by` (Attributes List) Used to control row sorting
-Controls footer options
-footer?: ui.TableFooterOptions | *{
-	// Controls whether the footer should be shown
-	show: false
-	// Controls whether the footer should show the total number of rows on Count calculation
-	countRows: false
-	// Represents the selected calculations
-	reducer: []
-} (see [below for nested schema](#nestedatt--options--sort_by))
+- `sort_by` (Attributes List) Used to control row sorting (see [below for nested schema](#nestedatt--options--sort_by))
+
+<a id="nestedatt--options--footer"></a>
+### Nested Schema for `options.footer`
+
+Required:
+
+- `count_rows` (Boolean) Controls whether the footer should show the total number of rows on Count calculation
+- `show` (Boolean) Controls whether the footer should be shown
+
 
 <a id="nestedatt--options--sort_by"></a>
 ### Nested Schema for `options.sort_by`

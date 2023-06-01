@@ -17,12 +17,12 @@ TODO description
 
 ### Required
 
-- `created` (Number) Created indicates when the team was created.
+- `created` (String) Created indicates when the team was created.
 - `member_count` (Number) MemberCount is the number of the team members.
 - `name` (String) Name of the team.
 - `org_id` (Number) OrgId is the ID of an organisation the team belongs to.
 - `permission` (Number) TODO - it seems it's a team_member.permission, unlikely it should belong to the team kind
-- `updated` (Number) Updated indicates when the team was updated.
+- `updated` (String) Updated indicates when the team was updated.
 
 ### Optional
 
