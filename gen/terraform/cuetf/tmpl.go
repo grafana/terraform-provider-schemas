@@ -6,7 +6,7 @@ import (
 	"text/template"
 )
 
-// All the parsed templates in the tmpl subdirectory
+// All the parsed templates in the tmpl subdirectory.
 var tmpls *template.Template
 
 func init() {
@@ -21,7 +21,7 @@ func init() {
 var tmplFS embed.FS
 
 // The following group of types, beginning with tvars_*, all contain the set
-// of variables expected by the corresponding named template file under templates/
+// of variables expected by the corresponding named template file under "templates/".
 type (
 	TVarsDataSource struct {
 		Name             string

@@ -15,7 +15,7 @@ import (
 	"github.com/grafana/thema"
 )
 
-// GenerateDataSource takes a cue.Value and generates the corresponding Terraform data source
+// GenerateDataSource takes a cue.Value and generates the corresponding Terraform data source.
 func GenerateDataSource(schema thema.Schema) (b []byte, err error) {
 	nodes, err := internal.GetAllNodes(schema.Underlying())
 	if err != nil {

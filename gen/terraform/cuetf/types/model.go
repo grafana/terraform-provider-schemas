@@ -14,7 +14,7 @@ type Model struct {
 	Nested bool
 }
 
-// terraformModel generates the Terraform SDK model
+// terraformModel generates the Terraform SDK model.
 func (s *Model) terraformModel() string {
 	fields := make([]string, 0)
 	if !s.Nested {
@@ -34,7 +34,7 @@ func (s *Model) terraformModel() string {
 `, s.Name, strings.Join(fields, "\n"))
 }
 
-// jsonModel generates the JSON model used to convert the Terraform SDK model to JSON
+// jsonModel generates the JSON model used to convert the Terraform SDK model to JSON.
 func (s *Model) jsonModel() string {
 	fields := make([]string, 0)
 	for _, node := range s.Nodes {
@@ -50,7 +50,7 @@ func (s *Model) jsonModel() string {
 `, s.Name, strings.Join(fields, "\n"))
 }
 
-// generateToJSONFunction generates a function that converts the Terraform SDK model to the JSON model representation
+// generateToJSONFunction generates a function that converts the Terraform SDK model to the JSON model representation.
 func (s *Model) generateToJSONFunction() string {
 	b := strings.Builder{}
 
