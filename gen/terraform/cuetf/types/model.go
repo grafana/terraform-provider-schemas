@@ -146,7 +146,7 @@ func (s *Model) Generate() string {
 	for _, node := range s.Nodes {
 		if node.Kind == cue.StructKind || node.Kind == cue.ListKind && node.SubKind == cue.StructKind {
 			nestedModel := Model{
-				Name:   s.Name + "_" + strings.Title(node.Name),
+				Name:   s.Name + "_" + utils.Title(node.Name),
 				Nodes:  node.Children,
 				Nested: true,
 			}

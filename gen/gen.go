@@ -7,20 +7,16 @@ import (
 	"fmt"
 	"os"
 
-	"cuelang.org/go/cue/cuecontext"
 	"github.com/grafana/codejen"
 	"github.com/grafana/grafana/pkg/plugins/pfs/corelist"
 	"github.com/grafana/grafana/pkg/registry/corekind"
 	"github.com/grafana/kindsys"
 	jen "github.com/grafana/terraform-provider-schemas/gen/internal"
 	"github.com/grafana/terraform-provider-schemas/gen/terraform"
-	"github.com/grafana/thema"
 )
 
-var rt = thema.NewRuntime(cuecontext.New())
-
 func main() {
-	// Load all core and composable kinds
+	// Load all core and composable kinds.
 	var corek []kindsys.Kind
 	var compok []kindsys.Composable
 
@@ -55,7 +51,7 @@ func main() {
 		}
 	}
 
-	// Add all jennies
+	// Add all jennies.
 	jfs := codejen.NewFS()
 	tj := getJennies()
 
@@ -75,7 +71,7 @@ func main() {
 	}
 }
 
-// Get all jennies for Terraform
+// Get all jennies for Terraform.
 func getJennies() jen.TargetJennies {
 	header := "terraform"
 	path := "../internal/provider"

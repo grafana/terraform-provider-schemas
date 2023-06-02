@@ -28,7 +28,7 @@ func GenerateDataSource(schema thema.Schema) (b []byte, err error) {
 
 	linName := schema.Lineage().Name()
 	if strings.HasPrefix(GetKindName(linName), "Panel") {
-		// The common schema has an `options` field that is empty and overriden by `panelOptions` in the panel schema
+		// The common schema has an `options` field that is empty and overridden by `panelOptions` in the panel schema
 		// and a `fieldConfig` field that should contain a `custom` field that contains the panel schema `panelFieldConfig` nodes
 		// It seems like all other fields in the panel schema should be definitions
 		var panelOptions *types.Node
@@ -251,7 +251,7 @@ func GetKindName(rawName string) string {
 }
 
 func GetStructName(rawName string) string {
-	return strings.Title(GetKindName(rawName)) + "DataSource"
+	return utils.Title(GetKindName(rawName)) + "DataSource"
 }
 
 func GetResourceName(rawName string) string {

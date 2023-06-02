@@ -3,10 +3,18 @@ package utils
 import (
 	"regexp"
 	"strings"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 var matchFirstCap = regexp.MustCompile("(.)([A-Z][a-z]+)")
 var matchAllCap = regexp.MustCompile("([a-z0-9])([A-Z])")
+
+func Title(str string) string {
+	var caser = cases.Title(language.English, cases.NoLower)
+	return caser.String(str)
+}
 
 func ToSnakeCase(str string) string {
 	snake := matchFirstCap.ReplaceAllString(str, "${1}_${2}")
@@ -18,7 +26,7 @@ func ToCamelCase(str string) string {
 	words := strings.Split(str, "_")
 	camelCase := ""
 	for _, s := range words {
-		camelCase += strings.Title(s)
+		camelCase += Title(s)
 	}
 	return camelCase
 }
@@ -27,7 +35,7 @@ func CapitalizeFirstLetter(str string) string {
 	sep := " "
 	parts := strings.SplitN(str, sep, 2)
 	if len(parts) != 2 {
-		return strings.Title(str)
+		return Title(str)
 	}
-	return strings.Title(parts[0]) + sep + parts[1]
+	return Title(parts[0]) + sep + parts[1]
 }

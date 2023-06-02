@@ -25,11 +25,11 @@ func (n *Node) TerraformModelField(structName string) string {
 	typeStr := ""
 	switch true {
 	case n.Kind == cue.ListKind && n.SubKind == cue.StructKind:
-		typeStr = "[]" + structName + "_" + strings.Title(n.Name)
+		typeStr = "[]" + structName + "_" + utils.Title(n.Name)
 	case n.Kind == cue.ListKind && subKind != nil:
 		typeStr = "types.List"
 	case n.Kind == cue.StructKind:
-		typeStr = structName + "_" + strings.Title(n.Name)
+		typeStr = structName + "_" + utils.Title(n.Name)
 		if n.Optional {
 			typeStr = "*" + typeStr
 		}

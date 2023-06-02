@@ -10,7 +10,7 @@ import (
 	"github.com/grafana/kindsys"
 )
 
-// TODO remove this once there's a standard jenny for this...somewhere in core
+// TODO remove this once there's a standard jenny for this...somewhere in core.
 func ComposableLatestMajorsOrXJenny(parentdir string, useParentDirOnly bool, inner codejen.OneToOne[codegen.SchemaForGen]) codejen.OneToMany[kindsys.Composable] {
 	if inner == nil {
 		panic("inner jenny must not be nil")
@@ -25,7 +25,7 @@ func ComposableLatestMajorsOrXJenny(parentdir string, useParentDirOnly bool, inn
 
 type clmox struct {
 	parentdir        string
-	useParentDirOnly bool // Do not create sub folders in parentdir
+	useParentDirOnly bool // Do not create sub folders in parentdir.
 	inner            codejen.OneToOne[codegen.SchemaForGen]
 }
 
