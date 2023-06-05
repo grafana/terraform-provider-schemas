@@ -4,7 +4,7 @@
 //     terraform
 // Using jennies:
 //     TerraformDataSourceJenny
-//     LatestJenny
+//     ComposableLatestMajorsOrXJenny
 //
 // Run 'go generate ./' from repository root to regenerate.
 
@@ -28,66 +28,45 @@ var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &CoreTeamDataSource{}
-	_ datasource.DataSourceWithConfigure = &CoreTeamDataSource{}
+	_ datasource.DataSource              = &QueryGoogleCloudMonitoringDataSource{}
+	_ datasource.DataSourceWithConfigure = &QueryGoogleCloudMonitoringDataSource{}
 )
 
-func NewCoreTeamDataSource() datasource.DataSource {
-	return &CoreTeamDataSource{}
+func NewQueryGoogleCloudMonitoringDataSource() datasource.DataSource {
+	return &QueryGoogleCloudMonitoringDataSource{}
 }
 
-// CoreTeamDataSource defines the data source implementation.
-type CoreTeamDataSource struct{}
+// QueryGoogleCloudMonitoringDataSource defines the data source implementation.
+type QueryGoogleCloudMonitoringDataSource struct{}
 
-type CoreTeamDataSourceModel struct {
+type QueryGoogleCloudMonitoringDataSourceModel struct {
 	ToJSON types.String `tfsdk:"to_json"`
-	Name   types.String `tfsdk:"name"`
-	Email  types.String `tfsdk:"email"`
 }
 
-func (m CoreTeamDataSourceModel) MarshalJSON() ([]byte, error) {
-	type jsonCoreTeamDataSourceModel struct {
-		Name  string  `json:"name"`
-		Email *string `json:"email,omitempty"`
+func (m QueryGoogleCloudMonitoringDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonQueryGoogleCloudMonitoringDataSourceModel struct {
 	}
 
 	m = m.ApplyDefaults()
-	attr_name := m.Name.ValueString()
-	attr_email := m.Email.ValueString()
 
-	model := &jsonCoreTeamDataSourceModel{
-		Name:  attr_name,
-		Email: &attr_email,
-	}
+	model := &jsonQueryGoogleCloudMonitoringDataSourceModel{}
 	return json.Marshal(model)
 }
 
-func (m CoreTeamDataSourceModel) ApplyDefaults() CoreTeamDataSourceModel {
+func (m QueryGoogleCloudMonitoringDataSourceModel) ApplyDefaults() QueryGoogleCloudMonitoringDataSourceModel {
 
 	return m
 }
 
-func (d *CoreTeamDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_core_team"
+func (d *QueryGoogleCloudMonitoringDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_query_google_cloud_monitoring"
 }
 
-func (d *CoreTeamDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *QueryGoogleCloudMonitoringDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
-			"name": schema.StringAttribute{
-				MarkdownDescription: `Name of the team.`,
-				Computed:            false,
-				Optional:            false,
-				Required:            true,
-			},
-			"email": schema.StringAttribute{
-				MarkdownDescription: `Email of the team.`,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
-			},
 
 			"to_json": schema.StringAttribute{
 				Computed:            true,
@@ -97,11 +76,11 @@ func (d *CoreTeamDataSource) Schema(ctx context.Context, req datasource.SchemaRe
 	}
 }
 
-func (d *CoreTeamDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *QueryGoogleCloudMonitoringDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *CoreTeamDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data CoreTeamDataSourceModel
+func (d *QueryGoogleCloudMonitoringDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data QueryGoogleCloudMonitoringDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

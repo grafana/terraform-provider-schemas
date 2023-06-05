@@ -17,7 +17,12 @@ import (
 
 // GenerateDataSource takes a cue.Value and generates the corresponding Terraform data source.
 func GenerateDataSource(schema thema.Schema) (b []byte, err error) {
-	nodes, err := internal.GetAllNodes(schema.Underlying())
+	value := schema.Underlying().LookupPath(cue.MakePath(cue.Str("schema"), cue.Str("spec")))
+	if err := value.Validate(); err != nil {
+		value = schema.Underlying().LookupPath(cue.MakePath(cue.Str("schema")))
+	}
+
+	nodes, err := internal.GetAllNodes(value)
 	if err != nil {
 		return nil, err
 	}
@@ -207,7 +212,8 @@ var panelNodes []types.Node
 
 func extractPanelNodes(schema thema.Schema) error {
 	if schema.Lineage().Name() == "dashboard" {
-		iter, err := schema.Underlying().Fields(
+		schemaValue := schema.Underlying().LookupPath(cue.MakePath(cue.Str("schema")))
+		iter, err := schemaValue.Fields(
 			cue.Definitions(true),
 			cue.Optional(false),
 			cue.Attributes(false),
@@ -235,14 +241,16 @@ func GetKindName(rawName string) string {
 		name = "Query" + strings.TrimSuffix(name, "DataQuery")
 	} else {
 		switch name {
-		case "dashboard", "playlist", "preferences", "team":
-			name = strings.ToUpper(name[:1]) + name[1:]
-		case "publicdashboard":
-			name = "PublicDashboard"
+		case "accesspolicy":
+			name = "AccessPolicy"
 		case "librarypanel":
 			name = "LibraryPanel"
-		case "serviceaccount":
-			name = "ServiceAccount"
+		case "publicdashboard":
+			name = "PublicDashboard"
+		case "rolebinding":
+			name = "RoleBinding"
+		default:
+			name = utils.Title(name)
 		}
 		name = "Core" + name
 	}

@@ -40,29 +40,33 @@ func NewQueryPrometheusDataSource() datasource.DataSource {
 type QueryPrometheusDataSource struct{}
 
 type QueryPrometheusDataSourceModel struct {
-	ToJSON     types.String `tfsdk:"to_json"`
-	Expr       types.String `tfsdk:"expr"`
-	Instant    types.Bool   `tfsdk:"instant"`
-	Range      types.Bool   `tfsdk:"range"`
-	Exemplar   types.Bool   `tfsdk:"exemplar"`
-	EditorMode types.String `tfsdk:"editor_mode"`
-	Format     types.String `tfsdk:"format"`
-	RefId      types.String `tfsdk:"ref_id"`
-	Hide       types.Bool   `tfsdk:"hide"`
-	QueryType  types.String `tfsdk:"query_type"`
+	ToJSON         types.String  `tfsdk:"to_json"`
+	Expr           types.String  `tfsdk:"expr"`
+	Instant        types.Bool    `tfsdk:"instant"`
+	Range          types.Bool    `tfsdk:"range"`
+	Exemplar       types.Bool    `tfsdk:"exemplar"`
+	EditorMode     types.String  `tfsdk:"editor_mode"`
+	Format         types.String  `tfsdk:"format"`
+	LegendFormat   types.String  `tfsdk:"legend_format"`
+	IntervalFactor types.Float64 `tfsdk:"interval_factor"`
+	RefId          types.String  `tfsdk:"ref_id"`
+	Hide           types.Bool    `tfsdk:"hide"`
+	QueryType      types.String  `tfsdk:"query_type"`
 }
 
 func (m QueryPrometheusDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonQueryPrometheusDataSourceModel struct {
-		Expr       string  `json:"expr"`
-		Instant    *bool   `json:"instant,omitempty"`
-		Range      *bool   `json:"range,omitempty"`
-		Exemplar   *bool   `json:"exemplar,omitempty"`
-		EditorMode *string `json:"editorMode,omitempty"`
-		Format     *string `json:"format,omitempty"`
-		RefId      string  `json:"refId"`
-		Hide       *bool   `json:"hide,omitempty"`
-		QueryType  *string `json:"queryType,omitempty"`
+		Expr           string   `json:"expr"`
+		Instant        *bool    `json:"instant,omitempty"`
+		Range          *bool    `json:"range,omitempty"`
+		Exemplar       *bool    `json:"exemplar,omitempty"`
+		EditorMode     *string  `json:"editorMode,omitempty"`
+		Format         *string  `json:"format,omitempty"`
+		LegendFormat   *string  `json:"legendFormat,omitempty"`
+		IntervalFactor *float64 `json:"intervalFactor,omitempty"`
+		RefId          string   `json:"refId"`
+		Hide           *bool    `json:"hide,omitempty"`
+		QueryType      *string  `json:"queryType,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
@@ -72,20 +76,24 @@ func (m QueryPrometheusDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_exemplar := m.Exemplar.ValueBool()
 	attr_editormode := m.EditorMode.ValueString()
 	attr_format := m.Format.ValueString()
+	attr_legendformat := m.LegendFormat.ValueString()
+	attr_intervalfactor := m.IntervalFactor.ValueFloat64()
 	attr_refid := m.RefId.ValueString()
 	attr_hide := m.Hide.ValueBool()
 	attr_querytype := m.QueryType.ValueString()
 
 	model := &jsonQueryPrometheusDataSourceModel{
-		Expr:       attr_expr,
-		Instant:    &attr_instant,
-		Range:      &attr_range,
-		Exemplar:   &attr_exemplar,
-		EditorMode: &attr_editormode,
-		Format:     &attr_format,
-		RefId:      attr_refid,
-		Hide:       &attr_hide,
-		QueryType:  &attr_querytype,
+		Expr:           attr_expr,
+		Instant:        &attr_instant,
+		Range:          &attr_range,
+		Exemplar:       &attr_exemplar,
+		EditorMode:     &attr_editormode,
+		Format:         &attr_format,
+		LegendFormat:   &attr_legendformat,
+		IntervalFactor: &attr_intervalfactor,
+		RefId:          attr_refid,
+		Hide:           &attr_hide,
+		QueryType:      &attr_querytype,
 	}
 	return json.Marshal(model)
 }
@@ -139,6 +147,21 @@ func (d *QueryPrometheusDataSource) Schema(ctx context.Context, req datasource.S
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
+			},
+			"legend_format": schema.StringAttribute{
+				MarkdownDescription: `Series name override or template. Ex. ` + "{{`{{hostname}}`}}" + ` will be replaced with label value for hostname`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+			},
+			"interval_factor": schema.Float64Attribute{
+				MarkdownDescription: `@deprecated Used to specify how many times to divide max data points by. We use max data points under query options
+See https://github.com/grafana/grafana/issues/48081`,
+				Computed: false,
+				Optional: true,
+				Required: false,
+				DeprecationMessage: `Used to specify how many times to divide max data points by. We use max data points under query options
+See https://github.com/grafana/grafana/issues/48081`,
 			},
 			"ref_id": schema.StringAttribute{
 				MarkdownDescription: `A unique identifier for the query within the list of targets.

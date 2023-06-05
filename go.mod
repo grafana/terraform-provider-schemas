@@ -3,7 +3,7 @@ module github.com/grafana/terraform-provider-schemas
 go 1.20
 
 require (
-	github.com/grafana/thema v0.0.0-20230302221249-6952e4a999b7
+	github.com/grafana/thema v0.0.0-20230524160113-4e9d6e28a640
 	github.com/hashicorp/terraform-plugin-docs v0.14.1
 	github.com/hashicorp/terraform-plugin-framework v1.2.0
 	github.com/hashicorp/terraform-plugin-go v0.15.0
@@ -16,9 +16,12 @@ require (
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/armon/go-radix v1.0.0 // indirect
 	github.com/bgentry/speakeasy v0.1.0 // indirect
+	github.com/cockroachdb/errors v1.9.1 // indirect
+	github.com/cockroachdb/logtags v0.0.0-20211118104740-dabe8e521a4f // indirect
+	github.com/cockroachdb/redact v1.1.3 // indirect
 	github.com/dave/dst v0.27.2 // indirect
-	github.com/deepmap/oapi-codegen v1.12.4 // indirect
-	github.com/getkin/kin-openapi v0.112.0 // indirect
+	github.com/getkin/kin-openapi v0.115.0 // indirect
+	github.com/getsentry/sentry-go v0.12.0 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-openapi/jsonpointer v0.19.6 // indirect
 	github.com/go-openapi/swag v0.22.3 // indirect
@@ -48,6 +51,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
+	github.com/perimeterx/marshmallow v1.1.4 // indirect
 	github.com/posener/complete v1.2.3 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/russross/blackfriday v1.6.0 // indirect
@@ -63,7 +67,6 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230530153820-e85fd2cbaebc // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	k8s.io/apiextensions-apiserver v0.27.2 // indirect
 	k8s.io/apimachinery v0.27.2 // indirect
 	k8s.io/klog/v2 v2.100.1 // indirect
 	k8s.io/utils v0.0.0-20230505201702-9f6742963106 // indirect
@@ -73,7 +76,7 @@ require (
 
 require (
 	github.com/google/go-cmp v0.5.9 // indirect
-	github.com/grafana/grafana v1.9.2-0.20230323083650-66e4b12032d5
+	github.com/grafana/grafana v1.9.2-0.20230602090925-7b2bd48677bf
 	github.com/yalue/merged_fs v1.2.3 // indirect
 	golang.org/x/sync v0.2.0 // indirect
 )
@@ -87,7 +90,7 @@ require (
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/grafana/codejen v0.0.4-0.20221122220907-a5e7cc5407b3
-	github.com/grafana/kindsys v0.0.0-20230309200316-812b9884a375
+	github.com/grafana/kindsys v0.0.0-20230508162304-452481b63482
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-hclog v1.5.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect

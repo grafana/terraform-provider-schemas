@@ -268,28 +268,15 @@ func (m PanelAlertGroupsDataSourceModel_LibraryPanel) ApplyDefaults() PanelAlert
 }
 
 type PanelAlertGroupsDataSourceModel_Options struct {
-	Labels       types.String `tfsdk:"labels"`
-	Alertmanager types.String `tfsdk:"alertmanager"`
-	ExpandAll    types.Bool   `tfsdk:"expand_all"`
 }
 
 func (m PanelAlertGroupsDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelAlertGroupsDataSourceModel_Options struct {
-		Labels       string `json:"labels"`
-		Alertmanager string `json:"alertmanager"`
-		ExpandAll    bool   `json:"expandAll"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_labels := m.Labels.ValueString()
-	attr_alertmanager := m.Alertmanager.ValueString()
-	attr_expandall := m.ExpandAll.ValueBool()
 
-	model := &jsonPanelAlertGroupsDataSourceModel_Options{
-		Labels:       attr_labels,
-		Alertmanager: attr_alertmanager,
-		ExpandAll:    attr_expandall,
-	}
+	model := &jsonPanelAlertGroupsDataSourceModel_Options{}
 	return json.Marshal(model)
 }
 
@@ -847,7 +834,7 @@ func (d *PanelAlertGroupsDataSource) Schema(ctx context.Context, req datasource.
 						Required:            false,
 					},
 					"static": schema.BoolAttribute{
-						MarkdownDescription: `true if fixed`,
+						MarkdownDescription: `Whether the panel is fixed within the grid`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
@@ -863,62 +850,62 @@ TODO fill this out - seems there are a couple variants?`,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"title": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Title to display with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"type": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link type. Accepted values are dashboards (to refer to another dashboard) and link (to refer to an external resource)`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"icon": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Icon name to be displayed with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tooltip": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Tooltip to display when the user hovers their mouse over it`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"url": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link URL. Only required/valid if the type is link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tags": schema.ListAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `List of tags to limit the linked dashboards. If empty, all dashboards will be displayed. Only valid if the type is dashboards`,
 							Computed:            false,
 							Optional:            true,
 							Required:            false,
 							ElementType:         types.StringType,
 						},
 						"as_dropdown": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, all dashboards links will be displayed in a dropdown. If false, all dashboards links will be displayed side by side. Only valid if the type is dashboards. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"target_blank": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, the link will be opened in a new tab. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"include_vars": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current template variables values in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"keep_time": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current time range in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
@@ -947,7 +934,7 @@ TODO this is probably optional. Defaults to "h".`,
 				Required:            false,
 			},
 			"max_data_points": schema.Float64Attribute{
-				MarkdownDescription: `TODO docs`,
+				MarkdownDescription: `The maximum number of data points that the panel queries are retrieving.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
@@ -975,22 +962,32 @@ TODO this is probably optional. Defaults to "h".`,
 				},
 			},
 			"interval": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `The min time interval setting defines a lower limit for the $__interval and $__interval_ms variables.
+This value must be formatted as a number followed by a valid time
+identifier like: "40s", "3d", etc.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
 			},
 			"time_from": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `Overrides the relative time range for individual panels,
+which causes them to be different than what is selected in
+the dashboard time picker in the top-right corner of the dashboard. You can use this to show metrics from different
+time periods or days on the same dashboard.
+The value is formatted as time operation like: now-5m (Last 5 minutes), now/d (the day so far),
+now-5d/d(Last 5 days), now/w (This week so far), now-2y/y (Last 2 years).
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
 			},
 			"time_shift": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `Overrides the time range for individual panels by shifting its start and end relative to the time picker.
+For example, you can shift the time range for the panel to be two hours earlier than the dashboard time picker setting 2h.
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
@@ -1016,30 +1013,11 @@ TODO tighter constraint`,
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            true,
-				Optional:            true,
-				Required:            false,
-				Attributes: map[string]schema.Attribute{
-					"labels": schema.StringAttribute{
-						MarkdownDescription: `Comma-separated list of values used to filter alert results`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-					"alertmanager": schema.StringAttribute{
-						MarkdownDescription: `Name of the alertmanager used as a source for alerts`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-					"expand_all": schema.BoolAttribute{
-						MarkdownDescription: `Expand all alert groups by default`,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-				},
+				MarkdownDescription: `options is specified by the Options field in panel
+plugin schemas.`,
+				Computed: true,
+				Optional: true,
+				Required: false,
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1138,14 +1116,14 @@ may be used to update the results`,
 										NestedObject: schema.NestedAttributeObject{
 											Attributes: map[string]schema.Attribute{
 												"value": schema.Float64Attribute{
-													MarkdownDescription: `TODO docs
+													MarkdownDescription: `Value represents a specified metric for the threshold, which triggers a visual change in the dashboard when this value is met or exceeded.
 FIXME the corresponding typescript field is required/non-optional, but nulls currently appear here when serializing -Infinity to JSON`,
 													Computed: false,
 													Optional: true,
 													Required: false,
 												},
 												"color": schema.StringAttribute{
-													MarkdownDescription: `TODO docs`,
+													MarkdownDescription: `Color represents the color of the visual change that will occur in the dashboard when the threshold value is met or exceeded.`,
 													Computed:            false,
 													Optional:            false,
 													Required:            true,
@@ -1202,7 +1180,7 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the PanelFieldConfig field
+								MarkdownDescription: `custom is specified by the FieldConfig field
 in panel plugin schemas.`,
 								Computed: true,
 								Optional: true,

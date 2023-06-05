@@ -28,24 +28,24 @@ var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &PanelBarChartDataSource{}
-	_ datasource.DataSourceWithConfigure = &PanelBarChartDataSource{}
+	_ datasource.DataSource              = &PanelDatagridDataSource{}
+	_ datasource.DataSourceWithConfigure = &PanelDatagridDataSource{}
 )
 
-func NewPanelBarChartDataSource() datasource.DataSource {
-	return &PanelBarChartDataSource{}
+func NewPanelDatagridDataSource() datasource.DataSource {
+	return &PanelDatagridDataSource{}
 }
 
-// PanelBarChartDataSource defines the data source implementation.
-type PanelBarChartDataSource struct{}
+// PanelDatagridDataSource defines the data source implementation.
+type PanelDatagridDataSource struct{}
 
-type PanelBarChartDataSourceModel_Datasource struct {
+type PanelDatagridDataSourceModel_Datasource struct {
 	Type types.String `tfsdk:"type"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelBarChartDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_Datasource struct {
+func (m PanelDatagridDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_Datasource struct {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
@@ -54,19 +54,19 @@ func (m PanelBarChartDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelBarChartDataSourceModel_Datasource{
+	model := &jsonPanelDatagridDataSourceModel_Datasource{
 		Type: &attr_type,
 		Uid:  &attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_Datasource) ApplyDefaults() PanelBarChartDataSourceModel_Datasource {
+func (m PanelDatagridDataSourceModel_Datasource) ApplyDefaults() PanelDatagridDataSourceModel_Datasource {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_GridPos struct {
+type PanelDatagridDataSourceModel_GridPos struct {
 	H      types.Int64 `tfsdk:"h"`
 	W      types.Int64 `tfsdk:"w"`
 	X      types.Int64 `tfsdk:"x"`
@@ -74,8 +74,8 @@ type PanelBarChartDataSourceModel_GridPos struct {
 	Static types.Bool  `tfsdk:"static"`
 }
 
-func (m PanelBarChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_GridPos struct {
+func (m PanelDatagridDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_GridPos struct {
 		H      int64 `json:"h"`
 		W      int64 `json:"w"`
 		X      int64 `json:"x"`
@@ -90,7 +90,7 @@ func (m PanelBarChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_y := m.Y.ValueInt64()
 	attr_static := m.Static.ValueBool()
 
-	model := &jsonPanelBarChartDataSourceModel_GridPos{
+	model := &jsonPanelDatagridDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
@@ -100,7 +100,7 @@ func (m PanelBarChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_GridPos) ApplyDefaults() PanelBarChartDataSourceModel_GridPos {
+func (m PanelDatagridDataSourceModel_GridPos) ApplyDefaults() PanelDatagridDataSourceModel_GridPos {
 	if m.H.IsNull() {
 		m.H = types.Int64Value(9)
 	}
@@ -116,7 +116,7 @@ func (m PanelBarChartDataSourceModel_GridPos) ApplyDefaults() PanelBarChartDataS
 	return m
 }
 
-type PanelBarChartDataSourceModel_Links struct {
+type PanelDatagridDataSourceModel_Links struct {
 	Title       types.String `tfsdk:"title"`
 	Type        types.String `tfsdk:"type"`
 	Icon        types.String `tfsdk:"icon"`
@@ -129,8 +129,8 @@ type PanelBarChartDataSourceModel_Links struct {
 	KeepTime    types.Bool   `tfsdk:"keep_time"`
 }
 
-func (m PanelBarChartDataSourceModel_Links) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_Links struct {
+func (m PanelDatagridDataSourceModel_Links) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_Links struct {
 		Title       string   `json:"title"`
 		Type        string   `json:"type"`
 		Icon        string   `json:"icon"`
@@ -158,7 +158,7 @@ func (m PanelBarChartDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	attr_includevars := m.IncludeVars.ValueBool()
 	attr_keeptime := m.KeepTime.ValueBool()
 
-	model := &jsonPanelBarChartDataSourceModel_Links{
+	model := &jsonPanelDatagridDataSourceModel_Links{
 		Title:       attr_title,
 		Type:        attr_type,
 		Icon:        attr_icon,
@@ -173,7 +173,7 @@ func (m PanelBarChartDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_Links) ApplyDefaults() PanelBarChartDataSourceModel_Links {
+func (m PanelDatagridDataSourceModel_Links) ApplyDefaults() PanelDatagridDataSourceModel_Links {
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
@@ -192,31 +192,31 @@ func (m PanelBarChartDataSourceModel_Links) ApplyDefaults() PanelBarChartDataSou
 	return m
 }
 
-type PanelBarChartDataSourceModel_Transformations_Filter struct {
+type PanelDatagridDataSourceModel_Transformations_Filter struct {
 }
 
-func (m PanelBarChartDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_Transformations_Filter struct {
+func (m PanelDatagridDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_Transformations_Filter struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelBarChartDataSourceModel_Transformations_Filter{}
+	model := &jsonPanelDatagridDataSourceModel_Transformations_Filter{}
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_Transformations_Filter) ApplyDefaults() PanelBarChartDataSourceModel_Transformations_Filter {
+func (m PanelDatagridDataSourceModel_Transformations_Filter) ApplyDefaults() PanelDatagridDataSourceModel_Transformations_Filter {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_Transformations struct {
+type PanelDatagridDataSourceModel_Transformations struct {
 	Disabled types.Bool                                           `tfsdk:"disabled"`
-	Filter   *PanelBarChartDataSourceModel_Transformations_Filter `tfsdk:"filter"`
+	Filter   *PanelDatagridDataSourceModel_Transformations_Filter `tfsdk:"filter"`
 }
 
-func (m PanelBarChartDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_Transformations struct {
+func (m PanelDatagridDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_Transformations struct {
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
@@ -228,25 +228,25 @@ func (m PanelBarChartDataSourceModel_Transformations) MarshalJSON() ([]byte, err
 		attr_filter = m.Filter
 	}
 
-	model := &jsonPanelBarChartDataSourceModel_Transformations{
+	model := &jsonPanelDatagridDataSourceModel_Transformations{
 		Disabled: &attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_Transformations) ApplyDefaults() PanelBarChartDataSourceModel_Transformations {
+func (m PanelDatagridDataSourceModel_Transformations) ApplyDefaults() PanelDatagridDataSourceModel_Transformations {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_LibraryPanel struct {
+type PanelDatagridDataSourceModel_LibraryPanel struct {
 	Name types.String `tfsdk:"name"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelBarChartDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_LibraryPanel struct {
+func (m PanelDatagridDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_LibraryPanel struct {
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
@@ -255,45 +255,45 @@ func (m PanelBarChartDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error)
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelBarChartDataSourceModel_LibraryPanel{
+	model := &jsonPanelDatagridDataSourceModel_LibraryPanel{
 		Name: attr_name,
 		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_LibraryPanel) ApplyDefaults() PanelBarChartDataSourceModel_LibraryPanel {
+func (m PanelDatagridDataSourceModel_LibraryPanel) ApplyDefaults() PanelDatagridDataSourceModel_LibraryPanel {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_Options struct {
+type PanelDatagridDataSourceModel_Options struct {
 }
 
-func (m PanelBarChartDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_Options struct {
+func (m PanelDatagridDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_Options struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelBarChartDataSourceModel_Options{}
+	model := &jsonPanelDatagridDataSourceModel_Options{}
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_Options) ApplyDefaults() PanelBarChartDataSourceModel_Options {
+func (m PanelDatagridDataSourceModel_Options) ApplyDefaults() PanelDatagridDataSourceModel_Options {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+type PanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.Float64 `tfsdk:"value"`
 	Color types.String  `tfsdk:"color"`
 	Index types.Int64   `tfsdk:"index"`
 	State types.String  `tfsdk:"state"`
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 		Value *float64 `json:"value,omitempty"`
 		Color string   `json:"color"`
 		Index *int64   `json:"index,omitempty"`
@@ -306,7 +306,7 @@ func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Mars
 	attr_index := m.Index.ValueInt64()
 	attr_state := m.State.ValueString()
 
-	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
+	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
 		Value: &attr_value,
 		Color: attr_color,
 		Index: &attr_index,
@@ -315,18 +315,18 @@ func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Mars
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
+func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+type PanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 	Mode  types.String                                                         `tfsdk:"mode"`
-	Steps []PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
+	Steps []PanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps,omitempty"`
 	}
@@ -338,26 +338,26 @@ func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSO
 		attr_steps = append(attr_steps, v)
 	}
 
-	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds{
+	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds{
 		Mode:  attr_mode,
 		Steps: attr_steps,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds {
+func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_FieldConfig_Defaults_Color struct {
+type PanelDatagridDataSourceModel_FieldConfig_Defaults_Color struct {
 	Mode       types.String `tfsdk:"mode"`
 	FixedColor types.String `tfsdk:"fixed_color"`
 	SeriesBy   types.String `tfsdk:"series_by"`
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Color struct {
+func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Color struct {
 		Mode       string  `json:"mode"`
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
@@ -368,7 +368,7 @@ func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() (
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
 
-	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Color{
+	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
 		FixedColor: &attr_fixedcolor,
 		SeriesBy:   &attr_seriesby,
@@ -376,30 +376,30 @@ func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() (
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelBarChartDataSourceModel_FieldConfig_Defaults_Color {
+func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelDatagridDataSourceModel_FieldConfig_Defaults_Color {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom struct {
+type PanelDatagridDataSourceModel_FieldConfig_Defaults_Custom struct {
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Custom struct {
+func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Custom struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Custom{}
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom {
+func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelDatagridDataSourceModel_FieldConfig_Defaults_Custom {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_FieldConfig_Defaults struct {
+type PanelDatagridDataSourceModel_FieldConfig_Defaults struct {
 	DisplayName       types.String                                                  `tfsdk:"display_name"`
 	DisplayNameFromDS types.String                                                  `tfsdk:"display_name_from_ds"`
 	Description       types.String                                                  `tfsdk:"description"`
@@ -410,14 +410,14 @@ type PanelBarChartDataSourceModel_FieldConfig_Defaults struct {
 	Decimals          types.Float64                                                 `tfsdk:"decimals"`
 	Min               types.Float64                                                 `tfsdk:"min"`
 	Max               types.Float64                                                 `tfsdk:"max"`
-	Thresholds        *PanelBarChartDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
-	Color             *PanelBarChartDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
+	Thresholds        *PanelDatagridDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
+	Color             *PanelDatagridDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
 	NoValue           types.String                                                  `tfsdk:"no_value"`
-	Custom            *PanelBarChartDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
+	Custom            *PanelDatagridDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_FieldConfig_Defaults struct {
+func (m PanelDatagridDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_FieldConfig_Defaults struct {
 		DisplayName       *string     `json:"displayName,omitempty"`
 		DisplayNameFromDS *string     `json:"displayNameFromDS,omitempty"`
 		Description       *string     `json:"description,omitempty"`
@@ -459,7 +459,7 @@ func (m PanelBarChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte
 		attr_custom = m.Custom
 	}
 
-	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Defaults{
+	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults{
 		DisplayName:       &attr_displayname,
 		DisplayNameFromDS: &attr_displaynamefromds,
 		Description:       &attr_description,
@@ -478,54 +478,54 @@ func (m PanelBarChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelBarChartDataSourceModel_FieldConfig_Defaults {
+func (m PanelDatagridDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelDatagridDataSourceModel_FieldConfig_Defaults {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_FieldConfig_Overrides_Matcher struct {
+type PanelDatagridDataSourceModel_FieldConfig_Overrides_Matcher struct {
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_FieldConfig_Overrides_Matcher struct {
+func (m PanelDatagridDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_FieldConfig_Overrides_Matcher struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Overrides_Matcher{}
+	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Overrides_Matcher{}
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelBarChartDataSourceModel_FieldConfig_Overrides_Matcher {
+func (m PanelDatagridDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelDatagridDataSourceModel_FieldConfig_Overrides_Matcher {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_FieldConfig_Overrides_Properties struct {
+type PanelDatagridDataSourceModel_FieldConfig_Overrides_Properties struct {
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_FieldConfig_Overrides_Properties struct {
+func (m PanelDatagridDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_FieldConfig_Overrides_Properties struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Overrides_Properties{}
+	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Overrides_Properties{}
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelBarChartDataSourceModel_FieldConfig_Overrides_Properties {
+func (m PanelDatagridDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelDatagridDataSourceModel_FieldConfig_Overrides_Properties {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    *PanelBarChartDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
-	Properties []PanelBarChartDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
+type PanelDatagridDataSourceModel_FieldConfig_Overrides struct {
+	Matcher    *PanelDatagridDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
+	Properties []PanelDatagridDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_FieldConfig_Overrides struct {
+func (m PanelDatagridDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_FieldConfig_Overrides struct {
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties,omitempty"`
 	}
@@ -540,25 +540,25 @@ func (m PanelBarChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byt
 		attr_properties = append(attr_properties, v)
 	}
 
-	model := &jsonPanelBarChartDataSourceModel_FieldConfig_Overrides{
+	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Overrides{
 		Matcher:    attr_matcher,
 		Properties: attr_properties,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelBarChartDataSourceModel_FieldConfig_Overrides {
+func (m PanelDatagridDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelDatagridDataSourceModel_FieldConfig_Overrides {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel_FieldConfig struct {
-	Defaults  *PanelBarChartDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
-	Overrides []PanelBarChartDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
+type PanelDatagridDataSourceModel_FieldConfig struct {
+	Defaults  *PanelDatagridDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
+	Overrides []PanelDatagridDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel_FieldConfig struct {
+func (m PanelDatagridDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel_FieldConfig struct {
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides,omitempty"`
 	}
@@ -573,19 +573,19 @@ func (m PanelBarChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) 
 		attr_overrides = append(attr_overrides, v)
 	}
 
-	model := &jsonPanelBarChartDataSourceModel_FieldConfig{
+	model := &jsonPanelDatagridDataSourceModel_FieldConfig{
 		Defaults:  attr_defaults,
 		Overrides: attr_overrides,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel_FieldConfig) ApplyDefaults() PanelBarChartDataSourceModel_FieldConfig {
+func (m PanelDatagridDataSourceModel_FieldConfig) ApplyDefaults() PanelDatagridDataSourceModel_FieldConfig {
 
 	return m
 }
 
-type PanelBarChartDataSourceModel struct {
+type PanelDatagridDataSourceModel struct {
 	ToJSON          types.String                                   `tfsdk:"to_json"`
 	Type            types.String                                   `tfsdk:"type"`
 	PluginVersion   types.String                                   `tfsdk:"plugin_version"`
@@ -594,24 +594,24 @@ type PanelBarChartDataSourceModel struct {
 	Title           types.String                                   `tfsdk:"title"`
 	Description     types.String                                   `tfsdk:"description"`
 	Transparent     types.Bool                                     `tfsdk:"transparent"`
-	Datasource      *PanelBarChartDataSourceModel_Datasource       `tfsdk:"datasource"`
-	GridPos         *PanelBarChartDataSourceModel_GridPos          `tfsdk:"grid_pos"`
-	Links           []PanelBarChartDataSourceModel_Links           `tfsdk:"links"`
+	Datasource      *PanelDatagridDataSourceModel_Datasource       `tfsdk:"datasource"`
+	GridPos         *PanelDatagridDataSourceModel_GridPos          `tfsdk:"grid_pos"`
+	Links           []PanelDatagridDataSourceModel_Links           `tfsdk:"links"`
 	Repeat          types.String                                   `tfsdk:"repeat"`
 	RepeatDirection types.String                                   `tfsdk:"repeat_direction"`
 	RepeatPanelId   types.Int64                                    `tfsdk:"repeat_panel_id"`
 	MaxDataPoints   types.Float64                                  `tfsdk:"max_data_points"`
-	Transformations []PanelBarChartDataSourceModel_Transformations `tfsdk:"transformations"`
+	Transformations []PanelDatagridDataSourceModel_Transformations `tfsdk:"transformations"`
 	Interval        types.String                                   `tfsdk:"interval"`
 	TimeFrom        types.String                                   `tfsdk:"time_from"`
 	TimeShift       types.String                                   `tfsdk:"time_shift"`
-	LibraryPanel    *PanelBarChartDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	Options         *PanelBarChartDataSourceModel_Options          `tfsdk:"options"`
-	FieldConfig     *PanelBarChartDataSourceModel_FieldConfig      `tfsdk:"field_config"`
+	LibraryPanel    *PanelDatagridDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
+	Options         *PanelDatagridDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelDatagridDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
-func (m PanelBarChartDataSourceModel) MarshalJSON() ([]byte, error) {
-	type jsonPanelBarChartDataSourceModel struct {
+func (m PanelDatagridDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonPanelDatagridDataSourceModel struct {
 		Type            string        `json:"type"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
 		Tags            []string      `json:"tags,omitempty"`
@@ -685,7 +685,7 @@ func (m PanelBarChartDataSourceModel) MarshalJSON() ([]byte, error) {
 		attr_fieldconfig = m.FieldConfig
 	}
 
-	model := &jsonPanelBarChartDataSourceModel{
+	model := &jsonPanelDatagridDataSourceModel{
 		Type:            attr_type,
 		PluginVersion:   &attr_pluginversion,
 		Tags:            attr_tags,
@@ -711,9 +711,9 @@ func (m PanelBarChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelBarChartDataSourceModel) ApplyDefaults() PanelBarChartDataSourceModel {
+func (m PanelDatagridDataSourceModel) ApplyDefaults() PanelDatagridDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`barchart`)
+		m.Type = types.StringValue(`datagrid`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -730,17 +730,17 @@ func (m PanelBarChartDataSourceModel) ApplyDefaults() PanelBarChartDataSourceMod
 	return m
 }
 
-func (d *PanelBarChartDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_panel_bar_chart"
+func (d *PanelDatagridDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_panel_datagrid"
 }
 
-func (d *PanelBarChartDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *PanelDatagridDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "barchart".`,
+				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "datagrid".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -1221,11 +1221,11 @@ in panel plugin schemas.`,
 	}
 }
 
-func (d *PanelBarChartDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *PanelDatagridDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *PanelBarChartDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data PanelBarChartDataSourceModel
+func (d *PanelDatagridDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data PanelDatagridDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

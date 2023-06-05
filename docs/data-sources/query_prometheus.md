@@ -31,6 +31,9 @@ By default, the UI will assign A->Z; however setting meaningful names may be use
 Note this does not always imply that the query should not be executed since
 the results from a hidden query may be used as the input to other queries (SSE etc)
 - `instant` (Boolean) Returns only the latest value that Prometheus has scraped for the requested time series
+- `interval_factor` (Number, Deprecated) @deprecated Used to specify how many times to divide max data points by. We use max data points under query options
+See https://github.com/grafana/grafana/issues/48081
+- `legend_format` (String) Series name override or template. Ex. {{hostname}} will be replaced with label value for hostname
 - `query_type` (String) Specify the query flavor
 TODO make this required and give it a default
 - `range` (Boolean) Returns a Range vector, comprised of a set of time series containing a range of data points over time for each time series

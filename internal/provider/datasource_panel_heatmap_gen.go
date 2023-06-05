@@ -267,561 +267,21 @@ func (m PanelHeatmapDataSourceModel_LibraryPanel) ApplyDefaults() PanelHeatmapDa
 	return m
 }
 
-type PanelHeatmapDataSourceModel_Options_Calculation_XBuckets_Scale struct {
-	Type            types.String  `tfsdk:"type"`
-	Log             types.Float64 `tfsdk:"log"`
-	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Calculation_XBuckets_Scale) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_Calculation_XBuckets_Scale struct {
-		Type            string   `json:"type"`
-		Log             *float64 `json:"log,omitempty"`
-		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_XBuckets_Scale{
-		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Calculation_XBuckets_Scale) ApplyDefaults() PanelHeatmapDataSourceModel_Options_Calculation_XBuckets_Scale {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_Calculation_XBuckets struct {
-	Mode  types.String                                                    `tfsdk:"mode"`
-	Value types.String                                                    `tfsdk:"value"`
-	Scale *PanelHeatmapDataSourceModel_Options_Calculation_XBuckets_Scale `tfsdk:"scale"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Calculation_XBuckets) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_Calculation_XBuckets struct {
-		Mode  *string     `json:"mode,omitempty"`
-		Value *string     `json:"value,omitempty"`
-		Scale interface{} `json:"scale,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_value := m.Value.ValueString()
-	var attr_scale interface{}
-	if m.Scale != nil {
-		attr_scale = m.Scale
-	}
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_XBuckets{
-		Mode:  &attr_mode,
-		Value: &attr_value,
-		Scale: attr_scale,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Calculation_XBuckets) ApplyDefaults() PanelHeatmapDataSourceModel_Options_Calculation_XBuckets {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_Calculation_YBuckets_Scale struct {
-	Type            types.String  `tfsdk:"type"`
-	Log             types.Float64 `tfsdk:"log"`
-	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Calculation_YBuckets_Scale) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_Calculation_YBuckets_Scale struct {
-		Type            string   `json:"type"`
-		Log             *float64 `json:"log,omitempty"`
-		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_YBuckets_Scale{
-		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Calculation_YBuckets_Scale) ApplyDefaults() PanelHeatmapDataSourceModel_Options_Calculation_YBuckets_Scale {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_Calculation_YBuckets struct {
-	Mode  types.String                                                    `tfsdk:"mode"`
-	Value types.String                                                    `tfsdk:"value"`
-	Scale *PanelHeatmapDataSourceModel_Options_Calculation_YBuckets_Scale `tfsdk:"scale"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Calculation_YBuckets) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_Calculation_YBuckets struct {
-		Mode  *string     `json:"mode,omitempty"`
-		Value *string     `json:"value,omitempty"`
-		Scale interface{} `json:"scale,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_value := m.Value.ValueString()
-	var attr_scale interface{}
-	if m.Scale != nil {
-		attr_scale = m.Scale
-	}
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_YBuckets{
-		Mode:  &attr_mode,
-		Value: &attr_value,
-		Scale: attr_scale,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Calculation_YBuckets) ApplyDefaults() PanelHeatmapDataSourceModel_Options_Calculation_YBuckets {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_Calculation struct {
-	XBuckets *PanelHeatmapDataSourceModel_Options_Calculation_XBuckets `tfsdk:"x_buckets"`
-	YBuckets *PanelHeatmapDataSourceModel_Options_Calculation_YBuckets `tfsdk:"y_buckets"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Calculation) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_Calculation struct {
-		XBuckets interface{} `json:"xBuckets,omitempty"`
-		YBuckets interface{} `json:"yBuckets,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	var attr_xbuckets interface{}
-	if m.XBuckets != nil {
-		attr_xbuckets = m.XBuckets
-	}
-	var attr_ybuckets interface{}
-	if m.YBuckets != nil {
-		attr_ybuckets = m.YBuckets
-	}
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation{
-		XBuckets: attr_xbuckets,
-		YBuckets: attr_ybuckets,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Calculation) ApplyDefaults() PanelHeatmapDataSourceModel_Options_Calculation {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_Color struct {
-	Scheme   types.String  `tfsdk:"scheme"`
-	Fill     types.String  `tfsdk:"fill"`
-	Reverse  types.Bool    `tfsdk:"reverse"`
-	Exponent types.Float64 `tfsdk:"exponent"`
-	Steps    types.Int64   `tfsdk:"steps"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Color) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_Color struct {
-		Scheme   string  `json:"scheme"`
-		Fill     string  `json:"fill"`
-		Reverse  bool    `json:"reverse"`
-		Exponent float64 `json:"exponent"`
-		Steps    int64   `json:"steps"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_scheme := m.Scheme.ValueString()
-	attr_fill := m.Fill.ValueString()
-	attr_reverse := m.Reverse.ValueBool()
-	attr_exponent := m.Exponent.ValueFloat64()
-	attr_steps := m.Steps.ValueInt64()
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_Color{
-		Scheme:   attr_scheme,
-		Fill:     attr_fill,
-		Reverse:  attr_reverse,
-		Exponent: attr_exponent,
-		Steps:    attr_steps,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Color) ApplyDefaults() PanelHeatmapDataSourceModel_Options_Color {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_FilterValues struct {
-	Le types.Float64 `tfsdk:"le"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_FilterValues) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_FilterValues struct {
-		Le float64 `json:"le"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_le := m.Le.ValueFloat64()
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_FilterValues{
-		Le: attr_le,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_FilterValues) ApplyDefaults() PanelHeatmapDataSourceModel_Options_FilterValues {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_RowsFrame struct {
-	Value  types.String `tfsdk:"value"`
-	Layout types.String `tfsdk:"layout"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_RowsFrame) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_RowsFrame struct {
-		Value  *string `json:"value,omitempty"`
-		Layout *string `json:"layout,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_value := m.Value.ValueString()
-	attr_layout := m.Layout.ValueString()
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_RowsFrame{
-		Value:  &attr_value,
-		Layout: &attr_layout,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_RowsFrame) ApplyDefaults() PanelHeatmapDataSourceModel_Options_RowsFrame {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_CellValues struct {
-}
-
-func (m PanelHeatmapDataSourceModel_Options_CellValues) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_CellValues struct {
-	}
-
-	m = m.ApplyDefaults()
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_CellValues{}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_CellValues) ApplyDefaults() PanelHeatmapDataSourceModel_Options_CellValues {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_YAxis_ScaleDistribution struct {
-	Type            types.String  `tfsdk:"type"`
-	Log             types.Float64 `tfsdk:"log"`
-	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_YAxis_ScaleDistribution) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_YAxis_ScaleDistribution struct {
-		Type            string   `json:"type"`
-		Log             *float64 `json:"log,omitempty"`
-		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_YAxis_ScaleDistribution{
-		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_YAxis_ScaleDistribution) ApplyDefaults() PanelHeatmapDataSourceModel_Options_YAxis_ScaleDistribution {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_YAxis struct {
-	Unit              types.String                                                 `tfsdk:"unit"`
-	Reverse           types.Bool                                                   `tfsdk:"reverse"`
-	Decimals          types.Float64                                                `tfsdk:"decimals"`
-	Min               types.Float64                                                `tfsdk:"min"`
-	AxisPlacement     types.String                                                 `tfsdk:"axis_placement"`
-	AxisColorMode     types.String                                                 `tfsdk:"axis_color_mode"`
-	AxisLabel         types.String                                                 `tfsdk:"axis_label"`
-	AxisWidth         types.Float64                                                `tfsdk:"axis_width"`
-	AxisSoftMin       types.Float64                                                `tfsdk:"axis_soft_min"`
-	AxisSoftMax       types.Float64                                                `tfsdk:"axis_soft_max"`
-	AxisGridShow      types.Bool                                                   `tfsdk:"axis_grid_show"`
-	ScaleDistribution *PanelHeatmapDataSourceModel_Options_YAxis_ScaleDistribution `tfsdk:"scale_distribution"`
-	Max               types.Float64                                                `tfsdk:"max"`
-	AxisCenteredZero  types.Bool                                                   `tfsdk:"axis_centered_zero"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_YAxis) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_YAxis struct {
-		Unit              *string     `json:"unit,omitempty"`
-		Reverse           *bool       `json:"reverse,omitempty"`
-		Decimals          *float64    `json:"decimals,omitempty"`
-		Min               *float64    `json:"min,omitempty"`
-		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
-		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
-		AxisLabel         *string     `json:"axisLabel,omitempty"`
-		AxisWidth         *float64    `json:"axisWidth,omitempty"`
-		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
-		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
-		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
-		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
-		Max               *float64    `json:"max,omitempty"`
-		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_unit := m.Unit.ValueString()
-	attr_reverse := m.Reverse.ValueBool()
-	attr_decimals := m.Decimals.ValueFloat64()
-	attr_min := m.Min.ValueFloat64()
-	attr_axisplacement := m.AxisPlacement.ValueString()
-	attr_axiscolormode := m.AxisColorMode.ValueString()
-	attr_axislabel := m.AxisLabel.ValueString()
-	attr_axiswidth := m.AxisWidth.ValueFloat64()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
-	attr_axisgridshow := m.AxisGridShow.ValueBool()
-	var attr_scaledistribution interface{}
-	if m.ScaleDistribution != nil {
-		attr_scaledistribution = m.ScaleDistribution
-	}
-	attr_max := m.Max.ValueFloat64()
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_YAxis{
-		Unit:              &attr_unit,
-		Reverse:           &attr_reverse,
-		Decimals:          &attr_decimals,
-		Min:               &attr_min,
-		AxisPlacement:     &attr_axisplacement,
-		AxisColorMode:     &attr_axiscolormode,
-		AxisLabel:         &attr_axislabel,
-		AxisWidth:         &attr_axiswidth,
-		AxisSoftMin:       &attr_axissoftmin,
-		AxisSoftMax:       &attr_axissoftmax,
-		AxisGridShow:      &attr_axisgridshow,
-		ScaleDistribution: attr_scaledistribution,
-		Max:               &attr_max,
-		AxisCenteredZero:  &attr_axiscenteredzero,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_YAxis) ApplyDefaults() PanelHeatmapDataSourceModel_Options_YAxis {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_Legend struct {
-	Show types.Bool `tfsdk:"show"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_Legend struct {
-		Show bool `json:"show"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_show := m.Show.ValueBool()
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_Legend{
-		Show: attr_show,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Legend) ApplyDefaults() PanelHeatmapDataSourceModel_Options_Legend {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_Tooltip struct {
-	Show       types.Bool `tfsdk:"show"`
-	YHistogram types.Bool `tfsdk:"y_histogram"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_Tooltip struct {
-		Show       bool `json:"show"`
-		YHistogram bool `json:"yHistogram"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_show := m.Show.ValueBool()
-	attr_yhistogram := m.YHistogram.ValueBool()
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_Tooltip{
-		Show:       attr_show,
-		YHistogram: attr_yhistogram,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Tooltip) ApplyDefaults() PanelHeatmapDataSourceModel_Options_Tooltip {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_Options_Exemplars struct {
-	Color types.String `tfsdk:"color"`
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Exemplars) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_Options_Exemplars struct {
-		Color string `json:"color"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_color := m.Color.ValueString()
-
-	model := &jsonPanelHeatmapDataSourceModel_Options_Exemplars{
-		Color: attr_color,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_Options_Exemplars) ApplyDefaults() PanelHeatmapDataSourceModel_Options_Exemplars {
-
-	return m
-}
-
 type PanelHeatmapDataSourceModel_Options struct {
-	Calculate    types.Bool                                        `tfsdk:"calculate"`
-	Calculation  *PanelHeatmapDataSourceModel_Options_Calculation  `tfsdk:"calculation"`
-	Color        *PanelHeatmapDataSourceModel_Options_Color        `tfsdk:"color"`
-	FilterValues *PanelHeatmapDataSourceModel_Options_FilterValues `tfsdk:"filter_values"`
-	RowsFrame    *PanelHeatmapDataSourceModel_Options_RowsFrame    `tfsdk:"rows_frame"`
-	ShowValue    types.String                                      `tfsdk:"show_value"`
-	CellGap      types.Int64                                       `tfsdk:"cell_gap"`
-	CellRadius   types.Float64                                     `tfsdk:"cell_radius"`
-	CellValues   *PanelHeatmapDataSourceModel_Options_CellValues   `tfsdk:"cell_values"`
-	YAxis        *PanelHeatmapDataSourceModel_Options_YAxis        `tfsdk:"y_axis"`
-	Legend       *PanelHeatmapDataSourceModel_Options_Legend       `tfsdk:"legend"`
-	Tooltip      *PanelHeatmapDataSourceModel_Options_Tooltip      `tfsdk:"tooltip"`
-	Exemplars    *PanelHeatmapDataSourceModel_Options_Exemplars    `tfsdk:"exemplars"`
 }
 
 func (m PanelHeatmapDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelHeatmapDataSourceModel_Options struct {
-		Calculate    *bool       `json:"calculate,omitempty"`
-		Calculation  interface{} `json:"calculation,omitempty"`
-		Color        interface{} `json:"color,omitempty"`
-		FilterValues interface{} `json:"filterValues,omitempty"`
-		RowsFrame    interface{} `json:"rowsFrame,omitempty"`
-		ShowValue    string      `json:"showValue"`
-		CellGap      *int64      `json:"cellGap,omitempty"`
-		CellRadius   *float64    `json:"cellRadius,omitempty"`
-		CellValues   interface{} `json:"cellValues,omitempty"`
-		YAxis        interface{} `json:"yAxis,omitempty"`
-		Legend       interface{} `json:"legend,omitempty"`
-		Tooltip      interface{} `json:"tooltip,omitempty"`
-		Exemplars    interface{} `json:"exemplars,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_calculate := m.Calculate.ValueBool()
-	var attr_calculation interface{}
-	if m.Calculation != nil {
-		attr_calculation = m.Calculation
-	}
-	var attr_color interface{}
-	if m.Color != nil {
-		attr_color = m.Color
-	}
-	var attr_filtervalues interface{}
-	if m.FilterValues != nil {
-		attr_filtervalues = m.FilterValues
-	}
-	var attr_rowsframe interface{}
-	if m.RowsFrame != nil {
-		attr_rowsframe = m.RowsFrame
-	}
-	attr_showvalue := m.ShowValue.ValueString()
-	attr_cellgap := m.CellGap.ValueInt64()
-	attr_cellradius := m.CellRadius.ValueFloat64()
-	var attr_cellvalues interface{}
-	if m.CellValues != nil {
-		attr_cellvalues = m.CellValues
-	}
-	var attr_yaxis interface{}
-	if m.YAxis != nil {
-		attr_yaxis = m.YAxis
-	}
-	var attr_legend interface{}
-	if m.Legend != nil {
-		attr_legend = m.Legend
-	}
-	var attr_tooltip interface{}
-	if m.Tooltip != nil {
-		attr_tooltip = m.Tooltip
-	}
-	var attr_exemplars interface{}
-	if m.Exemplars != nil {
-		attr_exemplars = m.Exemplars
-	}
 
-	model := &jsonPanelHeatmapDataSourceModel_Options{
-		Calculate:    &attr_calculate,
-		Calculation:  attr_calculation,
-		Color:        attr_color,
-		FilterValues: attr_filtervalues,
-		RowsFrame:    attr_rowsframe,
-		ShowValue:    attr_showvalue,
-		CellGap:      &attr_cellgap,
-		CellRadius:   &attr_cellradius,
-		CellValues:   attr_cellvalues,
-		YAxis:        attr_yaxis,
-		Legend:       attr_legend,
-		Tooltip:      attr_tooltip,
-		Exemplars:    attr_exemplars,
-	}
+	model := &jsonPanelHeatmapDataSourceModel_Options{}
 	return json.Marshal(model)
 }
 
 func (m PanelHeatmapDataSourceModel_Options) ApplyDefaults() PanelHeatmapDataSourceModel_Options {
-	if m.Calculate.IsNull() {
-		m.Calculate = types.BoolValue(false)
-	}
-	if m.ShowValue.IsNull() {
-		m.ShowValue = types.StringValue(`auto`)
-	}
-	if m.CellGap.IsNull() {
-		m.CellGap = types.Int64Value(1)
-	}
+
 	return m
 }
 
@@ -921,93 +381,16 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() 
 	return m
 }
 
-type PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
-	Type            types.String  `tfsdk:"type"`
-	Log             types.Float64 `tfsdk:"log"`
-	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
-}
-
-func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
-		Type            string   `json:"type"`
-		Log             *float64 `json:"log,omitempty"`
-		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
-
-	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
-		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
-
-	return m
-}
-
-type PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-	Tooltip types.Bool `tfsdk:"tooltip"`
-	Legend  types.Bool `tfsdk:"legend"`
-	Viz     types.Bool `tfsdk:"viz"`
-}
-
-func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-		Tooltip bool `json:"tooltip"`
-		Legend  bool `json:"legend"`
-		Viz     bool `json:"viz"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_tooltip := m.Tooltip.ValueBool()
-	attr_legend := m.Legend.ValueBool()
-	attr_viz := m.Viz.ValueBool()
-
-	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
-		Tooltip: attr_tooltip,
-		Legend:  attr_legend,
-		Viz:     attr_viz,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
-
-	return m
-}
-
 type PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom struct {
-	ScaleDistribution *PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
-	HideFrom          *PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
 }
 
 func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom struct {
-		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
-		HideFrom          interface{} `json:"hideFrom,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	var attr_scaledistribution interface{}
-	if m.ScaleDistribution != nil {
-		attr_scaledistribution = m.ScaleDistribution
-	}
-	var attr_hidefrom interface{}
-	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom
-	}
 
-	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom{
-		ScaleDistribution: attr_scaledistribution,
-		HideFrom:          attr_hidefrom,
-	}
+	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom{}
 	return json.Marshal(model)
 }
 
@@ -1451,7 +834,7 @@ func (d *PanelHeatmapDataSource) Schema(ctx context.Context, req datasource.Sche
 						Required:            false,
 					},
 					"static": schema.BoolAttribute{
-						MarkdownDescription: `true if fixed`,
+						MarkdownDescription: `Whether the panel is fixed within the grid`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
@@ -1467,62 +850,62 @@ TODO fill this out - seems there are a couple variants?`,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"title": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Title to display with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"type": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link type. Accepted values are dashboards (to refer to another dashboard) and link (to refer to an external resource)`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"icon": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Icon name to be displayed with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tooltip": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Tooltip to display when the user hovers their mouse over it`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"url": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link URL. Only required/valid if the type is link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tags": schema.ListAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `List of tags to limit the linked dashboards. If empty, all dashboards will be displayed. Only valid if the type is dashboards`,
 							Computed:            false,
 							Optional:            true,
 							Required:            false,
 							ElementType:         types.StringType,
 						},
 						"as_dropdown": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, all dashboards links will be displayed in a dropdown. If false, all dashboards links will be displayed side by side. Only valid if the type is dashboards. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"target_blank": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, the link will be opened in a new tab. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"include_vars": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current template variables values in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"keep_time": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current time range in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
@@ -1551,7 +934,7 @@ TODO this is probably optional. Defaults to "h".`,
 				Required:            false,
 			},
 			"max_data_points": schema.Float64Attribute{
-				MarkdownDescription: `TODO docs`,
+				MarkdownDescription: `The maximum number of data points that the panel queries are retrieving.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
@@ -1579,22 +962,32 @@ TODO this is probably optional. Defaults to "h".`,
 				},
 			},
 			"interval": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `The min time interval setting defines a lower limit for the $__interval and $__interval_ms variables.
+This value must be formatted as a number followed by a valid time
+identifier like: "40s", "3d", etc.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
 			},
 			"time_from": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `Overrides the relative time range for individual panels,
+which causes them to be different than what is selected in
+the dashboard time picker in the top-right corner of the dashboard. You can use this to show metrics from different
+time periods or days on the same dashboard.
+The value is formatted as time operation like: now-5m (Last 5 minutes), now/d (the day so far),
+now-5d/d(Last 5 days), now/w (This week so far), now-2y/y (Last 2 years).
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
 			},
 			"time_shift": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `Overrides the time range for individual panels by shifting its start and end relative to the time picker.
+For example, you can shift the time range for the panel to be two hours earlier than the dashboard time picker setting 2h.
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
@@ -1620,380 +1013,11 @@ TODO tighter constraint`,
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            true,
-				Optional:            true,
-				Required:            false,
-				Attributes: map[string]schema.Attribute{
-					"calculate": schema.BoolAttribute{
-						MarkdownDescription: `Controls if the heatmap should be calculated from data. Defaults to false.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"calculation": schema.SingleNestedAttribute{
-						MarkdownDescription: `Calculation options for the heatmap`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"x_buckets": schema.SingleNestedAttribute{
-								MarkdownDescription: `The number of buckets to use for the xAxis in the heatmap`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-								Attributes: map[string]schema.Attribute{
-									"mode": schema.StringAttribute{
-										MarkdownDescription: `Sets the bucket calculation mode`,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"value": schema.StringAttribute{
-										MarkdownDescription: `The number of buckets to use for the axis in the heatmap`,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"scale": schema.SingleNestedAttribute{
-										MarkdownDescription: `Controls the scale of the buckets`,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"type": schema.StringAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"log": schema.Float64Attribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            true,
-												Required:            false,
-											},
-											"linear_threshold": schema.Float64Attribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            true,
-												Required:            false,
-											},
-										},
-									},
-								},
-							},
-							"y_buckets": schema.SingleNestedAttribute{
-								MarkdownDescription: `The number of buckets to use for the yAxis in the heatmap`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-								Attributes: map[string]schema.Attribute{
-									"mode": schema.StringAttribute{
-										MarkdownDescription: `Sets the bucket calculation mode`,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"value": schema.StringAttribute{
-										MarkdownDescription: `The number of buckets to use for the axis in the heatmap`,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"scale": schema.SingleNestedAttribute{
-										MarkdownDescription: `Controls the scale of the buckets`,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"type": schema.StringAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"log": schema.Float64Attribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            true,
-												Required:            false,
-											},
-											"linear_threshold": schema.Float64Attribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            true,
-												Required:            false,
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-					"color": schema.SingleNestedAttribute{
-						MarkdownDescription: `Controls the color options`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"scheme": schema.StringAttribute{
-								MarkdownDescription: `mode:     HeatmapColorMode // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed`,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"fill": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"reverse": schema.BoolAttribute{
-								MarkdownDescription: `scale:    HeatmapColorScale // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed`,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"exponent": schema.Float64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"steps": schema.Int64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-					"filter_values": schema.SingleNestedAttribute{
-						MarkdownDescription: `Filters values between a given range`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"le": schema.Float64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-					"rows_frame": schema.SingleNestedAttribute{
-						MarkdownDescription: `Controls tick alignment and value name when not calculating from data`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"value": schema.StringAttribute{
-								MarkdownDescription: `Sets the name of the cell when not calculating from data`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"layout": schema.StringAttribute{
-								MarkdownDescription: `Controls tick alignment when not calculating from data`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"show_value": schema.StringAttribute{
-						MarkdownDescription: `| *{
-	layout: ui.HeatmapCellLayout & "auto" // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed
-}
-Controls the display of the value in the cell. Defaults to "auto".`,
-						Computed: true,
-						Optional: true,
-						Required: false,
-					},
-					"cell_gap": schema.Int64Attribute{
-						MarkdownDescription: `Controls gap between cells. Defaults to 1.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"cell_radius": schema.Float64Attribute{
-						MarkdownDescription: `Controls cell radius`,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-					},
-					"cell_values": schema.SingleNestedAttribute{
-						MarkdownDescription: `Controls cell value unit`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"y_axis": schema.SingleNestedAttribute{
-						MarkdownDescription: `Controls yAxis placement`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"unit": schema.StringAttribute{
-								MarkdownDescription: `Sets the yAxis unit`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"reverse": schema.BoolAttribute{
-								MarkdownDescription: `Reverses the yAxis`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"decimals": schema.Float64Attribute{
-								MarkdownDescription: `Controls the number of decimals for yAxis values`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"min": schema.Float64Attribute{
-								MarkdownDescription: `Sets the minimum value for the yAxis`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"axis_placement": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"axis_color_mode": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"axis_label": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"axis_width": schema.Float64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"axis_soft_min": schema.Float64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"axis_soft_max": schema.Float64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"axis_grid_show": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"scale_distribution": schema.SingleNestedAttribute{
-								MarkdownDescription: ``,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-								Attributes: map[string]schema.Attribute{
-									"type": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            false,
-										Required:            true,
-									},
-									"log": schema.Float64Attribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"linear_threshold": schema.Float64Attribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-								},
-							},
-							"max": schema.Float64Attribute{
-								MarkdownDescription: `Sets the maximum value for the yAxis`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"axis_centered_zero": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"legend": schema.SingleNestedAttribute{
-						MarkdownDescription: `| *{
-	axisPlacement: ui.AxisPlacement & "left" // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed
-}
-Controls legend options`,
-						Computed: true,
-						Optional: true,
-						Required: false,
-						Attributes: map[string]schema.Attribute{
-							"show": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-					"tooltip": schema.SingleNestedAttribute{
-						MarkdownDescription: `Controls tooltip options`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"show": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"y_histogram": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-					"exemplars": schema.SingleNestedAttribute{
-						MarkdownDescription: `Controls exemplar options`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"color": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-				},
+				MarkdownDescription: `options is specified by the Options field in panel
+plugin schemas.`,
+				Computed: true,
+				Optional: true,
+				Required: false,
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -2092,14 +1116,14 @@ may be used to update the results`,
 										NestedObject: schema.NestedAttributeObject{
 											Attributes: map[string]schema.Attribute{
 												"value": schema.Float64Attribute{
-													MarkdownDescription: `TODO docs
+													MarkdownDescription: `Value represents a specified metric for the threshold, which triggers a visual change in the dashboard when this value is met or exceeded.
 FIXME the corresponding typescript field is required/non-optional, but nulls currently appear here when serializing -Infinity to JSON`,
 													Computed: false,
 													Optional: true,
 													Required: false,
 												},
 												"color": schema.StringAttribute{
-													MarkdownDescription: `TODO docs`,
+													MarkdownDescription: `Color represents the color of the visual change that will occur in the dashboard when the threshold value is met or exceeded.`,
 													Computed:            false,
 													Optional:            false,
 													Required:            true,
@@ -2156,64 +1180,11 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: ``,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-								Attributes: map[string]schema.Attribute{
-									"scale_distribution": schema.SingleNestedAttribute{
-										MarkdownDescription: ``,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"type": schema.StringAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"log": schema.Float64Attribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            true,
-												Required:            false,
-											},
-											"linear_threshold": schema.Float64Attribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            true,
-												Required:            false,
-											},
-										},
-									},
-									"hide_from": schema.SingleNestedAttribute{
-										MarkdownDescription: ``,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"tooltip": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"legend": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"viz": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-										},
-									},
-								},
+								MarkdownDescription: `custom is specified by the FieldConfig field
+in panel plugin schemas.`,
+								Computed: true,
+								Optional: true,
+								Required: false,
 							},
 						},
 					},

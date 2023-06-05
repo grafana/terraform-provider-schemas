@@ -28,32 +28,34 @@ var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &QueryPhlareDataSource{}
-	_ datasource.DataSourceWithConfigure = &QueryPhlareDataSource{}
+	_ datasource.DataSource              = &QueryGrafanaPyroscopeDataSource{}
+	_ datasource.DataSourceWithConfigure = &QueryGrafanaPyroscopeDataSource{}
 )
 
-func NewQueryPhlareDataSource() datasource.DataSource {
-	return &QueryPhlareDataSource{}
+func NewQueryGrafanaPyroscopeDataSource() datasource.DataSource {
+	return &QueryGrafanaPyroscopeDataSource{}
 }
 
-// QueryPhlareDataSource defines the data source implementation.
-type QueryPhlareDataSource struct{}
+// QueryGrafanaPyroscopeDataSource defines the data source implementation.
+type QueryGrafanaPyroscopeDataSource struct{}
 
-type QueryPhlareDataSourceModel struct {
+type QueryGrafanaPyroscopeDataSourceModel struct {
 	ToJSON        types.String `tfsdk:"to_json"`
 	LabelSelector types.String `tfsdk:"label_selector"`
 	ProfileTypeId types.String `tfsdk:"profile_type_id"`
 	GroupBy       types.List   `tfsdk:"group_by"`
+	MaxNodes      types.Int64  `tfsdk:"max_nodes"`
 	RefId         types.String `tfsdk:"ref_id"`
 	Hide          types.Bool   `tfsdk:"hide"`
 	QueryType     types.String `tfsdk:"query_type"`
 }
 
-func (m QueryPhlareDataSourceModel) MarshalJSON() ([]byte, error) {
-	type jsonQueryPhlareDataSourceModel struct {
+func (m QueryGrafanaPyroscopeDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonQueryGrafanaPyroscopeDataSourceModel struct {
 		LabelSelector string   `json:"labelSelector"`
 		ProfileTypeId string   `json:"profileTypeId"`
 		GroupBy       []string `json:"groupBy,omitempty"`
+		MaxNodes      *int64   `json:"maxNodes,omitempty"`
 		RefId         string   `json:"refId"`
 		Hide          *bool    `json:"hide,omitempty"`
 		QueryType     *string  `json:"queryType,omitempty"`
@@ -66,14 +68,16 @@ func (m QueryPhlareDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.GroupBy.Elements() {
 		attr_groupby = append(attr_groupby, v.(types.String).ValueString())
 	}
+	attr_maxnodes := m.MaxNodes.ValueInt64()
 	attr_refid := m.RefId.ValueString()
 	attr_hide := m.Hide.ValueBool()
 	attr_querytype := m.QueryType.ValueString()
 
-	model := &jsonQueryPhlareDataSourceModel{
+	model := &jsonQueryGrafanaPyroscopeDataSourceModel{
 		LabelSelector: attr_labelselector,
 		ProfileTypeId: attr_profiletypeid,
 		GroupBy:       attr_groupby,
+		MaxNodes:      &attr_maxnodes,
 		RefId:         attr_refid,
 		Hide:          &attr_hide,
 		QueryType:     &attr_querytype,
@@ -81,7 +85,7 @@ func (m QueryPhlareDataSourceModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m QueryPhlareDataSourceModel) ApplyDefaults() QueryPhlareDataSourceModel {
+func (m QueryGrafanaPyroscopeDataSourceModel) ApplyDefaults() QueryGrafanaPyroscopeDataSourceModel {
 	if m.LabelSelector.IsNull() {
 		m.LabelSelector = types.StringValue(`{}`)
 	}
@@ -91,11 +95,11 @@ func (m QueryPhlareDataSourceModel) ApplyDefaults() QueryPhlareDataSourceModel {
 	return m
 }
 
-func (d *QueryPhlareDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_query_phlare"
+func (d *QueryGrafanaPyroscopeDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_query_grafana_pyroscope"
 }
 
-func (d *QueryPhlareDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *QueryGrafanaPyroscopeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "TODO description",
@@ -118,6 +122,12 @@ func (d *QueryPhlareDataSource) Schema(ctx context.Context, req datasource.Schem
 				Optional:            true,
 				Required:            false,
 				ElementType:         types.StringType,
+			},
+			"max_nodes": schema.Int64Attribute{
+				MarkdownDescription: `Sets the maximum number of nodes in the flamegraph.`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
 			},
 			"ref_id": schema.StringAttribute{
 				MarkdownDescription: `A unique identifier for the query within the list of targets.
@@ -151,11 +161,11 @@ TODO make this required and give it a default`,
 	}
 }
 
-func (d *QueryPhlareDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *QueryGrafanaPyroscopeDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *QueryPhlareDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data QueryPhlareDataSourceModel
+func (d *QueryGrafanaPyroscopeDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data QueryGrafanaPyroscopeDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

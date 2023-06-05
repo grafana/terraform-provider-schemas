@@ -1,11 +1,12 @@
 package internal
 
 import (
-	"errors"
 	"fmt"
+	"regexp"
 	"strings"
 
 	"cuelang.org/go/cue"
+	"cuelang.org/go/cue/ast"
 	"github.com/grafana/terraform-provider-schemas/gen/terraform/cuetf/types"
 )
 
@@ -44,7 +45,7 @@ func GetAllNodes(val cue.Value) ([]types.Node, error) {
 
 func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, error) {
 	// TODO: fixme
-	if name == "mappings" || name == "points" || name == "bucketAggs" || name == "metrics" || name == "reducer" {
+	if name == "mappings" || name == "points" || name == "bucketAggs" || name == "metrics" || name == "reducer" || name == "role" {
 		return nil, nil
 	}
 
@@ -52,13 +53,9 @@ func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, erro
 		Name:     name,
 		Kind:     val.IncompleteKind(),
 		Optional: optional,
-		Default:  GetDefault(val),
+		Default:  getDefault(val),
+		Doc:      formatDoc(val.Doc()),
 	}
-
-	for _, comment := range val.Doc() {
-		node.Doc += comment.Text()
-	}
-	node.Doc = strings.ReplaceAll(strings.Trim(node.Doc, "\n "), "`", "")
 
 	switch node.Kind {
 	case cue.ListKind:
@@ -95,7 +92,7 @@ func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, erro
 				}
 			}
 		} else {
-			return nil, errors.New("unreachable - open list must have a type")
+			return nil, fmt.Errorf("unreachable - open list must have a type, field \"%s\"", name)
 		}
 	case cue.StructKind:
 		// Structs should be optional if we want to set nested defaults
@@ -114,7 +111,7 @@ func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, erro
 	return &node, nil
 }
 
-func GetDefault(v cue.Value) string {
+func getDefault(v cue.Value) string {
 	_, ok := v.Default()
 	if !ok {
 		return ""
@@ -148,4 +145,18 @@ func GetDefault(v cue.Value) string {
 	default:
 		return ""
 	}
+}
+
+func formatDoc(comments []*ast.CommentGroup) string {
+	result := ""
+	for _, comment := range comments {
+		result += comment.Text()
+	}
+
+	result = strings.ReplaceAll(result, "`", "")
+
+	reg := regexp.MustCompile(`{{([^}]*)}}`)
+	result = reg.ReplaceAllString(result, "` + \"{{`{{${1}}}`}}\" + `")
+
+	return strings.Trim(result, "\n ")
 }

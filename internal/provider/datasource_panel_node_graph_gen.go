@@ -267,119 +267,16 @@ func (m PanelNodeGraphDataSourceModel_LibraryPanel) ApplyDefaults() PanelNodeGra
 	return m
 }
 
-type PanelNodeGraphDataSourceModel_Options_Nodes_Arcs struct {
-	Field types.String `tfsdk:"field"`
-	Color types.String `tfsdk:"color"`
-}
-
-func (m PanelNodeGraphDataSourceModel_Options_Nodes_Arcs) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_Options_Nodes_Arcs struct {
-		Field *string `json:"field,omitempty"`
-		Color *string `json:"color,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_field := m.Field.ValueString()
-	attr_color := m.Color.ValueString()
-
-	model := &jsonPanelNodeGraphDataSourceModel_Options_Nodes_Arcs{
-		Field: &attr_field,
-		Color: &attr_color,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_Options_Nodes_Arcs) ApplyDefaults() PanelNodeGraphDataSourceModel_Options_Nodes_Arcs {
-
-	return m
-}
-
-type PanelNodeGraphDataSourceModel_Options_Nodes struct {
-	MainStatUnit      types.String                                       `tfsdk:"main_stat_unit"`
-	SecondaryStatUnit types.String                                       `tfsdk:"secondary_stat_unit"`
-	Arcs              []PanelNodeGraphDataSourceModel_Options_Nodes_Arcs `tfsdk:"arcs"`
-}
-
-func (m PanelNodeGraphDataSourceModel_Options_Nodes) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_Options_Nodes struct {
-		MainStatUnit      *string       `json:"mainStatUnit,omitempty"`
-		SecondaryStatUnit *string       `json:"secondaryStatUnit,omitempty"`
-		Arcs              []interface{} `json:"arcs,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_mainstatunit := m.MainStatUnit.ValueString()
-	attr_secondarystatunit := m.SecondaryStatUnit.ValueString()
-	attr_arcs := []interface{}{}
-	for _, v := range m.Arcs {
-		attr_arcs = append(attr_arcs, v)
-	}
-
-	model := &jsonPanelNodeGraphDataSourceModel_Options_Nodes{
-		MainStatUnit:      &attr_mainstatunit,
-		SecondaryStatUnit: &attr_secondarystatunit,
-		Arcs:              attr_arcs,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_Options_Nodes) ApplyDefaults() PanelNodeGraphDataSourceModel_Options_Nodes {
-
-	return m
-}
-
-type PanelNodeGraphDataSourceModel_Options_Edges struct {
-	MainStatUnit      types.String `tfsdk:"main_stat_unit"`
-	SecondaryStatUnit types.String `tfsdk:"secondary_stat_unit"`
-}
-
-func (m PanelNodeGraphDataSourceModel_Options_Edges) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_Options_Edges struct {
-		MainStatUnit      *string `json:"mainStatUnit,omitempty"`
-		SecondaryStatUnit *string `json:"secondaryStatUnit,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_mainstatunit := m.MainStatUnit.ValueString()
-	attr_secondarystatunit := m.SecondaryStatUnit.ValueString()
-
-	model := &jsonPanelNodeGraphDataSourceModel_Options_Edges{
-		MainStatUnit:      &attr_mainstatunit,
-		SecondaryStatUnit: &attr_secondarystatunit,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_Options_Edges) ApplyDefaults() PanelNodeGraphDataSourceModel_Options_Edges {
-
-	return m
-}
-
 type PanelNodeGraphDataSourceModel_Options struct {
-	Nodes *PanelNodeGraphDataSourceModel_Options_Nodes `tfsdk:"nodes"`
-	Edges *PanelNodeGraphDataSourceModel_Options_Edges `tfsdk:"edges"`
 }
 
 func (m PanelNodeGraphDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelNodeGraphDataSourceModel_Options struct {
-		Nodes interface{} `json:"nodes,omitempty"`
-		Edges interface{} `json:"edges,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	var attr_nodes interface{}
-	if m.Nodes != nil {
-		attr_nodes = m.Nodes
-	}
-	var attr_edges interface{}
-	if m.Edges != nil {
-		attr_edges = m.Edges
-	}
 
-	model := &jsonPanelNodeGraphDataSourceModel_Options{
-		Nodes: attr_nodes,
-		Edges: attr_edges,
-	}
+	model := &jsonPanelNodeGraphDataSourceModel_Options{}
 	return json.Marshal(model)
 }
 
@@ -484,150 +381,21 @@ func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults(
 	return m
 }
 
-type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
-	Type            types.String  `tfsdk:"type"`
-	Log             types.Float64 `tfsdk:"log"`
-	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
-		Type            string   `json:"type"`
-		Log             *float64 `json:"log,omitempty"`
-		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
-
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
-		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
-
-	return m
-}
-
-type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-	Tooltip types.Bool `tfsdk:"tooltip"`
-	Legend  types.Bool `tfsdk:"legend"`
-	Viz     types.Bool `tfsdk:"viz"`
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-		Tooltip bool `json:"tooltip"`
-		Legend  bool `json:"legend"`
-		Viz     bool `json:"viz"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_tooltip := m.Tooltip.ValueBool()
-	attr_legend := m.Legend.ValueBool()
-	attr_viz := m.Viz.ValueBool()
-
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
-		Tooltip: attr_tooltip,
-		Legend:  attr_legend,
-		Viz:     attr_viz,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
-
-	return m
-}
-
 type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom struct {
-	LineWidth         types.Int64                                                                  `tfsdk:"line_width"`
-	FillOpacity       types.Int64                                                                  `tfsdk:"fill_opacity"`
-	AxisPlacement     types.String                                                                 `tfsdk:"axis_placement"`
-	AxisColorMode     types.String                                                                 `tfsdk:"axis_color_mode"`
-	AxisLabel         types.String                                                                 `tfsdk:"axis_label"`
-	AxisWidth         types.Float64                                                                `tfsdk:"axis_width"`
-	AxisSoftMin       types.Float64                                                                `tfsdk:"axis_soft_min"`
-	AxisSoftMax       types.Float64                                                                `tfsdk:"axis_soft_max"`
-	AxisGridShow      types.Bool                                                                   `tfsdk:"axis_grid_show"`
-	ScaleDistribution *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
-	HideFrom          *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
-	GradientMode      types.String                                                                 `tfsdk:"gradient_mode"`
-	AxisCenteredZero  types.Bool                                                                   `tfsdk:"axis_centered_zero"`
 }
 
 func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom struct {
-		LineWidth         *int64      `json:"lineWidth,omitempty"`
-		FillOpacity       *int64      `json:"fillOpacity,omitempty"`
-		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
-		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
-		AxisLabel         *string     `json:"axisLabel,omitempty"`
-		AxisWidth         *float64    `json:"axisWidth,omitempty"`
-		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
-		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
-		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
-		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
-		HideFrom          interface{} `json:"hideFrom,omitempty"`
-		GradientMode      *string     `json:"gradientMode,omitempty"`
-		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_linewidth := m.LineWidth.ValueInt64()
-	attr_fillopacity := m.FillOpacity.ValueInt64()
-	attr_axisplacement := m.AxisPlacement.ValueString()
-	attr_axiscolormode := m.AxisColorMode.ValueString()
-	attr_axislabel := m.AxisLabel.ValueString()
-	attr_axiswidth := m.AxisWidth.ValueFloat64()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
-	attr_axisgridshow := m.AxisGridShow.ValueBool()
-	var attr_scaledistribution interface{}
-	if m.ScaleDistribution != nil {
-		attr_scaledistribution = m.ScaleDistribution
-	}
-	var attr_hidefrom interface{}
-	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom
-	}
-	attr_gradientmode := m.GradientMode.ValueString()
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
 
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom{
-		LineWidth:         &attr_linewidth,
-		FillOpacity:       &attr_fillopacity,
-		AxisPlacement:     &attr_axisplacement,
-		AxisColorMode:     &attr_axiscolormode,
-		AxisLabel:         &attr_axislabel,
-		AxisWidth:         &attr_axiswidth,
-		AxisSoftMin:       &attr_axissoftmin,
-		AxisSoftMax:       &attr_axissoftmax,
-		AxisGridShow:      &attr_axisgridshow,
-		ScaleDistribution: attr_scaledistribution,
-		HideFrom:          attr_hidefrom,
-		GradientMode:      &attr_gradientmode,
-		AxisCenteredZero:  &attr_axiscenteredzero,
-	}
+	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom{}
 	return json.Marshal(model)
 }
 
 func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom {
-	if m.LineWidth.IsNull() {
-		m.LineWidth = types.Int64Value(1)
-	}
-	if m.FillOpacity.IsNull() {
-		m.FillOpacity = types.Int64Value(80)
-	}
-	if m.GradientMode.IsNull() {
-		m.GradientMode = types.StringValue(`none`)
-	}
+
 	return m
 }
 
@@ -1066,7 +834,7 @@ func (d *PanelNodeGraphDataSource) Schema(ctx context.Context, req datasource.Sc
 						Required:            false,
 					},
 					"static": schema.BoolAttribute{
-						MarkdownDescription: `true if fixed`,
+						MarkdownDescription: `Whether the panel is fixed within the grid`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
@@ -1082,62 +850,62 @@ TODO fill this out - seems there are a couple variants?`,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"title": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Title to display with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"type": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link type. Accepted values are dashboards (to refer to another dashboard) and link (to refer to an external resource)`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"icon": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Icon name to be displayed with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tooltip": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Tooltip to display when the user hovers their mouse over it`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"url": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link URL. Only required/valid if the type is link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tags": schema.ListAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `List of tags to limit the linked dashboards. If empty, all dashboards will be displayed. Only valid if the type is dashboards`,
 							Computed:            false,
 							Optional:            true,
 							Required:            false,
 							ElementType:         types.StringType,
 						},
 						"as_dropdown": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, all dashboards links will be displayed in a dropdown. If false, all dashboards links will be displayed side by side. Only valid if the type is dashboards. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"target_blank": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, the link will be opened in a new tab. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"include_vars": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current template variables values in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"keep_time": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current time range in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
@@ -1166,7 +934,7 @@ TODO this is probably optional. Defaults to "h".`,
 				Required:            false,
 			},
 			"max_data_points": schema.Float64Attribute{
-				MarkdownDescription: `TODO docs`,
+				MarkdownDescription: `The maximum number of data points that the panel queries are retrieving.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
@@ -1194,22 +962,32 @@ TODO this is probably optional. Defaults to "h".`,
 				},
 			},
 			"interval": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `The min time interval setting defines a lower limit for the $__interval and $__interval_ms variables.
+This value must be formatted as a number followed by a valid time
+identifier like: "40s", "3d", etc.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
 			},
 			"time_from": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `Overrides the relative time range for individual panels,
+which causes them to be different than what is selected in
+the dashboard time picker in the top-right corner of the dashboard. You can use this to show metrics from different
+time periods or days on the same dashboard.
+The value is formatted as time operation like: now-5m (Last 5 minutes), now/d (the day so far),
+now-5d/d(Last 5 days), now/w (This week so far), now-2y/y (Last 2 years).
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
 			},
 			"time_shift": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `Overrides the time range for individual panels by shifting its start and end relative to the time picker.
+For example, you can shift the time range for the panel to be two hours earlier than the dashboard time picker setting 2h.
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
@@ -1235,74 +1013,11 @@ TODO tighter constraint`,
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            true,
-				Optional:            true,
-				Required:            false,
-				Attributes: map[string]schema.Attribute{
-					"nodes": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"main_stat_unit": schema.StringAttribute{
-								MarkdownDescription: `Unit for the main stat to override what ever is set in the data frame.`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"secondary_stat_unit": schema.StringAttribute{
-								MarkdownDescription: `Unit for the secondary stat to override what ever is set in the data frame.`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"arcs": schema.ListNestedAttribute{
-								MarkdownDescription: `Define which fields are shown as part of the node arc (colored circle around the node).`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-								NestedObject: schema.NestedAttributeObject{
-									Attributes: map[string]schema.Attribute{
-										"field": schema.StringAttribute{
-											MarkdownDescription: `Field from which to get the value. Values should be less than 1, representing fraction of a circle.`,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"color": schema.StringAttribute{
-											MarkdownDescription: `The color of the arc.`,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-									},
-								},
-							},
-						},
-					},
-					"edges": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"main_stat_unit": schema.StringAttribute{
-								MarkdownDescription: `Unit for the main stat to override what ever is set in the data frame.`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"secondary_stat_unit": schema.StringAttribute{
-								MarkdownDescription: `Unit for the secondary stat to override what ever is set in the data frame.`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-				},
+				MarkdownDescription: `options is specified by the Options field in panel
+plugin schemas.`,
+				Computed: true,
+				Optional: true,
+				Required: false,
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1401,14 +1116,14 @@ may be used to update the results`,
 										NestedObject: schema.NestedAttributeObject{
 											Attributes: map[string]schema.Attribute{
 												"value": schema.Float64Attribute{
-													MarkdownDescription: `TODO docs
+													MarkdownDescription: `Value represents a specified metric for the threshold, which triggers a visual change in the dashboard when this value is met or exceeded.
 FIXME the corresponding typescript field is required/non-optional, but nulls currently appear here when serializing -Infinity to JSON`,
 													Computed: false,
 													Optional: true,
 													Required: false,
 												},
 												"color": schema.StringAttribute{
-													MarkdownDescription: `TODO docs`,
+													MarkdownDescription: `Color represents the color of the visual change that will occur in the dashboard when the threshold value is met or exceeded.`,
 													Computed:            false,
 													Optional:            false,
 													Required:            true,
@@ -1465,131 +1180,11 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: ``,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-								Attributes: map[string]schema.Attribute{
-									"line_width": schema.Int64Attribute{
-										MarkdownDescription: `Controls line width of the bars. Defaults to 1.`,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-									},
-									"fill_opacity": schema.Int64Attribute{
-										MarkdownDescription: `Controls the fill opacity of the bars. Defaults to 80.`,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_placement": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_color_mode": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_label": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_width": schema.Float64Attribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_soft_min": schema.Float64Attribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_soft_max": schema.Float64Attribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"axis_grid_show": schema.BoolAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"scale_distribution": schema.SingleNestedAttribute{
-										MarkdownDescription: ``,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"type": schema.StringAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"log": schema.Float64Attribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            true,
-												Required:            false,
-											},
-											"linear_threshold": schema.Float64Attribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            true,
-												Required:            false,
-											},
-										},
-									},
-									"hide_from": schema.SingleNestedAttribute{
-										MarkdownDescription: ``,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"tooltip": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"legend": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"viz": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-										},
-									},
-									"gradient_mode": schema.StringAttribute{
-										MarkdownDescription: `Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
-Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".`,
-										Computed: true,
-										Optional: true,
-										Required: false,
-									},
-									"axis_centered_zero": schema.BoolAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-								},
+								MarkdownDescription: `custom is specified by the FieldConfig field
+in panel plugin schemas.`,
+								Computed: true,
+								Optional: true,
+								Required: false,
 							},
 						},
 					},

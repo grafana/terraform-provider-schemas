@@ -267,134 +267,21 @@ func (m PanelStatDataSourceModel_LibraryPanel) ApplyDefaults() PanelStatDataSour
 	return m
 }
 
-type PanelStatDataSourceModel_Options_ReduceOptions struct {
-	Values types.Bool    `tfsdk:"values"`
-	Limit  types.Float64 `tfsdk:"limit"`
-	Calcs  types.List    `tfsdk:"calcs"`
-	Fields types.String  `tfsdk:"fields"`
-}
-
-func (m PanelStatDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatDataSourceModel_Options_ReduceOptions struct {
-		Values *bool    `json:"values,omitempty"`
-		Limit  *float64 `json:"limit,omitempty"`
-		Calcs  []string `json:"calcs,omitempty"`
-		Fields *string  `json:"fields,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_values := m.Values.ValueBool()
-	attr_limit := m.Limit.ValueFloat64()
-	attr_calcs := []string{}
-	for _, v := range m.Calcs.Elements() {
-		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
-	}
-	attr_fields := m.Fields.ValueString()
-
-	model := &jsonPanelStatDataSourceModel_Options_ReduceOptions{
-		Values: &attr_values,
-		Limit:  &attr_limit,
-		Calcs:  attr_calcs,
-		Fields: &attr_fields,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatDataSourceModel_Options_ReduceOptions) ApplyDefaults() PanelStatDataSourceModel_Options_ReduceOptions {
-	if len(m.Calcs.Elements()) == 0 {
-		m.Calcs, _ = types.ListValue(types.StringType, []attr.Value{})
-	}
-	return m
-}
-
-type PanelStatDataSourceModel_Options_Text struct {
-	TitleSize types.Float64 `tfsdk:"title_size"`
-	ValueSize types.Float64 `tfsdk:"value_size"`
-}
-
-func (m PanelStatDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatDataSourceModel_Options_Text struct {
-		TitleSize *float64 `json:"titleSize,omitempty"`
-		ValueSize *float64 `json:"valueSize,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_titlesize := m.TitleSize.ValueFloat64()
-	attr_valuesize := m.ValueSize.ValueFloat64()
-
-	model := &jsonPanelStatDataSourceModel_Options_Text{
-		TitleSize: &attr_titlesize,
-		ValueSize: &attr_valuesize,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatDataSourceModel_Options_Text) ApplyDefaults() PanelStatDataSourceModel_Options_Text {
-
-	return m
-}
-
 type PanelStatDataSourceModel_Options struct {
-	GraphMode     types.String                                    `tfsdk:"graph_mode"`
-	ColorMode     types.String                                    `tfsdk:"color_mode"`
-	JustifyMode   types.String                                    `tfsdk:"justify_mode"`
-	ReduceOptions *PanelStatDataSourceModel_Options_ReduceOptions `tfsdk:"reduce_options"`
-	Text          *PanelStatDataSourceModel_Options_Text          `tfsdk:"text"`
-	TextMode      types.String                                    `tfsdk:"text_mode"`
-	Orientation   types.String                                    `tfsdk:"orientation"`
 }
 
 func (m PanelStatDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatDataSourceModel_Options struct {
-		GraphMode     string      `json:"graphMode"`
-		ColorMode     string      `json:"colorMode"`
-		JustifyMode   string      `json:"justifyMode"`
-		ReduceOptions interface{} `json:"reduceOptions,omitempty"`
-		Text          interface{} `json:"text,omitempty"`
-		TextMode      string      `json:"textMode"`
-		Orientation   string      `json:"orientation"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_graphmode := m.GraphMode.ValueString()
-	attr_colormode := m.ColorMode.ValueString()
-	attr_justifymode := m.JustifyMode.ValueString()
-	var attr_reduceoptions interface{}
-	if m.ReduceOptions != nil {
-		attr_reduceoptions = m.ReduceOptions
-	}
-	var attr_text interface{}
-	if m.Text != nil {
-		attr_text = m.Text
-	}
-	attr_textmode := m.TextMode.ValueString()
-	attr_orientation := m.Orientation.ValueString()
 
-	model := &jsonPanelStatDataSourceModel_Options{
-		GraphMode:     attr_graphmode,
-		ColorMode:     attr_colormode,
-		JustifyMode:   attr_justifymode,
-		ReduceOptions: attr_reduceoptions,
-		Text:          attr_text,
-		TextMode:      attr_textmode,
-		Orientation:   attr_orientation,
-	}
+	model := &jsonPanelStatDataSourceModel_Options{}
 	return json.Marshal(model)
 }
 
 func (m PanelStatDataSourceModel_Options) ApplyDefaults() PanelStatDataSourceModel_Options {
-	if m.GraphMode.IsNull() {
-		m.GraphMode = types.StringValue(`area`)
-	}
-	if m.ColorMode.IsNull() {
-		m.ColorMode = types.StringValue(`value`)
-	}
-	if m.JustifyMode.IsNull() {
-		m.JustifyMode = types.StringValue(`auto`)
-	}
-	if m.TextMode.IsNull() {
-		m.TextMode = types.StringValue(`auto`)
-	}
+
 	return m
 }
 
@@ -494,55 +381,16 @@ func (m PanelStatDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() Pan
 	return m
 }
 
-type PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-	Tooltip types.Bool `tfsdk:"tooltip"`
-	Legend  types.Bool `tfsdk:"legend"`
-	Viz     types.Bool `tfsdk:"viz"`
-}
-
-func (m PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-		Tooltip bool `json:"tooltip"`
-		Legend  bool `json:"legend"`
-		Viz     bool `json:"viz"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_tooltip := m.Tooltip.ValueBool()
-	attr_legend := m.Legend.ValueBool()
-	attr_viz := m.Viz.ValueBool()
-
-	model := &jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
-		Tooltip: attr_tooltip,
-		Legend:  attr_legend,
-		Viz:     attr_viz,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
-
-	return m
-}
-
 type PanelStatDataSourceModel_FieldConfig_Defaults_Custom struct {
-	HideFrom *PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
 }
 
 func (m PanelStatDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom struct {
-		HideFrom interface{} `json:"hideFrom,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	var attr_hidefrom interface{}
-	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom
-	}
 
-	model := &jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom{
-		HideFrom: attr_hidefrom,
-	}
+	model := &jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom{}
 	return json.Marshal(model)
 }
 
@@ -986,7 +834,7 @@ func (d *PanelStatDataSource) Schema(ctx context.Context, req datasource.SchemaR
 						Required:            false,
 					},
 					"static": schema.BoolAttribute{
-						MarkdownDescription: `true if fixed`,
+						MarkdownDescription: `Whether the panel is fixed within the grid`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
@@ -1002,62 +850,62 @@ TODO fill this out - seems there are a couple variants?`,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"title": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Title to display with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"type": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link type. Accepted values are dashboards (to refer to another dashboard) and link (to refer to an external resource)`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"icon": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Icon name to be displayed with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tooltip": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Tooltip to display when the user hovers their mouse over it`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"url": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link URL. Only required/valid if the type is link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tags": schema.ListAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `List of tags to limit the linked dashboards. If empty, all dashboards will be displayed. Only valid if the type is dashboards`,
 							Computed:            false,
 							Optional:            true,
 							Required:            false,
 							ElementType:         types.StringType,
 						},
 						"as_dropdown": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, all dashboards links will be displayed in a dropdown. If false, all dashboards links will be displayed side by side. Only valid if the type is dashboards. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"target_blank": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, the link will be opened in a new tab. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"include_vars": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current template variables values in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"keep_time": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current time range in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
@@ -1086,7 +934,7 @@ TODO this is probably optional. Defaults to "h".`,
 				Required:            false,
 			},
 			"max_data_points": schema.Float64Attribute{
-				MarkdownDescription: `TODO docs`,
+				MarkdownDescription: `The maximum number of data points that the panel queries are retrieving.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
@@ -1114,22 +962,32 @@ TODO this is probably optional. Defaults to "h".`,
 				},
 			},
 			"interval": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `The min time interval setting defines a lower limit for the $__interval and $__interval_ms variables.
+This value must be formatted as a number followed by a valid time
+identifier like: "40s", "3d", etc.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
 			},
 			"time_from": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `Overrides the relative time range for individual panels,
+which causes them to be different than what is selected in
+the dashboard time picker in the top-right corner of the dashboard. You can use this to show metrics from different
+time periods or days on the same dashboard.
+The value is formatted as time operation like: now-5m (Last 5 minutes), now/d (the day so far),
+now-5d/d(Last 5 days), now/w (This week so far), now-2y/y (Last 2 years).
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
 			},
 			"time_shift": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `Overrides the time range for individual panels by shifting its start and end relative to the time picker.
+For example, you can shift the time range for the panel to be two hours earlier than the dashboard time picker setting 2h.
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
@@ -1155,95 +1013,11 @@ TODO tighter constraint`,
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            true,
-				Optional:            true,
-				Required:            false,
-				Attributes: map[string]schema.Attribute{
-					"graph_mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "area".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"color_mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "value".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"justify_mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "auto".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"reduce_options": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"values": schema.BoolAttribute{
-								MarkdownDescription: `If true show each row value`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"limit": schema.Float64Attribute{
-								MarkdownDescription: `if showing all values limit`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"calcs": schema.ListAttribute{
-								MarkdownDescription: `When !values, pick one value for the whole field`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-								ElementType:         types.StringType,
-							},
-							"fields": schema.StringAttribute{
-								MarkdownDescription: `Which fields to show.  By default this is only numeric fields`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"text": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"title_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit title text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"value_size": schema.Float64Attribute{
-								MarkdownDescription: `Explicit value text size`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"text_mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "auto".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"orientation": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            false,
-						Required:            true,
-					},
-				},
+				MarkdownDescription: `options is specified by the Options field in panel
+plugin schemas.`,
+				Computed: true,
+				Optional: true,
+				Required: false,
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1342,14 +1116,14 @@ may be used to update the results`,
 										NestedObject: schema.NestedAttributeObject{
 											Attributes: map[string]schema.Attribute{
 												"value": schema.Float64Attribute{
-													MarkdownDescription: `TODO docs
+													MarkdownDescription: `Value represents a specified metric for the threshold, which triggers a visual change in the dashboard when this value is met or exceeded.
 FIXME the corresponding typescript field is required/non-optional, but nulls currently appear here when serializing -Infinity to JSON`,
 													Computed: false,
 													Optional: true,
 													Required: false,
 												},
 												"color": schema.StringAttribute{
-													MarkdownDescription: `TODO docs`,
+													MarkdownDescription: `Color represents the color of the visual change that will occur in the dashboard when the threshold value is met or exceeded.`,
 													Computed:            false,
 													Optional:            false,
 													Required:            true,
@@ -1406,38 +1180,11 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: ``,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-								Attributes: map[string]schema.Attribute{
-									"hide_from": schema.SingleNestedAttribute{
-										MarkdownDescription: ``,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"tooltip": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"legend": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"viz": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-										},
-									},
-								},
+								MarkdownDescription: `custom is specified by the FieldConfig field
+in panel plugin schemas.`,
+								Computed: true,
+								Optional: true,
+								Required: false,
 							},
 						},
 					},

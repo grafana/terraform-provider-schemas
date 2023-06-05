@@ -267,83 +267,21 @@ func (m PanelTextDataSourceModel_LibraryPanel) ApplyDefaults() PanelTextDataSour
 	return m
 }
 
-type PanelTextDataSourceModel_Options_Code struct {
-	Language        types.String `tfsdk:"language"`
-	ShowLineNumbers types.Bool   `tfsdk:"show_line_numbers"`
-	ShowMiniMap     types.Bool   `tfsdk:"show_mini_map"`
-}
-
-func (m PanelTextDataSourceModel_Options_Code) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_Options_Code struct {
-		Language        string `json:"language"`
-		ShowLineNumbers bool   `json:"showLineNumbers"`
-		ShowMiniMap     bool   `json:"showMiniMap"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_language := m.Language.ValueString()
-	attr_showlinenumbers := m.ShowLineNumbers.ValueBool()
-	attr_showminimap := m.ShowMiniMap.ValueBool()
-
-	model := &jsonPanelTextDataSourceModel_Options_Code{
-		Language:        attr_language,
-		ShowLineNumbers: attr_showlinenumbers,
-		ShowMiniMap:     attr_showminimap,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTextDataSourceModel_Options_Code) ApplyDefaults() PanelTextDataSourceModel_Options_Code {
-	if m.Language.IsNull() {
-		m.Language = types.StringValue(`plaintext`)
-	}
-	if m.ShowLineNumbers.IsNull() {
-		m.ShowLineNumbers = types.BoolValue(false)
-	}
-	if m.ShowMiniMap.IsNull() {
-		m.ShowMiniMap = types.BoolValue(false)
-	}
-	return m
-}
-
 type PanelTextDataSourceModel_Options struct {
-	Mode    types.String                           `tfsdk:"mode"`
-	Code    *PanelTextDataSourceModel_Options_Code `tfsdk:"code"`
-	Content types.String                           `tfsdk:"content"`
 }
 
 func (m PanelTextDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelTextDataSourceModel_Options struct {
-		Mode    string      `json:"mode"`
-		Code    interface{} `json:"code,omitempty"`
-		Content string      `json:"content"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	var attr_code interface{}
-	if m.Code != nil {
-		attr_code = m.Code
-	}
-	attr_content := m.Content.ValueString()
 
-	model := &jsonPanelTextDataSourceModel_Options{
-		Mode:    attr_mode,
-		Code:    attr_code,
-		Content: attr_content,
-	}
+	model := &jsonPanelTextDataSourceModel_Options{}
 	return json.Marshal(model)
 }
 
 func (m PanelTextDataSourceModel_Options) ApplyDefaults() PanelTextDataSourceModel_Options {
-	if m.Mode.IsNull() {
-		m.Mode = types.StringValue(`markdown`)
-	}
-	if m.Content.IsNull() {
-		m.Content = types.StringValue(`# Title
 
-For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)`)
-	}
 	return m
 }
 
@@ -443,73 +381,21 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() Pan
 	return m
 }
 
-type PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-	Tooltip types.Bool `tfsdk:"tooltip"`
-	Legend  types.Bool `tfsdk:"legend"`
-	Viz     types.Bool `tfsdk:"viz"`
-}
-
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
-		Tooltip bool `json:"tooltip"`
-		Legend  bool `json:"legend"`
-		Viz     bool `json:"viz"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_tooltip := m.Tooltip.ValueBool()
-	attr_legend := m.Legend.ValueBool()
-	attr_viz := m.Viz.ValueBool()
-
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
-		Tooltip: attr_tooltip,
-		Legend:  attr_legend,
-		Viz:     attr_viz,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
-
-	return m
-}
-
 type PanelTextDataSourceModel_FieldConfig_Defaults_Custom struct {
-	LineWidth   types.Int64                                                    `tfsdk:"line_width"`
-	HideFrom    *PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
-	FillOpacity types.Int64                                                    `tfsdk:"fill_opacity"`
 }
 
 func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom struct {
-		LineWidth   *int64      `json:"lineWidth,omitempty"`
-		HideFrom    interface{} `json:"hideFrom,omitempty"`
-		FillOpacity *int64      `json:"fillOpacity,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_linewidth := m.LineWidth.ValueInt64()
-	var attr_hidefrom interface{}
-	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom
-	}
-	attr_fillopacity := m.FillOpacity.ValueInt64()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom{
-		LineWidth:   &attr_linewidth,
-		HideFrom:    attr_hidefrom,
-		FillOpacity: &attr_fillopacity,
-	}
+	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom{}
 	return json.Marshal(model)
 }
 
 func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Custom {
-	if m.LineWidth.IsNull() {
-		m.LineWidth = types.Int64Value(1)
-	}
-	if m.FillOpacity.IsNull() {
-		m.FillOpacity = types.Int64Value(70)
-	}
+
 	return m
 }
 
@@ -948,7 +834,7 @@ func (d *PanelTextDataSource) Schema(ctx context.Context, req datasource.SchemaR
 						Required:            false,
 					},
 					"static": schema.BoolAttribute{
-						MarkdownDescription: `true if fixed`,
+						MarkdownDescription: `Whether the panel is fixed within the grid`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
@@ -964,62 +850,62 @@ TODO fill this out - seems there are a couple variants?`,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"title": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Title to display with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"type": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link type. Accepted values are dashboards (to refer to another dashboard) and link (to refer to an external resource)`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"icon": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Icon name to be displayed with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tooltip": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Tooltip to display when the user hovers their mouse over it`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"url": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link URL. Only required/valid if the type is link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tags": schema.ListAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `List of tags to limit the linked dashboards. If empty, all dashboards will be displayed. Only valid if the type is dashboards`,
 							Computed:            false,
 							Optional:            true,
 							Required:            false,
 							ElementType:         types.StringType,
 						},
 						"as_dropdown": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, all dashboards links will be displayed in a dropdown. If false, all dashboards links will be displayed side by side. Only valid if the type is dashboards. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"target_blank": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, the link will be opened in a new tab. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"include_vars": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current template variables values in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"keep_time": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current time range in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
@@ -1048,7 +934,7 @@ TODO this is probably optional. Defaults to "h".`,
 				Required:            false,
 			},
 			"max_data_points": schema.Float64Attribute{
-				MarkdownDescription: `TODO docs`,
+				MarkdownDescription: `The maximum number of data points that the panel queries are retrieving.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
@@ -1076,22 +962,32 @@ TODO this is probably optional. Defaults to "h".`,
 				},
 			},
 			"interval": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `The min time interval setting defines a lower limit for the $__interval and $__interval_ms variables.
+This value must be formatted as a number followed by a valid time
+identifier like: "40s", "3d", etc.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
 			},
 			"time_from": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `Overrides the relative time range for individual panels,
+which causes them to be different than what is selected in
+the dashboard time picker in the top-right corner of the dashboard. You can use this to show metrics from different
+time periods or days on the same dashboard.
+The value is formatted as time operation like: now-5m (Last 5 minutes), now/d (the day so far),
+now-5d/d(Last 5 days), now/w (This week so far), now-2y/y (Last 2 years).
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
 			},
 			"time_shift": schema.StringAttribute{
-				MarkdownDescription: `TODO docs
-TODO tighter constraint`,
+				MarkdownDescription: `Overrides the time range for individual panels by shifting its start and end relative to the time picker.
+For example, you can shift the time range for the panel to be two hours earlier than the dashboard time picker setting 2h.
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options`,
 				Computed: false,
 				Optional: true,
 				Required: false,
@@ -1117,52 +1013,11 @@ TODO tighter constraint`,
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            true,
-				Optional:            true,
-				Required:            false,
-				Attributes: map[string]schema.Attribute{
-					"mode": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "markdown".`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"code": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"language": schema.StringAttribute{
-								MarkdownDescription: `The language passed to monaco code editor. Defaults to "plaintext".`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_line_numbers": schema.BoolAttribute{
-								MarkdownDescription: ` Defaults to false.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_mini_map": schema.BoolAttribute{
-								MarkdownDescription: ` Defaults to false.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"content": schema.StringAttribute{
-						MarkdownDescription: ` Defaults to "# Title
-
-For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)".`,
-						Computed: true,
-						Optional: true,
-						Required: false,
-					},
-				},
+				MarkdownDescription: `options is specified by the Options field in panel
+plugin schemas.`,
+				Computed: true,
+				Optional: true,
+				Required: false,
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1261,14 +1116,14 @@ may be used to update the results`,
 										NestedObject: schema.NestedAttributeObject{
 											Attributes: map[string]schema.Attribute{
 												"value": schema.Float64Attribute{
-													MarkdownDescription: `TODO docs
+													MarkdownDescription: `Value represents a specified metric for the threshold, which triggers a visual change in the dashboard when this value is met or exceeded.
 FIXME the corresponding typescript field is required/non-optional, but nulls currently appear here when serializing -Infinity to JSON`,
 													Computed: false,
 													Optional: true,
 													Required: false,
 												},
 												"color": schema.StringAttribute{
-													MarkdownDescription: `TODO docs`,
+													MarkdownDescription: `Color represents the color of the visual change that will occur in the dashboard when the threshold value is met or exceeded.`,
 													Computed:            false,
 													Optional:            false,
 													Required:            true,
@@ -1325,50 +1180,11 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: ``,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-								Attributes: map[string]schema.Attribute{
-									"line_width": schema.Int64Attribute{
-										MarkdownDescription: ` Defaults to 1.`,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-									},
-									"hide_from": schema.SingleNestedAttribute{
-										MarkdownDescription: ``,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-										Attributes: map[string]schema.Attribute{
-											"tooltip": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"legend": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-											"viz": schema.BoolAttribute{
-												MarkdownDescription: ``,
-												Computed:            false,
-												Optional:            false,
-												Required:            true,
-											},
-										},
-									},
-									"fill_opacity": schema.Int64Attribute{
-										MarkdownDescription: ` Defaults to 70.`,
-										Computed:            true,
-										Optional:            true,
-										Required:            false,
-									},
-								},
+								MarkdownDescription: `custom is specified by the FieldConfig field
+in panel plugin schemas.`,
+								Computed: true,
+								Optional: true,
+								Required: false,
 							},
 						},
 					},

@@ -72,57 +72,57 @@ func (m CoreDashboardDataSourceModel_Time) ApplyDefaults() CoreDashboardDataSour
 }
 
 type CoreDashboardDataSourceModel_Timepicker struct {
-	Collapse         types.Bool `tfsdk:"collapse"`
-	Enable           types.Bool `tfsdk:"enable"`
 	Hidden           types.Bool `tfsdk:"hidden"`
 	RefreshIntervals types.List `tfsdk:"refresh_intervals"`
+	Collapse         types.Bool `tfsdk:"collapse"`
+	Enable           types.Bool `tfsdk:"enable"`
 	TimeOptions      types.List `tfsdk:"time_options"`
 }
 
 func (m CoreDashboardDataSourceModel_Timepicker) MarshalJSON() ([]byte, error) {
 	type jsonCoreDashboardDataSourceModel_Timepicker struct {
-		Collapse         bool     `json:"collapse"`
-		Enable           bool     `json:"enable"`
 		Hidden           bool     `json:"hidden"`
 		RefreshIntervals []string `json:"refresh_intervals,omitempty"`
+		Collapse         bool     `json:"collapse"`
+		Enable           bool     `json:"enable"`
 		TimeOptions      []string `json:"time_options,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_collapse := m.Collapse.ValueBool()
-	attr_enable := m.Enable.ValueBool()
 	attr_hidden := m.Hidden.ValueBool()
 	attr_refresh_intervals := []string{}
 	for _, v := range m.RefreshIntervals.Elements() {
 		attr_refresh_intervals = append(attr_refresh_intervals, v.(types.String).ValueString())
 	}
+	attr_collapse := m.Collapse.ValueBool()
+	attr_enable := m.Enable.ValueBool()
 	attr_time_options := []string{}
 	for _, v := range m.TimeOptions.Elements() {
 		attr_time_options = append(attr_time_options, v.(types.String).ValueString())
 	}
 
 	model := &jsonCoreDashboardDataSourceModel_Timepicker{
-		Collapse:         attr_collapse,
-		Enable:           attr_enable,
 		Hidden:           attr_hidden,
 		RefreshIntervals: attr_refresh_intervals,
+		Collapse:         attr_collapse,
+		Enable:           attr_enable,
 		TimeOptions:      attr_time_options,
 	}
 	return json.Marshal(model)
 }
 
 func (m CoreDashboardDataSourceModel_Timepicker) ApplyDefaults() CoreDashboardDataSourceModel_Timepicker {
-	if m.Collapse.IsNull() {
-		m.Collapse = types.BoolValue(false)
-	}
-	if m.Enable.IsNull() {
-		m.Enable = types.BoolValue(true)
-	}
 	if m.Hidden.IsNull() {
 		m.Hidden = types.BoolValue(false)
 	}
 	if len(m.RefreshIntervals.Elements()) == 0 {
 		m.RefreshIntervals, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	if m.Collapse.IsNull() {
+		m.Collapse = types.BoolValue(false)
+	}
+	if m.Enable.IsNull() {
+		m.Enable = types.BoolValue(true)
 	}
 	if len(m.TimeOptions.Elements()) == 0 {
 		m.TimeOptions, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -309,6 +309,41 @@ func (m CoreDashboardDataSourceModel_Annotations_List_Datasource) ApplyDefaults(
 	return m
 }
 
+type CoreDashboardDataSourceModel_Annotations_List_Filter struct {
+	Exclude types.Bool `tfsdk:"exclude"`
+	Ids     types.List `tfsdk:"ids"`
+}
+
+func (m CoreDashboardDataSourceModel_Annotations_List_Filter) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Annotations_List_Filter struct {
+		Exclude *bool   `json:"exclude,omitempty"`
+		Ids     []int64 `json:"ids,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_exclude := m.Exclude.ValueBool()
+	attr_ids := []int64{}
+	for _, v := range m.Ids.Elements() {
+		attr_ids = append(attr_ids, v.(types.Int64).ValueInt64())
+	}
+
+	model := &jsonCoreDashboardDataSourceModel_Annotations_List_Filter{
+		Exclude: &attr_exclude,
+		Ids:     attr_ids,
+	}
+	return json.Marshal(model)
+}
+
+func (m CoreDashboardDataSourceModel_Annotations_List_Filter) ApplyDefaults() CoreDashboardDataSourceModel_Annotations_List_Filter {
+	if m.Exclude.IsNull() {
+		m.Exclude = types.BoolValue(false)
+	}
+	if len(m.Ids.Elements()) == 0 {
+		m.Ids, _ = types.ListValue(types.Int64Type, []attr.Value{})
+	}
+	return m
+}
+
 type CoreDashboardDataSourceModel_Annotations_List_Target struct {
 	Limit    types.Int64  `tfsdk:"limit"`
 	MatchAny types.Bool   `tfsdk:"match_any"`
@@ -350,61 +385,56 @@ func (m CoreDashboardDataSourceModel_Annotations_List_Target) ApplyDefaults() Co
 }
 
 type CoreDashboardDataSourceModel_Annotations_List struct {
+	Name       types.String                                              `tfsdk:"name"`
 	Datasource *CoreDashboardDataSourceModel_Annotations_List_Datasource `tfsdk:"datasource"`
 	Enable     types.Bool                                                `tfsdk:"enable"`
-	Name       types.String                                              `tfsdk:"name"`
-	BuiltIn    types.Int64                                               `tfsdk:"built_in"`
 	Hide       types.Bool                                                `tfsdk:"hide"`
 	IconColor  types.String                                              `tfsdk:"icon_color"`
-	Type       types.String                                              `tfsdk:"type"`
-	RawQuery   types.String                                              `tfsdk:"raw_query"`
-	ShowIn     types.Int64                                               `tfsdk:"show_in"`
+	Filter     *CoreDashboardDataSourceModel_Annotations_List_Filter     `tfsdk:"filter"`
 	Target     *CoreDashboardDataSourceModel_Annotations_List_Target     `tfsdk:"target"`
+	Type       types.String                                              `tfsdk:"type"`
 }
 
 func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, error) {
 	type jsonCoreDashboardDataSourceModel_Annotations_List struct {
+		Name       string      `json:"name"`
 		Datasource interface{} `json:"datasource,omitempty"`
 		Enable     bool        `json:"enable"`
-		Name       *string     `json:"name,omitempty"`
-		BuiltIn    int64       `json:"builtIn"`
 		Hide       *bool       `json:"hide,omitempty"`
-		IconColor  *string     `json:"iconColor,omitempty"`
-		Type       string      `json:"type"`
-		RawQuery   *string     `json:"rawQuery,omitempty"`
-		ShowIn     int64       `json:"showIn"`
+		IconColor  string      `json:"iconColor"`
+		Filter     interface{} `json:"filter,omitempty"`
 		Target     interface{} `json:"target,omitempty"`
+		Type       *string     `json:"type,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_name := m.Name.ValueString()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
 		attr_datasource = m.Datasource
 	}
 	attr_enable := m.Enable.ValueBool()
-	attr_name := m.Name.ValueString()
-	attr_builtin := m.BuiltIn.ValueInt64()
 	attr_hide := m.Hide.ValueBool()
 	attr_iconcolor := m.IconColor.ValueString()
-	attr_type := m.Type.ValueString()
-	attr_rawquery := m.RawQuery.ValueString()
-	attr_showin := m.ShowIn.ValueInt64()
+	var attr_filter interface{}
+	if m.Filter != nil {
+		attr_filter = m.Filter
+	}
 	var attr_target interface{}
 	if m.Target != nil {
 		attr_target = m.Target
 	}
+	attr_type := m.Type.ValueString()
 
 	model := &jsonCoreDashboardDataSourceModel_Annotations_List{
+		Name:       attr_name,
 		Datasource: attr_datasource,
 		Enable:     attr_enable,
-		Name:       &attr_name,
-		BuiltIn:    attr_builtin,
 		Hide:       &attr_hide,
-		IconColor:  &attr_iconcolor,
-		Type:       attr_type,
-		RawQuery:   &attr_rawquery,
-		ShowIn:     attr_showin,
+		IconColor:  attr_iconcolor,
+		Filter:     attr_filter,
 		Target:     attr_target,
+		Type:       &attr_type,
 	}
 	return json.Marshal(model)
 }
@@ -413,17 +443,8 @@ func (m CoreDashboardDataSourceModel_Annotations_List) ApplyDefaults() CoreDashb
 	if m.Enable.IsNull() {
 		m.Enable = types.BoolValue(true)
 	}
-	if m.BuiltIn.IsNull() {
-		m.BuiltIn = types.Int64Value(0)
-	}
 	if m.Hide.IsNull() {
 		m.Hide = types.BoolValue(false)
-	}
-	if m.Type.IsNull() {
-		m.Type = types.StringValue(`dashboard`)
-	}
-	if m.ShowIn.IsNull() {
-		m.ShowIn = types.Int64Value(0)
 	}
 	return m
 }
@@ -780,7 +801,7 @@ is insufficient.`,
 				Required: false,
 			},
 			"gnet_id": schema.StringAttribute{
-				MarkdownDescription: `For dashboards imported from the https://grafana.com/grafana/dashboards/ portal`,
+				MarkdownDescription: `ID of a dashboard imported from the https://grafana.com/grafana/dashboards/ portal`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
@@ -799,7 +820,7 @@ is insufficient.`,
 				Required:            false,
 			},
 			"timezone": schema.StringAttribute{
-				MarkdownDescription: `Timezone of dashboard. Accepts IANA TZDB zone ID or "browser" or "utc". Defaults to "browser".`,
+				MarkdownDescription: `Timezone of dashboard. Accepted values are IANA TZDB zone ID or "browser" or "utc". Defaults to "browser".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -811,16 +832,18 @@ is insufficient.`,
 				Required:            false,
 			},
 			"graph_tooltip": schema.Int64Attribute{
-				MarkdownDescription: `Configuration of dashboard cursor sync behavior. Defaults to 0.`,
-				Computed:            true,
-				Optional:            true,
-				Required:            false,
+				MarkdownDescription: `Configuration of dashboard cursor sync behavior.
+Accepted values are 0 (sync turned off), 1 (shared crosshair), 2 (shared crosshair and tooltip). Defaults to 0.`,
+				Computed: true,
+				Optional: true,
+				Required: false,
 			},
 			"time": schema.SingleNestedAttribute{
-				MarkdownDescription: `Time range for dashboard, e.g. last 6 hours, last 7 days, etc`,
-				Computed:            true,
-				Optional:            true,
-				Required:            false,
+				MarkdownDescription: `Time range for dashboard.
+Accepted values are relative time strings like {from: 'now-6h', to: 'now'} or absolute time strings like {from: '2020-07-10T08:00:00.000Z', to: '2020-07-10T14:00:00.000Z'}.`,
+				Computed: true,
+				Optional: true,
+				Required: false,
 				Attributes: map[string]schema.Attribute{
 					"from": schema.StringAttribute{
 						MarkdownDescription: ` Defaults to "now-6h".`,
@@ -837,24 +860,11 @@ is insufficient.`,
 				},
 			},
 			"timepicker": schema.SingleNestedAttribute{
-				MarkdownDescription: `TODO docs
-TODO this appears to be spread all over in the frontend. Concepts will likely need tidying in tandem with schema changes`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: `Configuration of the time picker shown at the top of a dashboard.`,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
 				Attributes: map[string]schema.Attribute{
-					"collapse": schema.BoolAttribute{
-						MarkdownDescription: `Whether timepicker is collapsed or not. Defaults to false.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
-					"enable": schema.BoolAttribute{
-						MarkdownDescription: `Whether timepicker is enabled or not. Defaults to true.`,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-					},
 					"hidden": schema.BoolAttribute{
 						MarkdownDescription: `Whether timepicker is visible or not. Defaults to false.`,
 						Computed:            true,
@@ -862,14 +872,26 @@ TODO this appears to be spread all over in the frontend. Concepts will likely ne
 						Required:            false,
 					},
 					"refresh_intervals": schema.ListAttribute{
-						MarkdownDescription: `Selectable intervals for auto-refresh.`,
+						MarkdownDescription: `Interval options available in the refresh picker dropdown.`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 						ElementType:         types.StringType,
 					},
+					"collapse": schema.BoolAttribute{
+						MarkdownDescription: `Whether timepicker is collapsed or not. Has no effect on provisioned dashboard. Defaults to false.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"enable": schema.BoolAttribute{
+						MarkdownDescription: `Whether timepicker is enabled or not. Has no effect on provisioned dashboard. Defaults to true.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
 					"time_options": schema.ListAttribute{
-						MarkdownDescription: `TODO docs`,
+						MarkdownDescription: `Selectable options available in the time picker dropdown. Has no effect on provisioned dashboard.`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
@@ -892,7 +914,7 @@ avoid dashboards presenting stale live data`,
 				Required: false,
 			},
 			"week_start": schema.StringAttribute{
-				MarkdownDescription: `TODO docs`,
+				MarkdownDescription: `Day when the week starts. Expressed by the name of the day in lowercase, e.g. "monday".`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
@@ -919,7 +941,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 				ElementType:         types.StringType,
 			},
 			"templating": schema.SingleNestedAttribute{
-				MarkdownDescription: `TODO docs`,
+				MarkdownDescription: `Contains the list of configured template variables with their saved values along with some other metadata`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -1035,20 +1057,26 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 						Required:            false,
 						NestedObject: schema.NestedAttributeObject{
 							Attributes: map[string]schema.Attribute{
+								"name": schema.StringAttribute{
+									MarkdownDescription: `Name of annotation.`,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
 								"datasource": schema.SingleNestedAttribute{
-									MarkdownDescription: `Datasource to use for annotation.`,
+									MarkdownDescription: `Datasource where the annotations data is`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
 									Attributes: map[string]schema.Attribute{
 										"type": schema.StringAttribute{
-											MarkdownDescription: ``,
+											MarkdownDescription: `The plugin type-id`,
 											Computed:            false,
 											Optional:            true,
 											Required:            false,
 										},
 										"uid": schema.StringAttribute{
-											MarkdownDescription: ``,
+											MarkdownDescription: `Specific datasource instance`,
 											Computed:            false,
 											Optional:            true,
 											Required:            false,
@@ -1056,85 +1084,87 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 									},
 								},
 								"enable": schema.BoolAttribute{
-									MarkdownDescription: `Whether annotation is enabled. Defaults to true.`,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-								},
-								"name": schema.StringAttribute{
-									MarkdownDescription: `Name of annotation.`,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"built_in": schema.Int64Attribute{
-									MarkdownDescription: ` Defaults to 0.`,
+									MarkdownDescription: `When enabled the annotation query is issued with every dashboard refresh. Defaults to true.`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
 								},
 								"hide": schema.BoolAttribute{
-									MarkdownDescription: `Whether to hide annotation. Defaults to false.`,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
+									MarkdownDescription: `Annotation queries can be toggled on or off at the top of the dashboard.
+When hide is true, the toggle is not shown in the dashboard. Defaults to false.`,
+									Computed: true,
+									Optional: true,
+									Required: false,
 								},
 								"icon_color": schema.StringAttribute{
-									MarkdownDescription: `Annotation icon color.`,
+									MarkdownDescription: `Color to use for the annotation event markers`,
 									Computed:            false,
-									Optional:            true,
-									Required:            false,
+									Optional:            false,
+									Required:            true,
 								},
-								"type": schema.StringAttribute{
-									MarkdownDescription: ` Defaults to "dashboard".`,
+								"filter": schema.SingleNestedAttribute{
+									MarkdownDescription: `Filters to apply when fetching annotations`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
-								},
-								"raw_query": schema.StringAttribute{
-									MarkdownDescription: `Query for annotation data.`,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"show_in": schema.Int64Attribute{
-									MarkdownDescription: ` Defaults to 0.`,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
+									Attributes: map[string]schema.Attribute{
+										"exclude": schema.BoolAttribute{
+											MarkdownDescription: `Should the specified panels be included or excluded. Defaults to false.`,
+											Computed:            true,
+											Optional:            true,
+											Required:            false,
+										},
+										"ids": schema.ListAttribute{
+											MarkdownDescription: `Panel IDs that should be included or excluded`,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+											ElementType:         types.Int64Type,
+										},
+									},
 								},
 								"target": schema.SingleNestedAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: `TODO.. this should just be a normal query target`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
 									Attributes: map[string]schema.Attribute{
 										"limit": schema.Int64Attribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
+											MarkdownDescription: `Only required/valid for the grafana datasource...
+but code+tests is already depending on it so hard to change`,
+											Computed: false,
+											Optional: false,
+											Required: true,
 										},
 										"match_any": schema.BoolAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
+											MarkdownDescription: `Only required/valid for the grafana datasource...
+but code+tests is already depending on it so hard to change`,
+											Computed: false,
+											Optional: false,
+											Required: true,
 										},
 										"tags": schema.ListAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-											ElementType:         types.StringType,
+											MarkdownDescription: `Only required/valid for the grafana datasource...
+but code+tests is already depending on it so hard to change`,
+											Computed:    false,
+											Optional:    true,
+											Required:    false,
+											ElementType: types.StringType,
 										},
 										"type": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
+											MarkdownDescription: `Only required/valid for the grafana datasource...
+but code+tests is already depending on it so hard to change`,
+											Computed: false,
+											Optional: false,
+											Required: true,
 										},
 									},
+								},
+								"type": schema.StringAttribute{
+									MarkdownDescription: `TODO -- this should not exist here, it is based on the --grafana-- datasource`,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
 								},
 							},
 						},
@@ -1142,69 +1172,69 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 				},
 			},
 			"links": schema.ListNestedAttribute{
-				MarkdownDescription: `TODO docs`,
+				MarkdownDescription: `Links with references to other dashboards or external websites.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"title": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Title to display with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"type": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link type. Accepted values are dashboards (to refer to another dashboard) and link (to refer to an external resource)`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"icon": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Icon name to be displayed with the link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tooltip": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Tooltip to display when the user hovers their mouse over it`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"url": schema.StringAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `Link URL. Only required/valid if the type is link`,
 							Computed:            false,
 							Optional:            false,
 							Required:            true,
 						},
 						"tags": schema.ListAttribute{
-							MarkdownDescription: ``,
+							MarkdownDescription: `List of tags to limit the linked dashboards. If empty, all dashboards will be displayed. Only valid if the type is dashboards`,
 							Computed:            false,
 							Optional:            true,
 							Required:            false,
 							ElementType:         types.StringType,
 						},
 						"as_dropdown": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, all dashboards links will be displayed in a dropdown. If false, all dashboards links will be displayed side by side. Only valid if the type is dashboards. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"target_blank": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, the link will be opened in a new tab. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"include_vars": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current template variables values in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
 						},
 						"keep_time": schema.BoolAttribute{
-							MarkdownDescription: ` Defaults to false.`,
+							MarkdownDescription: `If true, includes current time range in the link as query params. Defaults to false.`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
@@ -1219,61 +1249,61 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
 					"created": schema.StringAttribute{
-						MarkdownDescription: `TODO docs`,
+						MarkdownDescription: `Time when the snapshot was created`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
 					"expires": schema.StringAttribute{
-						MarkdownDescription: `TODO docs`,
+						MarkdownDescription: `Time when the snapshot expires, default is never to expire`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
 					"external": schema.BoolAttribute{
-						MarkdownDescription: `TODO docs`,
+						MarkdownDescription: `Is the snapshot saved in an external grafana instance`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
 					"external_url": schema.StringAttribute{
-						MarkdownDescription: `TODO docs`,
+						MarkdownDescription: `external url, if snapshot was shared in external grafana instance`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
 					"key": schema.StringAttribute{
-						MarkdownDescription: `TODO docs`,
+						MarkdownDescription: `Optional, defined the unique key of the snapshot, required if external is true`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
 					"name": schema.StringAttribute{
-						MarkdownDescription: `TODO docs`,
+						MarkdownDescription: `Optional, name of the snapshot`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
 					"org_id": schema.Int64Attribute{
-						MarkdownDescription: `TODO docs`,
+						MarkdownDescription: `org id of the snapshot`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
 					"updated": schema.StringAttribute{
-						MarkdownDescription: `TODO docs`,
+						MarkdownDescription: `last time when the snapshot was updated`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
 					"url": schema.StringAttribute{
-						MarkdownDescription: `TODO docs`,
+						MarkdownDescription: `url of the snapshot, if snapshot was shared internally`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
 					"user_id": schema.Int64Attribute{
-						MarkdownDescription: `TODO docs`,
+						MarkdownDescription: `user id of the snapshot creator`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,

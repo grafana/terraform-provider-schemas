@@ -21,13 +21,16 @@ TODO description
 - `description` (String) Description.
 - `field_config` (Attributes) (see [below for nested schema](#nestedatt--field_config))
 - `grid_pos` (Attributes) Grid position. (see [below for nested schema](#nestedatt--grid_pos))
-- `interval` (String) TODO docs
-TODO tighter constraint
+- `interval` (String) The min time interval setting defines a lower limit for the $__interval and $__interval_ms variables.
+This value must be formatted as a number followed by a valid time
+identifier like: "40s", "3d", etc.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options
 - `library_panel` (Attributes) Dynamically load the panel (see [below for nested schema](#nestedatt--library_panel))
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
-- `max_data_points` (Number) TODO docs
-- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
+- `max_data_points` (Number) The maximum number of data points that the panel queries are retrieving.
+- `options` (Attributes) options is specified by the Options field in panel
+plugin schemas. (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -36,10 +39,18 @@ TODO this is probably optional. Defaults to "h".
 - `repeat_panel_id` (Number) Id of the repeating panel.
 - `tags` (List of String) TODO docs
 - `targets` (List of String) TODO docs
-- `time_from` (String) TODO docs
-TODO tighter constraint
-- `time_shift` (String) TODO docs
-TODO tighter constraint
+- `time_from` (String) Overrides the relative time range for individual panels,
+which causes them to be different than what is selected in
+the dashboard time picker in the top-right corner of the dashboard. You can use this to show metrics from different
+time periods or days on the same dashboard.
+The value is formatted as time operation like: now-5m (Last 5 minutes), now/d (the day so far),
+now-5d/d(Last 5 days), now/w (This week so far), now-2y/y (Last 2 years).
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options
+- `time_shift` (String) Overrides the time range for individual panels by shifting its start and end relative to the time picker.
+For example, you can shift the time range for the panel to be two hours earlier than the dashboard time picker setting 2h.
+Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
+See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options
 - `title` (String) Panel title.
 - `transformations` (Attributes List) (see [below for nested schema](#nestedatt--transformations))
 - `transparent` (Boolean) Whether to display the panel without a background. Defaults to false.
@@ -72,7 +83,8 @@ Optional:
 Optional:
 
 - `color` (Attributes) Map values to a display color (see [below for nested schema](#nestedatt--field_config--defaults--color))
-- `custom` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom))
+- `custom` (Attributes) custom is specified by the FieldConfig field
+in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config--defaults--custom))
 - `decimals` (Number) Significant digits (for display)
 - `description` (String) Human readable field metadata
 - `display_name` (String) The display value for this field.  This supports template variables blank is auto
@@ -107,34 +119,6 @@ Optional:
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
 
-Optional:
-
-- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
-- `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--scale_distribution))
-
-<a id="nestedatt--field_config--defaults--custom--hide_from"></a>
-### Nested Schema for `field_config.defaults.custom.scale_distribution`
-
-Required:
-
-- `legend` (Boolean)
-- `tooltip` (Boolean)
-- `viz` (Boolean)
-
-
-<a id="nestedatt--field_config--defaults--custom--scale_distribution"></a>
-### Nested Schema for `field_config.defaults.custom.scale_distribution`
-
-Required:
-
-- `type` (String)
-
-Optional:
-
-- `linear_threshold` (Number)
-- `log` (Number)
-
-
 
 <a id="nestedatt--field_config--defaults--thresholds"></a>
 ### Nested Schema for `field_config.defaults.thresholds`
@@ -152,7 +136,7 @@ Optional:
 
 Required:
 
-- `color` (String) TODO docs
+- `color` (String) Color represents the color of the visual change that will occur in the dashboard when the threshold value is met or exceeded.
 
 Optional:
 
@@ -160,7 +144,7 @@ Optional:
 - `state` (String) TODO docs
 TODO are the values here enumerable into a disjunction?
 Some seem to be listed in typescript comment
-- `value` (Number) TODO docs
+- `value` (Number) Value represents a specified metric for the threshold, which triggers a visual change in the dashboard when this value is met or exceeded.
 FIXME the corresponding typescript field is required/non-optional, but nulls currently appear here when serializing -Infinity to JSON
 
 
@@ -190,7 +174,7 @@ Optional:
 Optional:
 
 - `h` (Number) Panel. Defaults to 9.
-- `static` (Boolean) true if fixed
+- `static` (Boolean) Whether the panel is fixed within the grid
 - `w` (Number) Panel. Defaults to 12.
 - `x` (Number) Panel x. Defaults to 0.
 - `y` (Number) Panel y. Defaults to 0.
@@ -210,192 +194,23 @@ Required:
 
 Required:
 
-- `icon` (String)
-- `title` (String)
-- `tooltip` (String)
-- `type` (String)
-- `url` (String)
+- `icon` (String) Icon name to be displayed with the link
+- `title` (String) Title to display with the link
+- `tooltip` (String) Tooltip to display when the user hovers their mouse over it
+- `type` (String) Link type. Accepted values are dashboards (to refer to another dashboard) and link (to refer to an external resource)
+- `url` (String) Link URL. Only required/valid if the type is link
 
 Optional:
 
-- `as_dropdown` (Boolean) Defaults to false.
-- `include_vars` (Boolean) Defaults to false.
-- `keep_time` (Boolean) Defaults to false.
-- `tags` (List of String)
-- `target_blank` (Boolean) Defaults to false.
+- `as_dropdown` (Boolean) If true, all dashboards links will be displayed in a dropdown. If false, all dashboards links will be displayed side by side. Only valid if the type is dashboards. Defaults to false.
+- `include_vars` (Boolean) If true, includes current template variables values in the link as query params. Defaults to false.
+- `keep_time` (Boolean) If true, includes current time range in the link as query params. Defaults to false.
+- `tags` (List of String) List of tags to limit the linked dashboards. If empty, all dashboards will be displayed. Only valid if the type is dashboards
+- `target_blank` (Boolean) If true, the link will be opened in a new tab. Defaults to false.
 
 
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
-
-Optional:
-
-- `calculate` (Boolean) Controls if the heatmap should be calculated from data. Defaults to false.
-- `calculation` (Attributes) Calculation options for the heatmap (see [below for nested schema](#nestedatt--options--calculation))
-- `cell_gap` (Number) Controls gap between cells. Defaults to 1.
-- `cell_radius` (Number) Controls cell radius
-- `cell_values` (Attributes) Controls cell value unit (see [below for nested schema](#nestedatt--options--cell_values))
-- `color` (Attributes) Controls the color options (see [below for nested schema](#nestedatt--options--color))
-- `exemplars` (Attributes) Controls exemplar options (see [below for nested schema](#nestedatt--options--exemplars))
-- `filter_values` (Attributes) Filters values between a given range (see [below for nested schema](#nestedatt--options--filter_values))
-- `legend` (Attributes) | *{
-	axisPlacement: ui.AxisPlacement & "left" // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed
-}
-Controls legend options (see [below for nested schema](#nestedatt--options--legend))
-- `rows_frame` (Attributes) Controls tick alignment and value name when not calculating from data (see [below for nested schema](#nestedatt--options--rows_frame))
-- `show_value` (String) | *{
-	layout: ui.HeatmapCellLayout & "auto" // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed
-}
-Controls the display of the value in the cell. Defaults to "auto".
-- `tooltip` (Attributes) Controls tooltip options (see [below for nested schema](#nestedatt--options--tooltip))
-- `y_axis` (Attributes) Controls yAxis placement (see [below for nested schema](#nestedatt--options--y_axis))
-
-<a id="nestedatt--options--calculation"></a>
-### Nested Schema for `options.calculation`
-
-Optional:
-
-- `x_buckets` (Attributes) The number of buckets to use for the xAxis in the heatmap (see [below for nested schema](#nestedatt--options--calculation--x_buckets))
-- `y_buckets` (Attributes) The number of buckets to use for the yAxis in the heatmap (see [below for nested schema](#nestedatt--options--calculation--y_buckets))
-
-<a id="nestedatt--options--calculation--x_buckets"></a>
-### Nested Schema for `options.calculation.x_buckets`
-
-Optional:
-
-- `mode` (String) Sets the bucket calculation mode
-- `scale` (Attributes) Controls the scale of the buckets (see [below for nested schema](#nestedatt--options--calculation--x_buckets--scale))
-- `value` (String) The number of buckets to use for the axis in the heatmap
-
-<a id="nestedatt--options--calculation--x_buckets--scale"></a>
-### Nested Schema for `options.calculation.x_buckets.value`
-
-Required:
-
-- `type` (String)
-
-Optional:
-
-- `linear_threshold` (Number)
-- `log` (Number)
-
-
-
-<a id="nestedatt--options--calculation--y_buckets"></a>
-### Nested Schema for `options.calculation.y_buckets`
-
-Optional:
-
-- `mode` (String) Sets the bucket calculation mode
-- `scale` (Attributes) Controls the scale of the buckets (see [below for nested schema](#nestedatt--options--calculation--y_buckets--scale))
-- `value` (String) The number of buckets to use for the axis in the heatmap
-
-<a id="nestedatt--options--calculation--y_buckets--scale"></a>
-### Nested Schema for `options.calculation.y_buckets.value`
-
-Required:
-
-- `type` (String)
-
-Optional:
-
-- `linear_threshold` (Number)
-- `log` (Number)
-
-
-
-
-<a id="nestedatt--options--cell_values"></a>
-### Nested Schema for `options.cell_values`
-
-
-<a id="nestedatt--options--color"></a>
-### Nested Schema for `options.color`
-
-Required:
-
-- `exponent` (Number)
-- `fill` (String)
-- `reverse` (Boolean) scale:    HeatmapColorScale // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed
-- `scheme` (String) mode:     HeatmapColorMode // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed
-- `steps` (Number)
-
-
-<a id="nestedatt--options--exemplars"></a>
-### Nested Schema for `options.exemplars`
-
-Required:
-
-- `color` (String)
-
-
-<a id="nestedatt--options--filter_values"></a>
-### Nested Schema for `options.filter_values`
-
-Required:
-
-- `le` (Number)
-
-
-<a id="nestedatt--options--legend"></a>
-### Nested Schema for `options.legend`
-
-Required:
-
-- `show` (Boolean)
-
-
-<a id="nestedatt--options--rows_frame"></a>
-### Nested Schema for `options.rows_frame`
-
-Optional:
-
-- `layout` (String) Controls tick alignment when not calculating from data
-- `value` (String) Sets the name of the cell when not calculating from data
-
-
-<a id="nestedatt--options--tooltip"></a>
-### Nested Schema for `options.tooltip`
-
-Required:
-
-- `show` (Boolean)
-- `y_histogram` (Boolean)
-
-
-<a id="nestedatt--options--y_axis"></a>
-### Nested Schema for `options.y_axis`
-
-Optional:
-
-- `axis_centered_zero` (Boolean)
-- `axis_color_mode` (String)
-- `axis_grid_show` (Boolean)
-- `axis_label` (String)
-- `axis_placement` (String)
-- `axis_soft_max` (Number)
-- `axis_soft_min` (Number)
-- `axis_width` (Number)
-- `decimals` (Number) Controls the number of decimals for yAxis values
-- `max` (Number) Sets the maximum value for the yAxis
-- `min` (Number) Sets the minimum value for the yAxis
-- `reverse` (Boolean) Reverses the yAxis
-- `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--options--y_axis--scale_distribution))
-- `unit` (String) Sets the yAxis unit
-
-<a id="nestedatt--options--y_axis--scale_distribution"></a>
-### Nested Schema for `options.y_axis.scale_distribution`
-
-Required:
-
-- `type` (String)
-
-Optional:
-
-- `linear_threshold` (Number)
-- `log` (Number)
-
-
 
 
 <a id="nestedatt--transformations"></a>
