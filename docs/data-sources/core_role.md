@@ -3,12 +3,12 @@
 page_title: "schemas_core_role Data Source - terraform-provider-schemas"
 subcategory: ""
 description: |-
-  TODO description
+  
 ---
 
 # schemas_core_role (Data Source)
 
-TODO description
+
 
 
 

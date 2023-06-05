@@ -90,7 +90,7 @@ func (d *CorePublicDashboardDataSource) Metadata(ctx context.Context, req dataso
 func (d *CorePublicDashboardDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "TODO description",
+		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"uid": schema.StringAttribute{
 				MarkdownDescription: `Unique public dashboard identifier`,

@@ -78,7 +78,7 @@ func (d *CoreFolderDataSource) Metadata(ctx context.Context, req datasource.Meta
 func (d *CoreFolderDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "TODO description",
+		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"uid": schema.StringAttribute{
 				MarkdownDescription: `Unique folder id. (will be k8s name)`,

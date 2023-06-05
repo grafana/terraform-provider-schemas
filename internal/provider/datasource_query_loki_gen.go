@@ -106,7 +106,7 @@ func (d *QueryLokiDataSource) Metadata(ctx context.Context, req datasource.Metad
 func (d *QueryLokiDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "TODO description",
+		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"expr": schema.StringAttribute{
 				MarkdownDescription: `The LogQL query.`,

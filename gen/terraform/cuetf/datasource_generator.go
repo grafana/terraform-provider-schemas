@@ -96,7 +96,6 @@ func GenerateDataSource(schema thema.Schema) (b []byte, err error) {
 	vars := TVarsDataSource{
 		Name:             GetResourceName(linName),
 		StructName:       structName,
-		Description:      "TODO description",
 		Models:           model.Generate(),
 		SchemaAttributes: schemaAttributes,
 	}

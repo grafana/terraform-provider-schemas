@@ -454,7 +454,7 @@ func (d *QueryTestDataDataSource) Metadata(ctx context.Context, req datasource.M
 func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "TODO description",
+		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"alias": schema.StringAttribute{
 				MarkdownDescription: ``,

@@ -118,7 +118,7 @@ func (d *CorePlaylistDataSource) Metadata(ctx context.Context, req datasource.Me
 func (d *CorePlaylistDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "TODO description",
+		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"uid": schema.StringAttribute{
 				MarkdownDescription: `Unique playlist identifier. Generated on creation, either by the

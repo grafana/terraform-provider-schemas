@@ -100,7 +100,7 @@ func (d *CoreRoleBindingDataSource) Metadata(ctx context.Context, req datasource
 func (d *CoreRoleBindingDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "TODO description",
+		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"subject": schema.SingleNestedAttribute{
 				MarkdownDescription: `The team or user that has the specified role`,

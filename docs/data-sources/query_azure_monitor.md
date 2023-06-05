@@ -3,12 +3,12 @@
 page_title: "schemas_query_azure_monitor Data Source - terraform-provider-schemas"
 subcategory: ""
 description: |-
-  TODO description
+  
 ---
 
 # schemas_query_azure_monitor (Data Source)
 
-TODO description
+
 
 
 

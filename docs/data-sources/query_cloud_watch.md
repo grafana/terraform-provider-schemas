@@ -3,12 +3,12 @@
 page_title: "schemas_query_cloud_watch Data Source - terraform-provider-schemas"
 subcategory: ""
 description: |-
-  TODO description
+  
 ---
 
 # schemas_query_cloud_watch (Data Source)
 
-TODO description
+
 
 
 

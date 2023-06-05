@@ -65,7 +65,7 @@ func (d *QueryCloudWatchDataSource) Metadata(ctx context.Context, req datasource
 func (d *QueryCloudWatchDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "TODO description",
+		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 
 			"to_json": schema.StringAttribute{

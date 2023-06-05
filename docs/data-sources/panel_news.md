@@ -3,12 +3,12 @@
 page_title: "schemas_panel_news Data Source - terraform-provider-schemas"
 subcategory: ""
 description: |-
-  TODO description
+  
 ---
 
 # schemas_panel_news (Data Source)
 
-TODO description
+
 
 
 

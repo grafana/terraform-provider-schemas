@@ -110,7 +110,7 @@ func (d *QueryPrometheusDataSource) Metadata(ctx context.Context, req datasource
 func (d *QueryPrometheusDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "TODO description",
+		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"expr": schema.StringAttribute{
 				MarkdownDescription: `The actual expression/query that will be evaluated by Prometheus`,

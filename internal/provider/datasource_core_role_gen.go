@@ -86,7 +86,7 @@ func (d *CoreRoleDataSource) Metadata(ctx context.Context, req datasource.Metada
 func (d *CoreRoleDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "TODO description",
+		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"name": schema.StringAttribute{
 				MarkdownDescription: `The role identifier managed:builtins:editor:permissions`,

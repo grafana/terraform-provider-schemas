@@ -102,7 +102,7 @@ func (d *QueryGrafanaPyroscopeDataSource) Metadata(ctx context.Context, req data
 func (d *QueryGrafanaPyroscopeDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "TODO description",
+		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"label_selector": schema.StringAttribute{
 				MarkdownDescription: `Specifies the query label selectors. Defaults to "{}".`,

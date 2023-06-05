@@ -233,7 +233,7 @@ func (d *CoreLibraryPanelDataSource) Metadata(ctx context.Context, req datasourc
 func (d *CoreLibraryPanelDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
-		MarkdownDescription: "TODO description",
+		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"folder_uid": schema.StringAttribute{
 				MarkdownDescription: `Folder UID`,
