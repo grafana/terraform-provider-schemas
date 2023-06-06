@@ -21,9 +21,9 @@ resource "grafana_dashboard" "example" {
 }
 
 data "schemas_core_dashboard" "dashboard" {
-  title = "Faro dashboard"
-  uid = "faro-terraform-demo"
-  description = "Dashboard for Faro"
+  title         = "Faro dashboard"
+  uid           = "faro-terraform-demo"
+  description   = "Dashboard for Faro"
   graph_tooltip = 1
 
   panels = [
