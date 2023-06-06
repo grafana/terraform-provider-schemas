@@ -42,7 +42,9 @@ jobs:
         with:
           go-version-file: 'go.mod'
           cache: true
-      - run: go generate ./...
+      - run: rm -rf ./internal/provider/*_gen.go
+      - run: cd ./gen && MIN_MATURITY=merged go generate ./
+      - run: go generate ./
       - name: git diff
         run: |
           git diff --compact-summary --exit-code || \
