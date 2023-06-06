@@ -58,13 +58,6 @@ func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, erro
 		Doc:      formatDoc(val.Doc()),
 	}
 
-	val = cue.Dereference(val)
-	op, args := val.Expr()
-	if op == cue.OrOp {
-		err := handleDisjunction(&node, args)
-		return &node, err
-	}
-
 	switch node.Kind {
 	case cue.ListKind:
 		err := handleList(&node, val)
@@ -74,6 +67,13 @@ func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, erro
 	case cue.StructKind:
 		// Structs should be optional if we want to set nested defaults
 		node.Optional = true
+
+		val = cue.Dereference(val)
+		op, args := val.Expr()
+		if op == cue.OrOp {
+			err := handleDisjunction(&node, args)
+			return &node, err
+		}
 
 		children, err := GetAllNodes(val.Value())
 		if err != nil {
