@@ -14,8 +14,18 @@ import (
 )
 
 var datasources = []func() datasource.DataSource{
+	NewCoreAccessPolicyDataSource,
 	NewCoreDashboardDataSource,
+	NewCoreFolderDataSource,
 	NewCoreLibraryPanelDataSource,
+	NewCorePlaylistDataSource,
+	NewCorePreferencesDataSource,
+	NewCorePublicDashboardDataSource,
+	NewCoreRoleDataSource,
+	NewCoreRoleBindingDataSource,
+	NewCoreTeamDataSource,
+	NewQueryAzureMonitorDataSource,
+	NewQueryGoogleCloudMonitoringDataSource,
 	NewQueryCloudWatchDataSource,
 	NewQueryElasticsearchDataSource,
 	NewQueryLokiDataSource,
@@ -24,6 +34,7 @@ var datasources = []func() datasource.DataSource{
 	NewQueryPrometheusDataSource,
 	NewQueryTempoDataSource,
 	NewQueryTestDataDataSource,
+	NewPanelAlertGroupsDataSource,
 	NewPanelAnnotationsListDataSource,
 	NewPanelBarChartDataSource,
 	NewPanelBarGaugeDataSource,
@@ -32,6 +43,7 @@ var datasources = []func() datasource.DataSource{
 	NewPanelDebugDataSource,
 	NewPanelGaugeDataSource,
 	NewPanelGeomapDataSource,
+	NewPanelHeatmapDataSource,
 	NewPanelHistogramDataSource,
 	NewPanelLogsDataSource,
 	NewPanelNewsDataSource,
@@ -42,5 +54,7 @@ var datasources = []func() datasource.DataSource{
 	NewPanelStatusHistoryDataSource,
 	NewPanelTableDataSource,
 	NewPanelTextDataSource,
+	NewPanelTimeSeriesDataSource,
+	NewPanelTrendDataSource,
 	NewPanelXYChartDataSource,
 }
