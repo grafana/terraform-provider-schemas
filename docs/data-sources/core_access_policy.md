@@ -17,6 +17,7 @@ description: |-
 
 ### Optional
 
+- `role` (Attributes) The role that must apply this policy (see [below for nested schema](#nestedatt--role))
 - `rules` (Attributes List) The set of rules to apply.  Note that * is required to modify
 access policy rules, and that "none" will reject all actions (see [below for nested schema](#nestedatt--rules))
 - `scope` (Attributes) The scope where these policies should apply (see [below for nested schema](#nestedatt--scope))
@@ -24,6 +25,17 @@ access policy rules, and that "none" will reject all actions (see [below for nes
 ### Read-Only
 
 - `to_json` (String) This datasource rendered as JSON
+
+<a id="nestedatt--role"></a>
+### Nested Schema for `role`
+
+Required:
+
+- `kind` (String) Policies can apply to roles, teams, or users
+Applying policies to individual users is supported, but discouraged
+- `name` (String)
+- `xname` (String)
+
 
 <a id="nestedatt--rules"></a>
 ### Nested Schema for `rules`

@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"errors"
 	"fmt"
 	"regexp"
 	"strings"
@@ -45,7 +46,7 @@ func GetAllNodes(val cue.Value) ([]types.Node, error) {
 
 func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, error) {
 	// TODO: fixme
-	if name == "mappings" || name == "points" || name == "bucketAggs" || name == "metrics" || name == "reducer" || name == "role" {
+	if name == "reducer" {
 		return nil, nil
 	}
 
@@ -57,46 +58,23 @@ func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, erro
 		Doc:      formatDoc(val.Doc()),
 	}
 
+	val = cue.Dereference(val)
+	op, args := val.Expr()
+	if op == cue.OrOp {
+		err := handleDisjunction(&node, args)
+		return &node, err
+	}
+
 	switch node.Kind {
 	case cue.ListKind:
-		// From cuetsy:
-		// If the default (all lists have a default, usually self, ugh) differs from the
-		// input list, peel it off. Otherwise our AnyIndex lookup may end up getting
-		// sent on the wrong path.
-		node.Optional = true
-		defv, _ := val.Default()
-		if !defv.Equals(val) {
-			_, v := val.Expr()
-			val = v[0]
-		}
-
-		e := val.LookupPath(cue.MakePath(cue.AnyIndex))
-		if e.Exists() {
-			node.SubKind = e.IncompleteKind()
-			// TODO: fixme
-			// Using a string type to allow composition of panel datasources
-			// Doesn't seem possible to have an arbitrary map type here
-			if name == "panels" || name == "targets" {
-				node.SubKind = cue.StringKind
-			}
-
-			if node.SubKind == cue.StructKind || node.SubKind == cue.ListKind {
-				children, err := GetAllNodes(e)
-				if err != nil {
-					return nil, err
-				}
-
-				node.Children = children
-				for i := range node.Children {
-					node.Children[i].Parent = &node
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("unreachable - open list must have a type, field \"%s\"", name)
+		err := handleList(&node, val)
+		if err != nil {
+			return nil, err
 		}
 	case cue.StructKind:
 		// Structs should be optional if we want to set nested defaults
 		node.Optional = true
+
 		children, err := GetAllNodes(val.Value())
 		if err != nil {
 			return nil, err
@@ -109,6 +87,82 @@ func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, erro
 	}
 
 	return &node, nil
+}
+
+func handleList(node *types.Node, val cue.Value) error {
+	node.Optional = true
+
+	// TODO: fixme
+	// Using a string type to allow composition of panel datasources
+	// Doesn't seem possible to have an arbitrary map type here
+	if node.Name == "panels" || node.Name == "targets" {
+		node.SubKind = cue.StringKind
+		return nil
+	}
+
+	// From cuetsy:
+	// If the default (all lists have a default, usually self, ugh) differs from the
+	// input list, peel it off. Otherwise our AnyIndex lookup may end up getting
+	// sent on the wrong path.
+	defv, _ := val.Default()
+	if !defv.Equals(val) {
+		_, v := val.Expr()
+		val = v[0]
+	}
+
+	e := val.LookupPath(cue.MakePath(cue.AnyIndex))
+	if !e.Exists() {
+		return errors.New("unreachable - open list must have a type")
+	}
+
+	e = cue.Dereference(e)
+	op, args := e.Expr()
+	if op == cue.OrOp {
+		return handleDisjunction(node, args)
+	}
+
+	node.SubKind = e.IncompleteKind()
+	switch node.SubKind {
+	case cue.StructKind:
+		children, err := GetAllNodes(e)
+		if err != nil {
+			return err
+		}
+
+		node.Children = children
+		for i := range node.Children {
+			node.Children[i].Parent = node
+		}
+	case cue.ListKind:
+		// TODO - handle list in list
+	case cue.TopKind:
+		// TODO - handle open lists ([...])
+	}
+
+	return nil
+}
+
+func handleDisjunction(node *types.Node, vals []cue.Value) error {
+	children := make([]types.Node, 0)
+	for _, val := range vals {
+		node.SubKind = val.IncompleteKind()
+
+		_, p := val.ReferencePath()
+		arr := strings.Split(p.String(), ".")
+		name := strings.ReplaceAll(arr[len(arr)-1], "#", "")
+
+		child, err := GetSingleNode(name, val, true)
+		if err != nil {
+			return err
+		}
+		child.Parent = node
+
+		children = append(children, *child)
+	}
+	node.IsDisjunction = true
+	node.Children = children
+
+	return nil
 }
 
 func getDefault(v cue.Value) string {

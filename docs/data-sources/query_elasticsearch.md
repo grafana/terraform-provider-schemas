@@ -24,9 +24,11 @@ By default, the UI will assign A->Z; however setting meaningful names may be use
 ### Optional
 
 - `alias` (String) Alias pattern
+- `bucket_aggs` (Attributes List) List of bucket aggregations (see [below for nested schema](#nestedatt--bucket_aggs))
 - `hide` (Boolean) true if query is disabled (ie should not be returned to the dashboard)
 Note this does not always imply that the query should not be executed since
 the results from a hidden query may be used as the input to other queries (SSE etc)
+- `metrics` (Attributes List) List of metric aggregations (see [below for nested schema](#nestedatt--metrics))
 - `query` (String) Lucene query
 - `query_type` (String) Specify the query flavor
 TODO make this required and give it a default
@@ -35,5 +37,713 @@ TODO make this required and give it a default
 ### Read-Only
 
 - `to_json` (String) This datasource rendered as JSON
+
+<a id="nestedatt--bucket_aggs"></a>
+### Nested Schema for `bucket_aggs`
+
+Optional:
+
+- `date_histogram` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--date_histogram))
+- `filters` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--filters))
+- `geo_hash_grid` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--geo_hash_grid))
+- `histogram` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--histogram))
+- `nested` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--nested))
+- `terms` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--terms))
+
+<a id="nestedatt--bucket_aggs--date_histogram"></a>
+### Nested Schema for `bucket_aggs.date_histogram`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--date_histogram--settings))
+
+<a id="nestedatt--bucket_aggs--date_histogram--settings"></a>
+### Nested Schema for `bucket_aggs.date_histogram.settings`
+
+Optional:
+
+- `interval` (String)
+- `min_doc_count` (String)
+- `offset` (String)
+- `time_zone` (String)
+- `trim_edges` (String)
+
+
+
+<a id="nestedatt--bucket_aggs--filters"></a>
+### Nested Schema for `bucket_aggs.filters`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--filters--settings))
+
+<a id="nestedatt--bucket_aggs--filters--settings"></a>
+### Nested Schema for `bucket_aggs.filters.settings`
+
+Optional:
+
+- `filters` (Attributes List) (see [below for nested schema](#nestedatt--bucket_aggs--filters--settings--filters))
+
+<a id="nestedatt--bucket_aggs--filters--settings--filters"></a>
+### Nested Schema for `bucket_aggs.filters.settings.filters`
+
+Required:
+
+- `label` (String)
+- `query` (String)
+
+
+
+
+<a id="nestedatt--bucket_aggs--geo_hash_grid"></a>
+### Nested Schema for `bucket_aggs.geo_hash_grid`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--geo_hash_grid--settings))
+
+<a id="nestedatt--bucket_aggs--geo_hash_grid--settings"></a>
+### Nested Schema for `bucket_aggs.geo_hash_grid.settings`
+
+Optional:
+
+- `precision` (String)
+
+
+
+<a id="nestedatt--bucket_aggs--histogram"></a>
+### Nested Schema for `bucket_aggs.histogram`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--histogram--settings))
+
+<a id="nestedatt--bucket_aggs--histogram--settings"></a>
+### Nested Schema for `bucket_aggs.histogram.settings`
+
+Optional:
+
+- `interval` (String)
+- `min_doc_count` (String)
+
+
+
+<a id="nestedatt--bucket_aggs--nested"></a>
+### Nested Schema for `bucket_aggs.nested`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--nested--settings))
+
+<a id="nestedatt--bucket_aggs--nested--settings"></a>
+### Nested Schema for `bucket_aggs.nested.settings`
+
+
+
+<a id="nestedatt--bucket_aggs--terms"></a>
+### Nested Schema for `bucket_aggs.terms`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--bucket_aggs--terms--settings))
+
+<a id="nestedatt--bucket_aggs--terms--settings"></a>
+### Nested Schema for `bucket_aggs.terms.settings`
+
+Optional:
+
+- `min_doc_count` (String)
+- `missing` (String)
+- `order` (String)
+- `order_by` (String)
+- `size` (String)
+
+
+
+
+<a id="nestedatt--metrics"></a>
+### Nested Schema for `metrics`
+
+Optional:
+
+- `count` (Attributes) (see [below for nested schema](#nestedatt--metrics--count))
+- `metric_aggregation_with_settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings))
+- `pipeline_metric_aggregation` (Attributes) (see [below for nested schema](#nestedatt--metrics--pipeline_metric_aggregation))
+
+<a id="nestedatt--metrics--count"></a>
+### Nested Schema for `metrics.count`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `hide` (Boolean)
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings`
+
+Optional:
+
+- `average` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--average))
+- `bucket_script` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--bucket_script))
+- `cumulative_sum` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--cumulative_sum))
+- `derivative` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--derivative))
+- `extended_stats` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--extended_stats))
+- `logs` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--logs))
+- `max` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--max))
+- `min` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--min))
+- `moving_average` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--moving_average))
+- `moving_function` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--moving_function))
+- `percentiles` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--percentiles))
+- `rate` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--rate))
+- `raw_data` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--raw_data))
+- `raw_document` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--raw_document))
+- `serial_diff` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--serial_diff))
+- `sum` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--sum))
+- `top_metrics` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--top_metrics))
+- `unique_count` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--unique_count))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--average"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.average`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--average--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--average--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.average.settings`
+
+Optional:
+
+- `missing` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--bucket_script"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.bucket_script`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `hide` (Boolean)
+- `pipeline_variables` (Attributes List) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--bucket_script--pipeline_variables))
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--bucket_script--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--bucket_script--pipeline_variables"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.bucket_script.settings`
+
+Required:
+
+- `name` (String)
+- `pipeline_agg` (String)
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--bucket_script--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.bucket_script.settings`
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--cumulative_sum"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.cumulative_sum`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `pipeline_agg` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--cumulative_sum--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--cumulative_sum--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.cumulative_sum.settings`
+
+Optional:
+
+- `format` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--derivative"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.derivative`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `pipeline_agg` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--derivative--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--derivative--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.derivative.settings`
+
+Optional:
+
+- `unit` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--extended_stats"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.extended_stats`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `meta` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--extended_stats--meta))
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--extended_stats--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--extended_stats--meta"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.extended_stats.settings`
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--extended_stats--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.extended_stats.settings`
+
+Optional:
+
+- `missing` (String)
+- `sigma` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--logs"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.logs`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `hide` (Boolean)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--logs--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--logs--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.logs.settings`
+
+Optional:
+
+- `limit` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--max"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.max`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--max--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--max--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.max.settings`
+
+Optional:
+
+- `missing` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--min"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.min`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--min--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--min--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.min.settings`
+
+Optional:
+
+- `missing` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--moving_average"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.moving_average`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `pipeline_agg` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--moving_average--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--moving_average--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.moving_average.settings`
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--moving_function"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.moving_function`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `pipeline_agg` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--moving_function--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--moving_function--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.moving_function.settings`
+
+Optional:
+
+- `shift` (String)
+- `window` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--percentiles"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.percentiles`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--percentiles--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--percentiles--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.percentiles.settings`
+
+Optional:
+
+- `missing` (String)
+- `percents` (List of String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--rate"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.rate`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--rate--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--rate--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.rate.settings`
+
+Optional:
+
+- `mode` (String)
+- `unit` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--raw_data"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.raw_data`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `hide` (Boolean)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--raw_data--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--raw_data--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.raw_data.settings`
+
+Optional:
+
+- `size` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--raw_document"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.raw_document`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `hide` (Boolean)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--raw_document--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--raw_document--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.raw_document.settings`
+
+Optional:
+
+- `size` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--serial_diff"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.serial_diff`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `pipeline_agg` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--serial_diff--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--serial_diff--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.serial_diff.settings`
+
+Optional:
+
+- `lag` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--sum"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.sum`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--sum--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--sum--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.sum.settings`
+
+Optional:
+
+- `missing` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--top_metrics"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.top_metrics`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `hide` (Boolean)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--top_metrics--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--top_metrics--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.top_metrics.settings`
+
+Optional:
+
+- `metrics` (List of String)
+- `order` (String)
+- `order_by` (String)
+
+
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--unique_count"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.unique_count`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--metric_aggregation_with_settings--unique_count--settings))
+
+<a id="nestedatt--metrics--metric_aggregation_with_settings--unique_count--settings"></a>
+### Nested Schema for `metrics.metric_aggregation_with_settings.unique_count.settings`
+
+Optional:
+
+- `missing` (String)
+- `precision_threshold` (String)
+
+
+
+
+<a id="nestedatt--metrics--pipeline_metric_aggregation"></a>
+### Nested Schema for `metrics.pipeline_metric_aggregation`
+
+Optional:
+
+- `bucket_script` (Attributes) (see [below for nested schema](#nestedatt--metrics--pipeline_metric_aggregation--bucket_script))
+- `cumulative_sum` (Attributes) (see [below for nested schema](#nestedatt--metrics--pipeline_metric_aggregation--cumulative_sum))
+- `derivative` (Attributes) (see [below for nested schema](#nestedatt--metrics--pipeline_metric_aggregation--derivative))
+- `moving_average` (Attributes) (see [below for nested schema](#nestedatt--metrics--pipeline_metric_aggregation--moving_average))
+
+<a id="nestedatt--metrics--pipeline_metric_aggregation--bucket_script"></a>
+### Nested Schema for `metrics.pipeline_metric_aggregation.bucket_script`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `hide` (Boolean)
+- `pipeline_variables` (Attributes List) (see [below for nested schema](#nestedatt--metrics--pipeline_metric_aggregation--bucket_script--pipeline_variables))
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--pipeline_metric_aggregation--bucket_script--settings))
+
+<a id="nestedatt--metrics--pipeline_metric_aggregation--bucket_script--pipeline_variables"></a>
+### Nested Schema for `metrics.pipeline_metric_aggregation.bucket_script.settings`
+
+Required:
+
+- `name` (String)
+- `pipeline_agg` (String)
+
+
+<a id="nestedatt--metrics--pipeline_metric_aggregation--bucket_script--settings"></a>
+### Nested Schema for `metrics.pipeline_metric_aggregation.bucket_script.settings`
+
+
+
+<a id="nestedatt--metrics--pipeline_metric_aggregation--cumulative_sum"></a>
+### Nested Schema for `metrics.pipeline_metric_aggregation.cumulative_sum`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `pipeline_agg` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--pipeline_metric_aggregation--cumulative_sum--settings))
+
+<a id="nestedatt--metrics--pipeline_metric_aggregation--cumulative_sum--settings"></a>
+### Nested Schema for `metrics.pipeline_metric_aggregation.cumulative_sum.settings`
+
+Optional:
+
+- `format` (String)
+
+
+
+<a id="nestedatt--metrics--pipeline_metric_aggregation--derivative"></a>
+### Nested Schema for `metrics.pipeline_metric_aggregation.derivative`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `pipeline_agg` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--pipeline_metric_aggregation--derivative--settings))
+
+<a id="nestedatt--metrics--pipeline_metric_aggregation--derivative--settings"></a>
+### Nested Schema for `metrics.pipeline_metric_aggregation.derivative.settings`
+
+Optional:
+
+- `unit` (String)
+
+
+
+<a id="nestedatt--metrics--pipeline_metric_aggregation--moving_average"></a>
+### Nested Schema for `metrics.pipeline_metric_aggregation.moving_average`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `field` (String)
+- `hide` (Boolean)
+- `pipeline_agg` (String)
+- `settings` (Attributes) (see [below for nested schema](#nestedatt--metrics--pipeline_metric_aggregation--moving_average--settings))
+
+<a id="nestedatt--metrics--pipeline_metric_aggregation--moving_average--settings"></a>
+### Nested Schema for `metrics.pipeline_metric_aggregation.moving_average.settings`
 
 

@@ -66,6 +66,37 @@ func (m CoreAccessPolicyDataSourceModel_Scope) ApplyDefaults() CoreAccessPolicyD
 	return m
 }
 
+type CoreAccessPolicyDataSourceModel_Role struct {
+	Kind  types.String `tfsdk:"kind"`
+	Name  types.String `tfsdk:"name"`
+	Xname types.String `tfsdk:"xname"`
+}
+
+func (m CoreAccessPolicyDataSourceModel_Role) MarshalJSON() ([]byte, error) {
+	type jsonCoreAccessPolicyDataSourceModel_Role struct {
+		Kind  string `json:"kind"`
+		Name  string `json:"name"`
+		Xname string `json:"xname"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_kind := m.Kind.ValueString()
+	attr_name := m.Name.ValueString()
+	attr_xname := m.Xname.ValueString()
+
+	model := &jsonCoreAccessPolicyDataSourceModel_Role{
+		Kind:  attr_kind,
+		Name:  attr_name,
+		Xname: attr_xname,
+	}
+	return json.Marshal(model)
+}
+
+func (m CoreAccessPolicyDataSourceModel_Role) ApplyDefaults() CoreAccessPolicyDataSourceModel_Role {
+
+	return m
+}
+
 type CoreAccessPolicyDataSourceModel_Rules struct {
 	Kind   types.String `tfsdk:"kind"`
 	Verb   types.String `tfsdk:"verb"`
@@ -100,12 +131,14 @@ func (m CoreAccessPolicyDataSourceModel_Rules) ApplyDefaults() CoreAccessPolicyD
 type CoreAccessPolicyDataSourceModel struct {
 	ToJSON types.String                            `tfsdk:"to_json"`
 	Scope  *CoreAccessPolicyDataSourceModel_Scope  `tfsdk:"scope"`
+	Role   *CoreAccessPolicyDataSourceModel_Role   `tfsdk:"role"`
 	Rules  []CoreAccessPolicyDataSourceModel_Rules `tfsdk:"rules"`
 }
 
 func (m CoreAccessPolicyDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonCoreAccessPolicyDataSourceModel struct {
 		Scope interface{}   `json:"scope,omitempty"`
+		Role  interface{}   `json:"role,omitempty"`
 		Rules []interface{} `json:"rules,omitempty"`
 	}
 
@@ -114,6 +147,10 @@ func (m CoreAccessPolicyDataSourceModel) MarshalJSON() ([]byte, error) {
 	if m.Scope != nil {
 		attr_scope = m.Scope
 	}
+	var attr_role interface{}
+	if m.Role != nil {
+		attr_role = m.Role
+	}
 	attr_rules := []interface{}{}
 	for _, v := range m.Rules {
 		attr_rules = append(attr_rules, v)
@@ -121,6 +158,7 @@ func (m CoreAccessPolicyDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	model := &jsonCoreAccessPolicyDataSourceModel{
 		Scope: attr_scope,
+		Role:  attr_role,
 		Rules: attr_rules,
 	}
 	return json.Marshal(model)
@@ -153,6 +191,33 @@ func (d *CoreAccessPolicyDataSource) Schema(ctx context.Context, req datasource.
 						Required:            true,
 					},
 					"name": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+				},
+			},
+			"role": schema.SingleNestedAttribute{
+				MarkdownDescription: `The role that must apply this policy`,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"kind": schema.StringAttribute{
+						MarkdownDescription: `Policies can apply to roles, teams, or users
+Applying policies to individual users is supported, but discouraged`,
+						Computed: false,
+						Optional: false,
+						Required: true,
+					},
+					"name": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+					"xname": schema.StringAttribute{
 						MarkdownDescription: ``,
 						Computed:            false,
 						Optional:            false,

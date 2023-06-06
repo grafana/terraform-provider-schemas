@@ -39,6 +39,83 @@ func NewCoreRoleBindingDataSource() datasource.DataSource {
 // CoreRoleBindingDataSource defines the data source implementation.
 type CoreRoleBindingDataSource struct{}
 
+type CoreRoleBindingDataSourceModel_Role_BuiltinRoleRef struct {
+	Kind types.String `tfsdk:"kind"`
+	Name types.String `tfsdk:"name"`
+}
+
+func (m CoreRoleBindingDataSourceModel_Role_BuiltinRoleRef) MarshalJSON() ([]byte, error) {
+	type jsonCoreRoleBindingDataSourceModel_Role_BuiltinRoleRef struct {
+		Kind string `json:"kind"`
+		Name string `json:"name"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_kind := m.Kind.ValueString()
+	attr_name := m.Name.ValueString()
+
+	model := &jsonCoreRoleBindingDataSourceModel_Role_BuiltinRoleRef{
+		Kind: attr_kind,
+		Name: attr_name,
+	}
+	return json.Marshal(model)
+}
+
+func (m CoreRoleBindingDataSourceModel_Role_BuiltinRoleRef) ApplyDefaults() CoreRoleBindingDataSourceModel_Role_BuiltinRoleRef {
+
+	return m
+}
+
+type CoreRoleBindingDataSourceModel_Role_CustomRoleRef struct {
+	Kind types.String `tfsdk:"kind"`
+	Name types.String `tfsdk:"name"`
+}
+
+func (m CoreRoleBindingDataSourceModel_Role_CustomRoleRef) MarshalJSON() ([]byte, error) {
+	type jsonCoreRoleBindingDataSourceModel_Role_CustomRoleRef struct {
+		Kind string `json:"kind"`
+		Name string `json:"name"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_kind := m.Kind.ValueString()
+	attr_name := m.Name.ValueString()
+
+	model := &jsonCoreRoleBindingDataSourceModel_Role_CustomRoleRef{
+		Kind: attr_kind,
+		Name: attr_name,
+	}
+	return json.Marshal(model)
+}
+
+func (m CoreRoleBindingDataSourceModel_Role_CustomRoleRef) ApplyDefaults() CoreRoleBindingDataSourceModel_Role_CustomRoleRef {
+
+	return m
+}
+
+type CoreRoleBindingDataSourceModel_Role struct {
+	BuiltinRoleRef *CoreRoleBindingDataSourceModel_Role_BuiltinRoleRef `tfsdk:"builtin_role_ref"`
+	CustomRoleRef  *CoreRoleBindingDataSourceModel_Role_CustomRoleRef  `tfsdk:"custom_role_ref"`
+}
+
+func (m CoreRoleBindingDataSourceModel_Role) MarshalJSON() ([]byte, error) {
+	var json_CoreRoleBindingDataSourceModel_Role interface{}
+	m = m.ApplyDefaults()
+	if m.BuiltinRoleRef != nil {
+		json_CoreRoleBindingDataSourceModel_Role = m.BuiltinRoleRef
+	}
+	if m.CustomRoleRef != nil {
+		json_CoreRoleBindingDataSourceModel_Role = m.CustomRoleRef
+	}
+
+	return json.Marshal(json_CoreRoleBindingDataSourceModel_Role)
+}
+
+func (m CoreRoleBindingDataSourceModel_Role) ApplyDefaults() CoreRoleBindingDataSourceModel_Role {
+
+	return m
+}
+
 type CoreRoleBindingDataSourceModel_Subject struct {
 	Kind types.String `tfsdk:"kind"`
 	Name types.String `tfsdk:"name"`
@@ -68,21 +145,28 @@ func (m CoreRoleBindingDataSourceModel_Subject) ApplyDefaults() CoreRoleBindingD
 
 type CoreRoleBindingDataSourceModel struct {
 	ToJSON  types.String                            `tfsdk:"to_json"`
+	Role    *CoreRoleBindingDataSourceModel_Role    `tfsdk:"role"`
 	Subject *CoreRoleBindingDataSourceModel_Subject `tfsdk:"subject"`
 }
 
 func (m CoreRoleBindingDataSourceModel) MarshalJSON() ([]byte, error) {
 	type jsonCoreRoleBindingDataSourceModel struct {
+		Role    interface{} `json:"role,omitempty"`
 		Subject interface{} `json:"subject,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	var attr_role interface{}
+	if m.Role != nil {
+		attr_role = m.Role
+	}
 	var attr_subject interface{}
 	if m.Subject != nil {
 		attr_subject = m.Subject
 	}
 
 	model := &jsonCoreRoleBindingDataSourceModel{
+		Role:    attr_role,
 		Subject: attr_subject,
 	}
 	return json.Marshal(model)
@@ -102,6 +186,54 @@ func (d *CoreRoleBindingDataSource) Schema(ctx context.Context, req datasource.S
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
+			"role": schema.SingleNestedAttribute{
+				MarkdownDescription: `The role we are discussing`,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"builtin_role_ref": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"kind": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"name": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+						},
+					},
+					"custom_role_ref": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"kind": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"name": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+						},
+					},
+				},
+			},
 			"subject": schema.SingleNestedAttribute{
 				MarkdownDescription: `The team or user that has the specified role`,
 				Computed:            true,

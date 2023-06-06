@@ -17,11 +17,39 @@ description: |-
 
 ### Optional
 
+- `role` (Attributes) The role we are discussing (see [below for nested schema](#nestedatt--role))
 - `subject` (Attributes) The team or user that has the specified role (see [below for nested schema](#nestedatt--subject))
 
 ### Read-Only
 
 - `to_json` (String) This datasource rendered as JSON
+
+<a id="nestedatt--role"></a>
+### Nested Schema for `role`
+
+Optional:
+
+- `builtin_role_ref` (Attributes) (see [below for nested schema](#nestedatt--role--builtin_role_ref))
+- `custom_role_ref` (Attributes) (see [below for nested schema](#nestedatt--role--custom_role_ref))
+
+<a id="nestedatt--role--builtin_role_ref"></a>
+### Nested Schema for `role.builtin_role_ref`
+
+Required:
+
+- `kind` (String)
+- `name` (String)
+
+
+<a id="nestedatt--role--custom_role_ref"></a>
+### Nested Schema for `role.custom_role_ref`
+
+Required:
+
+- `kind` (String)
+- `name` (String)
+
+
 
 <a id="nestedatt--subject"></a>
 ### Nested Schema for `subject`

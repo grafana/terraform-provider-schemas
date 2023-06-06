@@ -9,14 +9,16 @@ import (
 )
 
 type Node struct {
-	Name     string
-	Kind     cue.Kind
-	SubKind  cue.Kind // For list only, kind of its elements
-	Optional bool
-	Default  string
-	Doc      string
-	Children []Node
-	Parent   *Node
+	Name          string
+	Kind          cue.Kind
+	SubKind       cue.Kind // For list only, kind of its elements
+	IsMap         bool
+	IsDisjunction bool
+	Optional      bool
+	Default       string
+	Doc           string
+	Children      []Node
+	Parent        *Node
 }
 
 func (n *Node) TerraformModelField(structName string) string {
