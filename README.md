@@ -52,10 +52,6 @@ provider "grafana" {
   auth = "admin:admin"
 }
 
-resource "grafana_dashboard" "example" {
-  config_json = data.schemas_core_dashboard.my_dashboard.to_json
-}
-
 data "schemas_core_dashboard" "my_dashboard" {
   title = "My Dashboard"
 
@@ -77,6 +73,10 @@ data "schemas_panel_stat" "my_panel" {
     x = 0
     y = 0
   }
+}
+
+resource "grafana_dashboard" "example" {
+  config_json = data.schemas_core_dashboard.my_dashboard.to_json
 }
 ```
 
