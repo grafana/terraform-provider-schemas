@@ -14,16 +14,7 @@ import (
 )
 
 var datasources = []func() datasource.DataSource{
-	NewCoreAccessPolicyDataSource,
 	NewCoreDashboardDataSource,
-	NewCoreFolderDataSource,
-	NewCoreLibraryPanelDataSource,
-	NewCorePlaylistDataSource,
-	NewCorePreferencesDataSource,
-	NewCorePublicDashboardDataSource,
-	NewCoreRoleDataSource,
-	NewCoreRoleBindingDataSource,
-	NewCoreTeamDataSource,
 	NewQueryAzureMonitorDataSource,
 	NewQueryGoogleCloudMonitoringDataSource,
 	NewQueryCloudWatchDataSource,

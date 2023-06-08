@@ -28,7 +28,7 @@ resource "grafana_data_source" "prometheus" {
 }
 
 data "schemas_core_dashboard" "prometheus_dashboard" {
-  title = "Prometheus Dashboard [Terraform]"
+  title = "Prometheus Dashboard"
 
   time = {
     from = "now-1h"
