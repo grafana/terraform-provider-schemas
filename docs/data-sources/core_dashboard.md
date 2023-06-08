@@ -50,7 +50,7 @@ Accepted values are relative time strings like {from: 'now-6h', to: 'now'} or ab
 
 ### Read-Only
 
-- `to_json` (String) This datasource rendered as JSON
+- `rendered_json` (String) This datasource rendered as JSON
 
 <a id="nestedatt--annotations"></a>
 ### Nested Schema for `annotations`

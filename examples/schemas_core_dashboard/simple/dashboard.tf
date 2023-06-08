@@ -17,7 +17,7 @@ provider "grafana" {
 }
 
 resource "grafana_dashboard" "example" {
-  config_json = data.schemas_core_dashboard.dashboard.to_json
+  config_json = data.schemas_core_dashboard.dashboard.rendered_json
 }
 
 data "schemas_core_dashboard" "dashboard" {
@@ -27,7 +27,7 @@ data "schemas_core_dashboard" "dashboard" {
   graph_tooltip = 1
 
   panels = [
-    data.schemas_panel_time_series.requests.to_json,
+    data.schemas_panel_time_series.requests.rendered_json,
   ]
 }
 
@@ -40,7 +40,7 @@ data "schemas_panel_time_series" "requests" {
   }
 
   targets = [
-    data.schemas_query_prometheus.requests_target.to_json
+    data.schemas_query_prometheus.requests_target.rendered_json
   ]
 
   field_config = {

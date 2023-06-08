@@ -40,7 +40,7 @@ func NewQueryAzureMonitorDataSource() datasource.DataSource {
 type QueryAzureMonitorDataSource struct{}
 
 type QueryAzureMonitorDataSourceModel struct {
-	ToJSON types.String `tfsdk:"to_json"`
+	RenderedJSON types.String `tfsdk:"rendered_json"`
 }
 
 func (m QueryAzureMonitorDataSourceModel) MarshalJSON() ([]byte, error) {
@@ -68,7 +68,7 @@ func (d *QueryAzureMonitorDataSource) Schema(ctx context.Context, req datasource
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 
-			"to_json": schema.StringAttribute{
+			"rendered_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
 			},
@@ -96,7 +96,7 @@ func (d *QueryAzureMonitorDataSource) Read(ctx context.Context, req datasource.R
 	}
 
 	// Not sure about that
-	data.ToJSON = types.StringValue(string(JSONConfig))
+	data.RenderedJSON = types.StringValue(string(JSONConfig))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log
