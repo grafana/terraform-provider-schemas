@@ -1,9 +1,12 @@
 package terraform
 
 import (
+	"fmt"
+
 	"github.com/grafana/codejen"
 	"github.com/grafana/grafana/pkg/codegen"
 	"github.com/grafana/terraform-provider-schemas/gen/terraform/cuetf"
+	"golang.org/x/tools/imports"
 )
 
 type TerraformDataSourceJenny struct{}
@@ -19,5 +22,12 @@ func (j TerraformDataSourceJenny) Generate(sfg codegen.SchemaForGen) (*codejen.F
 	}
 
 	name := cuetf.GetResourceName(sfg.Schema.Lineage().Name())
-	return codejen.NewFile("datasource_"+name+"_gen.go", bytes, j), nil
+	fname := "datasource_" + name + "_gen.go"
+
+	byt, err := imports.Process(fname, bytes, nil)
+	if err != nil {
+		return nil, fmt.Errorf("goimports processing of generated file failed: %w", err)
+	}
+
+	return codejen.NewFile(fname, byt, j), nil
 }

@@ -55,6 +55,12 @@ func (s *Model) jsonModel() string {
 func (s *Model) generateToJSONFunction() string {
 	b := strings.Builder{}
 
+	for _, node := range s.Nodes {
+		if len(node.DisjunctionKinds) > 0 {
+			fmt.Fprintf(&b, s.generateGetAttrFunction(node))
+		}
+	}
+
 	fmt.Fprintf(&b, "func (m %s) MarshalJSON() ([]byte, error) {\n", s.Name)
 	if s.IsDisjunction {
 		fmt.Fprintf(&b, "var json_%s interface{}\n", s.Name)
@@ -101,6 +107,8 @@ func (s *Model) generateToJSONFunction() string {
 			} else {
 				fmt.Fprintf(&b, "	%s = m.%s\n", identifier, utils.ToCamelCase(node.Name))
 			}
+		} else if len(node.DisjunctionKinds) > 0 {
+			fmt.Fprintf(&b, "   %s := m.GetAttr%s()\n", identifier, utils.ToCamelCase(node.Name))
 		} else if funcString != "" {
 			fmt.Fprintf(&b, "	%s := m.%s.%s\n", identifier, utils.ToCamelCase(node.Name), funcString)
 			if node.Optional {
@@ -129,6 +137,42 @@ func (s *Model) generateToJSONFunction() string {
 	
 		`, s.Name, strings.Join(structLines, ""))
 	}
+
+	return b.String()
+}
+
+func (s *Model) generateGetAttrFunction(node Node) string {
+	b := strings.Builder{}
+	attrName := utils.ToCamelCase(node.Name)
+
+	fmt.Fprintf(&b, "func (m %s) GetAttr%s() interface{} {\n", s.Name, attrName)
+	b.WriteString("var attr interface{}\n\n")
+
+	for _, kind := range node.DisjunctionKinds {
+		switch kind {
+		case cue.StructKind, cue.ListKind:
+			fmt.Fprintf(&b, "err := json.Unmarshal([]byte(m.%s.ValueString()), &attr)", attrName)
+		case cue.BoolKind:
+			fmt.Fprintf(&b, "attr, err := strconv.ParseBool(m.%s.ValueString())", attrName)
+		case cue.IntKind:
+			fmt.Fprintf(&b, "attr, err := strconv.ParseInt(m.%s.ValueString(), 10, 64)", attrName)
+		case cue.NumberKind, cue.FloatKind:
+			fmt.Fprintf(&b, "attr, err := strconv.ParseFloat(m.%s.ValueString(), 64)", attrName)
+		case cue.StringKind:
+			continue
+		}
+
+		b.WriteString(`
+			if err == nil {
+				return attr
+			}
+		`)
+	}
+	fmt.Fprintf(&b, `
+			return m.%s.ValueString()
+		}
+
+	`, attrName)
 
 	return b.String()
 }

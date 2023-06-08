@@ -722,15 +722,31 @@ func (m QueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_Buck
 }
 
 type QueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_BucketScript_Settings struct {
+	Script types.String `tfsdk:"script"`
+}
+
+func (m QueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_BucketScript_Settings) GetAttrScript() interface{} {
+	var attr interface{}
+
+	err := json.Unmarshal([]byte(m.Script.ValueString()), &attr)
+	if err == nil {
+		return attr
+	}
+
+	return m.Script.ValueString()
 }
 
 func (m QueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_BucketScript_Settings) MarshalJSON() ([]byte, error) {
 	type jsonQueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_BucketScript_Settings struct {
+		Script interface{} `json:"script,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_script := m.GetAttrScript()
 
-	model := &jsonQueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_BucketScript_Settings{}
+	model := &jsonQueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_BucketScript_Settings{
+		Script: attr_script,
+	}
 	return json.Marshal(model)
 }
 
@@ -839,15 +855,31 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 }
 
 type QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_BucketScript_Settings struct {
+	Script types.String `tfsdk:"script"`
+}
+
+func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_BucketScript_Settings) GetAttrScript() interface{} {
+	var attr interface{}
+
+	err := json.Unmarshal([]byte(m.Script.ValueString()), &attr)
+	if err == nil {
+		return attr
+	}
+
+	return m.Script.ValueString()
 }
 
 func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_BucketScript_Settings) MarshalJSON() ([]byte, error) {
 	type jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_BucketScript_Settings struct {
+		Script interface{} `json:"script,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_script := m.GetAttrScript()
 
-	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_BucketScript_Settings{}
+	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_BucketScript_Settings{
+		Script: attr_script,
+	}
 	return json.Marshal(model)
 }
 
@@ -1737,21 +1769,36 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 
 type QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_MovingFunction_Settings struct {
 	Window types.String `tfsdk:"window"`
+	Script types.String `tfsdk:"script"`
 	Shift  types.String `tfsdk:"shift"`
+}
+
+func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_MovingFunction_Settings) GetAttrScript() interface{} {
+	var attr interface{}
+
+	err := json.Unmarshal([]byte(m.Script.ValueString()), &attr)
+	if err == nil {
+		return attr
+	}
+
+	return m.Script.ValueString()
 }
 
 func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_MovingFunction_Settings) MarshalJSON() ([]byte, error) {
 	type jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_MovingFunction_Settings struct {
-		Window *string `json:"window,omitempty"`
-		Shift  *string `json:"shift,omitempty"`
+		Window *string     `json:"window,omitempty"`
+		Script interface{} `json:"script,omitempty"`
+		Shift  *string     `json:"shift,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_window := m.Window.ValueString()
+	attr_script := m.GetAttrScript()
 	attr_shift := m.Shift.ValueString()
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_MovingFunction_Settings{
 		Window: &attr_window,
+		Script: attr_script,
 		Shift:  &attr_shift,
 	}
 	return json.Marshal(model)
@@ -2667,6 +2714,14 @@ func (d *QueryElasticsearchDataSource) Schema(ctx context.Context, req datasourc
 											Computed:            true,
 											Optional:            true,
 											Required:            false,
+											Attributes: map[string]schema.Attribute{
+												"script": schema.StringAttribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+											},
 										},
 										"hide": schema.BoolAttribute{
 											MarkdownDescription: ``,
@@ -2723,6 +2778,14 @@ func (d *QueryElasticsearchDataSource) Schema(ctx context.Context, req datasourc
 											Computed:            true,
 											Optional:            true,
 											Required:            false,
+											Attributes: map[string]schema.Attribute{
+												"script": schema.StringAttribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+											},
 										},
 										"hide": schema.BoolAttribute{
 											MarkdownDescription: ``,
@@ -3312,6 +3375,12 @@ func (d *QueryElasticsearchDataSource) Schema(ctx context.Context, req datasourc
 											Required:            false,
 											Attributes: map[string]schema.Attribute{
 												"window": schema.StringAttribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+												"script": schema.StringAttribute{
 													MarkdownDescription: ``,
 													Computed:            false,
 													Optional:            true,

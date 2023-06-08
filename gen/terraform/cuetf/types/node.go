@@ -9,16 +9,17 @@ import (
 )
 
 type Node struct {
-	Name          string
-	Kind          cue.Kind
-	SubKind       cue.Kind // For list only, kind of its elements
-	IsMap         bool
-	IsDisjunction bool
-	Optional      bool
-	Default       string
-	Doc           string
-	Children      []Node
-	Parent        *Node
+	Name             string
+	Kind             cue.Kind
+	SubKind          cue.Kind // For list only, kind of its elements
+	IsMap            bool
+	IsDisjunction    bool
+	Optional         bool
+	Default          string
+	Doc              string
+	Children         []Node
+	Parent           *Node
+	DisjunctionKinds []cue.Kind
 }
 
 func (n *Node) TerraformModelField(structName string) string {
@@ -51,7 +52,7 @@ func (n *Node) JSONModelField() string {
 		golangType = "[]interface{}"
 	case n.Kind == cue.ListKind && subKind != nil:
 		golangType = "[]" + subKind.golangType
-	case n.Kind == cue.StructKind:
+	case n.Kind == cue.StructKind || len(n.DisjunctionKinds) > 0:
 		golangType = "interface{}"
 	default:
 		golangType = kind.golangType

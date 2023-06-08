@@ -13,6 +13,7 @@ package provider
 import (
 	"context"
 	"encoding/json"
+	"strconv"
 
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -187,7 +188,19 @@ type CoreDashboardDataSourceModel_Templating_List struct {
 	State        types.String                                             `tfsdk:"state"`
 	Error        *CoreDashboardDataSourceModel_Templating_List_Error      `tfsdk:"error"`
 	Description  types.String                                             `tfsdk:"description"`
+	Query        types.String                                             `tfsdk:"query"`
 	Datasource   *CoreDashboardDataSourceModel_Templating_List_Datasource `tfsdk:"datasource"`
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List) GetAttrQuery() interface{} {
+	var attr interface{}
+
+	err := json.Unmarshal([]byte(m.Query.ValueString()), &attr)
+	if err == nil {
+		return attr
+	}
+
+	return m.Query.ValueString()
 }
 
 func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, error) {
@@ -203,6 +216,7 @@ func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, err
 		State        string      `json:"state"`
 		Error        interface{} `json:"error,omitempty"`
 		Description  *string     `json:"description,omitempty"`
+		Query        interface{} `json:"query,omitempty"`
 		Datasource   interface{} `json:"datasource,omitempty"`
 	}
 
@@ -221,6 +235,7 @@ func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, err
 		attr_error = m.Error
 	}
 	attr_description := m.Description.ValueString()
+	attr_query := m.GetAttrQuery()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
 		attr_datasource = m.Datasource
@@ -238,6 +253,7 @@ func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, err
 		State:        attr_state,
 		Error:        attr_error,
 		Description:  &attr_description,
+		Query:        attr_query,
 		Datasource:   attr_datasource,
 	}
 	return json.Marshal(model)
@@ -627,6 +643,7 @@ type CoreDashboardDataSourceModel struct {
 	FiscalYearStartMonth types.Int64                               `tfsdk:"fiscal_year_start_month"`
 	LiveNow              types.Bool                                `tfsdk:"live_now"`
 	WeekStart            types.String                              `tfsdk:"week_start"`
+	Refresh              types.String                              `tfsdk:"refresh"`
 	SchemaVersion        types.Int64                               `tfsdk:"schema_version"`
 	Version              types.Int64                               `tfsdk:"version"`
 	Panels               types.List                                `tfsdk:"panels"`
@@ -634,6 +651,17 @@ type CoreDashboardDataSourceModel struct {
 	Annotations          *CoreDashboardDataSourceModel_Annotations `tfsdk:"annotations"`
 	Links                []CoreDashboardDataSourceModel_Links      `tfsdk:"links"`
 	Snapshot             *CoreDashboardDataSourceModel_Snapshot    `tfsdk:"snapshot"`
+}
+
+func (m CoreDashboardDataSourceModel) GetAttrRefresh() interface{} {
+	var attr interface{}
+
+	attr, err := strconv.ParseBool(m.Refresh.ValueString())
+	if err == nil {
+		return attr
+	}
+
+	return m.Refresh.ValueString()
 }
 
 func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
@@ -653,6 +681,7 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 		FiscalYearStartMonth *int64        `json:"fiscalYearStartMonth,omitempty"`
 		LiveNow              *bool         `json:"liveNow,omitempty"`
 		WeekStart            *string       `json:"weekStart,omitempty"`
+		Refresh              interface{}   `json:"refresh,omitempty"`
 		SchemaVersion        int64         `json:"schemaVersion"`
 		Version              *int64        `json:"version,omitempty"`
 		Panels               []string      `json:"panels,omitempty"`
@@ -687,6 +716,7 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_fiscalyearstartmonth := m.FiscalYearStartMonth.ValueInt64()
 	attr_livenow := m.LiveNow.ValueBool()
 	attr_weekstart := m.WeekStart.ValueString()
+	attr_refresh := m.GetAttrRefresh()
 	attr_schemaversion := m.SchemaVersion.ValueInt64()
 	attr_version := m.Version.ValueInt64()
 	attr_panels := []string{}
@@ -726,6 +756,7 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 		FiscalYearStartMonth: &attr_fiscalyearstartmonth,
 		LiveNow:              &attr_livenow,
 		WeekStart:            &attr_weekstart,
+		Refresh:              attr_refresh,
 		SchemaVersion:        attr_schemaversion,
 		Version:              &attr_version,
 		Panels:               attr_panels,
@@ -919,6 +950,12 @@ avoid dashboards presenting stale live data`,
 				Optional:            true,
 				Required:            false,
 			},
+			"refresh": schema.StringAttribute{
+				MarkdownDescription: `Refresh rate of dashboard. Represented via interval string, e.g. "5s", "1m", "1h", "1d".`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+			},
 			"schema_version": schema.Int64Attribute{
 				MarkdownDescription: `Version of the JSON schema, incremented each time a Grafana update brings
 changes to said schema.
@@ -1015,6 +1052,12 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 								},
 								"description": schema.StringAttribute{
 									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+								"query": schema.StringAttribute{
+									MarkdownDescription: `TODO: Move this into a separated QueryVariableModel type`,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,

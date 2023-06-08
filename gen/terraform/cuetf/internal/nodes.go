@@ -51,11 +51,19 @@ func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, erro
 	}
 
 	node := types.Node{
-		Name:     name,
-		Kind:     val.IncompleteKind(),
-		Optional: optional,
+		Name: name,
+		Kind: val.IncompleteKind(),
+		// Structs should be optional if we want to set nested defaults
+		Optional: optional || val.IncompleteKind() == cue.StructKind,
 		Default:  getDefault(val),
 		Doc:      formatDoc(val.Doc()),
+	}
+
+	val = cue.Dereference(val)
+	op, args := val.Expr()
+	if op == cue.OrOp {
+		err := handleDisjunction(&node, args)
+		return &node, err
 	}
 
 	switch node.Kind {
@@ -65,16 +73,6 @@ func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, erro
 			return nil, err
 		}
 	case cue.StructKind:
-		// Structs should be optional if we want to set nested defaults
-		node.Optional = true
-
-		val = cue.Dereference(val)
-		op, args := val.Expr()
-		if op == cue.OrOp {
-			err := handleDisjunction(&node, args)
-			return &node, err
-		}
-
 		children, err := GetAllNodes(val.Value())
 		if err != nil {
 			return nil, err
@@ -144,7 +142,33 @@ func handleList(node *types.Node, val cue.Value) error {
 
 func handleDisjunction(node *types.Node, vals []cue.Value) error {
 	children := make([]types.Node, 0)
+	disjuncts := make([]cue.Value, 0)
+
+	isComplex := false
 	for _, val := range vals {
+		isStructOrList := val.IncompleteKind() == cue.StructKind || val.IncompleteKind() == cue.ListKind
+		if isStructOrList || !containsKind(disjuncts, val.IncompleteKind()) {
+			disjuncts = append(disjuncts, val)
+		}
+
+		if isStructOrList {
+			isComplex = true
+		}
+	}
+
+	if len(disjuncts) <= 1 && !isComplex {
+		return nil
+	}
+
+	if !isComplex || containsKind(disjuncts, cue.StringKind) {
+		node.Kind = cue.StringKind
+		for _, d := range disjuncts {
+			node.DisjunctionKinds = append(node.DisjunctionKinds, d.IncompleteKind())
+		}
+		return nil
+	}
+
+	for _, val := range disjuncts {
 		node.SubKind = val.IncompleteKind()
 
 		_, p := val.ReferencePath()
@@ -163,6 +187,15 @@ func handleDisjunction(node *types.Node, vals []cue.Value) error {
 	node.Children = children
 
 	return nil
+}
+
+func containsKind(values []cue.Value, kind cue.Kind) bool {
+	for _, v := range values {
+		if v.IncompleteKind() == kind {
+			return true
+		}
+	}
+	return false
 }
 
 func getDefault(v cue.Value) string {

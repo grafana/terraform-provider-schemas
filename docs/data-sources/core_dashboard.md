@@ -29,6 +29,7 @@ Accepted values are 0 (sync turned off), 1 (shared crosshair), 2 (shared crossha
 This will keep data "moving left" regardless of the query refresh rate.  This setting helps
 avoid dashboards presenting stale live data
 - `panels` (List of String)
+- `refresh` (String) Refresh rate of dashboard. Represented via interval string, e.g. "5s", "1m", "1h", "1d".
 - `revision` (Number) This property should only be used in dashboards defined by plugins.  It is a quick check
 to see if the version has changed since the last time.  Unclear why using the version property
 is insufficient.
@@ -180,6 +181,7 @@ Optional:
 - `global` (Boolean) Defaults to false.
 - `index` (Number) Defaults to -1.
 - `label` (String)
+- `query` (String) TODO: Move this into a separated QueryVariableModel type
 - `root_state_key` (String)
 - `skip_url_sync` (Boolean) Defaults to false.
 
