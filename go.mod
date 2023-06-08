@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/grafana/thema v0.0.0-20230524160113-4e9d6e28a640
 	github.com/hashicorp/terraform-plugin-docs v0.14.1
-	github.com/hashicorp/terraform-plugin-framework v1.2.0
+	github.com/hashicorp/terraform-plugin-framework v1.3.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 )
 
