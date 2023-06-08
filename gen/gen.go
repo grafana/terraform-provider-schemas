@@ -37,6 +37,10 @@ func main() {
 		}()
 
 	for _, kind := range corekind.NewBase(nil).All() {
+		// This provider should only generate dashboard-related datasources for now
+		if kind.Name() != "Dashboard" {
+			continue
+		}
 		if kind.Maturity().Less(minMaturity) {
 			continue
 		}
