@@ -29,7 +29,7 @@ environments, and the risks are unknown/high.
 
 ## Usage
 
-This provider is to be used with the existing [Grafana Terraform Provider](https://registry.terraform.io/providers/grafana/grafana/latest). It is generated from the [CUE schemas](https://github.com/grafana/grafana/blob/main/kinds/dashboard/dashboard_kind.cue) defined in the Grafana repository to ensure it stays up-to-date.
+This provider should be used with the [Grafana Terraform Provider](https://registry.terraform.io/providers/grafana/grafana/latest). It is generated from the [CUE schemas](https://github.com/grafana/grafana/blob/main/kinds/dashboard/dashboard_kind.cue) defined in the Grafana repository to ensure it stays up-to-date.
 
 Configure the [Grafana Terraform Provider](https://registry.terraform.io/providers/grafana/grafana/latest) to access your Grafana instance (see [documentation](https://grafana.com/docs/grafana-cloud/infrastructure-as-code/terraform/)). Then use this Grafana Schemas Terraform provider to create your dashboards.
 
