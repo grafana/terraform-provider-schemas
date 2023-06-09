@@ -19,7 +19,7 @@ type Model struct {
 func (s *Model) terraformModel() string {
 	fields := make([]string, 0)
 	if !s.Nested {
-		fields = append(fields, "ToJSON types.String `tfsdk:\"to_json\"`")
+		fields = append(fields, "RenderedJSON types.String `tfsdk:\"rendered_json\"`")
 	}
 
 	for _, node := range s.Nodes {

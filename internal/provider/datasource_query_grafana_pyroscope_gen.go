@@ -40,7 +40,7 @@ func NewQueryGrafanaPyroscopeDataSource() datasource.DataSource {
 type QueryGrafanaPyroscopeDataSource struct{}
 
 type QueryGrafanaPyroscopeDataSourceModel struct {
-	ToJSON        types.String `tfsdk:"to_json"`
+	RenderedJSON  types.String `tfsdk:"rendered_json"`
 	LabelSelector types.String `tfsdk:"label_selector"`
 	ProfileTypeId types.String `tfsdk:"profile_type_id"`
 	GroupBy       types.List   `tfsdk:"group_by"`
@@ -153,7 +153,7 @@ TODO make this required and give it a default`,
 				Required: false,
 			},
 
-			"to_json": schema.StringAttribute{
+			"rendered_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
 			},
@@ -181,7 +181,7 @@ func (d *QueryGrafanaPyroscopeDataSource) Read(ctx context.Context, req datasour
 	}
 
 	// Not sure about that
-	data.ToJSON = types.StringValue(string(JSONConfig))
+	data.RenderedJSON = types.StringValue(string(JSONConfig))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log

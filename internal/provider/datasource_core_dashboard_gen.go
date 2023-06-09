@@ -611,7 +611,7 @@ func (m CoreDashboardDataSourceModel_Snapshot) ApplyDefaults() CoreDashboardData
 }
 
 type CoreDashboardDataSourceModel struct {
-	ToJSON               types.String                              `tfsdk:"to_json"`
+	RenderedJSON         types.String                              `tfsdk:"rendered_json"`
 	Uid                  types.String                              `tfsdk:"uid"`
 	Title                types.String                              `tfsdk:"title"`
 	Description          types.String                              `tfsdk:"description"`
@@ -1311,7 +1311,7 @@ but code+tests is already depending on it so hard to change`,
 				},
 			},
 
-			"to_json": schema.StringAttribute{
+			"rendered_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
 			},
@@ -1367,7 +1367,7 @@ func (d *CoreDashboardDataSource) Read(ctx context.Context, req datasource.ReadR
 	}
 
 	// Not sure about that
-	data.ToJSON = types.StringValue(string(JSONConfig))
+	data.RenderedJSON = types.StringValue(string(JSONConfig))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log

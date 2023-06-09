@@ -2111,15 +2111,15 @@ func (m QueryElasticsearchDataSourceModel_Metrics) ApplyDefaults() QueryElastics
 }
 
 type QueryElasticsearchDataSourceModel struct {
-	ToJSON     types.String                                   `tfsdk:"to_json"`
-	Alias      types.String                                   `tfsdk:"alias"`
-	Query      types.String                                   `tfsdk:"query"`
-	TimeField  types.String                                   `tfsdk:"time_field"`
-	BucketAggs []QueryElasticsearchDataSourceModel_BucketAggs `tfsdk:"bucket_aggs"`
-	Metrics    []QueryElasticsearchDataSourceModel_Metrics    `tfsdk:"metrics"`
-	RefId      types.String                                   `tfsdk:"ref_id"`
-	Hide       types.Bool                                     `tfsdk:"hide"`
-	QueryType  types.String                                   `tfsdk:"query_type"`
+	RenderedJSON types.String                                   `tfsdk:"rendered_json"`
+	Alias        types.String                                   `tfsdk:"alias"`
+	Query        types.String                                   `tfsdk:"query"`
+	TimeField    types.String                                   `tfsdk:"time_field"`
+	BucketAggs   []QueryElasticsearchDataSourceModel_BucketAggs `tfsdk:"bucket_aggs"`
+	Metrics      []QueryElasticsearchDataSourceModel_Metrics    `tfsdk:"metrics"`
+	RefId        types.String                                   `tfsdk:"ref_id"`
+	Hide         types.Bool                                     `tfsdk:"hide"`
+	QueryType    types.String                                   `tfsdk:"query_type"`
 }
 
 func (m QueryElasticsearchDataSourceModel) MarshalJSON() ([]byte, error) {
@@ -3489,7 +3489,7 @@ TODO make this required and give it a default`,
 				Required: false,
 			},
 
-			"to_json": schema.StringAttribute{
+			"rendered_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
 			},
@@ -3517,7 +3517,7 @@ func (d *QueryElasticsearchDataSource) Read(ctx context.Context, req datasource.
 	}
 
 	// Not sure about that
-	data.ToJSON = types.StringValue(string(JSONConfig))
+	data.RenderedJSON = types.StringValue(string(JSONConfig))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log

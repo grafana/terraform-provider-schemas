@@ -40,7 +40,7 @@ func NewQueryGoogleCloudMonitoringDataSource() datasource.DataSource {
 type QueryGoogleCloudMonitoringDataSource struct{}
 
 type QueryGoogleCloudMonitoringDataSourceModel struct {
-	ToJSON types.String `tfsdk:"to_json"`
+	RenderedJSON types.String `tfsdk:"rendered_json"`
 }
 
 func (m QueryGoogleCloudMonitoringDataSourceModel) MarshalJSON() ([]byte, error) {
@@ -68,7 +68,7 @@ func (d *QueryGoogleCloudMonitoringDataSource) Schema(ctx context.Context, req d
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 
-			"to_json": schema.StringAttribute{
+			"rendered_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
 			},
@@ -96,7 +96,7 @@ func (d *QueryGoogleCloudMonitoringDataSource) Read(ctx context.Context, req dat
 	}
 
 	// Not sure about that
-	data.ToJSON = types.StringValue(string(JSONConfig))
+	data.RenderedJSON = types.StringValue(string(JSONConfig))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log

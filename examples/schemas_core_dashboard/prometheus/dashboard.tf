@@ -17,7 +17,7 @@ provider "grafana" {
 }
 
 resource "grafana_dashboard" "example" {
-  config_json = data.schemas_core_dashboard.prometheus_dashboard.to_json
+  config_json = data.schemas_core_dashboard.prometheus_dashboard.rendered_json
 }
 
 resource "grafana_data_source" "prometheus" {
@@ -35,9 +35,9 @@ data "schemas_core_dashboard" "prometheus_dashboard" {
   }
 
   panels = [
-    data.schemas_panel_stat.disk.to_json,
-    data.schemas_panel_time_series.cpu_usage.to_json,
-    data.schemas_panel_time_series.disk_usage.to_json,
+    data.schemas_panel_stat.disk.rendered_json,
+    data.schemas_panel_time_series.cpu_usage.rendered_json,
+    data.schemas_panel_time_series.disk_usage.rendered_json,
   ]
 }
 
@@ -63,7 +63,7 @@ data "schemas_panel_stat" "disk" {
   }
 
   targets = [
-    data.schemas_query_prometheus.disk_target.to_json
+    data.schemas_query_prometheus.disk_target.rendered_json
   ]
 }
 
@@ -103,7 +103,7 @@ data "schemas_panel_time_series" "cpu_usage" {
   }
 
   targets = [
-    data.schemas_query_prometheus.cpu_target.to_json
+    data.schemas_query_prometheus.cpu_target.rendered_json
   ]
 }
 
@@ -151,7 +151,7 @@ data "schemas_panel_time_series" "disk_usage" {
   }
 
   targets = [
-    data.schemas_query_prometheus.disk_target.to_json
+    data.schemas_query_prometheus.disk_target.rendered_json
   ]
 }
 

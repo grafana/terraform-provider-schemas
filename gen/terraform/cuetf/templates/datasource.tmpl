@@ -41,7 +41,7 @@ func (d *{{.StructName}}) Schema(ctx context.Context, req datasource.SchemaReque
 		MarkdownDescription: "{{.Description}}",
 		Attributes: map[string]schema.Attribute{
             {{.SchemaAttributes}}
-            "to_json": schema.StringAttribute{
+            "rendered_json": schema.StringAttribute{
 				Computed:            true,
                 MarkdownDescription: "This datasource rendered as JSON",
             },
@@ -128,7 +128,7 @@ func (d *{{.StructName}}) Read(ctx context.Context, req datasource.ReadRequest, 
 	{{ end }}
     
 	// Not sure about that
-	data.ToJSON = types.StringValue(string(JSONConfig))
+	data.RenderedJSON = types.StringValue(string(JSONConfig))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log

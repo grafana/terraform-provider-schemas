@@ -36,7 +36,7 @@ TODO make this required and give it a default
 
 ### Read-Only
 
-- `to_json` (String) This datasource rendered as JSON
+- `rendered_json` (String) This datasource rendered as JSON
 
 <a id="nestedatt--bucket_aggs"></a>
 ### Nested Schema for `bucket_aggs`

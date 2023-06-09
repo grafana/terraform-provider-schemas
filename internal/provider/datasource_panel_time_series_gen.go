@@ -982,7 +982,7 @@ func (m PanelTimeSeriesDataSourceModel_FieldConfig) ApplyDefaults() PanelTimeSer
 }
 
 type PanelTimeSeriesDataSourceModel struct {
-	ToJSON          types.String                                     `tfsdk:"to_json"`
+	RenderedJSON    types.String                                     `tfsdk:"rendered_json"`
 	Type            types.String                                     `tfsdk:"type"`
 	PluginVersion   types.String                                     `tfsdk:"plugin_version"`
 	Tags            types.List                                       `tfsdk:"tags"`
@@ -1859,7 +1859,7 @@ in panel plugin schemas.`,
 				},
 			},
 
-			"to_json": schema.StringAttribute{
+			"rendered_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
 			},
@@ -1915,7 +1915,7 @@ func (d *PanelTimeSeriesDataSource) Read(ctx context.Context, req datasource.Rea
 	}
 
 	// Not sure about that
-	data.ToJSON = types.StringValue(string(JSONConfig))
+	data.RenderedJSON = types.StringValue(string(JSONConfig))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log

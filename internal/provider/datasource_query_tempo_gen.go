@@ -40,7 +40,7 @@ func NewQueryTempoDataSource() datasource.DataSource {
 type QueryTempoDataSource struct{}
 
 type QueryTempoDataSourceModel struct {
-	ToJSON types.String `tfsdk:"to_json"`
+	RenderedJSON types.String `tfsdk:"rendered_json"`
 }
 
 func (m QueryTempoDataSourceModel) MarshalJSON() ([]byte, error) {
@@ -68,7 +68,7 @@ func (d *QueryTempoDataSource) Schema(ctx context.Context, req datasource.Schema
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 
-			"to_json": schema.StringAttribute{
+			"rendered_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
 			},
@@ -96,7 +96,7 @@ func (d *QueryTempoDataSource) Read(ctx context.Context, req datasource.ReadRequ
 	}
 
 	// Not sure about that
-	data.ToJSON = types.StringValue(string(JSONConfig))
+	data.RenderedJSON = types.StringValue(string(JSONConfig))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log

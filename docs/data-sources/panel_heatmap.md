@@ -58,7 +58,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 
 ### Read-Only
 
-- `to_json` (String) This datasource rendered as JSON
+- `rendered_json` (String) This datasource rendered as JSON
 
 <a id="nestedatt--datasource"></a>
 ### Nested Schema for `datasource`
