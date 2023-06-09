@@ -9,9 +9,10 @@ import (
 )
 
 type Model struct {
-	Name   string
-	Nodes  []Node
-	Nested bool
+	Name          string
+	IsDisjunction bool
+	Nodes         []Node
+	Nested        bool
 }
 
 // terraformModel generates the Terraform SDK model.
@@ -55,7 +56,11 @@ func (s *Model) generateToJSONFunction() string {
 	b := strings.Builder{}
 
 	fmt.Fprintf(&b, "func (m %s) MarshalJSON() ([]byte, error) {\n", s.Name)
-	b.WriteString(s.jsonModel() + "\n")
+	if s.IsDisjunction {
+		fmt.Fprintf(&b, "var json_%s interface{}\n", s.Name)
+	} else {
+		b.WriteString(s.jsonModel() + "\n")
+	}
 	b.WriteString("m = m.ApplyDefaults()\n")
 
 	structLines := make([]string, 0)
@@ -65,6 +70,9 @@ func (s *Model) generateToJSONFunction() string {
 		}
 
 		identifier := "attr_" + strings.ToLower(node.Name)
+		if s.IsDisjunction {
+			identifier = "json_" + s.Name
+		}
 		funcString := node.terraformFunc()
 
 		if node.Kind == cue.ListKind {
@@ -83,7 +91,9 @@ func (s *Model) generateToJSONFunction() string {
 				b.WriteString("	}\n")
 			}
 		} else if node.Kind == cue.StructKind {
-			fmt.Fprintf(&b, "	var %s interface{}\n", identifier)
+			if !s.IsDisjunction {
+				fmt.Fprintf(&b, "	var %s interface{}\n", identifier)
+			}
 			if node.Optional {
 				fmt.Fprintf(&b, "	if m.%s != nil {\n", utils.ToCamelCase(node.Name))
 				fmt.Fprintf(&b, "		%s = m.%s\n", identifier, utils.ToCamelCase(node.Name))
@@ -101,15 +111,24 @@ func (s *Model) generateToJSONFunction() string {
 		structLines = append(structLines, fmt.Sprintf("		%s: %s,\n", utils.ToCamelCase(node.Name), identifier))
 	}
 
-	fmt.Fprintf(&b, `
-	
-	model := &json%s {
-%s
-	}
-	return json.Marshal(model)
-}
+	if s.IsDisjunction {
+		fmt.Fprintf(&b, `
+		
+			return json.Marshal(json_%s)
+		}
 
-`, s.Name, strings.Join(structLines, ""))
+		`, s.Name)
+	} else {
+		fmt.Fprintf(&b, `
+	
+			model := &json%s {
+		%s
+			}
+			return json.Marshal(model)
+		}
+	
+		`, s.Name, strings.Join(structLines, ""))
+	}
 
 	return b.String()
 }
@@ -146,9 +165,10 @@ func (s *Model) Generate() string {
 	for _, node := range s.Nodes {
 		if node.Kind == cue.StructKind || node.Kind == cue.ListKind && node.SubKind == cue.StructKind {
 			nestedModel := Model{
-				Name:   s.Name + "_" + utils.Title(node.Name),
-				Nodes:  node.Children,
-				Nested: true,
+				Name:          s.Name + "_" + utils.Title(node.Name),
+				IsDisjunction: node.IsDisjunction,
+				Nodes:         node.Children,
+				Nested:        true,
 			}
 			b.WriteString(nestedModel.Generate())
 		}

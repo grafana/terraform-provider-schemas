@@ -112,6 +112,7 @@ func GenerateDataSource(schema thema.Schema) (b []byte, err error) {
 func GenerateSchemaAttributes(nodes []types.Node) (string, error) {
 	attributes := make([]string, 0)
 	for _, node := range nodes {
+		// TODO: all nodes should be generated
 		if !node.IsGenerated() {
 			continue
 		}
@@ -171,22 +172,40 @@ func GenerateSchemaAttributes(nodes []types.Node) (string, error) {
 				vars.NestedObjectAttributes = nestedObjectAttributes
 			}
 		case cue.StructKind:
-			// "nested_attribute": schema.SingleNestedAttribute{
-			//     Attributes: map[string]schema.Attribute{
-			//         "hello": schema.StringAttribute{
-			//             /* ... */
-			//         },
-			//     },
-			// },
-			vars.AttributeType = "SingleNested"
-			nestedAttributes, err := GenerateSchemaAttributes(node.Children)
-			if err != nil {
-				return "", fmt.Errorf("error trying to generate nested attributes in struct: %w", err)
-			}
-			vars.NestedAttributes = nestedAttributes
+			if node.IsMap {
+				// "nested_attribute": schema.MapNestedAttribute{
+				// 		NestedObject: schema.NestedAttributeObject{
+				// 			Attributes: map[string]schema.Attribute{
+				// 				"hello": schema.StringAttribute{
+				// 					/* ... */
+				// 				},
+				// 			},
+				// 		},
+				// },
+				vars.AttributeType = "MapNested"
+				nestedObjectAttributes, err := GenerateSchemaAttributes(node.Children)
+				if err != nil {
+					return "", fmt.Errorf("error trying to generate nested attributes in map: %s", err)
+				}
+				vars.NestedObjectAttributes = nestedObjectAttributes
+			} else {
+				// "nested_attribute": schema.SingleNestedAttribute{
+				//     Attributes: map[string]schema.Attribute{
+				//         "hello": schema.StringAttribute{
+				//             /* ... */
+				//         },
+				//     },
+				// },
+				vars.AttributeType = "SingleNested"
+				nestedAttributes, err := GenerateSchemaAttributes(node.Children)
+				if err != nil {
+					return "", fmt.Errorf("error trying to generate nested attributes in struct: %w", err)
+				}
+				vars.NestedAttributes = nestedAttributes
 
-			// Structs should be computed if we want to set nested defaults?
-			vars.Computed = true
+				// Structs should be computed if we want to set nested defaults?
+				vars.Computed = true
+			}
 		}
 
 		buf := new(bytes.Buffer)
