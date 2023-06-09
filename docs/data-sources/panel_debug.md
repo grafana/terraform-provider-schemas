@@ -58,7 +58,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 
 ### Read-Only
 
-- `to_json` (String) This datasource rendered as JSON
+- `rendered_json` (String) This datasource rendered as JSON
 
 <a id="nestedatt--datasource"></a>
 ### Nested Schema for `datasource`
@@ -247,10 +247,17 @@ Required:
 
 Optional:
 
-- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
+- `options` (Attributes Map) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
 
 <a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
 ### Nested Schema for `field_config.defaults.mappings.value_map.options`
+
+Optional:
+
+- `color` (String)
+- `icon` (String)
+- `index` (Number)
+- `text` (String)
 
 
 
@@ -358,5 +365,3 @@ Optional:
 
 <a id="nestedatt--transformations--filter"></a>
 ### Nested Schema for `transformations.filter`
-
-

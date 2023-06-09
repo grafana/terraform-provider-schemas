@@ -51,7 +51,7 @@ provider "grafana" {
   auth = "admin:admin"
 }
 resource "grafana_dashboard" "example" {
-  config_json = data.schemas_core_dashboard.my_dashboard.to_json
+  config_json = data.schemas_core_dashboard.my_dashboard.rendered_json
 }
 data "schemas_core_dashboard" "my_dashboard" {
   title = "My Dashboard"
@@ -59,7 +59,7 @@ data "schemas_core_dashboard" "my_dashboard" {
     from = "now-1h"
   }
   panels = [
-    data.schemas_panel_stat.my_panel.to_json,
+    data.schemas_panel_stat.my_panel.rendered_json,
   ]
 }
 data "schemas_panel_stat" "my_panel" {

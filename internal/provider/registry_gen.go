@@ -15,15 +15,11 @@ import (
 
 var datasources = []func() datasource.DataSource{
 	NewCoreDashboardDataSource,
-	NewQueryAzureMonitorDataSource,
-	NewQueryGoogleCloudMonitoringDataSource,
-	NewQueryCloudWatchDataSource,
 	NewQueryElasticsearchDataSource,
 	NewQueryLokiDataSource,
 	NewQueryParcaDataSource,
 	NewQueryGrafanaPyroscopeDataSource,
 	NewQueryPrometheusDataSource,
-	NewQueryTempoDataSource,
 	NewQueryTestDataDataSource,
 	NewPanelAlertGroupsDataSource,
 	NewPanelAnnotationsListDataSource,

@@ -51,7 +51,7 @@ Accepted values are relative time strings like {from: 'now-6h', to: 'now'} or ab
 
 ### Read-Only
 
-- `to_json` (String) This datasource rendered as JSON
+- `rendered_json` (String) This datasource rendered as JSON
 
 <a id="nestedatt--annotations"></a>
 ### Nested Schema for `annotations`
@@ -219,5 +219,3 @@ Optional:
 - `hidden` (Boolean) Whether timepicker is visible or not. Defaults to false.
 - `refresh_intervals` (List of String) Interval options available in the refresh picker dropdown.
 - `time_options` (List of String) Selectable options available in the time picker dropdown. Has no effect on provisioned dashboard.
-
-

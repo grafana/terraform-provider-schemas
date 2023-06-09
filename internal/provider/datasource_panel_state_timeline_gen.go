@@ -286,15 +286,32 @@ func (m PanelStateTimelineDataSourceModel_Options) ApplyDefaults() PanelStateTim
 }
 
 type PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
+	Text  types.String `tfsdk:"text"`
+	Color types.String `tfsdk:"color"`
+	Icon  types.String `tfsdk:"icon"`
+	Index types.Int64  `tfsdk:"index"`
 }
 
 func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelStateTimelineDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
+		Text  *string `json:"text,omitempty"`
+		Color *string `json:"color,omitempty"`
+		Icon  *string `json:"icon,omitempty"`
+		Index *int64  `json:"index,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelStateTimelineDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{}
+	model := &jsonPanelStateTimelineDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
+	}
 	return json.Marshal(model)
 }
 
@@ -304,8 +321,8 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap
 }
 
 type PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
-	Type    types.String                                                                      `tfsdk:"type"`
-	Options *PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options `tfsdk:"options"`
+	Type    types.String                                                                                 `tfsdk:"type"`
+	Options *map[string]PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options `tfsdk:"options"`
 }
 
 func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) MarshalJSON() ([]byte, error) {
@@ -965,7 +982,7 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig) ApplyDefaults() PanelStat
 }
 
 type PanelStateTimelineDataSourceModel struct {
-	ToJSON          types.String                                        `tfsdk:"to_json"`
+	RenderedJSON    types.String                                        `tfsdk:"rendered_json"`
 	Type            types.String                                        `tfsdk:"type"`
 	PluginVersion   types.String                                        `tfsdk:"plugin_version"`
 	Tags            types.List                                          `tfsdk:"tags"`
@@ -1494,11 +1511,39 @@ may be used to update the results`,
 													Optional:            false,
 													Required:            true,
 												},
-												"options": schema.SingleNestedAttribute{
+												"options": schema.MapNestedAttribute{
 													MarkdownDescription: ``,
-													Computed:            true,
+													Computed:            false,
 													Optional:            true,
 													Required:            false,
+													NestedObject: schema.NestedAttributeObject{
+														Attributes: map[string]schema.Attribute{
+															"text": schema.StringAttribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+															"color": schema.StringAttribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+															"icon": schema.StringAttribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+															"index": schema.Int64Attribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+														},
+													},
 												},
 											},
 										},
@@ -1814,7 +1859,7 @@ in panel plugin schemas.`,
 				},
 			},
 
-			"to_json": schema.StringAttribute{
+			"rendered_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
 			},
@@ -1870,7 +1915,7 @@ func (d *PanelStateTimelineDataSource) Read(ctx context.Context, req datasource.
 	}
 
 	// Not sure about that
-	data.ToJSON = types.StringValue(string(JSONConfig))
+	data.RenderedJSON = types.StringValue(string(JSONConfig))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log

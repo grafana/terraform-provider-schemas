@@ -40,7 +40,7 @@ func NewQueryParcaDataSource() datasource.DataSource {
 type QueryParcaDataSource struct{}
 
 type QueryParcaDataSourceModel struct {
-	ToJSON        types.String `tfsdk:"to_json"`
+	RenderedJSON  types.String `tfsdk:"rendered_json"`
 	LabelSelector types.String `tfsdk:"label_selector"`
 	ProfileTypeId types.String `tfsdk:"profile_type_id"`
 	RefId         types.String `tfsdk:"ref_id"`
@@ -126,7 +126,7 @@ TODO make this required and give it a default`,
 				Required: false,
 			},
 
-			"to_json": schema.StringAttribute{
+			"rendered_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
 			},
@@ -154,7 +154,7 @@ func (d *QueryParcaDataSource) Read(ctx context.Context, req datasource.ReadRequ
 	}
 
 	// Not sure about that
-	data.ToJSON = types.StringValue(string(JSONConfig))
+	data.RenderedJSON = types.StringValue(string(JSONConfig))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log

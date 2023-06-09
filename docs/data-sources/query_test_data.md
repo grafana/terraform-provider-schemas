@@ -50,7 +50,7 @@ TODO make this required and give it a default
 
 ### Read-Only
 
-- `to_json` (String) This datasource rendered as JSON
+- `rendered_json` (String) This datasource rendered as JSON
 
 <a id="nestedatt--csv_wave"></a>
 ### Nested Schema for `csv_wave`
@@ -137,5 +137,3 @@ Optional:
 - `mode` (String)
 - `period` (String)
 - `states` (List of String)
-
-

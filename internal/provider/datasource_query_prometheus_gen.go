@@ -40,7 +40,7 @@ func NewQueryPrometheusDataSource() datasource.DataSource {
 type QueryPrometheusDataSource struct{}
 
 type QueryPrometheusDataSourceModel struct {
-	ToJSON         types.String  `tfsdk:"to_json"`
+	RenderedJSON   types.String  `tfsdk:"rendered_json"`
 	Expr           types.String  `tfsdk:"expr"`
 	Instant        types.Bool    `tfsdk:"instant"`
 	Range          types.Bool    `tfsdk:"range"`
@@ -187,7 +187,7 @@ TODO make this required and give it a default`,
 				Required: false,
 			},
 
-			"to_json": schema.StringAttribute{
+			"rendered_json": schema.StringAttribute{
 				Computed:            true,
 				MarkdownDescription: "This datasource rendered as JSON",
 			},
@@ -215,7 +215,7 @@ func (d *QueryPrometheusDataSource) Read(ctx context.Context, req datasource.Rea
 	}
 
 	// Not sure about that
-	data.ToJSON = types.StringValue(string(JSONConfig))
+	data.RenderedJSON = types.StringValue(string(JSONConfig))
 
 	// Write logs using the tflog package
 	// Documentation: https://terraform.io/plugin/log

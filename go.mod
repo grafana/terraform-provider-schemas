@@ -4,8 +4,8 @@ go 1.20
 
 require (
 	github.com/grafana/thema v0.0.0-20230524160113-4e9d6e28a640
-	github.com/hashicorp/terraform-plugin-docs v0.14.1
-	github.com/hashicorp/terraform-plugin-framework v1.2.0
+	github.com/hashicorp/terraform-plugin-docs v0.15.0
+	github.com/hashicorp/terraform-plugin-framework v1.3.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 )
 
@@ -13,9 +13,11 @@ require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/Masterminds/sprig/v3 v3.2.2 // indirect
+	github.com/ProtonMail/go-crypto v0.0.0-20230426101702-58e86b294756 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/armon/go-radix v1.0.0 // indirect
 	github.com/bgentry/speakeasy v0.1.0 // indirect
+	github.com/cloudflare/circl v1.3.3 // indirect
 	github.com/cockroachdb/errors v1.9.1 // indirect
 	github.com/cockroachdb/logtags v0.0.0-20211118104740-dabe8e521a4f // indirect
 	github.com/cockroachdb/redact v1.1.3 // indirect
@@ -31,9 +33,9 @@ require (
 	github.com/hashicorp/go-checkpoint v0.5.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-version v1.6.0 // indirect
-	github.com/hashicorp/hc-install v0.5.0 // indirect
+	github.com/hashicorp/hc-install v0.5.2 // indirect
 	github.com/hashicorp/terraform-exec v0.18.1 // indirect
-	github.com/hashicorp/terraform-json v0.15.0 // indirect
+	github.com/hashicorp/terraform-json v0.16.0 // indirect
 	github.com/hashicorp/terraform-plugin-go v0.15.0 // indirect
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.13 // indirect
@@ -63,7 +65,7 @@ require (
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/xeipuuv/gojsonpointer v0.0.0-20190905194746-02993c407bfb // indirect
 	github.com/xlab/treeprint v1.2.0 // indirect
-	github.com/zclconf/go-cty v1.13.0 // indirect
+	github.com/zclconf/go-cty v1.13.2 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230530153820-e85fd2cbaebc // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
