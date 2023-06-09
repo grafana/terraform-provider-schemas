@@ -9,14 +9,16 @@ import (
 )
 
 type Node struct {
-	Name     string
-	Kind     cue.Kind
-	SubKind  cue.Kind // For list only, kind of its elements
-	Optional bool
-	Default  string
-	Doc      string
-	Children []Node
-	Parent   *Node
+	Name          string
+	Kind          cue.Kind
+	SubKind       cue.Kind // For list only, kind of its elements
+	IsMap         bool
+	IsDisjunction bool
+	Optional      bool
+	Default       string
+	Doc           string
+	Children      []Node
+	Parent        *Node
 }
 
 func (n *Node) TerraformModelField(structName string) string {
@@ -29,7 +31,10 @@ func (n *Node) TerraformModelField(structName string) string {
 	case n.Kind == cue.ListKind && subKind != nil:
 		typeStr = "types.List"
 	case n.Kind == cue.StructKind:
-		typeStr = structName + "_" + utils.Title(n.Name)
+		if n.IsMap {
+			typeStr = "map[string]"
+		}
+		typeStr += structName + "_" + utils.Title(n.Name)
 		if n.Optional {
 			typeStr = "*" + typeStr
 		}
