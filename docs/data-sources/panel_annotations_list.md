@@ -53,7 +53,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 - `title` (String) Panel title.
 - `transformations` (Attributes List) (see [below for nested schema](#nestedatt--transformations))
 - `transparent` (Boolean) Whether to display the panel without a background. Defaults to false.
-- `type` (String) The panel plugin type id. May not be empty. Defaults to "annotationslist".
+- `type` (String) The panel plugin type id. May not be empty. Defaults to "annolist".
 
 ### Read-Only
 

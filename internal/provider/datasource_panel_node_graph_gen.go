@@ -1341,7 +1341,7 @@ func (m PanelNodeGraphDataSourceModel) MarshalJSON() ([]byte, error) {
 
 func (m PanelNodeGraphDataSourceModel) ApplyDefaults() PanelNodeGraphDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`nodegraph`)
+		m.Type = types.StringValue(`nodeGraph`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -1368,7 +1368,7 @@ func (d *PanelNodeGraphDataSource) Schema(ctx context.Context, req datasource.Sc
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "nodegraph".`,
+				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "nodeGraph".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,

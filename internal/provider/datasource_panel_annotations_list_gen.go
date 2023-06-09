@@ -1182,7 +1182,7 @@ func (m PanelAnnotationsListDataSourceModel) MarshalJSON() ([]byte, error) {
 
 func (m PanelAnnotationsListDataSourceModel) ApplyDefaults() PanelAnnotationsListDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`annotationslist`)
+		m.Type = types.StringValue(`annolist`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -1209,7 +1209,7 @@ func (d *PanelAnnotationsListDataSource) Schema(ctx context.Context, req datasou
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "annotationslist".`,
+				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "annolist".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,

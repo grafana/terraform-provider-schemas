@@ -73,7 +73,7 @@ func GenerateDataSource(schema thema.Schema) (b []byte, err error) {
 
 			// TODO: set it as read-only?
 			if node.Name == "type" {
-				panelType := strings.ToLower(strings.TrimPrefix(GetKindName(linName), "Panel")) // TODO: Better way to get panel type?
+				panelType := GetPanelType(linName)
 				node.Default = fmt.Sprintf("`%s`", panelType)
 				panelNodes[i] = node
 			}
@@ -274,6 +274,30 @@ func GetKindName(rawName string) string {
 	}
 
 	return name
+}
+
+// From https://github.com/grafana/grafana/blob/main/pkg/kindsysreport/codegen/report.go#LL283-L299
+// used to map names for those plugins that aren't following
+// naming conventions, like 'annonlist' which comes from "Annotations list".
+var irregularPluginNames = map[string]string{
+	"alertgroups":     "alertGroups",
+	"annotationslist": "annolist",
+	"dashboardlist":   "dashlist",
+	"nodegraph":       "nodeGraph",
+	"statetimeline":   "state-timeline",
+	"statushistory":   "status-history",
+	"tableold":        "table-old",
+}
+
+// TODO: Better way to get panel type?
+func GetPanelType(name string) string {
+	panelType := strings.ToLower(strings.TrimPrefix(GetKindName(name), "Panel"))
+
+	if name, isIrregular := irregularPluginNames[panelType]; isIrregular {
+		panelType = name
+	}
+
+	return panelType
 }
 
 func GetStructName(rawName string) string {

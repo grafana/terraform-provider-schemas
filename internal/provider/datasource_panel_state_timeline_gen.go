@@ -1290,7 +1290,7 @@ func (m PanelStateTimelineDataSourceModel) MarshalJSON() ([]byte, error) {
 
 func (m PanelStateTimelineDataSourceModel) ApplyDefaults() PanelStateTimelineDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`statetimeline`)
+		m.Type = types.StringValue(`state-timeline`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -1317,7 +1317,7 @@ func (d *PanelStateTimelineDataSource) Schema(ctx context.Context, req datasourc
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "statetimeline".`,
+				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "state-timeline".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,

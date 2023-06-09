@@ -1122,7 +1122,7 @@ func (m PanelAlertGroupsDataSourceModel) MarshalJSON() ([]byte, error) {
 
 func (m PanelAlertGroupsDataSourceModel) ApplyDefaults() PanelAlertGroupsDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`alertgroups`)
+		m.Type = types.StringValue(`alertGroups`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -1149,7 +1149,7 @@ func (d *PanelAlertGroupsDataSource) Schema(ctx context.Context, req datasource.
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "alertgroups".`,
+				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "alertGroups".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,

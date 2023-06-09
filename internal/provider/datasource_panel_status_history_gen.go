@@ -1283,7 +1283,7 @@ func (m PanelStatusHistoryDataSourceModel) MarshalJSON() ([]byte, error) {
 
 func (m PanelStatusHistoryDataSourceModel) ApplyDefaults() PanelStatusHistoryDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`statushistory`)
+		m.Type = types.StringValue(`status-history`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -1310,7 +1310,7 @@ func (d *PanelStatusHistoryDataSource) Schema(ctx context.Context, req datasourc
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "statushistory".`,
+				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "status-history".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,

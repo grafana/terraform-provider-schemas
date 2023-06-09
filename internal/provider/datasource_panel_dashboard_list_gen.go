@@ -1338,7 +1338,7 @@ func (m PanelDashboardListDataSourceModel) MarshalJSON() ([]byte, error) {
 
 func (m PanelDashboardListDataSourceModel) ApplyDefaults() PanelDashboardListDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`dashboardlist`)
+		m.Type = types.StringValue(`dashlist`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -1365,7 +1365,7 @@ func (d *PanelDashboardListDataSource) Schema(ctx context.Context, req datasourc
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "dashboardlist".`,
+				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "dashlist".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
