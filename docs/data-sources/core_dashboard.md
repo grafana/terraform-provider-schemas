@@ -217,5 +217,3 @@ Optional:
 - `hidden` (Boolean) Whether timepicker is visible or not. Defaults to false.
 - `refresh_intervals` (List of String) Interval options available in the refresh picker dropdown.
 - `time_options` (List of String) Selectable options available in the time picker dropdown. Has no effect on provisioned dashboard.
-
-

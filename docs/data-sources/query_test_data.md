@@ -137,5 +137,3 @@ Optional:
 - `mode` (String)
 - `period` (String)
 - `states` (List of String)
-
-

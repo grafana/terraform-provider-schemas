@@ -36,5 +36,3 @@ TODO make this required and give it a default
 ### Read-Only
 
 - `rendered_json` (String) This datasource rendered as JSON
-
-

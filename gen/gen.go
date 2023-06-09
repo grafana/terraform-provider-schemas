@@ -46,9 +46,18 @@ func main() {
 		}
 		corek = append(corek, kind)
 	}
+
+	// Skip data sources that only have definitions
+	skippedPlugins := map[string]bool{
+		"AzureMonitorDataQuery":          true,
+		"CloudWatchDataQuery":            true,
+		"GoogleCloudMonitoringDataQuery": true,
+		"TempoDataQuery":                 true,
+	}
 	for _, pp := range corelist.New(nil) {
 		for _, kind := range pp.ComposableKinds {
-			if kind.Maturity().Less(minMaturity) {
+			_, skipped := skippedPlugins[kind.Lineage().Name()]
+			if kind.Maturity().Less(minMaturity) || skipped {
 				continue
 			}
 			compok = append(compok, kind)

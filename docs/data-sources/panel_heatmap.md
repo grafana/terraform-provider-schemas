@@ -365,5 +365,3 @@ Optional:
 
 <a id="nestedatt--transformations--filter"></a>
 ### Nested Schema for `transformations.filter`
-
-

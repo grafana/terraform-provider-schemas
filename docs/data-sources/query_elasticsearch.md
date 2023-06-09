@@ -745,5 +745,3 @@ Optional:
 
 <a id="nestedatt--metrics--pipeline_metric_aggregation--moving_average--settings"></a>
 ### Nested Schema for `metrics.pipeline_metric_aggregation.moving_average.settings`
-
-
