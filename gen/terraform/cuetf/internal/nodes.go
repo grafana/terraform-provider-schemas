@@ -155,7 +155,7 @@ func handleDisjunction(node *types.Node, vals []cue.Value) error {
 	isComplex := false
 	for _, val := range vals {
 		isStructOrList := val.IncompleteKind() == cue.StructKind || val.IncompleteKind() == cue.ListKind
-		if (isStructOrList && !val.IsConcrete()) || !containsKind(disjuncts, val.IncompleteKind()) {
+		if isStructOrList || !containsKind(disjuncts, val.IncompleteKind()) {
 			disjuncts = append(disjuncts, val)
 		}
 
@@ -182,6 +182,10 @@ func handleDisjunction(node *types.Node, vals []cue.Value) error {
 		_, p := val.ReferencePath()
 		arr := strings.Split(p.String(), ".")
 		name := strings.ReplaceAll(arr[len(arr)-1], "#", "")
+		// TODO - currently this catches setting a default object
+		if name == "" {
+			continue
+		}
 
 		child, err := GetSingleNode(name, val, true)
 		if err != nil {

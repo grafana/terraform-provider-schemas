@@ -164,7 +164,117 @@ Optional:
 
 Optional:
 
+- `range_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--range_map))
+- `regex_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--regex_map))
+- `special_value_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--special_value_map))
 - `value_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map))
+
+<a id="nestedatt--field_config--defaults--mappings--range_map"></a>
+### Nested Schema for `field_config.defaults.mappings.value_map`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
+
+<a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
+### Nested Schema for `field_config.defaults.mappings.value_map.options`
+
+Required:
+
+- `from` (Number) to and from are number | null in current ts, really not sure what to do
+- `to` (Number)
+
+Optional:
+
+- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
+
+<a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
+### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
+
+Optional:
+
+- `color` (String)
+- `icon` (String)
+- `index` (Number)
+- `text` (String)
+
+
+
+
+<a id="nestedatt--field_config--defaults--mappings--regex_map"></a>
+### Nested Schema for `field_config.defaults.mappings.value_map`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
+
+<a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
+### Nested Schema for `field_config.defaults.mappings.value_map.options`
+
+Required:
+
+- `pattern` (String)
+
+Optional:
+
+- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
+
+<a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
+### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
+
+Optional:
+
+- `color` (String)
+- `icon` (String)
+- `index` (Number)
+- `text` (String)
+
+
+
+
+<a id="nestedatt--field_config--defaults--mappings--special_value_map"></a>
+### Nested Schema for `field_config.defaults.mappings.value_map`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
+
+<a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
+### Nested Schema for `field_config.defaults.mappings.value_map.options`
+
+Required:
+
+- `match` (String)
+- `pattern` (String)
+
+Optional:
+
+- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
+
+<a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
+### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
+
+Optional:
+
+- `color` (String)
+- `icon` (String)
+- `index` (Number)
+- `text` (String)
+
+
+
 
 <a id="nestedatt--field_config--defaults--mappings--value_map"></a>
 ### Nested Schema for `field_config.defaults.mappings.value_map`

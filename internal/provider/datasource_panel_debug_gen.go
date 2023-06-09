@@ -393,8 +393,304 @@ func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) ApplyD
 	return m
 }
 
+type PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
+	Text  types.String `tfsdk:"text"`
+	Color types.String `tfsdk:"color"`
+	Icon  types.String `tfsdk:"icon"`
+	Index types.Int64  `tfsdk:"index"`
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
+		Text  *string `json:"text,omitempty"`
+		Color *string `json:"color,omitempty"`
+		Icon  *string `json:"icon,omitempty"`
+		Index *int64  `json:"index,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
+
+	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result {
+
+	return m
+}
+
+type PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
+	From   types.Float64                                                                    `tfsdk:"from"`
+	To     types.Float64                                                                    `tfsdk:"to"`
+	Result *PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result `tfsdk:"result"`
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
+		From   float64     `json:"from"`
+		To     float64     `json:"to"`
+		Result interface{} `json:"result,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_from := m.From.ValueFloat64()
+	attr_to := m.To.ValueFloat64()
+	var attr_result interface{}
+	if m.Result != nil {
+		attr_result = m.Result
+	}
+
+	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options{
+		From:   attr_from,
+		To:     attr_to,
+		Result: attr_result,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options {
+
+	return m
+}
+
+type PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
+	Type    types.String                                                              `tfsdk:"type"`
+	Options *PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options `tfsdk:"options"`
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
+		Type    string      `json:"type"`
+		Options interface{} `json:"options,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	var attr_options interface{}
+	if m.Options != nil {
+		attr_options = m.Options
+	}
+
+	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap{
+		Type:    attr_type,
+		Options: attr_options,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap {
+
+	return m
+}
+
+type PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
+	Text  types.String `tfsdk:"text"`
+	Color types.String `tfsdk:"color"`
+	Icon  types.String `tfsdk:"icon"`
+	Index types.Int64  `tfsdk:"index"`
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
+		Text  *string `json:"text,omitempty"`
+		Color *string `json:"color,omitempty"`
+		Icon  *string `json:"icon,omitempty"`
+		Index *int64  `json:"index,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
+
+	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result {
+
+	return m
+}
+
+type PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
+	Pattern types.String                                                                     `tfsdk:"pattern"`
+	Result  *PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result `tfsdk:"result"`
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
+		Pattern string      `json:"pattern"`
+		Result  interface{} `json:"result,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_pattern := m.Pattern.ValueString()
+	var attr_result interface{}
+	if m.Result != nil {
+		attr_result = m.Result
+	}
+
+	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options{
+		Pattern: attr_pattern,
+		Result:  attr_result,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options {
+
+	return m
+}
+
+type PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
+	Type    types.String                                                              `tfsdk:"type"`
+	Options *PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options `tfsdk:"options"`
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
+		Type    string      `json:"type"`
+		Options interface{} `json:"options,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	var attr_options interface{}
+	if m.Options != nil {
+		attr_options = m.Options
+	}
+
+	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap{
+		Type:    attr_type,
+		Options: attr_options,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap {
+
+	return m
+}
+
+type PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
+	Text  types.String `tfsdk:"text"`
+	Color types.String `tfsdk:"color"`
+	Icon  types.String `tfsdk:"icon"`
+	Index types.Int64  `tfsdk:"index"`
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
+		Text  *string `json:"text,omitempty"`
+		Color *string `json:"color,omitempty"`
+		Icon  *string `json:"icon,omitempty"`
+		Index *int64  `json:"index,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
+
+	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result {
+
+	return m
+}
+
+type PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
+	Match   types.String                                                                            `tfsdk:"match"`
+	Pattern types.String                                                                            `tfsdk:"pattern"`
+	Result  *PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
+		Match   string      `json:"match"`
+		Pattern string      `json:"pattern"`
+		Result  interface{} `json:"result,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_match := m.Match.ValueString()
+	attr_pattern := m.Pattern.ValueString()
+	var attr_result interface{}
+	if m.Result != nil {
+		attr_result = m.Result
+	}
+
+	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options{
+		Match:   attr_match,
+		Pattern: attr_pattern,
+		Result:  attr_result,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options {
+
+	return m
+}
+
+type PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
+	Type    types.String                                                                     `tfsdk:"type"`
+	Options *PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options `tfsdk:"options"`
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
+		Type    string      `json:"type"`
+		Options interface{} `json:"options,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	var attr_options interface{}
+	if m.Options != nil {
+		attr_options = m.Options
+	}
+
+	model := &jsonPanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap{
+		Type:    attr_type,
+		Options: attr_options,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) ApplyDefaults() PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap {
+
+	return m
+}
+
 type PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings struct {
-	ValueMap *PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap `tfsdk:"value_map"`
+	ValueMap        *PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap        `tfsdk:"value_map"`
+	RangeMap        *PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap        `tfsdk:"range_map"`
+	RegexMap        *PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap        `tfsdk:"regex_map"`
+	SpecialValueMap *PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap `tfsdk:"special_value_map"`
 }
 
 func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() ([]byte, error) {
@@ -402,6 +698,15 @@ func (m PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() (
 	m = m.ApplyDefaults()
 	if m.ValueMap != nil {
 		json_PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings = m.ValueMap
+	}
+	if m.RangeMap != nil {
+		json_PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings = m.RangeMap
+	}
+	if m.RegexMap != nil {
+		json_PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings = m.RegexMap
+	}
+	if m.SpecialValueMap != nil {
+		json_PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings = m.SpecialValueMap
 	}
 
 	return json.Marshal(json_PanelDebugDataSourceModel_FieldConfig_Defaults_Mappings)
@@ -1471,6 +1776,198 @@ may be used to update the results`,
 																Computed:            false,
 																Optional:            true,
 																Required:            false,
+															},
+														},
+													},
+												},
+											},
+										},
+										"range_map": schema.SingleNestedAttribute{
+											MarkdownDescription: ``,
+											Computed:            true,
+											Optional:            true,
+											Required:            false,
+											Attributes: map[string]schema.Attribute{
+												"type": schema.StringAttribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            false,
+													Required:            true,
+												},
+												"options": schema.SingleNestedAttribute{
+													MarkdownDescription: ``,
+													Computed:            true,
+													Optional:            true,
+													Required:            false,
+													Attributes: map[string]schema.Attribute{
+														"from": schema.Float64Attribute{
+															MarkdownDescription: `to and from are number | null in current ts, really not sure what to do`,
+															Computed:            false,
+															Optional:            false,
+															Required:            true,
+														},
+														"to": schema.Float64Attribute{
+															MarkdownDescription: ``,
+															Computed:            false,
+															Optional:            false,
+															Required:            true,
+														},
+														"result": schema.SingleNestedAttribute{
+															MarkdownDescription: ``,
+															Computed:            true,
+															Optional:            true,
+															Required:            false,
+															Attributes: map[string]schema.Attribute{
+																"text": schema.StringAttribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
+																"color": schema.StringAttribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
+																"icon": schema.StringAttribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
+																"index": schema.Int64Attribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+										"regex_map": schema.SingleNestedAttribute{
+											MarkdownDescription: ``,
+											Computed:            true,
+											Optional:            true,
+											Required:            false,
+											Attributes: map[string]schema.Attribute{
+												"type": schema.StringAttribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            false,
+													Required:            true,
+												},
+												"options": schema.SingleNestedAttribute{
+													MarkdownDescription: ``,
+													Computed:            true,
+													Optional:            true,
+													Required:            false,
+													Attributes: map[string]schema.Attribute{
+														"pattern": schema.StringAttribute{
+															MarkdownDescription: ``,
+															Computed:            false,
+															Optional:            false,
+															Required:            true,
+														},
+														"result": schema.SingleNestedAttribute{
+															MarkdownDescription: ``,
+															Computed:            true,
+															Optional:            true,
+															Required:            false,
+															Attributes: map[string]schema.Attribute{
+																"text": schema.StringAttribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
+																"color": schema.StringAttribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
+																"icon": schema.StringAttribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
+																"index": schema.Int64Attribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+										"special_value_map": schema.SingleNestedAttribute{
+											MarkdownDescription: ``,
+											Computed:            true,
+											Optional:            true,
+											Required:            false,
+											Attributes: map[string]schema.Attribute{
+												"type": schema.StringAttribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            false,
+													Required:            true,
+												},
+												"options": schema.SingleNestedAttribute{
+													MarkdownDescription: ``,
+													Computed:            true,
+													Optional:            true,
+													Required:            false,
+													Attributes: map[string]schema.Attribute{
+														"match": schema.StringAttribute{
+															MarkdownDescription: ``,
+															Computed:            false,
+															Optional:            false,
+															Required:            true,
+														},
+														"pattern": schema.StringAttribute{
+															MarkdownDescription: ``,
+															Computed:            false,
+															Optional:            false,
+															Required:            true,
+														},
+														"result": schema.SingleNestedAttribute{
+															MarkdownDescription: ``,
+															Computed:            true,
+															Optional:            true,
+															Required:            false,
+															Attributes: map[string]schema.Attribute{
+																"text": schema.StringAttribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
+																"color": schema.StringAttribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
+																"icon": schema.StringAttribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
+																"index": schema.Int64Attribute{
+																	MarkdownDescription: ``,
+																	Computed:            false,
+																	Optional:            true,
+																	Required:            false,
+																},
 															},
 														},
 													},
