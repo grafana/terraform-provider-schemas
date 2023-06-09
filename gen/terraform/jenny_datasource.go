@@ -24,10 +24,10 @@ func (j TerraformDataSourceJenny) Generate(sfg codegen.SchemaForGen) (*codejen.F
 	name := cuetf.GetResourceName(sfg.Schema.Lineage().Name())
 	fname := "datasource_" + name + "_gen.go"
 
-	byt, err := imports.Process(fname, bytes, nil)
+	bytes, err = imports.Process(fname, bytes, nil)
 	if err != nil {
 		return nil, fmt.Errorf("goimports processing of generated file failed: %w", err)
 	}
 
-	return codejen.NewFile(fname, byt, j), nil
+	return codejen.NewFile(fname, bytes, j), nil
 }

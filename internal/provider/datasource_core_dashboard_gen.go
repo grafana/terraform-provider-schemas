@@ -194,8 +194,9 @@ type CoreDashboardDataSourceModel_Templating_List struct {
 
 func (m CoreDashboardDataSourceModel_Templating_List) GetAttrQuery() interface{} {
 	var attr interface{}
+	var err error
 
-	err := json.Unmarshal([]byte(m.Query.ValueString()), &attr)
+	err = json.Unmarshal([]byte(m.Query.ValueString()), &attr)
 	if err == nil {
 		return attr
 	}
@@ -655,8 +656,9 @@ type CoreDashboardDataSourceModel struct {
 
 func (m CoreDashboardDataSourceModel) GetAttrRefresh() interface{} {
 	var attr interface{}
+	var err error
 
-	attr, err := strconv.ParseBool(m.Refresh.ValueString())
+	attr, err = strconv.ParseBool(m.Refresh.ValueString())
 	if err == nil {
 		return attr
 	}

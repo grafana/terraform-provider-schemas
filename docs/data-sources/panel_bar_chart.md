@@ -29,8 +29,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) The maximum number of data points that the panel queries are retrieving.
-- `options` (Attributes) options is specified by the Options field in panel
-plugin schemas. (see [below for nested schema](#nestedatt--options))
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -83,8 +82,7 @@ Optional:
 Optional:
 
 - `color` (Attributes) Map values to a display color (see [below for nested schema](#nestedatt--field_config--defaults--color))
-- `custom` (Attributes) custom is specified by the FieldConfig field
-in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config--defaults--custom))
+- `custom` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom))
 - `decimals` (Number) Significant digits (for display)
 - `description` (String) Human readable field metadata
 - `display_name` (String) The display value for this field.  This supports template variables blank is auto
@@ -120,123 +118,62 @@ Optional:
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
 
+Optional:
+
+- `axis_centered_zero` (Boolean)
+- `axis_color_mode` (String)
+- `axis_grid_show` (Boolean)
+- `axis_label` (String)
+- `axis_placement` (String)
+- `axis_soft_max` (Number)
+- `axis_soft_min` (Number)
+- `axis_width` (Number)
+- `fill_opacity` (Number) Controls the fill opacity of the bars. Defaults to 80.
+- `gradient_mode` (String) Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".
+- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
+- `line_width` (Number) Controls line width of the bars. Defaults to 1.
+- `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--scale_distribution))
+- `thresholds_style` (Attributes) Threshold rendering (see [below for nested schema](#nestedatt--field_config--defaults--custom--thresholds_style))
+
+<a id="nestedatt--field_config--defaults--custom--hide_from"></a>
+### Nested Schema for `field_config.defaults.custom.thresholds_style`
+
+Required:
+
+- `legend` (Boolean)
+- `tooltip` (Boolean)
+- `viz` (Boolean)
+
+
+<a id="nestedatt--field_config--defaults--custom--scale_distribution"></a>
+### Nested Schema for `field_config.defaults.custom.thresholds_style`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `linear_threshold` (Number)
+- `log` (Number)
+
+
+<a id="nestedatt--field_config--defaults--custom--thresholds_style"></a>
+### Nested Schema for `field_config.defaults.custom.thresholds_style`
+
+Required:
+
+- `mode` (String)
+
+
 
 <a id="nestedatt--field_config--defaults--mappings"></a>
 ### Nested Schema for `field_config.defaults.mappings`
 
 Optional:
 
-- `range_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--range_map))
-- `regex_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--regex_map))
-- `special_value_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--special_value_map))
 - `value_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map))
-
-<a id="nestedatt--field_config--defaults--mappings--range_map"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map`
-
-Required:
-
-- `type` (String)
-
-Optional:
-
-- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options`
-
-Required:
-
-- `from` (Number) to and from are number | null in current ts, really not sure what to do
-- `to` (Number)
-
-Optional:
-
-- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
-
-Optional:
-
-- `color` (String)
-- `icon` (String)
-- `index` (Number)
-- `text` (String)
-
-
-
-
-<a id="nestedatt--field_config--defaults--mappings--regex_map"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map`
-
-Required:
-
-- `type` (String)
-
-Optional:
-
-- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options`
-
-Required:
-
-- `pattern` (String)
-
-Optional:
-
-- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
-
-Optional:
-
-- `color` (String)
-- `icon` (String)
-- `index` (Number)
-- `text` (String)
-
-
-
-
-<a id="nestedatt--field_config--defaults--mappings--special_value_map"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map`
-
-Required:
-
-- `type` (String)
-
-Optional:
-
-- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options`
-
-Required:
-
-- `match` (String)
-- `pattern` (String)
-
-Optional:
-
-- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
-
-Optional:
-
-- `color` (String)
-- `icon` (String)
-- `index` (Number)
-- `text` (String)
-
-
-
 
 <a id="nestedatt--field_config--defaults--mappings--value_map"></a>
 ### Nested Schema for `field_config.defaults.mappings.value_map`
@@ -353,6 +290,66 @@ Optional:
 
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
+
+Required:
+
+- `x_tick_label_max_length` (Number) Sets the max length that a label can have before it is truncated.
+
+Optional:
+
+- `bar_radius` (Number) Controls the radius of each bar.
+- `bar_width` (Number) Controls the width of bars. 1 = Max width, 0 = Min width. Defaults to 0.970000.
+- `color_by_field` (String) Use the color value for a sibling field to color each bar value.
+- `full_highlight` (Boolean) Enables mode which highlights the entire bar area and shows tooltip when cursor
+hovers over highlighted area. Defaults to false.
+- `group_width` (Number) Controls the width of groups. 1 = max with, 0 = min width. Defaults to 0.700000.
+- `legend` (Attributes) (see [below for nested schema](#nestedatt--options--legend))
+- `orientation` (String) Controls the orientation of the bar chart, either vertical or horizontal. Defaults to "auto".
+- `show_value` (String) This controls whether values are shown on top or to the left of bars. Defaults to "auto".
+- `stacking` (String) Controls whether bars are stacked or not, either normally or in percent mode. Defaults to "none".
+- `text` (Attributes) (see [below for nested schema](#nestedatt--options--text))
+- `tooltip` (Attributes) (see [below for nested schema](#nestedatt--options--tooltip))
+- `x_field` (String) Manually select which field from the dataset to represent the x field.
+- `x_tick_label_rotation` (Number) Controls the rotation of the x axis labels. Defaults to 0.
+- `x_tick_label_spacing` (Number) Controls the spacing between x axis labels.
+negative values indicate backwards skipping behavior. Defaults to 0.
+
+<a id="nestedatt--options--legend"></a>
+### Nested Schema for `options.legend`
+
+Required:
+
+- `display_mode` (String)
+- `placement` (String)
+- `show_legend` (Boolean)
+
+Optional:
+
+- `as_table` (Boolean)
+- `calcs` (List of String)
+- `is_visible` (Boolean)
+- `sort_by` (String)
+- `sort_desc` (Boolean)
+- `width` (Number)
+
+
+<a id="nestedatt--options--text"></a>
+### Nested Schema for `options.text`
+
+Optional:
+
+- `title_size` (Number) Explicit title text size
+- `value_size` (Number) Explicit value text size
+
+
+<a id="nestedatt--options--tooltip"></a>
+### Nested Schema for `options.tooltip`
+
+Required:
+
+- `mode` (String)
+- `sort` (String)
+
 
 
 <a id="nestedatt--transformations"></a>

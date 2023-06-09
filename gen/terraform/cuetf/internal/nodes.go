@@ -155,7 +155,7 @@ func handleDisjunction(node *types.Node, vals []cue.Value) error {
 	isComplex := false
 	for _, val := range vals {
 		isStructOrList := val.IncompleteKind() == cue.StructKind || val.IncompleteKind() == cue.ListKind
-		if isStructOrList || !containsKind(disjuncts, val.IncompleteKind()) {
+		if (isStructOrList && !val.IsConcrete()) || !containsKind(disjuncts, val.IncompleteKind()) {
 			disjuncts = append(disjuncts, val)
 		}
 

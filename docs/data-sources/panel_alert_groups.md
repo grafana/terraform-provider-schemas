@@ -29,8 +29,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) The maximum number of data points that the panel queries are retrieving.
-- `options` (Attributes) options is specified by the Options field in panel
-plugin schemas. (see [below for nested schema](#nestedatt--options))
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -126,117 +125,7 @@ Optional:
 
 Optional:
 
-- `range_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--range_map))
-- `regex_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--regex_map))
-- `special_value_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--special_value_map))
 - `value_map` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map))
-
-<a id="nestedatt--field_config--defaults--mappings--range_map"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map`
-
-Required:
-
-- `type` (String)
-
-Optional:
-
-- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options`
-
-Required:
-
-- `from` (Number) to and from are number | null in current ts, really not sure what to do
-- `to` (Number)
-
-Optional:
-
-- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
-
-Optional:
-
-- `color` (String)
-- `icon` (String)
-- `index` (Number)
-- `text` (String)
-
-
-
-
-<a id="nestedatt--field_config--defaults--mappings--regex_map"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map`
-
-Required:
-
-- `type` (String)
-
-Optional:
-
-- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options`
-
-Required:
-
-- `pattern` (String)
-
-Optional:
-
-- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
-
-Optional:
-
-- `color` (String)
-- `icon` (String)
-- `index` (Number)
-- `text` (String)
-
-
-
-
-<a id="nestedatt--field_config--defaults--mappings--special_value_map"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map`
-
-Required:
-
-- `type` (String)
-
-Optional:
-
-- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options`
-
-Required:
-
-- `match` (String)
-- `pattern` (String)
-
-Optional:
-
-- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
-
-<a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
-### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
-
-Optional:
-
-- `color` (String)
-- `icon` (String)
-- `index` (Number)
-- `text` (String)
-
-
-
 
 <a id="nestedatt--field_config--defaults--mappings--value_map"></a>
 ### Nested Schema for `field_config.defaults.mappings.value_map`
@@ -353,6 +242,12 @@ Optional:
 
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
+
+Required:
+
+- `alertmanager` (String) Name of the alertmanager used as a source for alerts
+- `expand_all` (Boolean) Expand all alert groups by default
+- `labels` (String) Comma-separated list of values used to filter alert results
 
 
 <a id="nestedatt--transformations"></a>

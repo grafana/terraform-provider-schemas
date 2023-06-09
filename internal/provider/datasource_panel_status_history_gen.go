@@ -267,21 +267,143 @@ func (m PanelStatusHistoryDataSourceModel_LibraryPanel) ApplyDefaults() PanelSta
 	return m
 }
 
+type PanelStatusHistoryDataSourceModel_Options_Legend struct {
+	DisplayMode types.String  `tfsdk:"display_mode"`
+	Placement   types.String  `tfsdk:"placement"`
+	ShowLegend  types.Bool    `tfsdk:"show_legend"`
+	AsTable     types.Bool    `tfsdk:"as_table"`
+	IsVisible   types.Bool    `tfsdk:"is_visible"`
+	SortBy      types.String  `tfsdk:"sort_by"`
+	SortDesc    types.Bool    `tfsdk:"sort_desc"`
+	Width       types.Float64 `tfsdk:"width"`
+	Calcs       types.List    `tfsdk:"calcs"`
+}
+
+func (m PanelStatusHistoryDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatusHistoryDataSourceModel_Options_Legend struct {
+		DisplayMode string   `json:"displayMode"`
+		Placement   string   `json:"placement"`
+		ShowLegend  bool     `json:"showLegend"`
+		AsTable     *bool    `json:"asTable,omitempty"`
+		IsVisible   *bool    `json:"isVisible,omitempty"`
+		SortBy      *string  `json:"sortBy,omitempty"`
+		SortDesc    *bool    `json:"sortDesc,omitempty"`
+		Width       *float64 `json:"width,omitempty"`
+		Calcs       []string `json:"calcs,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_displaymode := m.DisplayMode.ValueString()
+	attr_placement := m.Placement.ValueString()
+	attr_showlegend := m.ShowLegend.ValueBool()
+	attr_astable := m.AsTable.ValueBool()
+	attr_isvisible := m.IsVisible.ValueBool()
+	attr_sortby := m.SortBy.ValueString()
+	attr_sortdesc := m.SortDesc.ValueBool()
+	attr_width := m.Width.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
+
+	model := &jsonPanelStatusHistoryDataSourceModel_Options_Legend{
+		DisplayMode: attr_displaymode,
+		Placement:   attr_placement,
+		ShowLegend:  attr_showlegend,
+		AsTable:     &attr_astable,
+		IsVisible:   &attr_isvisible,
+		SortBy:      &attr_sortby,
+		SortDesc:    &attr_sortdesc,
+		Width:       &attr_width,
+		Calcs:       attr_calcs,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelStatusHistoryDataSourceModel_Options_Legend) ApplyDefaults() PanelStatusHistoryDataSourceModel_Options_Legend {
+	if len(m.Calcs.Elements()) == 0 {
+		m.Calcs, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	return m
+}
+
+type PanelStatusHistoryDataSourceModel_Options_Tooltip struct {
+	Mode types.String `tfsdk:"mode"`
+	Sort types.String `tfsdk:"sort"`
+}
+
+func (m PanelStatusHistoryDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatusHistoryDataSourceModel_Options_Tooltip struct {
+		Mode string `json:"mode"`
+		Sort string `json:"sort"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+	attr_sort := m.Sort.ValueString()
+
+	model := &jsonPanelStatusHistoryDataSourceModel_Options_Tooltip{
+		Mode: attr_mode,
+		Sort: attr_sort,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelStatusHistoryDataSourceModel_Options_Tooltip) ApplyDefaults() PanelStatusHistoryDataSourceModel_Options_Tooltip {
+
+	return m
+}
+
 type PanelStatusHistoryDataSourceModel_Options struct {
+	RowHeight types.Float64                                      `tfsdk:"row_height"`
+	ShowValue types.String                                       `tfsdk:"show_value"`
+	Legend    *PanelStatusHistoryDataSourceModel_Options_Legend  `tfsdk:"legend"`
+	Tooltip   *PanelStatusHistoryDataSourceModel_Options_Tooltip `tfsdk:"tooltip"`
+	ColWidth  types.Float64                                      `tfsdk:"col_width"`
 }
 
 func (m PanelStatusHistoryDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatusHistoryDataSourceModel_Options struct {
+		RowHeight float64     `json:"rowHeight"`
+		ShowValue string      `json:"showValue"`
+		Legend    interface{} `json:"legend,omitempty"`
+		Tooltip   interface{} `json:"tooltip,omitempty"`
+		ColWidth  *float64    `json:"colWidth,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_rowheight := m.RowHeight.ValueFloat64()
+	attr_showvalue := m.ShowValue.ValueString()
+	var attr_legend interface{}
+	if m.Legend != nil {
+		attr_legend = m.Legend
+	}
+	var attr_tooltip interface{}
+	if m.Tooltip != nil {
+		attr_tooltip = m.Tooltip
+	}
+	attr_colwidth := m.ColWidth.ValueFloat64()
 
-	model := &jsonPanelStatusHistoryDataSourceModel_Options{}
+	model := &jsonPanelStatusHistoryDataSourceModel_Options{
+		RowHeight: attr_rowheight,
+		ShowValue: attr_showvalue,
+		Legend:    attr_legend,
+		Tooltip:   attr_tooltip,
+		ColWidth:  &attr_colwidth,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelStatusHistoryDataSourceModel_Options) ApplyDefaults() PanelStatusHistoryDataSourceModel_Options {
-
+	if m.RowHeight.IsNull() {
+		m.RowHeight = types.Float64Value(0.900000)
+	}
+	if m.ShowValue.IsNull() {
+		m.ShowValue = types.StringValue(`auto`)
+	}
+	if m.ColWidth.IsNull() {
+		m.ColWidth = types.Float64Value(0.900000)
+	}
 	return m
 }
 
@@ -350,304 +472,8 @@ func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap
 	return m
 }
 
-type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
-	Text  types.String `tfsdk:"text"`
-	Color types.String `tfsdk:"color"`
-	Icon  types.String `tfsdk:"icon"`
-	Index types.Int64  `tfsdk:"index"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
-		Text  *string `json:"text,omitempty"`
-		Color *string `json:"color,omitempty"`
-		Icon  *string `json:"icon,omitempty"`
-		Index *int64  `json:"index,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
-
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) ApplyDefaults() PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result {
-
-	return m
-}
-
-type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
-	From   types.Float64                                                                            `tfsdk:"from"`
-	To     types.Float64                                                                            `tfsdk:"to"`
-	Result *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result `tfsdk:"result"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
-		From   float64     `json:"from"`
-		To     float64     `json:"to"`
-		Result interface{} `json:"result,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_from := m.From.ValueFloat64()
-	attr_to := m.To.ValueFloat64()
-	var attr_result interface{}
-	if m.Result != nil {
-		attr_result = m.Result
-	}
-
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options{
-		From:   attr_from,
-		To:     attr_to,
-		Result: attr_result,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) ApplyDefaults() PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options {
-
-	return m
-}
-
-type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
-	Type    types.String                                                                      `tfsdk:"type"`
-	Options *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options `tfsdk:"options"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
-		Type    string      `json:"type"`
-		Options interface{} `json:"options,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	var attr_options interface{}
-	if m.Options != nil {
-		attr_options = m.Options
-	}
-
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap{
-		Type:    attr_type,
-		Options: attr_options,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) ApplyDefaults() PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap {
-
-	return m
-}
-
-type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
-	Text  types.String `tfsdk:"text"`
-	Color types.String `tfsdk:"color"`
-	Icon  types.String `tfsdk:"icon"`
-	Index types.Int64  `tfsdk:"index"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
-		Text  *string `json:"text,omitempty"`
-		Color *string `json:"color,omitempty"`
-		Icon  *string `json:"icon,omitempty"`
-		Index *int64  `json:"index,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
-
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) ApplyDefaults() PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result {
-
-	return m
-}
-
-type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
-	Pattern types.String                                                                             `tfsdk:"pattern"`
-	Result  *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result `tfsdk:"result"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
-		Pattern string      `json:"pattern"`
-		Result  interface{} `json:"result,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_pattern := m.Pattern.ValueString()
-	var attr_result interface{}
-	if m.Result != nil {
-		attr_result = m.Result
-	}
-
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options{
-		Pattern: attr_pattern,
-		Result:  attr_result,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) ApplyDefaults() PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options {
-
-	return m
-}
-
-type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
-	Type    types.String                                                                      `tfsdk:"type"`
-	Options *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options `tfsdk:"options"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
-		Type    string      `json:"type"`
-		Options interface{} `json:"options,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	var attr_options interface{}
-	if m.Options != nil {
-		attr_options = m.Options
-	}
-
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap{
-		Type:    attr_type,
-		Options: attr_options,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) ApplyDefaults() PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap {
-
-	return m
-}
-
-type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
-	Text  types.String `tfsdk:"text"`
-	Color types.String `tfsdk:"color"`
-	Icon  types.String `tfsdk:"icon"`
-	Index types.Int64  `tfsdk:"index"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
-		Text  *string `json:"text,omitempty"`
-		Color *string `json:"color,omitempty"`
-		Icon  *string `json:"icon,omitempty"`
-		Index *int64  `json:"index,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
-
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) ApplyDefaults() PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result {
-
-	return m
-}
-
-type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
-	Match   types.String                                                                                    `tfsdk:"match"`
-	Pattern types.String                                                                                    `tfsdk:"pattern"`
-	Result  *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
-		Match   string      `json:"match"`
-		Pattern string      `json:"pattern"`
-		Result  interface{} `json:"result,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_match := m.Match.ValueString()
-	attr_pattern := m.Pattern.ValueString()
-	var attr_result interface{}
-	if m.Result != nil {
-		attr_result = m.Result
-	}
-
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options{
-		Match:   attr_match,
-		Pattern: attr_pattern,
-		Result:  attr_result,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) ApplyDefaults() PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options {
-
-	return m
-}
-
-type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
-	Type    types.String                                                                             `tfsdk:"type"`
-	Options *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options `tfsdk:"options"`
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
-		Type    string      `json:"type"`
-		Options interface{} `json:"options,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	var attr_options interface{}
-	if m.Options != nil {
-		attr_options = m.Options
-	}
-
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap{
-		Type:    attr_type,
-		Options: attr_options,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) ApplyDefaults() PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap {
-
-	return m
-}
-
 type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings struct {
-	ValueMap        *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap        `tfsdk:"value_map"`
-	RangeMap        *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap        `tfsdk:"range_map"`
-	RegexMap        *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap        `tfsdk:"regex_map"`
-	SpecialValueMap *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap `tfsdk:"special_value_map"`
+	ValueMap *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap `tfsdk:"value_map"`
 }
 
 func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() ([]byte, error) {
@@ -655,15 +481,6 @@ func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings) Marshal
 	m = m.ApplyDefaults()
 	if m.ValueMap != nil {
 		json_PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings = m.ValueMap
-	}
-	if m.RangeMap != nil {
-		json_PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings = m.RangeMap
-	}
-	if m.RegexMap != nil {
-		json_PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings = m.RegexMap
-	}
-	if m.SpecialValueMap != nil {
-		json_PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings = m.SpecialValueMap
 	}
 
 	return json.Marshal(json_PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings)
@@ -770,21 +587,73 @@ func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Color) ApplyDefau
 	return m
 }
 
+type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+
+	return m
+}
+
 type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth   types.Int64                                                             `tfsdk:"line_width"`
+	HideFrom    *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
+	FillOpacity types.Int64                                                             `tfsdk:"fill_opacity"`
 }
 
 func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth   *int64      `json:"lineWidth,omitempty"`
+		HideFrom    interface{} `json:"hideFrom,omitempty"`
+		FillOpacity *int64      `json:"fillOpacity,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_linewidth := m.LineWidth.ValueInt64()
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	attr_fillopacity := m.FillOpacity.ValueInt64()
 
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:   &attr_linewidth,
+		HideFrom:    attr_hidefrom,
+		FillOpacity: &attr_fillopacity,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Custom {
-
+	if m.LineWidth.IsNull() {
+		m.LineWidth = types.Int64Value(1)
+	}
+	if m.FillOpacity.IsNull() {
+		m.FillOpacity = types.Int64Value(70)
+	}
 	return m
 }
 
@@ -1409,11 +1278,113 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the Options field in panel
-plugin schemas.`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"row_height": schema.Float64Attribute{
+						MarkdownDescription: `Set the height of the rows. Defaults to 0.900000.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"show_value": schema.StringAttribute{
+						MarkdownDescription: `Show values on the columns. Defaults to "auto".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"legend": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"display_mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"placement": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"show_legend": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"as_table": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"is_visible": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_by": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_desc": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"width": schema.Float64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"calcs": schema.ListAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+								ElementType:         types.StringType,
+							},
+						},
+					},
+					"tooltip": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"sort": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+						},
+					},
+					"col_width": schema.Float64Attribute{
+						MarkdownDescription: `Controls the column width. Defaults to 0.900000.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1547,198 +1518,6 @@ may be used to update the results`,
 												},
 											},
 										},
-										"range_map": schema.SingleNestedAttribute{
-											MarkdownDescription: ``,
-											Computed:            true,
-											Optional:            true,
-											Required:            false,
-											Attributes: map[string]schema.Attribute{
-												"type": schema.StringAttribute{
-													MarkdownDescription: ``,
-													Computed:            false,
-													Optional:            false,
-													Required:            true,
-												},
-												"options": schema.SingleNestedAttribute{
-													MarkdownDescription: ``,
-													Computed:            true,
-													Optional:            true,
-													Required:            false,
-													Attributes: map[string]schema.Attribute{
-														"from": schema.Float64Attribute{
-															MarkdownDescription: `to and from are number | null in current ts, really not sure what to do`,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"to": schema.Float64Attribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
-															Computed:            true,
-															Optional:            true,
-															Required:            false,
-															Attributes: map[string]schema.Attribute{
-																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-															},
-														},
-													},
-												},
-											},
-										},
-										"regex_map": schema.SingleNestedAttribute{
-											MarkdownDescription: ``,
-											Computed:            true,
-											Optional:            true,
-											Required:            false,
-											Attributes: map[string]schema.Attribute{
-												"type": schema.StringAttribute{
-													MarkdownDescription: ``,
-													Computed:            false,
-													Optional:            false,
-													Required:            true,
-												},
-												"options": schema.SingleNestedAttribute{
-													MarkdownDescription: ``,
-													Computed:            true,
-													Optional:            true,
-													Required:            false,
-													Attributes: map[string]schema.Attribute{
-														"pattern": schema.StringAttribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
-															Computed:            true,
-															Optional:            true,
-															Required:            false,
-															Attributes: map[string]schema.Attribute{
-																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-															},
-														},
-													},
-												},
-											},
-										},
-										"special_value_map": schema.SingleNestedAttribute{
-											MarkdownDescription: ``,
-											Computed:            true,
-											Optional:            true,
-											Required:            false,
-											Attributes: map[string]schema.Attribute{
-												"type": schema.StringAttribute{
-													MarkdownDescription: ``,
-													Computed:            false,
-													Optional:            false,
-													Required:            true,
-												},
-												"options": schema.SingleNestedAttribute{
-													MarkdownDescription: ``,
-													Computed:            true,
-													Optional:            true,
-													Required:            false,
-													Attributes: map[string]schema.Attribute{
-														"match": schema.StringAttribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"pattern": schema.StringAttribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
-															Computed:            true,
-															Optional:            true,
-															Required:            false,
-															Attributes: map[string]schema.Attribute{
-																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-															},
-														},
-													},
-												},
-											},
-										},
 									},
 								},
 							},
@@ -1826,11 +1605,50 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the FieldConfig field
-in panel plugin schemas.`,
-								Computed: true,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"line_width": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 1.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 70.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},

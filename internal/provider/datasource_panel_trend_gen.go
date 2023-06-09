@@ -13,6 +13,7 @@ package provider
 import (
 	"context"
 	"encoding/json"
+	"strconv"
 
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -267,16 +268,122 @@ func (m PanelTrendDataSourceModel_LibraryPanel) ApplyDefaults() PanelTrendDataSo
 	return m
 }
 
+type PanelTrendDataSourceModel_Options_Legend struct {
+	DisplayMode types.String  `tfsdk:"display_mode"`
+	Placement   types.String  `tfsdk:"placement"`
+	ShowLegend  types.Bool    `tfsdk:"show_legend"`
+	AsTable     types.Bool    `tfsdk:"as_table"`
+	IsVisible   types.Bool    `tfsdk:"is_visible"`
+	SortBy      types.String  `tfsdk:"sort_by"`
+	SortDesc    types.Bool    `tfsdk:"sort_desc"`
+	Width       types.Float64 `tfsdk:"width"`
+	Calcs       types.List    `tfsdk:"calcs"`
+}
+
+func (m PanelTrendDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
+	type jsonPanelTrendDataSourceModel_Options_Legend struct {
+		DisplayMode string   `json:"displayMode"`
+		Placement   string   `json:"placement"`
+		ShowLegend  bool     `json:"showLegend"`
+		AsTable     *bool    `json:"asTable,omitempty"`
+		IsVisible   *bool    `json:"isVisible,omitempty"`
+		SortBy      *string  `json:"sortBy,omitempty"`
+		SortDesc    *bool    `json:"sortDesc,omitempty"`
+		Width       *float64 `json:"width,omitempty"`
+		Calcs       []string `json:"calcs,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_displaymode := m.DisplayMode.ValueString()
+	attr_placement := m.Placement.ValueString()
+	attr_showlegend := m.ShowLegend.ValueBool()
+	attr_astable := m.AsTable.ValueBool()
+	attr_isvisible := m.IsVisible.ValueBool()
+	attr_sortby := m.SortBy.ValueString()
+	attr_sortdesc := m.SortDesc.ValueBool()
+	attr_width := m.Width.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
+
+	model := &jsonPanelTrendDataSourceModel_Options_Legend{
+		DisplayMode: attr_displaymode,
+		Placement:   attr_placement,
+		ShowLegend:  attr_showlegend,
+		AsTable:     &attr_astable,
+		IsVisible:   &attr_isvisible,
+		SortBy:      &attr_sortby,
+		SortDesc:    &attr_sortdesc,
+		Width:       &attr_width,
+		Calcs:       attr_calcs,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTrendDataSourceModel_Options_Legend) ApplyDefaults() PanelTrendDataSourceModel_Options_Legend {
+	if len(m.Calcs.Elements()) == 0 {
+		m.Calcs, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	return m
+}
+
+type PanelTrendDataSourceModel_Options_Tooltip struct {
+	Mode types.String `tfsdk:"mode"`
+	Sort types.String `tfsdk:"sort"`
+}
+
+func (m PanelTrendDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
+	type jsonPanelTrendDataSourceModel_Options_Tooltip struct {
+		Mode string `json:"mode"`
+		Sort string `json:"sort"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+	attr_sort := m.Sort.ValueString()
+
+	model := &jsonPanelTrendDataSourceModel_Options_Tooltip{
+		Mode: attr_mode,
+		Sort: attr_sort,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTrendDataSourceModel_Options_Tooltip) ApplyDefaults() PanelTrendDataSourceModel_Options_Tooltip {
+
+	return m
+}
+
 type PanelTrendDataSourceModel_Options struct {
+	Legend  *PanelTrendDataSourceModel_Options_Legend  `tfsdk:"legend"`
+	Tooltip *PanelTrendDataSourceModel_Options_Tooltip `tfsdk:"tooltip"`
+	XField  types.String                               `tfsdk:"x_field"`
 }
 
 func (m PanelTrendDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelTrendDataSourceModel_Options struct {
+		Legend  interface{} `json:"legend,omitempty"`
+		Tooltip interface{} `json:"tooltip,omitempty"`
+		XField  *string     `json:"xField,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	var attr_legend interface{}
+	if m.Legend != nil {
+		attr_legend = m.Legend
+	}
+	var attr_tooltip interface{}
+	if m.Tooltip != nil {
+		attr_tooltip = m.Tooltip
+	}
+	attr_xfield := m.XField.ValueString()
 
-	model := &jsonPanelTrendDataSourceModel_Options{}
+	model := &jsonPanelTrendDataSourceModel_Options{
+		Legend:  attr_legend,
+		Tooltip: attr_tooltip,
+		XField:  &attr_xfield,
+	}
 	return json.Marshal(model)
 }
 
@@ -350,304 +457,8 @@ func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) ApplyD
 	return m
 }
 
-type PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
-	Text  types.String `tfsdk:"text"`
-	Color types.String `tfsdk:"color"`
-	Icon  types.String `tfsdk:"icon"`
-	Index types.Int64  `tfsdk:"index"`
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
-		Text  *string `json:"text,omitempty"`
-		Color *string `json:"color,omitempty"`
-		Icon  *string `json:"icon,omitempty"`
-		Index *int64  `json:"index,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
-
-	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result {
-
-	return m
-}
-
-type PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
-	From   types.Float64                                                                    `tfsdk:"from"`
-	To     types.Float64                                                                    `tfsdk:"to"`
-	Result *PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result `tfsdk:"result"`
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
-		From   float64     `json:"from"`
-		To     float64     `json:"to"`
-		Result interface{} `json:"result,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_from := m.From.ValueFloat64()
-	attr_to := m.To.ValueFloat64()
-	var attr_result interface{}
-	if m.Result != nil {
-		attr_result = m.Result
-	}
-
-	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options{
-		From:   attr_from,
-		To:     attr_to,
-		Result: attr_result,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options {
-
-	return m
-}
-
-type PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
-	Type    types.String                                                              `tfsdk:"type"`
-	Options *PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options `tfsdk:"options"`
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
-		Type    string      `json:"type"`
-		Options interface{} `json:"options,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	var attr_options interface{}
-	if m.Options != nil {
-		attr_options = m.Options
-	}
-
-	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap{
-		Type:    attr_type,
-		Options: attr_options,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap {
-
-	return m
-}
-
-type PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
-	Text  types.String `tfsdk:"text"`
-	Color types.String `tfsdk:"color"`
-	Icon  types.String `tfsdk:"icon"`
-	Index types.Int64  `tfsdk:"index"`
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
-		Text  *string `json:"text,omitempty"`
-		Color *string `json:"color,omitempty"`
-		Icon  *string `json:"icon,omitempty"`
-		Index *int64  `json:"index,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
-
-	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result {
-
-	return m
-}
-
-type PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
-	Pattern types.String                                                                     `tfsdk:"pattern"`
-	Result  *PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result `tfsdk:"result"`
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
-		Pattern string      `json:"pattern"`
-		Result  interface{} `json:"result,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_pattern := m.Pattern.ValueString()
-	var attr_result interface{}
-	if m.Result != nil {
-		attr_result = m.Result
-	}
-
-	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options{
-		Pattern: attr_pattern,
-		Result:  attr_result,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options {
-
-	return m
-}
-
-type PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
-	Type    types.String                                                              `tfsdk:"type"`
-	Options *PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options `tfsdk:"options"`
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
-		Type    string      `json:"type"`
-		Options interface{} `json:"options,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	var attr_options interface{}
-	if m.Options != nil {
-		attr_options = m.Options
-	}
-
-	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap{
-		Type:    attr_type,
-		Options: attr_options,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap {
-
-	return m
-}
-
-type PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
-	Text  types.String `tfsdk:"text"`
-	Color types.String `tfsdk:"color"`
-	Icon  types.String `tfsdk:"icon"`
-	Index types.Int64  `tfsdk:"index"`
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
-		Text  *string `json:"text,omitempty"`
-		Color *string `json:"color,omitempty"`
-		Icon  *string `json:"icon,omitempty"`
-		Index *int64  `json:"index,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
-
-	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result {
-
-	return m
-}
-
-type PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
-	Match   types.String                                                                            `tfsdk:"match"`
-	Pattern types.String                                                                            `tfsdk:"pattern"`
-	Result  *PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
-		Match   string      `json:"match"`
-		Pattern string      `json:"pattern"`
-		Result  interface{} `json:"result,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_match := m.Match.ValueString()
-	attr_pattern := m.Pattern.ValueString()
-	var attr_result interface{}
-	if m.Result != nil {
-		attr_result = m.Result
-	}
-
-	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options{
-		Match:   attr_match,
-		Pattern: attr_pattern,
-		Result:  attr_result,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options {
-
-	return m
-}
-
-type PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
-	Type    types.String                                                                     `tfsdk:"type"`
-	Options *PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options `tfsdk:"options"`
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
-		Type    string      `json:"type"`
-		Options interface{} `json:"options,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	var attr_options interface{}
-	if m.Options != nil {
-		attr_options = m.Options
-	}
-
-	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap{
-		Type:    attr_type,
-		Options: attr_options,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap {
-
-	return m
-}
-
 type PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings struct {
-	ValueMap        *PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap        `tfsdk:"value_map"`
-	RangeMap        *PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap        `tfsdk:"range_map"`
-	RegexMap        *PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap        `tfsdk:"regex_map"`
-	SpecialValueMap *PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap `tfsdk:"special_value_map"`
+	ValueMap *PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap `tfsdk:"value_map"`
 }
 
 func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() ([]byte, error) {
@@ -655,15 +466,6 @@ func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() (
 	m = m.ApplyDefaults()
 	if m.ValueMap != nil {
 		json_PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings = m.ValueMap
-	}
-	if m.RangeMap != nil {
-		json_PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings = m.RangeMap
-	}
-	if m.RegexMap != nil {
-		json_PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings = m.RegexMap
-	}
-	if m.SpecialValueMap != nil {
-		json_PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings = m.SpecialValueMap
 	}
 
 	return json.Marshal(json_PanelTrendDataSourceModel_FieldConfig_Defaults_Mappings)
@@ -770,16 +572,312 @@ func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() Pa
 	return m
 }
 
+type PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+	Mode types.String `tfsdk:"mode"`
+}
+
+func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+		Mode string `json:"mode"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+
+	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
+		Mode: attr_mode,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle {
+
+	return m
+}
+
+type PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
+	Fill types.String `tfsdk:"fill"`
+	Dash types.List   `tfsdk:"dash"`
+}
+
+func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
+		Fill *string   `json:"fill,omitempty"`
+		Dash []float64 `json:"dash,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_fill := m.Fill.ValueString()
+	attr_dash := []float64{}
+	for _, v := range m.Dash.Elements() {
+		attr_dash = append(attr_dash, v.(types.Float64).ValueFloat64())
+	}
+
+	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom_LineStyle{
+		Fill: &attr_fill,
+		Dash: attr_dash,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_LineStyle {
+	if len(m.Dash.Elements()) == 0 {
+		m.Dash, _ = types.ListValue(types.Float64Type, []attr.Value{})
+	}
+	return m
+}
+
+type PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+	Type            types.String  `tfsdk:"type"`
+	Log             types.Float64 `tfsdk:"log"`
+	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+}
+
+func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+		Type            string   `json:"type"`
+		Log             *float64 `json:"log,omitempty"`
+		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	attr_log := m.Log.ValueFloat64()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+
+	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
+		Type:            attr_type,
+		Log:             &attr_log,
+		LinearThreshold: &attr_linearthreshold,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
+
+	return m
+}
+
+type PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
+	Mode  types.String `tfsdk:"mode"`
+	Group types.String `tfsdk:"group"`
+}
+
+func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_Stacking) MarshalJSON() ([]byte, error) {
+	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
+		Mode  *string `json:"mode,omitempty"`
+		Group *string `json:"group,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+	attr_group := m.Group.ValueString()
+
+	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom_Stacking{
+		Mode:  &attr_mode,
+		Group: &attr_group,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_Stacking) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_Stacking {
+
+	return m
+}
+
+type PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+
+	return m
+}
+
 type PanelTrendDataSourceModel_FieldConfig_Defaults_Custom struct {
+	DrawStyle         types.String                                                             `tfsdk:"draw_style"`
+	GradientMode      types.String                                                             `tfsdk:"gradient_mode"`
+	ThresholdsStyle   *PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
+	LineColor         types.String                                                             `tfsdk:"line_color"`
+	LineWidth         types.Float64                                                            `tfsdk:"line_width"`
+	LineInterpolation types.String                                                             `tfsdk:"line_interpolation"`
+	LineStyle         *PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_LineStyle         `tfsdk:"line_style"`
+	FillColor         types.String                                                             `tfsdk:"fill_color"`
+	FillOpacity       types.Float64                                                            `tfsdk:"fill_opacity"`
+	ShowPoints        types.String                                                             `tfsdk:"show_points"`
+	PointSize         types.Float64                                                            `tfsdk:"point_size"`
+	PointColor        types.String                                                             `tfsdk:"point_color"`
+	AxisPlacement     types.String                                                             `tfsdk:"axis_placement"`
+	AxisColorMode     types.String                                                             `tfsdk:"axis_color_mode"`
+	AxisLabel         types.String                                                             `tfsdk:"axis_label"`
+	AxisWidth         types.Float64                                                            `tfsdk:"axis_width"`
+	AxisSoftMin       types.Float64                                                            `tfsdk:"axis_soft_min"`
+	AxisSoftMax       types.Float64                                                            `tfsdk:"axis_soft_max"`
+	AxisGridShow      types.Bool                                                               `tfsdk:"axis_grid_show"`
+	ScaleDistribution *PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
+	BarAlignment      types.Int64                                                              `tfsdk:"bar_alignment"`
+	BarWidthFactor    types.Float64                                                            `tfsdk:"bar_width_factor"`
+	Stacking          *PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_Stacking          `tfsdk:"stacking"`
+	HideFrom          *PanelTrendDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
+	Transform         types.String                                                             `tfsdk:"transform"`
+	SpanNulls         types.String                                                             `tfsdk:"span_nulls"`
+	FillBelowTo       types.String                                                             `tfsdk:"fill_below_to"`
+	PointSymbol       types.String                                                             `tfsdk:"point_symbol"`
+	AxisCenteredZero  types.Bool                                                               `tfsdk:"axis_centered_zero"`
+	BarMaxWidth       types.Float64                                                            `tfsdk:"bar_max_width"`
+}
+
+func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom) GetAttrSpanNulls() interface{} {
+	var attr interface{}
+	var err error
+
+	attr, err = strconv.ParseBool(m.SpanNulls.ValueString())
+	if err == nil {
+		return attr
+	}
+	attr, err = strconv.ParseFloat(m.SpanNulls.ValueString(), 64)
+	if err == nil {
+		return attr
+	}
+
+	return m.SpanNulls.ValueString()
 }
 
 func (m PanelTrendDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom struct {
+		DrawStyle         *string     `json:"drawStyle,omitempty"`
+		GradientMode      *string     `json:"gradientMode,omitempty"`
+		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
+		LineColor         *string     `json:"lineColor,omitempty"`
+		LineWidth         *float64    `json:"lineWidth,omitempty"`
+		LineInterpolation *string     `json:"lineInterpolation,omitempty"`
+		LineStyle         interface{} `json:"lineStyle,omitempty"`
+		FillColor         *string     `json:"fillColor,omitempty"`
+		FillOpacity       *float64    `json:"fillOpacity,omitempty"`
+		ShowPoints        *string     `json:"showPoints,omitempty"`
+		PointSize         *float64    `json:"pointSize,omitempty"`
+		PointColor        *string     `json:"pointColor,omitempty"`
+		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
+		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
+		AxisLabel         *string     `json:"axisLabel,omitempty"`
+		AxisWidth         *float64    `json:"axisWidth,omitempty"`
+		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
+		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
+		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
+		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
+		BarAlignment      *int64      `json:"barAlignment,omitempty"`
+		BarWidthFactor    *float64    `json:"barWidthFactor,omitempty"`
+		Stacking          interface{} `json:"stacking,omitempty"`
+		HideFrom          interface{} `json:"hideFrom,omitempty"`
+		Transform         *string     `json:"transform,omitempty"`
+		SpanNulls         interface{} `json:"spanNulls,omitempty"`
+		FillBelowTo       *string     `json:"fillBelowTo,omitempty"`
+		PointSymbol       *string     `json:"pointSymbol,omitempty"`
+		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
+		BarMaxWidth       *float64    `json:"barMaxWidth,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_drawstyle := m.DrawStyle.ValueString()
+	attr_gradientmode := m.GradientMode.ValueString()
+	var attr_thresholdsstyle interface{}
+	if m.ThresholdsStyle != nil {
+		attr_thresholdsstyle = m.ThresholdsStyle
+	}
+	attr_linecolor := m.LineColor.ValueString()
+	attr_linewidth := m.LineWidth.ValueFloat64()
+	attr_lineinterpolation := m.LineInterpolation.ValueString()
+	var attr_linestyle interface{}
+	if m.LineStyle != nil {
+		attr_linestyle = m.LineStyle
+	}
+	attr_fillcolor := m.FillColor.ValueString()
+	attr_fillopacity := m.FillOpacity.ValueFloat64()
+	attr_showpoints := m.ShowPoints.ValueString()
+	attr_pointsize := m.PointSize.ValueFloat64()
+	attr_pointcolor := m.PointColor.ValueString()
+	attr_axisplacement := m.AxisPlacement.ValueString()
+	attr_axiscolormode := m.AxisColorMode.ValueString()
+	attr_axislabel := m.AxisLabel.ValueString()
+	attr_axiswidth := m.AxisWidth.ValueFloat64()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
+	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	var attr_scaledistribution interface{}
+	if m.ScaleDistribution != nil {
+		attr_scaledistribution = m.ScaleDistribution
+	}
+	attr_baralignment := m.BarAlignment.ValueInt64()
+	attr_barwidthfactor := m.BarWidthFactor.ValueFloat64()
+	var attr_stacking interface{}
+	if m.Stacking != nil {
+		attr_stacking = m.Stacking
+	}
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	attr_transform := m.Transform.ValueString()
+	attr_spannulls := m.GetAttrSpanNulls()
+	attr_fillbelowto := m.FillBelowTo.ValueString()
+	attr_pointsymbol := m.PointSymbol.ValueString()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
+	attr_barmaxwidth := m.BarMaxWidth.ValueFloat64()
 
-	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelTrendDataSourceModel_FieldConfig_Defaults_Custom{
+		DrawStyle:         &attr_drawstyle,
+		GradientMode:      &attr_gradientmode,
+		ThresholdsStyle:   attr_thresholdsstyle,
+		LineColor:         &attr_linecolor,
+		LineWidth:         &attr_linewidth,
+		LineInterpolation: &attr_lineinterpolation,
+		LineStyle:         attr_linestyle,
+		FillColor:         &attr_fillcolor,
+		FillOpacity:       &attr_fillopacity,
+		ShowPoints:        &attr_showpoints,
+		PointSize:         &attr_pointsize,
+		PointColor:        &attr_pointcolor,
+		AxisPlacement:     &attr_axisplacement,
+		AxisColorMode:     &attr_axiscolormode,
+		AxisLabel:         &attr_axislabel,
+		AxisWidth:         &attr_axiswidth,
+		AxisSoftMin:       &attr_axissoftmin,
+		AxisSoftMax:       &attr_axissoftmax,
+		AxisGridShow:      &attr_axisgridshow,
+		ScaleDistribution: attr_scaledistribution,
+		BarAlignment:      &attr_baralignment,
+		BarWidthFactor:    &attr_barwidthfactor,
+		Stacking:          attr_stacking,
+		HideFrom:          attr_hidefrom,
+		Transform:         &attr_transform,
+		SpanNulls:         attr_spannulls,
+		FillBelowTo:       &attr_fillbelowto,
+		PointSymbol:       &attr_pointsymbol,
+		AxisCenteredZero:  &attr_axiscenteredzero,
+		BarMaxWidth:       &attr_barmaxwidth,
+	}
 	return json.Marshal(model)
 }
 
@@ -1409,11 +1507,101 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the Options field in panel
-plugin schemas.`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: `Identical to timeseries... except it does not have timezone settings`,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"legend": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"display_mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"placement": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"show_legend": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"as_table": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"is_visible": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_by": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_desc": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"width": schema.Float64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"calcs": schema.ListAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+								ElementType:         types.StringType,
+							},
+						},
+					},
+					"tooltip": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"sort": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+						},
+					},
+					"x_field": schema.StringAttribute{
+						MarkdownDescription: `Name of the x field to use (defaults to first number)`,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+					},
+				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1547,198 +1735,6 @@ may be used to update the results`,
 												},
 											},
 										},
-										"range_map": schema.SingleNestedAttribute{
-											MarkdownDescription: ``,
-											Computed:            true,
-											Optional:            true,
-											Required:            false,
-											Attributes: map[string]schema.Attribute{
-												"type": schema.StringAttribute{
-													MarkdownDescription: ``,
-													Computed:            false,
-													Optional:            false,
-													Required:            true,
-												},
-												"options": schema.SingleNestedAttribute{
-													MarkdownDescription: ``,
-													Computed:            true,
-													Optional:            true,
-													Required:            false,
-													Attributes: map[string]schema.Attribute{
-														"from": schema.Float64Attribute{
-															MarkdownDescription: `to and from are number | null in current ts, really not sure what to do`,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"to": schema.Float64Attribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
-															Computed:            true,
-															Optional:            true,
-															Required:            false,
-															Attributes: map[string]schema.Attribute{
-																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-															},
-														},
-													},
-												},
-											},
-										},
-										"regex_map": schema.SingleNestedAttribute{
-											MarkdownDescription: ``,
-											Computed:            true,
-											Optional:            true,
-											Required:            false,
-											Attributes: map[string]schema.Attribute{
-												"type": schema.StringAttribute{
-													MarkdownDescription: ``,
-													Computed:            false,
-													Optional:            false,
-													Required:            true,
-												},
-												"options": schema.SingleNestedAttribute{
-													MarkdownDescription: ``,
-													Computed:            true,
-													Optional:            true,
-													Required:            false,
-													Attributes: map[string]schema.Attribute{
-														"pattern": schema.StringAttribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
-															Computed:            true,
-															Optional:            true,
-															Required:            false,
-															Attributes: map[string]schema.Attribute{
-																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-															},
-														},
-													},
-												},
-											},
-										},
-										"special_value_map": schema.SingleNestedAttribute{
-											MarkdownDescription: ``,
-											Computed:            true,
-											Optional:            true,
-											Required:            false,
-											Attributes: map[string]schema.Attribute{
-												"type": schema.StringAttribute{
-													MarkdownDescription: ``,
-													Computed:            false,
-													Optional:            false,
-													Required:            true,
-												},
-												"options": schema.SingleNestedAttribute{
-													MarkdownDescription: ``,
-													Computed:            true,
-													Optional:            true,
-													Required:            false,
-													Attributes: map[string]schema.Attribute{
-														"match": schema.StringAttribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"pattern": schema.StringAttribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
-															Computed:            true,
-															Optional:            true,
-															Required:            false,
-															Attributes: map[string]schema.Attribute{
-																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-															},
-														},
-													},
-												},
-											},
-										},
 									},
 								},
 							},
@@ -1826,11 +1822,271 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the FieldConfig field
-in panel plugin schemas.`,
-								Computed: true,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"draw_style": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"gradient_mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"thresholds_style": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"mode": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"line_color": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"line_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"line_interpolation": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"line_style": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"fill": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"dash": schema.ListAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+												ElementType:         types.Float64Type,
+											},
+										},
+									},
+									"fill_color": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"fill_opacity": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"show_points": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"point_size": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"point_color": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_placement": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_color_mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_label": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_min": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_max": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_grid_show": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"scale_distribution": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"type": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"log": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"linear_threshold": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+										},
+									},
+									"bar_alignment": schema.Int64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"bar_width_factor": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"stacking": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"mode": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"group": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+										},
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"transform": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"span_nulls": schema.StringAttribute{
+										MarkdownDescription: `Indicate if null values should be treated as gaps or connected.
+When the value is a number, it represents the maximum delta in the
+X axis that should be considered connected.  For timeseries, this is milliseconds`,
+										Computed: false,
+										Optional: true,
+										Required: false,
+									},
+									"fill_below_to": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"point_symbol": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_centered_zero": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"bar_max_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},

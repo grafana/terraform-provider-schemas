@@ -267,16 +267,119 @@ func (m PanelNodeGraphDataSourceModel_LibraryPanel) ApplyDefaults() PanelNodeGra
 	return m
 }
 
+type PanelNodeGraphDataSourceModel_Options_Nodes_Arcs struct {
+	Field types.String `tfsdk:"field"`
+	Color types.String `tfsdk:"color"`
+}
+
+func (m PanelNodeGraphDataSourceModel_Options_Nodes_Arcs) MarshalJSON() ([]byte, error) {
+	type jsonPanelNodeGraphDataSourceModel_Options_Nodes_Arcs struct {
+		Field *string `json:"field,omitempty"`
+		Color *string `json:"color,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_field := m.Field.ValueString()
+	attr_color := m.Color.ValueString()
+
+	model := &jsonPanelNodeGraphDataSourceModel_Options_Nodes_Arcs{
+		Field: &attr_field,
+		Color: &attr_color,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelNodeGraphDataSourceModel_Options_Nodes_Arcs) ApplyDefaults() PanelNodeGraphDataSourceModel_Options_Nodes_Arcs {
+
+	return m
+}
+
+type PanelNodeGraphDataSourceModel_Options_Nodes struct {
+	MainStatUnit      types.String                                       `tfsdk:"main_stat_unit"`
+	SecondaryStatUnit types.String                                       `tfsdk:"secondary_stat_unit"`
+	Arcs              []PanelNodeGraphDataSourceModel_Options_Nodes_Arcs `tfsdk:"arcs"`
+}
+
+func (m PanelNodeGraphDataSourceModel_Options_Nodes) MarshalJSON() ([]byte, error) {
+	type jsonPanelNodeGraphDataSourceModel_Options_Nodes struct {
+		MainStatUnit      *string       `json:"mainStatUnit,omitempty"`
+		SecondaryStatUnit *string       `json:"secondaryStatUnit,omitempty"`
+		Arcs              []interface{} `json:"arcs,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mainstatunit := m.MainStatUnit.ValueString()
+	attr_secondarystatunit := m.SecondaryStatUnit.ValueString()
+	attr_arcs := []interface{}{}
+	for _, v := range m.Arcs {
+		attr_arcs = append(attr_arcs, v)
+	}
+
+	model := &jsonPanelNodeGraphDataSourceModel_Options_Nodes{
+		MainStatUnit:      &attr_mainstatunit,
+		SecondaryStatUnit: &attr_secondarystatunit,
+		Arcs:              attr_arcs,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelNodeGraphDataSourceModel_Options_Nodes) ApplyDefaults() PanelNodeGraphDataSourceModel_Options_Nodes {
+
+	return m
+}
+
+type PanelNodeGraphDataSourceModel_Options_Edges struct {
+	MainStatUnit      types.String `tfsdk:"main_stat_unit"`
+	SecondaryStatUnit types.String `tfsdk:"secondary_stat_unit"`
+}
+
+func (m PanelNodeGraphDataSourceModel_Options_Edges) MarshalJSON() ([]byte, error) {
+	type jsonPanelNodeGraphDataSourceModel_Options_Edges struct {
+		MainStatUnit      *string `json:"mainStatUnit,omitempty"`
+		SecondaryStatUnit *string `json:"secondaryStatUnit,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mainstatunit := m.MainStatUnit.ValueString()
+	attr_secondarystatunit := m.SecondaryStatUnit.ValueString()
+
+	model := &jsonPanelNodeGraphDataSourceModel_Options_Edges{
+		MainStatUnit:      &attr_mainstatunit,
+		SecondaryStatUnit: &attr_secondarystatunit,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelNodeGraphDataSourceModel_Options_Edges) ApplyDefaults() PanelNodeGraphDataSourceModel_Options_Edges {
+
+	return m
+}
+
 type PanelNodeGraphDataSourceModel_Options struct {
+	Nodes *PanelNodeGraphDataSourceModel_Options_Nodes `tfsdk:"nodes"`
+	Edges *PanelNodeGraphDataSourceModel_Options_Edges `tfsdk:"edges"`
 }
 
 func (m PanelNodeGraphDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelNodeGraphDataSourceModel_Options struct {
+		Nodes interface{} `json:"nodes,omitempty"`
+		Edges interface{} `json:"edges,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	var attr_nodes interface{}
+	if m.Nodes != nil {
+		attr_nodes = m.Nodes
+	}
+	var attr_edges interface{}
+	if m.Edges != nil {
+		attr_edges = m.Edges
+	}
 
-	model := &jsonPanelNodeGraphDataSourceModel_Options{}
+	model := &jsonPanelNodeGraphDataSourceModel_Options{
+		Nodes: attr_nodes,
+		Edges: attr_edges,
+	}
 	return json.Marshal(model)
 }
 
@@ -350,304 +453,8 @@ func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) Ap
 	return m
 }
 
-type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
-	Text  types.String `tfsdk:"text"`
-	Color types.String `tfsdk:"color"`
-	Icon  types.String `tfsdk:"icon"`
-	Index types.Int64  `tfsdk:"index"`
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
-		Text  *string `json:"text,omitempty"`
-		Color *string `json:"color,omitempty"`
-		Icon  *string `json:"icon,omitempty"`
-		Index *int64  `json:"index,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
-
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result {
-
-	return m
-}
-
-type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
-	From   types.Float64                                                                        `tfsdk:"from"`
-	To     types.Float64                                                                        `tfsdk:"to"`
-	Result *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result `tfsdk:"result"`
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
-		From   float64     `json:"from"`
-		To     float64     `json:"to"`
-		Result interface{} `json:"result,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_from := m.From.ValueFloat64()
-	attr_to := m.To.ValueFloat64()
-	var attr_result interface{}
-	if m.Result != nil {
-		attr_result = m.Result
-	}
-
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options{
-		From:   attr_from,
-		To:     attr_to,
-		Result: attr_result,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options {
-
-	return m
-}
-
-type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
-	Type    types.String                                                                  `tfsdk:"type"`
-	Options *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options `tfsdk:"options"`
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
-		Type    string      `json:"type"`
-		Options interface{} `json:"options,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	var attr_options interface{}
-	if m.Options != nil {
-		attr_options = m.Options
-	}
-
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap{
-		Type:    attr_type,
-		Options: attr_options,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap {
-
-	return m
-}
-
-type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
-	Text  types.String `tfsdk:"text"`
-	Color types.String `tfsdk:"color"`
-	Icon  types.String `tfsdk:"icon"`
-	Index types.Int64  `tfsdk:"index"`
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
-		Text  *string `json:"text,omitempty"`
-		Color *string `json:"color,omitempty"`
-		Icon  *string `json:"icon,omitempty"`
-		Index *int64  `json:"index,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
-
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result {
-
-	return m
-}
-
-type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
-	Pattern types.String                                                                         `tfsdk:"pattern"`
-	Result  *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result `tfsdk:"result"`
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
-		Pattern string      `json:"pattern"`
-		Result  interface{} `json:"result,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_pattern := m.Pattern.ValueString()
-	var attr_result interface{}
-	if m.Result != nil {
-		attr_result = m.Result
-	}
-
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options{
-		Pattern: attr_pattern,
-		Result:  attr_result,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options {
-
-	return m
-}
-
-type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
-	Type    types.String                                                                  `tfsdk:"type"`
-	Options *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options `tfsdk:"options"`
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
-		Type    string      `json:"type"`
-		Options interface{} `json:"options,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	var attr_options interface{}
-	if m.Options != nil {
-		attr_options = m.Options
-	}
-
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap{
-		Type:    attr_type,
-		Options: attr_options,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap {
-
-	return m
-}
-
-type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
-	Text  types.String `tfsdk:"text"`
-	Color types.String `tfsdk:"color"`
-	Icon  types.String `tfsdk:"icon"`
-	Index types.Int64  `tfsdk:"index"`
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
-		Text  *string `json:"text,omitempty"`
-		Color *string `json:"color,omitempty"`
-		Icon  *string `json:"icon,omitempty"`
-		Index *int64  `json:"index,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
-
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result {
-
-	return m
-}
-
-type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
-	Match   types.String                                                                                `tfsdk:"match"`
-	Pattern types.String                                                                                `tfsdk:"pattern"`
-	Result  *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
-		Match   string      `json:"match"`
-		Pattern string      `json:"pattern"`
-		Result  interface{} `json:"result,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_match := m.Match.ValueString()
-	attr_pattern := m.Pattern.ValueString()
-	var attr_result interface{}
-	if m.Result != nil {
-		attr_result = m.Result
-	}
-
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options{
-		Match:   attr_match,
-		Pattern: attr_pattern,
-		Result:  attr_result,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options {
-
-	return m
-}
-
-type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
-	Type    types.String                                                                         `tfsdk:"type"`
-	Options *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options `tfsdk:"options"`
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
-		Type    string      `json:"type"`
-		Options interface{} `json:"options,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	var attr_options interface{}
-	if m.Options != nil {
-		attr_options = m.Options
-	}
-
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap{
-		Type:    attr_type,
-		Options: attr_options,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap {
-
-	return m
-}
-
 type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings struct {
-	ValueMap        *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap        `tfsdk:"value_map"`
-	RangeMap        *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap        `tfsdk:"range_map"`
-	RegexMap        *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap        `tfsdk:"regex_map"`
-	SpecialValueMap *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap `tfsdk:"special_value_map"`
+	ValueMap *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap `tfsdk:"value_map"`
 }
 
 func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() ([]byte, error) {
@@ -655,15 +462,6 @@ func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON
 	m = m.ApplyDefaults()
 	if m.ValueMap != nil {
 		json_PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings = m.ValueMap
-	}
-	if m.RangeMap != nil {
-		json_PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings = m.RangeMap
-	}
-	if m.RegexMap != nil {
-		json_PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings = m.RegexMap
-	}
-	if m.SpecialValueMap != nil {
-		json_PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings = m.SpecialValueMap
 	}
 
 	return json.Marshal(json_PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Mappings)
@@ -770,21 +568,150 @@ func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults(
 	return m
 }
 
+type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+	Type            types.String  `tfsdk:"type"`
+	Log             types.Float64 `tfsdk:"log"`
+	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+}
+
+func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+		Type            string   `json:"type"`
+		Log             *float64 `json:"log,omitempty"`
+		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	attr_log := m.Log.ValueFloat64()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+
+	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
+		Type:            attr_type,
+		Log:             &attr_log,
+		LinearThreshold: &attr_linearthreshold,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
+
+	return m
+}
+
+type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+
+	return m
+}
+
 type PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth         types.Int64                                                                  `tfsdk:"line_width"`
+	FillOpacity       types.Int64                                                                  `tfsdk:"fill_opacity"`
+	AxisPlacement     types.String                                                                 `tfsdk:"axis_placement"`
+	AxisColorMode     types.String                                                                 `tfsdk:"axis_color_mode"`
+	AxisLabel         types.String                                                                 `tfsdk:"axis_label"`
+	AxisWidth         types.Float64                                                                `tfsdk:"axis_width"`
+	AxisSoftMin       types.Float64                                                                `tfsdk:"axis_soft_min"`
+	AxisSoftMax       types.Float64                                                                `tfsdk:"axis_soft_max"`
+	AxisGridShow      types.Bool                                                                   `tfsdk:"axis_grid_show"`
+	ScaleDistribution *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
+	HideFrom          *PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
+	GradientMode      types.String                                                                 `tfsdk:"gradient_mode"`
+	AxisCenteredZero  types.Bool                                                                   `tfsdk:"axis_centered_zero"`
 }
 
 func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth         *int64      `json:"lineWidth,omitempty"`
+		FillOpacity       *int64      `json:"fillOpacity,omitempty"`
+		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
+		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
+		AxisLabel         *string     `json:"axisLabel,omitempty"`
+		AxisWidth         *float64    `json:"axisWidth,omitempty"`
+		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
+		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
+		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
+		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
+		HideFrom          interface{} `json:"hideFrom,omitempty"`
+		GradientMode      *string     `json:"gradientMode,omitempty"`
+		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_linewidth := m.LineWidth.ValueInt64()
+	attr_fillopacity := m.FillOpacity.ValueInt64()
+	attr_axisplacement := m.AxisPlacement.ValueString()
+	attr_axiscolormode := m.AxisColorMode.ValueString()
+	attr_axislabel := m.AxisLabel.ValueString()
+	attr_axiswidth := m.AxisWidth.ValueFloat64()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
+	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	var attr_scaledistribution interface{}
+	if m.ScaleDistribution != nil {
+		attr_scaledistribution = m.ScaleDistribution
+	}
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	attr_gradientmode := m.GradientMode.ValueString()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
 
-	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:         &attr_linewidth,
+		FillOpacity:       &attr_fillopacity,
+		AxisPlacement:     &attr_axisplacement,
+		AxisColorMode:     &attr_axiscolormode,
+		AxisLabel:         &attr_axislabel,
+		AxisWidth:         &attr_axiswidth,
+		AxisSoftMin:       &attr_axissoftmin,
+		AxisSoftMax:       &attr_axissoftmax,
+		AxisGridShow:      &attr_axisgridshow,
+		ScaleDistribution: attr_scaledistribution,
+		HideFrom:          attr_hidefrom,
+		GradientMode:      &attr_gradientmode,
+		AxisCenteredZero:  &attr_axiscenteredzero,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelNodeGraphDataSourceModel_FieldConfig_Defaults_Custom {
-
+	if m.LineWidth.IsNull() {
+		m.LineWidth = types.Int64Value(1)
+	}
+	if m.FillOpacity.IsNull() {
+		m.FillOpacity = types.Int64Value(80)
+	}
+	if m.GradientMode.IsNull() {
+		m.GradientMode = types.StringValue(`none`)
+	}
 	return m
 }
 
@@ -1409,11 +1336,74 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the Options field in panel
-plugin schemas.`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"nodes": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"main_stat_unit": schema.StringAttribute{
+								MarkdownDescription: `Unit for the main stat to override what ever is set in the data frame.`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"secondary_stat_unit": schema.StringAttribute{
+								MarkdownDescription: `Unit for the secondary stat to override what ever is set in the data frame.`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"arcs": schema.ListNestedAttribute{
+								MarkdownDescription: `Define which fields are shown as part of the node arc (colored circle around the node).`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+								NestedObject: schema.NestedAttributeObject{
+									Attributes: map[string]schema.Attribute{
+										"field": schema.StringAttribute{
+											MarkdownDescription: `Field from which to get the value. Values should be less than 1, representing fraction of a circle.`,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"color": schema.StringAttribute{
+											MarkdownDescription: `The color of the arc.`,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+									},
+								},
+							},
+						},
+					},
+					"edges": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"main_stat_unit": schema.StringAttribute{
+								MarkdownDescription: `Unit for the main stat to override what ever is set in the data frame.`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"secondary_stat_unit": schema.StringAttribute{
+								MarkdownDescription: `Unit for the secondary stat to override what ever is set in the data frame.`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1547,198 +1537,6 @@ may be used to update the results`,
 												},
 											},
 										},
-										"range_map": schema.SingleNestedAttribute{
-											MarkdownDescription: ``,
-											Computed:            true,
-											Optional:            true,
-											Required:            false,
-											Attributes: map[string]schema.Attribute{
-												"type": schema.StringAttribute{
-													MarkdownDescription: ``,
-													Computed:            false,
-													Optional:            false,
-													Required:            true,
-												},
-												"options": schema.SingleNestedAttribute{
-													MarkdownDescription: ``,
-													Computed:            true,
-													Optional:            true,
-													Required:            false,
-													Attributes: map[string]schema.Attribute{
-														"from": schema.Float64Attribute{
-															MarkdownDescription: `to and from are number | null in current ts, really not sure what to do`,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"to": schema.Float64Attribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
-															Computed:            true,
-															Optional:            true,
-															Required:            false,
-															Attributes: map[string]schema.Attribute{
-																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-															},
-														},
-													},
-												},
-											},
-										},
-										"regex_map": schema.SingleNestedAttribute{
-											MarkdownDescription: ``,
-											Computed:            true,
-											Optional:            true,
-											Required:            false,
-											Attributes: map[string]schema.Attribute{
-												"type": schema.StringAttribute{
-													MarkdownDescription: ``,
-													Computed:            false,
-													Optional:            false,
-													Required:            true,
-												},
-												"options": schema.SingleNestedAttribute{
-													MarkdownDescription: ``,
-													Computed:            true,
-													Optional:            true,
-													Required:            false,
-													Attributes: map[string]schema.Attribute{
-														"pattern": schema.StringAttribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
-															Computed:            true,
-															Optional:            true,
-															Required:            false,
-															Attributes: map[string]schema.Attribute{
-																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-															},
-														},
-													},
-												},
-											},
-										},
-										"special_value_map": schema.SingleNestedAttribute{
-											MarkdownDescription: ``,
-											Computed:            true,
-											Optional:            true,
-											Required:            false,
-											Attributes: map[string]schema.Attribute{
-												"type": schema.StringAttribute{
-													MarkdownDescription: ``,
-													Computed:            false,
-													Optional:            false,
-													Required:            true,
-												},
-												"options": schema.SingleNestedAttribute{
-													MarkdownDescription: ``,
-													Computed:            true,
-													Optional:            true,
-													Required:            false,
-													Attributes: map[string]schema.Attribute{
-														"match": schema.StringAttribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"pattern": schema.StringAttribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
-															Computed:            true,
-															Optional:            true,
-															Required:            false,
-															Attributes: map[string]schema.Attribute{
-																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
-																	Computed:            false,
-																	Optional:            true,
-																	Required:            false,
-																},
-															},
-														},
-													},
-												},
-											},
-										},
 									},
 								},
 							},
@@ -1826,11 +1624,131 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the FieldConfig field
-in panel plugin schemas.`,
-								Computed: true,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"line_width": schema.Int64Attribute{
+										MarkdownDescription: `Controls line width of the bars. Defaults to 1.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: `Controls the fill opacity of the bars. Defaults to 80.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_placement": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_color_mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_label": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_min": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_max": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_grid_show": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"scale_distribution": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"type": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"log": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"linear_threshold": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+										},
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"gradient_mode": schema.StringAttribute{
+										MarkdownDescription: `Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".`,
+										Computed: true,
+										Optional: true,
+										Required: false,
+									},
+									"axis_centered_zero": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},

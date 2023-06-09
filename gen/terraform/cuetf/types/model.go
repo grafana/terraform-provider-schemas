@@ -146,18 +146,18 @@ func (s *Model) generateGetAttrFunction(node Node) string {
 	attrName := utils.ToCamelCase(node.Name)
 
 	fmt.Fprintf(&b, "func (m %s) GetAttr%s() interface{} {\n", s.Name, attrName)
-	b.WriteString("var attr interface{}\n\n")
+	b.WriteString("var attr interface{}\nvar err error\n\n")
 
 	for _, kind := range node.DisjunctionKinds {
 		switch kind {
 		case cue.StructKind, cue.ListKind:
-			fmt.Fprintf(&b, "err := json.Unmarshal([]byte(m.%s.ValueString()), &attr)", attrName)
+			fmt.Fprintf(&b, "err = json.Unmarshal([]byte(m.%s.ValueString()), &attr)", attrName)
 		case cue.BoolKind:
-			fmt.Fprintf(&b, "attr, err := strconv.ParseBool(m.%s.ValueString())", attrName)
+			fmt.Fprintf(&b, "attr, err = strconv.ParseBool(m.%s.ValueString())", attrName)
 		case cue.IntKind:
-			fmt.Fprintf(&b, "attr, err := strconv.ParseInt(m.%s.ValueString(), 10, 64)", attrName)
+			fmt.Fprintf(&b, "attr, err = strconv.ParseInt(m.%s.ValueString(), 10, 64)", attrName)
 		case cue.NumberKind, cue.FloatKind:
-			fmt.Fprintf(&b, "attr, err := strconv.ParseFloat(m.%s.ValueString(), 64)", attrName)
+			fmt.Fprintf(&b, "attr, err = strconv.ParseFloat(m.%s.ValueString(), 64)", attrName)
 		case cue.StringKind:
 			continue
 		}
