@@ -181,7 +181,7 @@ Optional:
 - `global` (Boolean) Defaults to false.
 - `index` (Number) Defaults to -1.
 - `label` (String)
-- `query` (String) TODO: Move this into a separated QueryVariableModel type
+- `query` (String) JSON-encoded string. TODO: Move this into a separated QueryVariableModel type
 - `root_state_key` (String)
 - `skip_url_sync` (Boolean) Defaults to false.
 

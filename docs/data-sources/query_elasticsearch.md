@@ -284,7 +284,7 @@ Required:
 
 Optional:
 
-- `script` (String)
+- `script` (String) JSON-encoded string.
 
 
 
@@ -465,7 +465,7 @@ Optional:
 
 Optional:
 
-- `script` (String)
+- `script` (String) JSON-encoded string.
 - `shift` (String)
 - `window` (String)
 
@@ -688,7 +688,7 @@ Required:
 
 Optional:
 
-- `script` (String)
+- `script` (String) JSON-encoded string.
 
 
 

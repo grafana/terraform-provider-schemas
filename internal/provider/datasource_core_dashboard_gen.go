@@ -1059,7 +1059,7 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 									Required:            false,
 								},
 								"query": schema.StringAttribute{
-									MarkdownDescription: `TODO: Move this into a separated QueryVariableModel type`,
+									MarkdownDescription: `JSON-encoded string. TODO: Move this into a separated QueryVariableModel type`,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,

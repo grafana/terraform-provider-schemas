@@ -173,6 +173,9 @@ func handleDisjunction(node *types.Node, vals []cue.Value) error {
 		for _, d := range disjuncts {
 			node.DisjunctionKinds = append(node.DisjunctionKinds, d.IncompleteKind())
 		}
+		if isComplex {
+			node.Doc = "JSON-encoded string. " + node.Doc
+		}
 		return nil
 	}
 

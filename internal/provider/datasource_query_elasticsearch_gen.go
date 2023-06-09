@@ -2719,7 +2719,7 @@ func (d *QueryElasticsearchDataSource) Schema(ctx context.Context, req datasourc
 											Required:            false,
 											Attributes: map[string]schema.Attribute{
 												"script": schema.StringAttribute{
-													MarkdownDescription: ``,
+													MarkdownDescription: `JSON-encoded string. `,
 													Computed:            false,
 													Optional:            true,
 													Required:            false,
@@ -2783,7 +2783,7 @@ func (d *QueryElasticsearchDataSource) Schema(ctx context.Context, req datasourc
 											Required:            false,
 											Attributes: map[string]schema.Attribute{
 												"script": schema.StringAttribute{
-													MarkdownDescription: ``,
+													MarkdownDescription: `JSON-encoded string. `,
 													Computed:            false,
 													Optional:            true,
 													Required:            false,
@@ -3384,7 +3384,7 @@ func (d *QueryElasticsearchDataSource) Schema(ctx context.Context, req datasourc
 													Required:            false,
 												},
 												"script": schema.StringAttribute{
-													MarkdownDescription: ``,
+													MarkdownDescription: `JSON-encoded string. `,
 													Computed:            false,
 													Optional:            true,
 													Required:            false,
