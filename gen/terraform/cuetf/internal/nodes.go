@@ -75,6 +75,14 @@ func GetSingleNode(name string, val cue.Value, optional bool) (*types.Node, erro
 			return &node, err
 		}
 
+		// Checks [string]something only.
+		// It skips structs like {...} (cue.TopKind) to avoid undesired results.
+		v := val.LookupPath(cue.MakePath(cue.AnyString))
+		if v.Exists() && v.IncompleteKind() != cue.TopKind {
+			val = v
+			node.IsMap = true
+		}
+
 		children, err := GetAllNodes(val.Value())
 		if err != nil {
 			return nil, err

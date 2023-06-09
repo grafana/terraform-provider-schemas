@@ -286,15 +286,32 @@ func (m PanelStatusHistoryDataSourceModel_Options) ApplyDefaults() PanelStatusHi
 }
 
 type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
+	Text  types.String `tfsdk:"text"`
+	Color types.String `tfsdk:"color"`
+	Icon  types.String `tfsdk:"icon"`
+	Index types.Int64  `tfsdk:"index"`
 }
 
 func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
+		Text  *string `json:"text,omitempty"`
+		Color *string `json:"color,omitempty"`
+		Icon  *string `json:"icon,omitempty"`
+		Index *int64  `json:"index,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{}
+	model := &jsonPanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
+	}
 	return json.Marshal(model)
 }
 
@@ -304,8 +321,8 @@ func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap
 }
 
 type PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
-	Type    types.String                                                                      `tfsdk:"type"`
-	Options *PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options `tfsdk:"options"`
+	Type    types.String                                                                                 `tfsdk:"type"`
+	Options *map[string]PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options `tfsdk:"options"`
 }
 
 func (m PanelStatusHistoryDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) MarshalJSON() ([]byte, error) {
@@ -1494,11 +1511,39 @@ may be used to update the results`,
 													Optional:            false,
 													Required:            true,
 												},
-												"options": schema.SingleNestedAttribute{
+												"options": schema.MapNestedAttribute{
 													MarkdownDescription: ``,
-													Computed:            true,
+													Computed:            false,
 													Optional:            true,
 													Required:            false,
+													NestedObject: schema.NestedAttributeObject{
+														Attributes: map[string]schema.Attribute{
+															"text": schema.StringAttribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+															"color": schema.StringAttribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+															"icon": schema.StringAttribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+															"index": schema.Int64Attribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+														},
+													},
 												},
 											},
 										},
