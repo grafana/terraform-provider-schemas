@@ -60,7 +60,7 @@ data "schemas_core_dashboard" "my_dashboard" {
   }
 
   panels = [
-    data.schemas_panel_stat.my_panel.to_json,
+    data.schemas_panel_stat.my_panel.rendered_json,
   ]
 }
 
@@ -76,7 +76,7 @@ data "schemas_panel_stat" "my_panel" {
 }
 
 resource "grafana_dashboard" "example" {
-  config_json = data.schemas_core_dashboard.my_dashboard.to_json
+  config_json = data.schemas_core_dashboard.my_dashboard.rendered_json
 }
 ```
 

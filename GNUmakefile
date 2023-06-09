@@ -9,4 +9,4 @@ testacc:
 generate:
 	rm -rf ./internal/provider/*_gen.go
 	cd ./gen && MIN_MATURITY=merged go generate ./
-	go generate ./...
+	go generate ./
