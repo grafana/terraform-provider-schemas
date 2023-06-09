@@ -268,20 +268,93 @@ func (m PanelAnnotationsListDataSourceModel_LibraryPanel) ApplyDefaults() PanelA
 }
 
 type PanelAnnotationsListDataSourceModel_Options struct {
+	OnlyFromThisDashboard types.Bool   `tfsdk:"only_from_this_dashboard"`
+	OnlyInTimeRange       types.Bool   `tfsdk:"only_in_time_range"`
+	Tags                  types.List   `tfsdk:"tags"`
+	Limit                 types.Int64  `tfsdk:"limit"`
+	ShowUser              types.Bool   `tfsdk:"show_user"`
+	ShowTime              types.Bool   `tfsdk:"show_time"`
+	ShowTags              types.Bool   `tfsdk:"show_tags"`
+	NavigateToPanel       types.Bool   `tfsdk:"navigate_to_panel"`
+	NavigateBefore        types.String `tfsdk:"navigate_before"`
+	NavigateAfter         types.String `tfsdk:"navigate_after"`
 }
 
 func (m PanelAnnotationsListDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelAnnotationsListDataSourceModel_Options struct {
+		OnlyFromThisDashboard bool     `json:"onlyFromThisDashboard"`
+		OnlyInTimeRange       bool     `json:"onlyInTimeRange"`
+		Tags                  []string `json:"tags,omitempty"`
+		Limit                 int64    `json:"limit"`
+		ShowUser              bool     `json:"showUser"`
+		ShowTime              bool     `json:"showTime"`
+		ShowTags              bool     `json:"showTags"`
+		NavigateToPanel       bool     `json:"navigateToPanel"`
+		NavigateBefore        string   `json:"navigateBefore"`
+		NavigateAfter         string   `json:"navigateAfter"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_onlyfromthisdashboard := m.OnlyFromThisDashboard.ValueBool()
+	attr_onlyintimerange := m.OnlyInTimeRange.ValueBool()
+	attr_tags := []string{}
+	for _, v := range m.Tags.Elements() {
+		attr_tags = append(attr_tags, v.(types.String).ValueString())
+	}
+	attr_limit := m.Limit.ValueInt64()
+	attr_showuser := m.ShowUser.ValueBool()
+	attr_showtime := m.ShowTime.ValueBool()
+	attr_showtags := m.ShowTags.ValueBool()
+	attr_navigatetopanel := m.NavigateToPanel.ValueBool()
+	attr_navigatebefore := m.NavigateBefore.ValueString()
+	attr_navigateafter := m.NavigateAfter.ValueString()
 
-	model := &jsonPanelAnnotationsListDataSourceModel_Options{}
+	model := &jsonPanelAnnotationsListDataSourceModel_Options{
+		OnlyFromThisDashboard: attr_onlyfromthisdashboard,
+		OnlyInTimeRange:       attr_onlyintimerange,
+		Tags:                  attr_tags,
+		Limit:                 attr_limit,
+		ShowUser:              attr_showuser,
+		ShowTime:              attr_showtime,
+		ShowTags:              attr_showtags,
+		NavigateToPanel:       attr_navigatetopanel,
+		NavigateBefore:        attr_navigatebefore,
+		NavigateAfter:         attr_navigateafter,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelAnnotationsListDataSourceModel_Options) ApplyDefaults() PanelAnnotationsListDataSourceModel_Options {
-
+	if m.OnlyFromThisDashboard.IsNull() {
+		m.OnlyFromThisDashboard = types.BoolValue(false)
+	}
+	if m.OnlyInTimeRange.IsNull() {
+		m.OnlyInTimeRange = types.BoolValue(false)
+	}
+	if len(m.Tags.Elements()) == 0 {
+		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	if m.Limit.IsNull() {
+		m.Limit = types.Int64Value(10)
+	}
+	if m.ShowUser.IsNull() {
+		m.ShowUser = types.BoolValue(true)
+	}
+	if m.ShowTime.IsNull() {
+		m.ShowTime = types.BoolValue(true)
+	}
+	if m.ShowTags.IsNull() {
+		m.ShowTags = types.BoolValue(true)
+	}
+	if m.NavigateToPanel.IsNull() {
+		m.NavigateToPanel = types.BoolValue(true)
+	}
+	if m.NavigateBefore.IsNull() {
+		m.NavigateBefore = types.StringValue(`10m`)
+	}
+	if m.NavigateAfter.IsNull() {
+		m.NavigateAfter = types.StringValue(`10m`)
+	}
 	return m
 }
 
@@ -1409,11 +1482,73 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the Options field in panel
-plugin schemas.`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"only_from_this_dashboard": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to false.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"only_in_time_range": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to false.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"tags": schema.ListAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+						ElementType:         types.StringType,
+					},
+					"limit": schema.Int64Attribute{
+						MarkdownDescription: ` Defaults to 10.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"show_user": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to true.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"show_time": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to true.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"show_tags": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to true.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"navigate_to_panel": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to true.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"navigate_before": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "10m".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"navigate_after": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "10m".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,

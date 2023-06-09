@@ -267,21 +267,150 @@ func (m PanelStateTimelineDataSourceModel_LibraryPanel) ApplyDefaults() PanelSta
 	return m
 }
 
+type PanelStateTimelineDataSourceModel_Options_Legend struct {
+	DisplayMode types.String  `tfsdk:"display_mode"`
+	Placement   types.String  `tfsdk:"placement"`
+	ShowLegend  types.Bool    `tfsdk:"show_legend"`
+	AsTable     types.Bool    `tfsdk:"as_table"`
+	IsVisible   types.Bool    `tfsdk:"is_visible"`
+	SortBy      types.String  `tfsdk:"sort_by"`
+	SortDesc    types.Bool    `tfsdk:"sort_desc"`
+	Width       types.Float64 `tfsdk:"width"`
+	Calcs       types.List    `tfsdk:"calcs"`
+}
+
+func (m PanelStateTimelineDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
+	type jsonPanelStateTimelineDataSourceModel_Options_Legend struct {
+		DisplayMode string   `json:"displayMode"`
+		Placement   string   `json:"placement"`
+		ShowLegend  bool     `json:"showLegend"`
+		AsTable     *bool    `json:"asTable,omitempty"`
+		IsVisible   *bool    `json:"isVisible,omitempty"`
+		SortBy      *string  `json:"sortBy,omitempty"`
+		SortDesc    *bool    `json:"sortDesc,omitempty"`
+		Width       *float64 `json:"width,omitempty"`
+		Calcs       []string `json:"calcs,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_displaymode := m.DisplayMode.ValueString()
+	attr_placement := m.Placement.ValueString()
+	attr_showlegend := m.ShowLegend.ValueBool()
+	attr_astable := m.AsTable.ValueBool()
+	attr_isvisible := m.IsVisible.ValueBool()
+	attr_sortby := m.SortBy.ValueString()
+	attr_sortdesc := m.SortDesc.ValueBool()
+	attr_width := m.Width.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
+
+	model := &jsonPanelStateTimelineDataSourceModel_Options_Legend{
+		DisplayMode: attr_displaymode,
+		Placement:   attr_placement,
+		ShowLegend:  attr_showlegend,
+		AsTable:     &attr_astable,
+		IsVisible:   &attr_isvisible,
+		SortBy:      &attr_sortby,
+		SortDesc:    &attr_sortdesc,
+		Width:       &attr_width,
+		Calcs:       attr_calcs,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelStateTimelineDataSourceModel_Options_Legend) ApplyDefaults() PanelStateTimelineDataSourceModel_Options_Legend {
+	if len(m.Calcs.Elements()) == 0 {
+		m.Calcs, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	return m
+}
+
+type PanelStateTimelineDataSourceModel_Options_Tooltip struct {
+	Mode types.String `tfsdk:"mode"`
+	Sort types.String `tfsdk:"sort"`
+}
+
+func (m PanelStateTimelineDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
+	type jsonPanelStateTimelineDataSourceModel_Options_Tooltip struct {
+		Mode string `json:"mode"`
+		Sort string `json:"sort"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+	attr_sort := m.Sort.ValueString()
+
+	model := &jsonPanelStateTimelineDataSourceModel_Options_Tooltip{
+		Mode: attr_mode,
+		Sort: attr_sort,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelStateTimelineDataSourceModel_Options_Tooltip) ApplyDefaults() PanelStateTimelineDataSourceModel_Options_Tooltip {
+
+	return m
+}
+
 type PanelStateTimelineDataSourceModel_Options struct {
+	ShowValue   types.String                                       `tfsdk:"show_value"`
+	RowHeight   types.Float64                                      `tfsdk:"row_height"`
+	MergeValues types.Bool                                         `tfsdk:"merge_values"`
+	Legend      *PanelStateTimelineDataSourceModel_Options_Legend  `tfsdk:"legend"`
+	Tooltip     *PanelStateTimelineDataSourceModel_Options_Tooltip `tfsdk:"tooltip"`
+	AlignValue  types.String                                       `tfsdk:"align_value"`
 }
 
 func (m PanelStateTimelineDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelStateTimelineDataSourceModel_Options struct {
+		ShowValue   string      `json:"showValue"`
+		RowHeight   float64     `json:"rowHeight"`
+		MergeValues *bool       `json:"mergeValues,omitempty"`
+		Legend      interface{} `json:"legend,omitempty"`
+		Tooltip     interface{} `json:"tooltip,omitempty"`
+		AlignValue  *string     `json:"alignValue,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_showvalue := m.ShowValue.ValueString()
+	attr_rowheight := m.RowHeight.ValueFloat64()
+	attr_mergevalues := m.MergeValues.ValueBool()
+	var attr_legend interface{}
+	if m.Legend != nil {
+		attr_legend = m.Legend
+	}
+	var attr_tooltip interface{}
+	if m.Tooltip != nil {
+		attr_tooltip = m.Tooltip
+	}
+	attr_alignvalue := m.AlignValue.ValueString()
 
-	model := &jsonPanelStateTimelineDataSourceModel_Options{}
+	model := &jsonPanelStateTimelineDataSourceModel_Options{
+		ShowValue:   attr_showvalue,
+		RowHeight:   attr_rowheight,
+		MergeValues: &attr_mergevalues,
+		Legend:      attr_legend,
+		Tooltip:     attr_tooltip,
+		AlignValue:  &attr_alignvalue,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelStateTimelineDataSourceModel_Options) ApplyDefaults() PanelStateTimelineDataSourceModel_Options {
-
+	if m.ShowValue.IsNull() {
+		m.ShowValue = types.StringValue(`auto`)
+	}
+	if m.RowHeight.IsNull() {
+		m.RowHeight = types.Float64Value(0.900000)
+	}
+	if m.MergeValues.IsNull() {
+		m.MergeValues = types.BoolValue(true)
+	}
+	if m.AlignValue.IsNull() {
+		m.AlignValue = types.StringValue(`left`)
+	}
 	return m
 }
 
@@ -770,21 +899,73 @@ func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Color) ApplyDefau
 	return m
 }
 
+type PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+
+	return m
+}
+
 type PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth   types.Int64                                                             `tfsdk:"line_width"`
+	HideFrom    *PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
+	FillOpacity types.Int64                                                             `tfsdk:"fill_opacity"`
 }
 
 func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth   *int64      `json:"lineWidth,omitempty"`
+		HideFrom    interface{} `json:"hideFrom,omitempty"`
+		FillOpacity *int64      `json:"fillOpacity,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_linewidth := m.LineWidth.ValueInt64()
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	attr_fillopacity := m.FillOpacity.ValueInt64()
 
-	model := &jsonPanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:   &attr_linewidth,
+		HideFrom:    attr_hidefrom,
+		FillOpacity: &attr_fillopacity,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelStateTimelineDataSourceModel_FieldConfig_Defaults_Custom {
-
+	if m.LineWidth.IsNull() {
+		m.LineWidth = types.Int64Value(0)
+	}
+	if m.FillOpacity.IsNull() {
+		m.FillOpacity = types.Int64Value(70)
+	}
 	return m
 }
 
@@ -1409,11 +1590,119 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the Options field in panel
-plugin schemas.`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"show_value": schema.StringAttribute{
+						MarkdownDescription: `Show timeline values on chart. Defaults to "auto".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"row_height": schema.Float64Attribute{
+						MarkdownDescription: `Controls the row height. Defaults to 0.900000.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"merge_values": schema.BoolAttribute{
+						MarkdownDescription: `Merge equal consecutive values. Defaults to true.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"legend": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"display_mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"placement": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"show_legend": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"as_table": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"is_visible": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_by": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_desc": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"width": schema.Float64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"calcs": schema.ListAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+								ElementType:         types.StringType,
+							},
+						},
+					},
+					"tooltip": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"sort": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+						},
+					},
+					"align_value": schema.StringAttribute{
+						MarkdownDescription: `Controls value alignment on the timelines. Defaults to "left".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1826,11 +2115,50 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the FieldConfig field
-in panel plugin schemas.`,
-								Computed: true,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"line_width": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 0.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 70.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},

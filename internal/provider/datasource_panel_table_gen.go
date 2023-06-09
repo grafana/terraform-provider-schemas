@@ -267,21 +267,146 @@ func (m PanelTableDataSourceModel_LibraryPanel) ApplyDefaults() PanelTableDataSo
 	return m
 }
 
+type PanelTableDataSourceModel_Options_SortBy struct {
+	DisplayName types.String `tfsdk:"display_name"`
+	Desc        types.Bool   `tfsdk:"desc"`
+}
+
+func (m PanelTableDataSourceModel_Options_SortBy) MarshalJSON() ([]byte, error) {
+	type jsonPanelTableDataSourceModel_Options_SortBy struct {
+		DisplayName string `json:"displayName"`
+		Desc        *bool  `json:"desc,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_displayname := m.DisplayName.ValueString()
+	attr_desc := m.Desc.ValueBool()
+
+	model := &jsonPanelTableDataSourceModel_Options_SortBy{
+		DisplayName: attr_displayname,
+		Desc:        &attr_desc,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTableDataSourceModel_Options_SortBy) ApplyDefaults() PanelTableDataSourceModel_Options_SortBy {
+
+	return m
+}
+
+type PanelTableDataSourceModel_Options_Footer_TableFooterOptions struct {
+	Show             types.Bool `tfsdk:"show"`
+	Fields           types.List `tfsdk:"fields"`
+	EnablePagination types.Bool `tfsdk:"enable_pagination"`
+	CountRows        types.Bool `tfsdk:"count_rows"`
+}
+
+func (m PanelTableDataSourceModel_Options_Footer_TableFooterOptions) MarshalJSON() ([]byte, error) {
+	type jsonPanelTableDataSourceModel_Options_Footer_TableFooterOptions struct {
+		Show             bool     `json:"show"`
+		Fields           []string `json:"fields,omitempty"`
+		EnablePagination *bool    `json:"enablePagination,omitempty"`
+		CountRows        *bool    `json:"countRows,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_show := m.Show.ValueBool()
+	attr_fields := []string{}
+	for _, v := range m.Fields.Elements() {
+		attr_fields = append(attr_fields, v.(types.String).ValueString())
+	}
+	attr_enablepagination := m.EnablePagination.ValueBool()
+	attr_countrows := m.CountRows.ValueBool()
+
+	model := &jsonPanelTableDataSourceModel_Options_Footer_TableFooterOptions{
+		Show:             attr_show,
+		Fields:           attr_fields,
+		EnablePagination: &attr_enablepagination,
+		CountRows:        &attr_countrows,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTableDataSourceModel_Options_Footer_TableFooterOptions) ApplyDefaults() PanelTableDataSourceModel_Options_Footer_TableFooterOptions {
+	if len(m.Fields.Elements()) == 0 {
+		m.Fields, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	return m
+}
+
+type PanelTableDataSourceModel_Options_Footer struct {
+	TableFooterOptions *PanelTableDataSourceModel_Options_Footer_TableFooterOptions `tfsdk:"table_footer_options"`
+}
+
+func (m PanelTableDataSourceModel_Options_Footer) MarshalJSON() ([]byte, error) {
+	var json_PanelTableDataSourceModel_Options_Footer interface{}
+	m = m.ApplyDefaults()
+	if m.TableFooterOptions != nil {
+		json_PanelTableDataSourceModel_Options_Footer = m.TableFooterOptions
+	}
+
+	return json.Marshal(json_PanelTableDataSourceModel_Options_Footer)
+}
+
+func (m PanelTableDataSourceModel_Options_Footer) ApplyDefaults() PanelTableDataSourceModel_Options_Footer {
+
+	return m
+}
+
 type PanelTableDataSourceModel_Options struct {
+	FrameIndex    types.Float64                              `tfsdk:"frame_index"`
+	ShowHeader    types.Bool                                 `tfsdk:"show_header"`
+	ShowTypeIcons types.Bool                                 `tfsdk:"show_type_icons"`
+	SortBy        []PanelTableDataSourceModel_Options_SortBy `tfsdk:"sort_by"`
+	Footer        *PanelTableDataSourceModel_Options_Footer  `tfsdk:"footer"`
+	CellHeight    types.String                               `tfsdk:"cell_height"`
 }
 
 func (m PanelTableDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelTableDataSourceModel_Options struct {
+		FrameIndex    float64       `json:"frameIndex"`
+		ShowHeader    bool          `json:"showHeader"`
+		ShowTypeIcons *bool         `json:"showTypeIcons,omitempty"`
+		SortBy        []interface{} `json:"sortBy,omitempty"`
+		Footer        interface{}   `json:"footer,omitempty"`
+		CellHeight    *string       `json:"cellHeight,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_frameindex := m.FrameIndex.ValueFloat64()
+	attr_showheader := m.ShowHeader.ValueBool()
+	attr_showtypeicons := m.ShowTypeIcons.ValueBool()
+	attr_sortby := []interface{}{}
+	for _, v := range m.SortBy {
+		attr_sortby = append(attr_sortby, v)
+	}
+	var attr_footer interface{}
+	if m.Footer != nil {
+		attr_footer = m.Footer
+	}
+	attr_cellheight := m.CellHeight.ValueString()
 
-	model := &jsonPanelTableDataSourceModel_Options{}
+	model := &jsonPanelTableDataSourceModel_Options{
+		FrameIndex:    attr_frameindex,
+		ShowHeader:    attr_showheader,
+		ShowTypeIcons: &attr_showtypeicons,
+		SortBy:        attr_sortby,
+		Footer:        attr_footer,
+		CellHeight:    &attr_cellheight,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelTableDataSourceModel_Options) ApplyDefaults() PanelTableDataSourceModel_Options {
-
+	if m.ShowHeader.IsNull() {
+		m.ShowHeader = types.BoolValue(true)
+	}
+	if m.ShowTypeIcons.IsNull() {
+		m.ShowTypeIcons = types.BoolValue(false)
+	}
+	if m.CellHeight.IsNull() {
+		m.CellHeight = types.StringValue(`sm`)
+	}
 	return m
 }
 
@@ -770,21 +895,73 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() Pa
 	return m
 }
 
+type PanelTableDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelTableDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelTableDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTableDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelTableDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+
+	return m
+}
+
 type PanelTableDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth   types.Int64                                                     `tfsdk:"line_width"`
+	HideFrom    *PanelTableDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
+	FillOpacity types.Int64                                                     `tfsdk:"fill_opacity"`
 }
 
 func (m PanelTableDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelTableDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth   *int64      `json:"lineWidth,omitempty"`
+		HideFrom    interface{} `json:"hideFrom,omitempty"`
+		FillOpacity *int64      `json:"fillOpacity,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_linewidth := m.LineWidth.ValueInt64()
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	attr_fillopacity := m.FillOpacity.ValueInt64()
 
-	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:   &attr_linewidth,
+		HideFrom:    attr_hidefrom,
+		FillOpacity: &attr_fillopacity,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelTableDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelTableDataSourceModel_FieldConfig_Defaults_Custom {
-
+	if m.LineWidth.IsNull() {
+		m.LineWidth = types.Int64Value(1)
+	}
+	if m.FillOpacity.IsNull() {
+		m.FillOpacity = types.Int64Value(70)
+	}
 	return m
 }
 
@@ -1409,11 +1586,99 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the Options field in panel
-plugin schemas.`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"frame_index": schema.Float64Attribute{
+						MarkdownDescription: `Represents the index of the selected frame`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+					"show_header": schema.BoolAttribute{
+						MarkdownDescription: `Controls whether the panel should show the header. Defaults to true.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"show_type_icons": schema.BoolAttribute{
+						MarkdownDescription: `Controls whether the header should show icons for the column types. Defaults to false.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"sort_by": schema.ListNestedAttribute{
+						MarkdownDescription: `Used to control row sorting`,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+						NestedObject: schema.NestedAttributeObject{
+							Attributes: map[string]schema.Attribute{
+								"display_name": schema.StringAttribute{
+									MarkdownDescription: `Sets the display name of the field to sort by`,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+								"desc": schema.BoolAttribute{
+									MarkdownDescription: `Flag used to indicate descending sort order`,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+							},
+						},
+					},
+					"footer": schema.SingleNestedAttribute{
+						MarkdownDescription: `Controls footer options`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"table_footer_options": schema.SingleNestedAttribute{
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"show": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            false,
+										Required:            true,
+									},
+									"fields": schema.ListAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+										ElementType:         types.StringType,
+									},
+									"enable_pagination": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"count_rows": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+								},
+							},
+						},
+					},
+					"cell_height": schema.StringAttribute{
+						MarkdownDescription: `Controls the height of the rows. Defaults to "sm".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1826,11 +2091,50 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the FieldConfig field
-in panel plugin schemas.`,
-								Computed: true,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"line_width": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 1.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 70.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},

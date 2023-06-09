@@ -268,20 +268,90 @@ func (m PanelDashboardListDataSourceModel_LibraryPanel) ApplyDefaults() PanelDas
 }
 
 type PanelDashboardListDataSourceModel_Options struct {
+	KeepTime           types.Bool   `tfsdk:"keep_time"`
+	IncludeVars        types.Bool   `tfsdk:"include_vars"`
+	ShowStarred        types.Bool   `tfsdk:"show_starred"`
+	ShowRecentlyViewed types.Bool   `tfsdk:"show_recently_viewed"`
+	ShowSearch         types.Bool   `tfsdk:"show_search"`
+	ShowHeadings       types.Bool   `tfsdk:"show_headings"`
+	MaxItems           types.Int64  `tfsdk:"max_items"`
+	Query              types.String `tfsdk:"query"`
+	FolderId           types.Int64  `tfsdk:"folder_id"`
+	Tags               types.List   `tfsdk:"tags"`
 }
 
 func (m PanelDashboardListDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelDashboardListDataSourceModel_Options struct {
+		KeepTime           bool     `json:"keepTime"`
+		IncludeVars        bool     `json:"includeVars"`
+		ShowStarred        bool     `json:"showStarred"`
+		ShowRecentlyViewed bool     `json:"showRecentlyViewed"`
+		ShowSearch         bool     `json:"showSearch"`
+		ShowHeadings       bool     `json:"showHeadings"`
+		MaxItems           int64    `json:"maxItems"`
+		Query              string   `json:"query"`
+		FolderId           *int64   `json:"folderId,omitempty"`
+		Tags               []string `json:"tags,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_keeptime := m.KeepTime.ValueBool()
+	attr_includevars := m.IncludeVars.ValueBool()
+	attr_showstarred := m.ShowStarred.ValueBool()
+	attr_showrecentlyviewed := m.ShowRecentlyViewed.ValueBool()
+	attr_showsearch := m.ShowSearch.ValueBool()
+	attr_showheadings := m.ShowHeadings.ValueBool()
+	attr_maxitems := m.MaxItems.ValueInt64()
+	attr_query := m.Query.ValueString()
+	attr_folderid := m.FolderId.ValueInt64()
+	attr_tags := []string{}
+	for _, v := range m.Tags.Elements() {
+		attr_tags = append(attr_tags, v.(types.String).ValueString())
+	}
 
-	model := &jsonPanelDashboardListDataSourceModel_Options{}
+	model := &jsonPanelDashboardListDataSourceModel_Options{
+		KeepTime:           attr_keeptime,
+		IncludeVars:        attr_includevars,
+		ShowStarred:        attr_showstarred,
+		ShowRecentlyViewed: attr_showrecentlyviewed,
+		ShowSearch:         attr_showsearch,
+		ShowHeadings:       attr_showheadings,
+		MaxItems:           attr_maxitems,
+		Query:              attr_query,
+		FolderId:           &attr_folderid,
+		Tags:               attr_tags,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelDashboardListDataSourceModel_Options) ApplyDefaults() PanelDashboardListDataSourceModel_Options {
-
+	if m.KeepTime.IsNull() {
+		m.KeepTime = types.BoolValue(false)
+	}
+	if m.IncludeVars.IsNull() {
+		m.IncludeVars = types.BoolValue(false)
+	}
+	if m.ShowStarred.IsNull() {
+		m.ShowStarred = types.BoolValue(true)
+	}
+	if m.ShowRecentlyViewed.IsNull() {
+		m.ShowRecentlyViewed = types.BoolValue(false)
+	}
+	if m.ShowSearch.IsNull() {
+		m.ShowSearch = types.BoolValue(false)
+	}
+	if m.ShowHeadings.IsNull() {
+		m.ShowHeadings = types.BoolValue(true)
+	}
+	if m.MaxItems.IsNull() {
+		m.MaxItems = types.Int64Value(10)
+	}
+	if m.Query.IsNull() {
+		m.Query = types.StringValue(``)
+	}
+	if len(m.Tags.Elements()) == 0 {
+		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
 	return m
 }
 
@@ -770,21 +840,180 @@ func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults_Color) ApplyDefau
 	return m
 }
 
+type PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+	Type            types.String  `tfsdk:"type"`
+	Log             types.Float64 `tfsdk:"log"`
+	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+}
+
+func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+		Type            string   `json:"type"`
+		Log             *float64 `json:"log,omitempty"`
+		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	attr_log := m.Log.ValueFloat64()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+
+	model := &jsonPanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
+		Type:            attr_type,
+		Log:             &attr_log,
+		LinearThreshold: &attr_linearthreshold,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
+
+	return m
+}
+
+type PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+
+	return m
+}
+
+type PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+	Mode types.String `tfsdk:"mode"`
+}
+
+func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+		Mode string `json:"mode"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+
+	model := &jsonPanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
+		Mode: attr_mode,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) ApplyDefaults() PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle {
+
+	return m
+}
+
 type PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth         types.Int64                                                                      `tfsdk:"line_width"`
+	FillOpacity       types.Int64                                                                      `tfsdk:"fill_opacity"`
+	GradientMode      types.String                                                                     `tfsdk:"gradient_mode"`
+	AxisPlacement     types.String                                                                     `tfsdk:"axis_placement"`
+	AxisColorMode     types.String                                                                     `tfsdk:"axis_color_mode"`
+	AxisLabel         types.String                                                                     `tfsdk:"axis_label"`
+	AxisWidth         types.Float64                                                                    `tfsdk:"axis_width"`
+	AxisSoftMin       types.Float64                                                                    `tfsdk:"axis_soft_min"`
+	AxisSoftMax       types.Float64                                                                    `tfsdk:"axis_soft_max"`
+	AxisGridShow      types.Bool                                                                       `tfsdk:"axis_grid_show"`
+	ScaleDistribution *PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
+	HideFrom          *PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
+	ThresholdsStyle   *PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
+	AxisCenteredZero  types.Bool                                                                       `tfsdk:"axis_centered_zero"`
 }
 
 func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth         *int64      `json:"lineWidth,omitempty"`
+		FillOpacity       *int64      `json:"fillOpacity,omitempty"`
+		GradientMode      *string     `json:"gradientMode,omitempty"`
+		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
+		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
+		AxisLabel         *string     `json:"axisLabel,omitempty"`
+		AxisWidth         *float64    `json:"axisWidth,omitempty"`
+		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
+		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
+		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
+		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
+		HideFrom          interface{} `json:"hideFrom,omitempty"`
+		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
+		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_linewidth := m.LineWidth.ValueInt64()
+	attr_fillopacity := m.FillOpacity.ValueInt64()
+	attr_gradientmode := m.GradientMode.ValueString()
+	attr_axisplacement := m.AxisPlacement.ValueString()
+	attr_axiscolormode := m.AxisColorMode.ValueString()
+	attr_axislabel := m.AxisLabel.ValueString()
+	attr_axiswidth := m.AxisWidth.ValueFloat64()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
+	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	var attr_scaledistribution interface{}
+	if m.ScaleDistribution != nil {
+		attr_scaledistribution = m.ScaleDistribution
+	}
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	var attr_thresholdsstyle interface{}
+	if m.ThresholdsStyle != nil {
+		attr_thresholdsstyle = m.ThresholdsStyle
+	}
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
 
-	model := &jsonPanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:         &attr_linewidth,
+		FillOpacity:       &attr_fillopacity,
+		GradientMode:      &attr_gradientmode,
+		AxisPlacement:     &attr_axisplacement,
+		AxisColorMode:     &attr_axiscolormode,
+		AxisLabel:         &attr_axislabel,
+		AxisWidth:         &attr_axiswidth,
+		AxisSoftMin:       &attr_axissoftmin,
+		AxisSoftMax:       &attr_axissoftmax,
+		AxisGridShow:      &attr_axisgridshow,
+		ScaleDistribution: attr_scaledistribution,
+		HideFrom:          attr_hidefrom,
+		ThresholdsStyle:   attr_thresholdsstyle,
+		AxisCenteredZero:  &attr_axiscenteredzero,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelDashboardListDataSourceModel_FieldConfig_Defaults_Custom {
-
+	if m.LineWidth.IsNull() {
+		m.LineWidth = types.Int64Value(1)
+	}
+	if m.FillOpacity.IsNull() {
+		m.FillOpacity = types.Int64Value(80)
+	}
+	if m.GradientMode.IsNull() {
+		m.GradientMode = types.StringValue(`none`)
+	}
 	return m
 }
 
@@ -1409,11 +1638,73 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the Options field in panel
-plugin schemas.`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"keep_time": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to false.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"include_vars": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to false.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"show_starred": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to true.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"show_recently_viewed": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to false.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"show_search": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to false.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"show_headings": schema.BoolAttribute{
+						MarkdownDescription: ` Defaults to true.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"max_items": schema.Int64Attribute{
+						MarkdownDescription: ` Defaults to 10.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"query": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"folder_id": schema.Int64Attribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+					},
+					"tags": schema.ListAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+						ElementType:         types.StringType,
+					},
+				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1826,11 +2117,145 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the FieldConfig field
-in panel plugin schemas.`,
-								Computed: true,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"line_width": schema.Int64Attribute{
+										MarkdownDescription: `Controls line width of the bars. Defaults to 1.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: `Controls the fill opacity of the bars. Defaults to 80.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"gradient_mode": schema.StringAttribute{
+										MarkdownDescription: `Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".`,
+										Computed: true,
+										Optional: true,
+										Required: false,
+									},
+									"axis_placement": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_color_mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_label": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_min": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_max": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_grid_show": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"scale_distribution": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"type": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"log": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"linear_threshold": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+										},
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"thresholds_style": schema.SingleNestedAttribute{
+										MarkdownDescription: `Threshold rendering`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"mode": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"axis_centered_zero": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},

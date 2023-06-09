@@ -29,8 +29,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) The maximum number of data points that the panel queries are retrieving.
-- `options` (Attributes) options is specified by the Options field in panel
-plugin schemas. (see [below for nested schema](#nestedatt--options))
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -83,8 +82,7 @@ Optional:
 Optional:
 
 - `color` (Attributes) Map values to a display color (see [below for nested schema](#nestedatt--field_config--defaults--color))
-- `custom` (Attributes) custom is specified by the FieldConfig field
-in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config--defaults--custom))
+- `custom` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom))
 - `decimals` (Number) Significant digits (for display)
 - `description` (String) Human readable field metadata
 - `display_name` (String) The display value for this field.  This supports template variables blank is auto
@@ -119,6 +117,20 @@ Optional:
 
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
+
+Optional:
+
+- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
+
+<a id="nestedatt--field_config--defaults--custom--hide_from"></a>
+### Nested Schema for `field_config.defaults.custom.hide_from`
+
+Required:
+
+- `legend` (Boolean)
+- `tooltip` (Boolean)
+- `viz` (Boolean)
+
 
 
 <a id="nestedatt--field_config--defaults--mappings"></a>
@@ -353,6 +365,66 @@ Optional:
 
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
+
+Required:
+
+- `orientation` (String)
+- `pie_type` (String)
+
+Optional:
+
+- `legend` (Attributes) (see [below for nested schema](#nestedatt--options--legend))
+- `reduce_options` (Attributes) (see [below for nested schema](#nestedatt--options--reduce_options))
+- `text` (Attributes) (see [below for nested schema](#nestedatt--options--text))
+- `tooltip` (Attributes) (see [below for nested schema](#nestedatt--options--tooltip))
+
+<a id="nestedatt--options--legend"></a>
+### Nested Schema for `options.legend`
+
+Required:
+
+- `display_mode` (String)
+- `placement` (String)
+- `show_legend` (Boolean)
+
+Optional:
+
+- `as_table` (Boolean)
+- `calcs` (List of String)
+- `is_visible` (Boolean)
+- `sort_by` (String)
+- `sort_desc` (Boolean)
+- `width` (Number)
+
+
+<a id="nestedatt--options--reduce_options"></a>
+### Nested Schema for `options.reduce_options`
+
+Optional:
+
+- `calcs` (List of String) When !values, pick one value for the whole field
+- `fields` (String) Which fields to show.  By default this is only numeric fields
+- `limit` (Number) if showing all values limit
+- `values` (Boolean) If true show each row value
+
+
+<a id="nestedatt--options--text"></a>
+### Nested Schema for `options.text`
+
+Optional:
+
+- `title_size` (Number) Explicit title text size
+- `value_size` (Number) Explicit value text size
+
+
+<a id="nestedatt--options--tooltip"></a>
+### Nested Schema for `options.tooltip`
+
+Required:
+
+- `mode` (String)
+- `sort` (String)
+
 
 
 <a id="nestedatt--transformations"></a>

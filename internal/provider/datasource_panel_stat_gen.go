@@ -267,21 +267,134 @@ func (m PanelStatDataSourceModel_LibraryPanel) ApplyDefaults() PanelStatDataSour
 	return m
 }
 
+type PanelStatDataSourceModel_Options_ReduceOptions struct {
+	Values types.Bool    `tfsdk:"values"`
+	Limit  types.Float64 `tfsdk:"limit"`
+	Calcs  types.List    `tfsdk:"calcs"`
+	Fields types.String  `tfsdk:"fields"`
+}
+
+func (m PanelStatDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatDataSourceModel_Options_ReduceOptions struct {
+		Values *bool    `json:"values,omitempty"`
+		Limit  *float64 `json:"limit,omitempty"`
+		Calcs  []string `json:"calcs,omitempty"`
+		Fields *string  `json:"fields,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_values := m.Values.ValueBool()
+	attr_limit := m.Limit.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
+	attr_fields := m.Fields.ValueString()
+
+	model := &jsonPanelStatDataSourceModel_Options_ReduceOptions{
+		Values: &attr_values,
+		Limit:  &attr_limit,
+		Calcs:  attr_calcs,
+		Fields: &attr_fields,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelStatDataSourceModel_Options_ReduceOptions) ApplyDefaults() PanelStatDataSourceModel_Options_ReduceOptions {
+	if len(m.Calcs.Elements()) == 0 {
+		m.Calcs, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
+	return m
+}
+
+type PanelStatDataSourceModel_Options_Text struct {
+	TitleSize types.Float64 `tfsdk:"title_size"`
+	ValueSize types.Float64 `tfsdk:"value_size"`
+}
+
+func (m PanelStatDataSourceModel_Options_Text) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatDataSourceModel_Options_Text struct {
+		TitleSize *float64 `json:"titleSize,omitempty"`
+		ValueSize *float64 `json:"valueSize,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_titlesize := m.TitleSize.ValueFloat64()
+	attr_valuesize := m.ValueSize.ValueFloat64()
+
+	model := &jsonPanelStatDataSourceModel_Options_Text{
+		TitleSize: &attr_titlesize,
+		ValueSize: &attr_valuesize,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelStatDataSourceModel_Options_Text) ApplyDefaults() PanelStatDataSourceModel_Options_Text {
+
+	return m
+}
+
 type PanelStatDataSourceModel_Options struct {
+	GraphMode     types.String                                    `tfsdk:"graph_mode"`
+	ColorMode     types.String                                    `tfsdk:"color_mode"`
+	JustifyMode   types.String                                    `tfsdk:"justify_mode"`
+	ReduceOptions *PanelStatDataSourceModel_Options_ReduceOptions `tfsdk:"reduce_options"`
+	Text          *PanelStatDataSourceModel_Options_Text          `tfsdk:"text"`
+	TextMode      types.String                                    `tfsdk:"text_mode"`
+	Orientation   types.String                                    `tfsdk:"orientation"`
 }
 
 func (m PanelStatDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatDataSourceModel_Options struct {
+		GraphMode     string      `json:"graphMode"`
+		ColorMode     string      `json:"colorMode"`
+		JustifyMode   string      `json:"justifyMode"`
+		ReduceOptions interface{} `json:"reduceOptions,omitempty"`
+		Text          interface{} `json:"text,omitempty"`
+		TextMode      string      `json:"textMode"`
+		Orientation   string      `json:"orientation"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_graphmode := m.GraphMode.ValueString()
+	attr_colormode := m.ColorMode.ValueString()
+	attr_justifymode := m.JustifyMode.ValueString()
+	var attr_reduceoptions interface{}
+	if m.ReduceOptions != nil {
+		attr_reduceoptions = m.ReduceOptions
+	}
+	var attr_text interface{}
+	if m.Text != nil {
+		attr_text = m.Text
+	}
+	attr_textmode := m.TextMode.ValueString()
+	attr_orientation := m.Orientation.ValueString()
 
-	model := &jsonPanelStatDataSourceModel_Options{}
+	model := &jsonPanelStatDataSourceModel_Options{
+		GraphMode:     attr_graphmode,
+		ColorMode:     attr_colormode,
+		JustifyMode:   attr_justifymode,
+		ReduceOptions: attr_reduceoptions,
+		Text:          attr_text,
+		TextMode:      attr_textmode,
+		Orientation:   attr_orientation,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelStatDataSourceModel_Options) ApplyDefaults() PanelStatDataSourceModel_Options {
-
+	if m.GraphMode.IsNull() {
+		m.GraphMode = types.StringValue(`area`)
+	}
+	if m.ColorMode.IsNull() {
+		m.ColorMode = types.StringValue(`value`)
+	}
+	if m.JustifyMode.IsNull() {
+		m.JustifyMode = types.StringValue(`auto`)
+	}
+	if m.TextMode.IsNull() {
+		m.TextMode = types.StringValue(`auto`)
+	}
 	return m
 }
 
@@ -770,16 +883,55 @@ func (m PanelStatDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() Pan
 	return m
 }
 
+type PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+
+	return m
+}
+
 type PanelStatDataSourceModel_FieldConfig_Defaults_Custom struct {
+	HideFrom *PanelStatDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
 }
 
 func (m PanelStatDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom struct {
+		HideFrom interface{} `json:"hideFrom,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
 
-	model := &jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelStatDataSourceModel_FieldConfig_Defaults_Custom{
+		HideFrom: attr_hidefrom,
+	}
 	return json.Marshal(model)
 }
 
@@ -1409,11 +1561,95 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the Options field in panel
-plugin schemas.`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"graph_mode": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "area".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"color_mode": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "value".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"justify_mode": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "auto".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"reduce_options": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"values": schema.BoolAttribute{
+								MarkdownDescription: `If true show each row value`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"limit": schema.Float64Attribute{
+								MarkdownDescription: `if showing all values limit`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"calcs": schema.ListAttribute{
+								MarkdownDescription: `When !values, pick one value for the whole field`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+								ElementType:         types.StringType,
+							},
+							"fields": schema.StringAttribute{
+								MarkdownDescription: `Which fields to show.  By default this is only numeric fields`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"text": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"title_size": schema.Float64Attribute{
+								MarkdownDescription: `Explicit title text size`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"value_size": schema.Float64Attribute{
+								MarkdownDescription: `Explicit value text size`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"text_mode": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "auto".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"orientation": schema.StringAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1826,11 +2062,38 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the FieldConfig field
-in panel plugin schemas.`,
-								Computed: true,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+								},
 							},
 						},
 					},

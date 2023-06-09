@@ -29,8 +29,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) The maximum number of data points that the panel queries are retrieving.
-- `options` (Attributes) options is specified by the Options field in panel
-plugin schemas. (see [below for nested schema](#nestedatt--options))
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -353,6 +352,19 @@ Optional:
 
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
+
+Optional:
+
+- `limit` (Number) Defaults to 10.
+- `navigate_after` (String) Defaults to "10m".
+- `navigate_before` (String) Defaults to "10m".
+- `navigate_to_panel` (Boolean) Defaults to true.
+- `only_from_this_dashboard` (Boolean) Defaults to false.
+- `only_in_time_range` (Boolean) Defaults to false.
+- `show_tags` (Boolean) Defaults to true.
+- `show_time` (Boolean) Defaults to true.
+- `show_user` (Boolean) Defaults to true.
+- `tags` (List of String)
 
 
 <a id="nestedatt--transformations"></a>

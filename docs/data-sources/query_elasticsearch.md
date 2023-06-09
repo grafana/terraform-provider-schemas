@@ -282,6 +282,10 @@ Required:
 <a id="nestedatt--metrics--metric_aggregation_with_settings--bucket_script--settings"></a>
 ### Nested Schema for `metrics.metric_aggregation_with_settings.bucket_script.settings`
 
+Optional:
+
+- `script` (String) JSON-encoded string.
+
 
 
 <a id="nestedatt--metrics--metric_aggregation_with_settings--cumulative_sum"></a>
@@ -461,6 +465,7 @@ Optional:
 
 Optional:
 
+- `script` (String) JSON-encoded string.
 - `shift` (String)
 - `window` (String)
 
@@ -680,6 +685,10 @@ Required:
 
 <a id="nestedatt--metrics--pipeline_metric_aggregation--bucket_script--settings"></a>
 ### Nested Schema for `metrics.pipeline_metric_aggregation.bucket_script.settings`
+
+Optional:
+
+- `script` (String) JSON-encoded string.
 
 
 

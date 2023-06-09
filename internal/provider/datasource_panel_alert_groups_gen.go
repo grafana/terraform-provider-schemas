@@ -268,15 +268,28 @@ func (m PanelAlertGroupsDataSourceModel_LibraryPanel) ApplyDefaults() PanelAlert
 }
 
 type PanelAlertGroupsDataSourceModel_Options struct {
+	Labels       types.String `tfsdk:"labels"`
+	Alertmanager types.String `tfsdk:"alertmanager"`
+	ExpandAll    types.Bool   `tfsdk:"expand_all"`
 }
 
 func (m PanelAlertGroupsDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelAlertGroupsDataSourceModel_Options struct {
+		Labels       string `json:"labels"`
+		Alertmanager string `json:"alertmanager"`
+		ExpandAll    bool   `json:"expandAll"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_labels := m.Labels.ValueString()
+	attr_alertmanager := m.Alertmanager.ValueString()
+	attr_expandall := m.ExpandAll.ValueBool()
 
-	model := &jsonPanelAlertGroupsDataSourceModel_Options{}
+	model := &jsonPanelAlertGroupsDataSourceModel_Options{
+		Labels:       attr_labels,
+		Alertmanager: attr_alertmanager,
+		ExpandAll:    attr_expandall,
+	}
 	return json.Marshal(model)
 }
 
@@ -1409,11 +1422,30 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the Options field in panel
-plugin schemas.`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"labels": schema.StringAttribute{
+						MarkdownDescription: `Comma-separated list of values used to filter alert results`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+					"alertmanager": schema.StringAttribute{
+						MarkdownDescription: `Name of the alertmanager used as a source for alerts`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+					"expand_all": schema.BoolAttribute{
+						MarkdownDescription: `Expand all alert groups by default`,
+						Computed:            false,
+						Optional:            false,
+						Required:            true,
+					},
+				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,

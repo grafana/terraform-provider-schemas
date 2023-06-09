@@ -29,8 +29,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) The maximum number of data points that the panel queries are retrieving.
-- `options` (Attributes) options is specified by the Options field in panel
-plugin schemas. (see [below for nested schema](#nestedatt--options))
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -353,6 +352,12 @@ Optional:
 
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
+
+Required:
+
+- `alertmanager` (String) Name of the alertmanager used as a source for alerts
+- `expand_all` (Boolean) Expand all alert groups by default
+- `labels` (String) Comma-separated list of values used to filter alert results
 
 
 <a id="nestedatt--transformations"></a>

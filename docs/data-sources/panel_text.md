@@ -29,8 +29,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) The maximum number of data points that the panel queries are retrieving.
-- `options` (Attributes) options is specified by the Options field in panel
-plugin schemas. (see [below for nested schema](#nestedatt--options))
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -83,8 +82,7 @@ Optional:
 Optional:
 
 - `color` (Attributes) Map values to a display color (see [below for nested schema](#nestedatt--field_config--defaults--color))
-- `custom` (Attributes) custom is specified by the FieldConfig field
-in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config--defaults--custom))
+- `custom` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom))
 - `decimals` (Number) Significant digits (for display)
 - `description` (String) Human readable field metadata
 - `display_name` (String) The display value for this field.  This supports template variables blank is auto
@@ -119,6 +117,22 @@ Optional:
 
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
+
+Optional:
+
+- `fill_opacity` (Number) Defaults to 70.
+- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
+- `line_width` (Number) Defaults to 1.
+
+<a id="nestedatt--field_config--defaults--custom--hide_from"></a>
+### Nested Schema for `field_config.defaults.custom.line_width`
+
+Required:
+
+- `legend` (Boolean)
+- `tooltip` (Boolean)
+- `viz` (Boolean)
+
 
 
 <a id="nestedatt--field_config--defaults--mappings"></a>
@@ -353,6 +367,24 @@ Optional:
 
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
+
+Optional:
+
+- `code` (Attributes) (see [below for nested schema](#nestedatt--options--code))
+- `content` (String) Defaults to "# Title
+
+For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)".
+- `mode` (String) Defaults to "markdown".
+
+<a id="nestedatt--options--code"></a>
+### Nested Schema for `options.code`
+
+Optional:
+
+- `language` (String) The language passed to monaco code editor. Defaults to "plaintext".
+- `show_line_numbers` (Boolean) Defaults to false.
+- `show_mini_map` (Boolean) Defaults to false.
+
 
 
 <a id="nestedatt--transformations"></a>

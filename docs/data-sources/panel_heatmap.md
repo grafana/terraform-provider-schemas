@@ -29,8 +29,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) The maximum number of data points that the panel queries are retrieving.
-- `options` (Attributes) options is specified by the Options field in panel
-plugin schemas. (see [below for nested schema](#nestedatt--options))
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -83,8 +82,7 @@ Optional:
 Optional:
 
 - `color` (Attributes) Map values to a display color (see [below for nested schema](#nestedatt--field_config--defaults--color))
-- `custom` (Attributes) custom is specified by the FieldConfig field
-in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config--defaults--custom))
+- `custom` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom))
 - `decimals` (Number) Significant digits (for display)
 - `description` (String) Human readable field metadata
 - `display_name` (String) The display value for this field.  This supports template variables blank is auto
@@ -119,6 +117,34 @@ Optional:
 
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
+
+Optional:
+
+- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
+- `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--scale_distribution))
+
+<a id="nestedatt--field_config--defaults--custom--hide_from"></a>
+### Nested Schema for `field_config.defaults.custom.scale_distribution`
+
+Required:
+
+- `legend` (Boolean)
+- `tooltip` (Boolean)
+- `viz` (Boolean)
+
+
+<a id="nestedatt--field_config--defaults--custom--scale_distribution"></a>
+### Nested Schema for `field_config.defaults.custom.scale_distribution`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `linear_threshold` (Number)
+- `log` (Number)
+
 
 
 <a id="nestedatt--field_config--defaults--mappings"></a>
@@ -353,6 +379,212 @@ Optional:
 
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
+
+Optional:
+
+- `calculate` (Boolean) Controls if the heatmap should be calculated from data. Defaults to false.
+- `calculation` (Attributes) Calculation options for the heatmap (see [below for nested schema](#nestedatt--options--calculation))
+- `cell_gap` (Number) Controls gap between cells. Defaults to 1.
+- `cell_radius` (Number) Controls cell radius
+- `cell_values` (Attributes) Controls cell value unit (see [below for nested schema](#nestedatt--options--cell_values))
+- `color` (Attributes) Controls the color options (see [below for nested schema](#nestedatt--options--color))
+- `exemplars` (Attributes) Controls exemplar options (see [below for nested schema](#nestedatt--options--exemplars))
+- `filter_values` (Attributes) Filters values between a given range (see [below for nested schema](#nestedatt--options--filter_values))
+- `legend` (Attributes) | *{
+	axisPlacement: ui.AxisPlacement & "left" // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed
+}
+Controls legend options (see [below for nested schema](#nestedatt--options--legend))
+- `rows_frame` (Attributes) Controls tick alignment and value name when not calculating from data (see [below for nested schema](#nestedatt--options--rows_frame))
+- `show_value` (String) | *{
+	layout: ui.HeatmapCellLayout & "auto" // TODO: fix after remove when https://github.com/grafana/cuetsy/issues/74 is fixed
+}
+Controls the display of the value in the cell. Defaults to "auto".
+- `tooltip` (Attributes) Controls tooltip options (see [below for nested schema](#nestedatt--options--tooltip))
+- `y_axis` (Attributes) Controls yAxis placement (see [below for nested schema](#nestedatt--options--y_axis))
+
+<a id="nestedatt--options--calculation"></a>
+### Nested Schema for `options.calculation`
+
+Optional:
+
+- `x_buckets` (Attributes) The number of buckets to use for the xAxis in the heatmap (see [below for nested schema](#nestedatt--options--calculation--x_buckets))
+- `y_buckets` (Attributes) The number of buckets to use for the yAxis in the heatmap (see [below for nested schema](#nestedatt--options--calculation--y_buckets))
+
+<a id="nestedatt--options--calculation--x_buckets"></a>
+### Nested Schema for `options.calculation.x_buckets`
+
+Optional:
+
+- `mode` (String) Sets the bucket calculation mode
+- `scale` (Attributes) Controls the scale of the buckets (see [below for nested schema](#nestedatt--options--calculation--x_buckets--scale))
+- `value` (String) The number of buckets to use for the axis in the heatmap
+
+<a id="nestedatt--options--calculation--x_buckets--scale"></a>
+### Nested Schema for `options.calculation.x_buckets.value`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `linear_threshold` (Number)
+- `log` (Number)
+
+
+
+<a id="nestedatt--options--calculation--y_buckets"></a>
+### Nested Schema for `options.calculation.y_buckets`
+
+Optional:
+
+- `mode` (String) Sets the bucket calculation mode
+- `scale` (Attributes) Controls the scale of the buckets (see [below for nested schema](#nestedatt--options--calculation--y_buckets--scale))
+- `value` (String) The number of buckets to use for the axis in the heatmap
+
+<a id="nestedatt--options--calculation--y_buckets--scale"></a>
+### Nested Schema for `options.calculation.y_buckets.value`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `linear_threshold` (Number)
+- `log` (Number)
+
+
+
+
+<a id="nestedatt--options--cell_values"></a>
+### Nested Schema for `options.cell_values`
+
+Optional:
+
+- `cell_values` (Attributes) (see [below for nested schema](#nestedatt--options--cell_values--cell_values))
+
+<a id="nestedatt--options--cell_values--cell_values"></a>
+### Nested Schema for `options.cell_values.cell_values`
+
+Optional:
+
+- `decimals` (Number) Controls the number of decimals for cell values
+- `unit` (String) Controls the cell value unit
+
+
+
+<a id="nestedatt--options--color"></a>
+### Nested Schema for `options.color`
+
+Optional:
+
+- `heatmap_color_options` (Attributes) (see [below for nested schema](#nestedatt--options--color--heatmap_color_options))
+
+<a id="nestedatt--options--color--heatmap_color_options"></a>
+### Nested Schema for `options.color.heatmap_color_options`
+
+Required:
+
+- `exponent` (Number) Controls the exponent when scale is set to exponential
+- `fill` (String) Controls the color fill when in opacity mode
+- `reverse` (Boolean) Reverses the color scheme
+- `scheme` (String) Controls the color scheme used
+- `steps` (Number) Controls the number of color steps
+
+Optional:
+
+- `max` (Number) Sets the maximum value for the color scale
+- `min` (Number) Sets the minimum value for the color scale
+- `mode` (String) Sets the color mode
+- `scale` (String) Controls the color scale
+
+
+
+<a id="nestedatt--options--exemplars"></a>
+### Nested Schema for `options.exemplars`
+
+Required:
+
+- `color` (String)
+
+
+<a id="nestedatt--options--filter_values"></a>
+### Nested Schema for `options.filter_values`
+
+Optional:
+
+- `filter_value_range` (Attributes) (see [below for nested schema](#nestedatt--options--filter_values--filter_value_range))
+
+<a id="nestedatt--options--filter_values--filter_value_range"></a>
+### Nested Schema for `options.filter_values.filter_value_range`
+
+Optional:
+
+- `ge` (Number) Sets the filter range to values greater than or equal to the given value
+- `le` (Number) Sets the filter range to values less than or equal to the given value
+
+
+
+<a id="nestedatt--options--legend"></a>
+### Nested Schema for `options.legend`
+
+Required:
+
+- `show` (Boolean)
+
+
+<a id="nestedatt--options--rows_frame"></a>
+### Nested Schema for `options.rows_frame`
+
+Optional:
+
+- `layout` (String) Controls tick alignment when not calculating from data
+- `value` (String) Sets the name of the cell when not calculating from data
+
+
+<a id="nestedatt--options--tooltip"></a>
+### Nested Schema for `options.tooltip`
+
+Required:
+
+- `show` (Boolean)
+- `y_histogram` (Boolean)
+
+
+<a id="nestedatt--options--y_axis"></a>
+### Nested Schema for `options.y_axis`
+
+Optional:
+
+- `axis_centered_zero` (Boolean)
+- `axis_color_mode` (String)
+- `axis_grid_show` (Boolean)
+- `axis_label` (String)
+- `axis_placement` (String)
+- `axis_soft_max` (Number)
+- `axis_soft_min` (Number)
+- `axis_width` (Number)
+- `decimals` (Number) Controls the number of decimals for yAxis values
+- `max` (Number) Sets the maximum value for the yAxis
+- `min` (Number) Sets the minimum value for the yAxis
+- `reverse` (Boolean) Reverses the yAxis
+- `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--options--y_axis--scale_distribution))
+- `unit` (String) Sets the yAxis unit
+
+<a id="nestedatt--options--y_axis--scale_distribution"></a>
+### Nested Schema for `options.y_axis.scale_distribution`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `linear_threshold` (Number)
+- `log` (Number)
+
+
 
 
 <a id="nestedatt--transformations"></a>

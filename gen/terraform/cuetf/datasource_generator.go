@@ -39,10 +39,10 @@ func GenerateDataSource(schema thema.Schema) (b []byte, err error) {
 		var panelOptions *types.Node
 		var panelFieldConfig *types.Node
 		for i, node := range nodes {
-			if node.Name == "PanelOptions" {
+			if node.Name == "Options" {
 				nodes[i].Name = "options"
 				panelOptions = &nodes[i]
-			} else if node.Name == "PanelFieldConfig" {
+			} else if node.Name == "FieldConfig" {
 				nodes[i].Name = "custom"
 				panelFieldConfig = &nodes[i]
 			}

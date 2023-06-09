@@ -29,8 +29,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) The maximum number of data points that the panel queries are retrieving.
-- `options` (Attributes) options is specified by the Options field in panel
-plugin schemas. (see [below for nested schema](#nestedatt--options))
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -83,8 +82,7 @@ Optional:
 Optional:
 
 - `color` (Attributes) Map values to a display color (see [below for nested schema](#nestedatt--field_config--defaults--color))
-- `custom` (Attributes) custom is specified by the FieldConfig field
-in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config--defaults--custom))
+- `custom` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom))
 - `decimals` (Number) Significant digits (for display)
 - `description` (String) Human readable field metadata
 - `display_name` (String) The display value for this field.  This supports template variables blank is auto
@@ -119,6 +117,22 @@ Optional:
 
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
+
+Optional:
+
+- `fill_opacity` (Number) Defaults to 70.
+- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
+- `line_width` (Number) Defaults to 1.
+
+<a id="nestedatt--field_config--defaults--custom--hide_from"></a>
+### Nested Schema for `field_config.defaults.custom.line_width`
+
+Required:
+
+- `legend` (Boolean)
+- `tooltip` (Boolean)
+- `viz` (Boolean)
+
 
 
 <a id="nestedatt--field_config--defaults--mappings"></a>
@@ -353,6 +367,52 @@ Optional:
 
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
+
+Required:
+
+- `frame_index` (Number) Represents the index of the selected frame
+
+Optional:
+
+- `cell_height` (String) Controls the height of the rows. Defaults to "sm".
+- `footer` (Attributes) Controls footer options (see [below for nested schema](#nestedatt--options--footer))
+- `show_header` (Boolean) Controls whether the panel should show the header. Defaults to true.
+- `show_type_icons` (Boolean) Controls whether the header should show icons for the column types. Defaults to false.
+- `sort_by` (Attributes List) Used to control row sorting (see [below for nested schema](#nestedatt--options--sort_by))
+
+<a id="nestedatt--options--footer"></a>
+### Nested Schema for `options.footer`
+
+Optional:
+
+- `table_footer_options` (Attributes) (see [below for nested schema](#nestedatt--options--footer--table_footer_options))
+
+<a id="nestedatt--options--footer--table_footer_options"></a>
+### Nested Schema for `options.footer.table_footer_options`
+
+Required:
+
+- `show` (Boolean)
+
+Optional:
+
+- `count_rows` (Boolean)
+- `enable_pagination` (Boolean)
+- `fields` (List of String)
+
+
+
+<a id="nestedatt--options--sort_by"></a>
+### Nested Schema for `options.sort_by`
+
+Required:
+
+- `display_name` (String) Sets the display name of the field to sort by
+
+Optional:
+
+- `desc` (Boolean) Flag used to indicate descending sort order
+
 
 
 <a id="nestedatt--transformations"></a>

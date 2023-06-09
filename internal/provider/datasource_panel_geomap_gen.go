@@ -267,16 +267,366 @@ func (m PanelGeomapDataSourceModel_LibraryPanel) ApplyDefaults() PanelGeomapData
 	return m
 }
 
+type PanelGeomapDataSourceModel_Options_View struct {
+	Lat       types.Int64  `tfsdk:"lat"`
+	Lon       types.Int64  `tfsdk:"lon"`
+	Zoom      types.Int64  `tfsdk:"zoom"`
+	MinZoom   types.Int64  `tfsdk:"min_zoom"`
+	MaxZoom   types.Int64  `tfsdk:"max_zoom"`
+	Padding   types.Int64  `tfsdk:"padding"`
+	AllLayers types.Bool   `tfsdk:"all_layers"`
+	LastOnly  types.Bool   `tfsdk:"last_only"`
+	Layer     types.String `tfsdk:"layer"`
+	Shared    types.Bool   `tfsdk:"shared"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_View) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_View struct {
+		Lat       *int64  `json:"lat,omitempty"`
+		Lon       *int64  `json:"lon,omitempty"`
+		Zoom      *int64  `json:"zoom,omitempty"`
+		MinZoom   *int64  `json:"minZoom,omitempty"`
+		MaxZoom   *int64  `json:"maxZoom,omitempty"`
+		Padding   *int64  `json:"padding,omitempty"`
+		AllLayers *bool   `json:"allLayers,omitempty"`
+		LastOnly  *bool   `json:"lastOnly,omitempty"`
+		Layer     *string `json:"layer,omitempty"`
+		Shared    *bool   `json:"shared,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_lat := m.Lat.ValueInt64()
+	attr_lon := m.Lon.ValueInt64()
+	attr_zoom := m.Zoom.ValueInt64()
+	attr_minzoom := m.MinZoom.ValueInt64()
+	attr_maxzoom := m.MaxZoom.ValueInt64()
+	attr_padding := m.Padding.ValueInt64()
+	attr_alllayers := m.AllLayers.ValueBool()
+	attr_lastonly := m.LastOnly.ValueBool()
+	attr_layer := m.Layer.ValueString()
+	attr_shared := m.Shared.ValueBool()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_View{
+		Lat:       &attr_lat,
+		Lon:       &attr_lon,
+		Zoom:      &attr_zoom,
+		MinZoom:   &attr_minzoom,
+		MaxZoom:   &attr_maxzoom,
+		Padding:   &attr_padding,
+		AllLayers: &attr_alllayers,
+		LastOnly:  &attr_lastonly,
+		Layer:     &attr_layer,
+		Shared:    &attr_shared,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_View) ApplyDefaults() PanelGeomapDataSourceModel_Options_View {
+	if m.Lat.IsNull() {
+		m.Lat = types.Int64Value(0)
+	}
+	if m.Lon.IsNull() {
+		m.Lon = types.Int64Value(0)
+	}
+	if m.Zoom.IsNull() {
+		m.Zoom = types.Int64Value(1)
+	}
+	if m.AllLayers.IsNull() {
+		m.AllLayers = types.BoolValue(true)
+	}
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Controls struct {
+	ShowZoom        types.Bool `tfsdk:"show_zoom"`
+	MouseWheelZoom  types.Bool `tfsdk:"mouse_wheel_zoom"`
+	ShowAttribution types.Bool `tfsdk:"show_attribution"`
+	ShowScale       types.Bool `tfsdk:"show_scale"`
+	ShowDebug       types.Bool `tfsdk:"show_debug"`
+	ShowMeasure     types.Bool `tfsdk:"show_measure"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Controls) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Controls struct {
+		ShowZoom        *bool `json:"showZoom,omitempty"`
+		MouseWheelZoom  *bool `json:"mouseWheelZoom,omitempty"`
+		ShowAttribution *bool `json:"showAttribution,omitempty"`
+		ShowScale       *bool `json:"showScale,omitempty"`
+		ShowDebug       *bool `json:"showDebug,omitempty"`
+		ShowMeasure     *bool `json:"showMeasure,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_showzoom := m.ShowZoom.ValueBool()
+	attr_mousewheelzoom := m.MouseWheelZoom.ValueBool()
+	attr_showattribution := m.ShowAttribution.ValueBool()
+	attr_showscale := m.ShowScale.ValueBool()
+	attr_showdebug := m.ShowDebug.ValueBool()
+	attr_showmeasure := m.ShowMeasure.ValueBool()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_Controls{
+		ShowZoom:        &attr_showzoom,
+		MouseWheelZoom:  &attr_mousewheelzoom,
+		ShowAttribution: &attr_showattribution,
+		ShowScale:       &attr_showscale,
+		ShowDebug:       &attr_showdebug,
+		ShowMeasure:     &attr_showmeasure,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_Controls) ApplyDefaults() PanelGeomapDataSourceModel_Options_Controls {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Basemap_Location struct {
+	Mode      types.String `tfsdk:"mode"`
+	Geohash   types.String `tfsdk:"geohash"`
+	Latitude  types.String `tfsdk:"latitude"`
+	Longitude types.String `tfsdk:"longitude"`
+	Wkt       types.String `tfsdk:"wkt"`
+	Lookup    types.String `tfsdk:"lookup"`
+	Gazetteer types.String `tfsdk:"gazetteer"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Basemap_Location) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Basemap_Location struct {
+		Mode      string  `json:"mode"`
+		Geohash   *string `json:"geohash,omitempty"`
+		Latitude  *string `json:"latitude,omitempty"`
+		Longitude *string `json:"longitude,omitempty"`
+		Wkt       *string `json:"wkt,omitempty"`
+		Lookup    *string `json:"lookup,omitempty"`
+		Gazetteer *string `json:"gazetteer,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+	attr_geohash := m.Geohash.ValueString()
+	attr_latitude := m.Latitude.ValueString()
+	attr_longitude := m.Longitude.ValueString()
+	attr_wkt := m.Wkt.ValueString()
+	attr_lookup := m.Lookup.ValueString()
+	attr_gazetteer := m.Gazetteer.ValueString()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_Basemap_Location{
+		Mode:      attr_mode,
+		Geohash:   &attr_geohash,
+		Latitude:  &attr_latitude,
+		Longitude: &attr_longitude,
+		Wkt:       &attr_wkt,
+		Lookup:    &attr_lookup,
+		Gazetteer: &attr_gazetteer,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_Basemap_Location) ApplyDefaults() PanelGeomapDataSourceModel_Options_Basemap_Location {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Basemap struct {
+	Type     types.String                                         `tfsdk:"type"`
+	Name     types.String                                         `tfsdk:"name"`
+	Location *PanelGeomapDataSourceModel_Options_Basemap_Location `tfsdk:"location"`
+	Opacity  types.Int64                                          `tfsdk:"opacity"`
+	Tooltip  types.Bool                                           `tfsdk:"tooltip"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Basemap) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Basemap struct {
+		Type     string      `json:"type"`
+		Name     string      `json:"name"`
+		Location interface{} `json:"location,omitempty"`
+		Opacity  *int64      `json:"opacity,omitempty"`
+		Tooltip  *bool       `json:"tooltip,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	attr_name := m.Name.ValueString()
+	var attr_location interface{}
+	if m.Location != nil {
+		attr_location = m.Location
+	}
+	attr_opacity := m.Opacity.ValueInt64()
+	attr_tooltip := m.Tooltip.ValueBool()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_Basemap{
+		Type:     attr_type,
+		Name:     attr_name,
+		Location: attr_location,
+		Opacity:  &attr_opacity,
+		Tooltip:  &attr_tooltip,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_Basemap) ApplyDefaults() PanelGeomapDataSourceModel_Options_Basemap {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Layers_Location struct {
+	Mode      types.String `tfsdk:"mode"`
+	Geohash   types.String `tfsdk:"geohash"`
+	Latitude  types.String `tfsdk:"latitude"`
+	Longitude types.String `tfsdk:"longitude"`
+	Wkt       types.String `tfsdk:"wkt"`
+	Lookup    types.String `tfsdk:"lookup"`
+	Gazetteer types.String `tfsdk:"gazetteer"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Layers_Location) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Layers_Location struct {
+		Mode      string  `json:"mode"`
+		Geohash   *string `json:"geohash,omitempty"`
+		Latitude  *string `json:"latitude,omitempty"`
+		Longitude *string `json:"longitude,omitempty"`
+		Wkt       *string `json:"wkt,omitempty"`
+		Lookup    *string `json:"lookup,omitempty"`
+		Gazetteer *string `json:"gazetteer,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+	attr_geohash := m.Geohash.ValueString()
+	attr_latitude := m.Latitude.ValueString()
+	attr_longitude := m.Longitude.ValueString()
+	attr_wkt := m.Wkt.ValueString()
+	attr_lookup := m.Lookup.ValueString()
+	attr_gazetteer := m.Gazetteer.ValueString()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_Layers_Location{
+		Mode:      attr_mode,
+		Geohash:   &attr_geohash,
+		Latitude:  &attr_latitude,
+		Longitude: &attr_longitude,
+		Wkt:       &attr_wkt,
+		Lookup:    &attr_lookup,
+		Gazetteer: &attr_gazetteer,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_Layers_Location) ApplyDefaults() PanelGeomapDataSourceModel_Options_Layers_Location {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Layers struct {
+	Type     types.String                                        `tfsdk:"type"`
+	Name     types.String                                        `tfsdk:"name"`
+	Location *PanelGeomapDataSourceModel_Options_Layers_Location `tfsdk:"location"`
+	Opacity  types.Int64                                         `tfsdk:"opacity"`
+	Tooltip  types.Bool                                          `tfsdk:"tooltip"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Layers) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Layers struct {
+		Type     string      `json:"type"`
+		Name     string      `json:"name"`
+		Location interface{} `json:"location,omitempty"`
+		Opacity  *int64      `json:"opacity,omitempty"`
+		Tooltip  *bool       `json:"tooltip,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	attr_name := m.Name.ValueString()
+	var attr_location interface{}
+	if m.Location != nil {
+		attr_location = m.Location
+	}
+	attr_opacity := m.Opacity.ValueInt64()
+	attr_tooltip := m.Tooltip.ValueBool()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_Layers{
+		Type:     attr_type,
+		Name:     attr_name,
+		Location: attr_location,
+		Opacity:  &attr_opacity,
+		Tooltip:  &attr_tooltip,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_Layers) ApplyDefaults() PanelGeomapDataSourceModel_Options_Layers {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_Options_Tooltip struct {
+	Mode types.String `tfsdk:"mode"`
+}
+
+func (m PanelGeomapDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_Options_Tooltip struct {
+		Mode string `json:"mode"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+
+	model := &jsonPanelGeomapDataSourceModel_Options_Tooltip{
+		Mode: attr_mode,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_Options_Tooltip) ApplyDefaults() PanelGeomapDataSourceModel_Options_Tooltip {
+
+	return m
+}
+
 type PanelGeomapDataSourceModel_Options struct {
+	View     *PanelGeomapDataSourceModel_Options_View     `tfsdk:"view"`
+	Controls *PanelGeomapDataSourceModel_Options_Controls `tfsdk:"controls"`
+	Basemap  *PanelGeomapDataSourceModel_Options_Basemap  `tfsdk:"basemap"`
+	Layers   []PanelGeomapDataSourceModel_Options_Layers  `tfsdk:"layers"`
+	Tooltip  *PanelGeomapDataSourceModel_Options_Tooltip  `tfsdk:"tooltip"`
 }
 
 func (m PanelGeomapDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelGeomapDataSourceModel_Options struct {
+		View     interface{}   `json:"view,omitempty"`
+		Controls interface{}   `json:"controls,omitempty"`
+		Basemap  interface{}   `json:"basemap,omitempty"`
+		Layers   []interface{} `json:"layers,omitempty"`
+		Tooltip  interface{}   `json:"tooltip,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	var attr_view interface{}
+	if m.View != nil {
+		attr_view = m.View
+	}
+	var attr_controls interface{}
+	if m.Controls != nil {
+		attr_controls = m.Controls
+	}
+	var attr_basemap interface{}
+	if m.Basemap != nil {
+		attr_basemap = m.Basemap
+	}
+	attr_layers := []interface{}{}
+	for _, v := range m.Layers {
+		attr_layers = append(attr_layers, v)
+	}
+	var attr_tooltip interface{}
+	if m.Tooltip != nil {
+		attr_tooltip = m.Tooltip
+	}
 
-	model := &jsonPanelGeomapDataSourceModel_Options{}
+	model := &jsonPanelGeomapDataSourceModel_Options{
+		View:     attr_view,
+		Controls: attr_controls,
+		Basemap:  attr_basemap,
+		Layers:   attr_layers,
+		Tooltip:  attr_tooltip,
+	}
 	return json.Marshal(model)
 }
 
@@ -770,21 +1120,180 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() P
 	return m
 }
 
+type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+	Type            types.String  `tfsdk:"type"`
+	Log             types.Float64 `tfsdk:"log"`
+	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
+}
+
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+		Type            string   `json:"type"`
+		Log             *float64 `json:"log,omitempty"`
+		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_type := m.Type.ValueString()
+	attr_log := m.Log.ValueFloat64()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
+		Type:            attr_type,
+		Log:             &attr_log,
+		LinearThreshold: &attr_linearthreshold,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+
+	return m
+}
+
+type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+	Mode types.String `tfsdk:"mode"`
+}
+
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+		Mode string `json:"mode"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
+		Mode: attr_mode,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle {
+
+	return m
+}
+
 type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth         types.Int64                                                               `tfsdk:"line_width"`
+	FillOpacity       types.Int64                                                               `tfsdk:"fill_opacity"`
+	GradientMode      types.String                                                              `tfsdk:"gradient_mode"`
+	AxisPlacement     types.String                                                              `tfsdk:"axis_placement"`
+	AxisColorMode     types.String                                                              `tfsdk:"axis_color_mode"`
+	AxisLabel         types.String                                                              `tfsdk:"axis_label"`
+	AxisWidth         types.Float64                                                             `tfsdk:"axis_width"`
+	AxisSoftMin       types.Float64                                                             `tfsdk:"axis_soft_min"`
+	AxisSoftMax       types.Float64                                                             `tfsdk:"axis_soft_max"`
+	AxisGridShow      types.Bool                                                                `tfsdk:"axis_grid_show"`
+	ScaleDistribution *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
+	HideFrom          *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
+	ThresholdsStyle   *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
+	AxisCenteredZero  types.Bool                                                                `tfsdk:"axis_centered_zero"`
 }
 
 func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth         *int64      `json:"lineWidth,omitempty"`
+		FillOpacity       *int64      `json:"fillOpacity,omitempty"`
+		GradientMode      *string     `json:"gradientMode,omitempty"`
+		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
+		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
+		AxisLabel         *string     `json:"axisLabel,omitempty"`
+		AxisWidth         *float64    `json:"axisWidth,omitempty"`
+		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
+		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
+		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
+		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
+		HideFrom          interface{} `json:"hideFrom,omitempty"`
+		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
+		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_linewidth := m.LineWidth.ValueInt64()
+	attr_fillopacity := m.FillOpacity.ValueInt64()
+	attr_gradientmode := m.GradientMode.ValueString()
+	attr_axisplacement := m.AxisPlacement.ValueString()
+	attr_axiscolormode := m.AxisColorMode.ValueString()
+	attr_axislabel := m.AxisLabel.ValueString()
+	attr_axiswidth := m.AxisWidth.ValueFloat64()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
+	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	var attr_scaledistribution interface{}
+	if m.ScaleDistribution != nil {
+		attr_scaledistribution = m.ScaleDistribution
+	}
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	var attr_thresholdsstyle interface{}
+	if m.ThresholdsStyle != nil {
+		attr_thresholdsstyle = m.ThresholdsStyle
+	}
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:         &attr_linewidth,
+		FillOpacity:       &attr_fillopacity,
+		GradientMode:      &attr_gradientmode,
+		AxisPlacement:     &attr_axisplacement,
+		AxisColorMode:     &attr_axiscolormode,
+		AxisLabel:         &attr_axislabel,
+		AxisWidth:         &attr_axiswidth,
+		AxisSoftMin:       &attr_axissoftmin,
+		AxisSoftMax:       &attr_axissoftmax,
+		AxisGridShow:      &attr_axisgridshow,
+		ScaleDistribution: attr_scaledistribution,
+		HideFrom:          attr_hidefrom,
+		ThresholdsStyle:   attr_thresholdsstyle,
+		AxisCenteredZero:  &attr_axiscenteredzero,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom {
-
+	if m.LineWidth.IsNull() {
+		m.LineWidth = types.Int64Value(1)
+	}
+	if m.FillOpacity.IsNull() {
+		m.FillOpacity = types.Int64Value(80)
+	}
+	if m.GradientMode.IsNull() {
+		m.GradientMode = types.StringValue(`none`)
+	}
 	return m
 }
 
@@ -1409,11 +1918,308 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the Options field in panel
-plugin schemas.`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"view": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"lat": schema.Int64Attribute{
+								MarkdownDescription: ` Defaults to 0.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"lon": schema.Int64Attribute{
+								MarkdownDescription: ` Defaults to 0.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"zoom": schema.Int64Attribute{
+								MarkdownDescription: ` Defaults to 1.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"min_zoom": schema.Int64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"max_zoom": schema.Int64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"padding": schema.Int64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"all_layers": schema.BoolAttribute{
+								MarkdownDescription: ` Defaults to true.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"last_only": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"layer": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"shared": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"controls": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"show_zoom": schema.BoolAttribute{
+								MarkdownDescription: `Zoom (upper left)`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"mouse_wheel_zoom": schema.BoolAttribute{
+								MarkdownDescription: `let the mouse wheel zoom`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_attribution": schema.BoolAttribute{
+								MarkdownDescription: `Lower right`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_scale": schema.BoolAttribute{
+								MarkdownDescription: `Scale options`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_debug": schema.BoolAttribute{
+								MarkdownDescription: `Show debug`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_measure": schema.BoolAttribute{
+								MarkdownDescription: `Show measure`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"basemap": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"type": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"name": schema.StringAttribute{
+								MarkdownDescription: `configured unique display name`,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"location": schema.SingleNestedAttribute{
+								MarkdownDescription: `Common method to define geometry fields`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            false,
+										Required:            true,
+									},
+									"geohash": schema.StringAttribute{
+										MarkdownDescription: `Field mappings`,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"latitude": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"longitude": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"wkt": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"lookup": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"gazetteer": schema.StringAttribute{
+										MarkdownDescription: `Path to Gazetteer`,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+								},
+							},
+							"opacity": schema.Int64Attribute{
+								MarkdownDescription: `Common properties:
+https://openlayers.org/en/latest/apidoc/module-ol_layer_Base-BaseLayer.html
+Layer opacity (0-1)`,
+								Computed: false,
+								Optional: true,
+								Required: false,
+							},
+							"tooltip": schema.BoolAttribute{
+								MarkdownDescription: `Check tooltip (defaults to true)`,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"layers": schema.ListNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            false,
+						Optional:            true,
+						Required:            false,
+						NestedObject: schema.NestedAttributeObject{
+							Attributes: map[string]schema.Attribute{
+								"type": schema.StringAttribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+								"name": schema.StringAttribute{
+									MarkdownDescription: `configured unique display name`,
+									Computed:            false,
+									Optional:            false,
+									Required:            true,
+								},
+								"location": schema.SingleNestedAttribute{
+									MarkdownDescription: `Common method to define geometry fields`,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
+									Attributes: map[string]schema.Attribute{
+										"mode": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            false,
+											Required:            true,
+										},
+										"geohash": schema.StringAttribute{
+											MarkdownDescription: `Field mappings`,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"latitude": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"longitude": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"wkt": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"lookup": schema.StringAttribute{
+											MarkdownDescription: ``,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"gazetteer": schema.StringAttribute{
+											MarkdownDescription: `Path to Gazetteer`,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+									},
+								},
+								"opacity": schema.Int64Attribute{
+									MarkdownDescription: `Common properties:
+https://openlayers.org/en/latest/apidoc/module-ol_layer_Base-BaseLayer.html
+Layer opacity (0-1)`,
+									Computed: false,
+									Optional: true,
+									Required: false,
+								},
+								"tooltip": schema.BoolAttribute{
+									MarkdownDescription: `Check tooltip (defaults to true)`,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+							},
+						},
+					},
+					"tooltip": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+						},
+					},
+				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1826,11 +2632,145 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the FieldConfig field
-in panel plugin schemas.`,
-								Computed: true,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"line_width": schema.Int64Attribute{
+										MarkdownDescription: `Controls line width of the bars. Defaults to 1.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: `Controls the fill opacity of the bars. Defaults to 80.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"gradient_mode": schema.StringAttribute{
+										MarkdownDescription: `Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".`,
+										Computed: true,
+										Optional: true,
+										Required: false,
+									},
+									"axis_placement": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_color_mode": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_label": schema.StringAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_width": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_min": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_soft_max": schema.Float64Attribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"axis_grid_show": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"scale_distribution": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"type": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"log": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"linear_threshold": schema.Float64Attribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+										},
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"thresholds_style": schema.SingleNestedAttribute{
+										MarkdownDescription: `Threshold rendering`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"mode": schema.StringAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"axis_centered_zero": schema.BoolAttribute{
+										MarkdownDescription: ``,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},

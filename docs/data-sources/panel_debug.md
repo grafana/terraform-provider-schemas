@@ -29,8 +29,7 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 - `links` (Attributes List) Panel links.
 TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) The maximum number of data points that the panel queries are retrieving.
-- `options` (Attributes) options is specified by the Options field in panel
-plugin schemas. (see [below for nested schema](#nestedatt--options))
+- `options` (Attributes) (see [below for nested schema](#nestedatt--options))
 - `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
@@ -83,8 +82,7 @@ Optional:
 Optional:
 
 - `color` (Attributes) Map values to a display color (see [below for nested schema](#nestedatt--field_config--defaults--color))
-- `custom` (Attributes) custom is specified by the FieldConfig field
-in panel plugin schemas. (see [below for nested schema](#nestedatt--field_config--defaults--custom))
+- `custom` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom))
 - `decimals` (Number) Significant digits (for display)
 - `description` (String) Human readable field metadata
 - `display_name` (String) The display value for this field.  This supports template variables blank is auto
@@ -119,6 +117,55 @@ Optional:
 
 <a id="nestedatt--field_config--defaults--custom"></a>
 ### Nested Schema for `field_config.defaults.custom`
+
+Optional:
+
+- `axis_centered_zero` (Boolean)
+- `axis_color_mode` (String)
+- `axis_grid_show` (Boolean)
+- `axis_label` (String)
+- `axis_placement` (String)
+- `axis_soft_max` (Number)
+- `axis_soft_min` (Number)
+- `axis_width` (Number)
+- `fill_opacity` (Number) Controls the fill opacity of the bars. Defaults to 80.
+- `gradient_mode` (String) Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
+Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".
+- `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
+- `line_width` (Number) Controls line width of the bars. Defaults to 1.
+- `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--scale_distribution))
+- `thresholds_style` (Attributes) Threshold rendering (see [below for nested schema](#nestedatt--field_config--defaults--custom--thresholds_style))
+
+<a id="nestedatt--field_config--defaults--custom--hide_from"></a>
+### Nested Schema for `field_config.defaults.custom.thresholds_style`
+
+Required:
+
+- `legend` (Boolean)
+- `tooltip` (Boolean)
+- `viz` (Boolean)
+
+
+<a id="nestedatt--field_config--defaults--custom--scale_distribution"></a>
+### Nested Schema for `field_config.defaults.custom.thresholds_style`
+
+Required:
+
+- `type` (String)
+
+Optional:
+
+- `linear_threshold` (Number)
+- `log` (Number)
+
+
+<a id="nestedatt--field_config--defaults--custom--thresholds_style"></a>
+### Nested Schema for `field_config.defaults.custom.thresholds_style`
+
+Required:
+
+- `mode` (String)
+
 
 
 <a id="nestedatt--field_config--defaults--mappings"></a>
@@ -353,6 +400,24 @@ Optional:
 
 <a id="nestedatt--options"></a>
 ### Nested Schema for `options`
+
+Required:
+
+- `mode` (String)
+
+Optional:
+
+- `counters` (Attributes) (see [below for nested schema](#nestedatt--options--counters))
+
+<a id="nestedatt--options--counters"></a>
+### Nested Schema for `options.counters`
+
+Required:
+
+- `data_changed` (Boolean)
+- `render` (Boolean)
+- `schema_changed` (Boolean)
+
 
 
 <a id="nestedatt--transformations"></a>

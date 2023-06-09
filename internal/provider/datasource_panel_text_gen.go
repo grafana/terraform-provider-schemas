@@ -267,21 +267,83 @@ func (m PanelTextDataSourceModel_LibraryPanel) ApplyDefaults() PanelTextDataSour
 	return m
 }
 
+type PanelTextDataSourceModel_Options_Code struct {
+	Language        types.String `tfsdk:"language"`
+	ShowLineNumbers types.Bool   `tfsdk:"show_line_numbers"`
+	ShowMiniMap     types.Bool   `tfsdk:"show_mini_map"`
+}
+
+func (m PanelTextDataSourceModel_Options_Code) MarshalJSON() ([]byte, error) {
+	type jsonPanelTextDataSourceModel_Options_Code struct {
+		Language        string `json:"language"`
+		ShowLineNumbers bool   `json:"showLineNumbers"`
+		ShowMiniMap     bool   `json:"showMiniMap"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_language := m.Language.ValueString()
+	attr_showlinenumbers := m.ShowLineNumbers.ValueBool()
+	attr_showminimap := m.ShowMiniMap.ValueBool()
+
+	model := &jsonPanelTextDataSourceModel_Options_Code{
+		Language:        attr_language,
+		ShowLineNumbers: attr_showlinenumbers,
+		ShowMiniMap:     attr_showminimap,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTextDataSourceModel_Options_Code) ApplyDefaults() PanelTextDataSourceModel_Options_Code {
+	if m.Language.IsNull() {
+		m.Language = types.StringValue(`plaintext`)
+	}
+	if m.ShowLineNumbers.IsNull() {
+		m.ShowLineNumbers = types.BoolValue(false)
+	}
+	if m.ShowMiniMap.IsNull() {
+		m.ShowMiniMap = types.BoolValue(false)
+	}
+	return m
+}
+
 type PanelTextDataSourceModel_Options struct {
+	Mode    types.String                           `tfsdk:"mode"`
+	Code    *PanelTextDataSourceModel_Options_Code `tfsdk:"code"`
+	Content types.String                           `tfsdk:"content"`
 }
 
 func (m PanelTextDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelTextDataSourceModel_Options struct {
+		Mode    string      `json:"mode"`
+		Code    interface{} `json:"code,omitempty"`
+		Content string      `json:"content"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_mode := m.Mode.ValueString()
+	var attr_code interface{}
+	if m.Code != nil {
+		attr_code = m.Code
+	}
+	attr_content := m.Content.ValueString()
 
-	model := &jsonPanelTextDataSourceModel_Options{}
+	model := &jsonPanelTextDataSourceModel_Options{
+		Mode:    attr_mode,
+		Code:    attr_code,
+		Content: attr_content,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelTextDataSourceModel_Options) ApplyDefaults() PanelTextDataSourceModel_Options {
+	if m.Mode.IsNull() {
+		m.Mode = types.StringValue(`markdown`)
+	}
+	if m.Content.IsNull() {
+		m.Content = types.StringValue(`# Title
 
+For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)`)
+	}
 	return m
 }
 
@@ -770,21 +832,73 @@ func (m PanelTextDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() Pan
 	return m
 }
 
+type PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+	Tooltip types.Bool `tfsdk:"tooltip"`
+	Legend  types.Bool `tfsdk:"legend"`
+	Viz     types.Bool `tfsdk:"viz"`
+}
+
+func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+		Tooltip bool `json:"tooltip"`
+		Legend  bool `json:"legend"`
+		Viz     bool `json:"viz"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_tooltip := m.Tooltip.ValueBool()
+	attr_legend := m.Legend.ValueBool()
+	attr_viz := m.Viz.ValueBool()
+
+	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+		Tooltip: attr_tooltip,
+		Legend:  attr_legend,
+		Viz:     attr_viz,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+
+	return m
+}
+
 type PanelTextDataSourceModel_FieldConfig_Defaults_Custom struct {
+	LineWidth   types.Int64                                                    `tfsdk:"line_width"`
+	HideFrom    *PanelTextDataSourceModel_FieldConfig_Defaults_Custom_HideFrom `tfsdk:"hide_from"`
+	FillOpacity types.Int64                                                    `tfsdk:"fill_opacity"`
 }
 
 func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
 	type jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom struct {
+		LineWidth   *int64      `json:"lineWidth,omitempty"`
+		HideFrom    interface{} `json:"hideFrom,omitempty"`
+		FillOpacity *int64      `json:"fillOpacity,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
+	attr_linewidth := m.LineWidth.ValueInt64()
+	var attr_hidefrom interface{}
+	if m.HideFrom != nil {
+		attr_hidefrom = m.HideFrom
+	}
+	attr_fillopacity := m.FillOpacity.ValueInt64()
 
-	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom{}
+	model := &jsonPanelTextDataSourceModel_FieldConfig_Defaults_Custom{
+		LineWidth:   &attr_linewidth,
+		HideFrom:    attr_hidefrom,
+		FillOpacity: &attr_fillopacity,
+	}
 	return json.Marshal(model)
 }
 
 func (m PanelTextDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelTextDataSourceModel_FieldConfig_Defaults_Custom {
-
+	if m.LineWidth.IsNull() {
+		m.LineWidth = types.Int64Value(1)
+	}
+	if m.FillOpacity.IsNull() {
+		m.FillOpacity = types.Int64Value(70)
+	}
 	return m
 }
 
@@ -1409,11 +1523,52 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"options": schema.SingleNestedAttribute{
-				MarkdownDescription: `options is specified by the Options field in panel
-plugin schemas.`,
-				Computed: true,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: ``,
+				Computed:            true,
+				Optional:            true,
+				Required:            false,
+				Attributes: map[string]schema.Attribute{
+					"mode": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "markdown".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"code": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"language": schema.StringAttribute{
+								MarkdownDescription: `The language passed to monaco code editor. Defaults to "plaintext".`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_line_numbers": schema.BoolAttribute{
+								MarkdownDescription: ` Defaults to false.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+							"show_mini_map": schema.BoolAttribute{
+								MarkdownDescription: ` Defaults to false.`,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+							},
+						},
+					},
+					"content": schema.StringAttribute{
+						MarkdownDescription: ` Defaults to "# Title
+
+For markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)".`,
+						Computed: true,
+						Optional: true,
+						Required: false,
+					},
+				},
 			},
 			"field_config": schema.SingleNestedAttribute{
 				MarkdownDescription: ``,
@@ -1826,11 +1981,50 @@ Some seem to be listed in typescript comment`,
 								Required:            false,
 							},
 							"custom": schema.SingleNestedAttribute{
-								MarkdownDescription: `custom is specified by the FieldConfig field
-in panel plugin schemas.`,
-								Computed: true,
-								Optional: true,
-								Required: false,
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"line_width": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 1.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+									"hide_from": schema.SingleNestedAttribute{
+										MarkdownDescription: ``,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+										Attributes: map[string]schema.Attribute{
+											"tooltip": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"legend": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"viz": schema.BoolAttribute{
+												MarkdownDescription: ``,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+									"fill_opacity": schema.Int64Attribute{
+										MarkdownDescription: ` Defaults to 70.`,
+										Computed:            true,
+										Optional:            true,
+										Required:            false,
+									},
+								},
 							},
 						},
 					},
