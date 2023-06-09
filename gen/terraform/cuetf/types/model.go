@@ -57,7 +57,7 @@ func (s *Model) generateToJSONFunction() string {
 
 	for _, node := range s.Nodes {
 		if len(node.DisjunctionKinds) > 0 {
-			fmt.Fprintf(&b, s.generateGetAttrFunction(node))
+			b.WriteString(s.generateGetAttrFunction(node))
 		}
 	}
 
