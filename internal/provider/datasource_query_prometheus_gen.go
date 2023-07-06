@@ -71,29 +71,65 @@ func (m QueryPrometheusDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_expr := m.Expr.ValueString()
-	attr_instant := m.Instant.ValueBool()
-	attr_range := m.Range.ValueBool()
-	attr_exemplar := m.Exemplar.ValueBool()
-	attr_editormode := m.EditorMode.ValueString()
-	attr_format := m.Format.ValueString()
-	attr_legendformat := m.LegendFormat.ValueString()
-	attr_intervalfactor := m.IntervalFactor.ValueFloat64()
+	var attr_instant *bool
+	if !m.Instant.IsNull() && !m.Instant.IsUnknown() {
+		tmp := m.Instant.ValueBool()
+		attr_instant = &tmp
+	}
+	var attr_range *bool
+	if !m.Range.IsNull() && !m.Range.IsUnknown() {
+		tmp := m.Range.ValueBool()
+		attr_range = &tmp
+	}
+	var attr_exemplar *bool
+	if !m.Exemplar.IsNull() && !m.Exemplar.IsUnknown() {
+		tmp := m.Exemplar.ValueBool()
+		attr_exemplar = &tmp
+	}
+	var attr_editormode *string
+	if !m.EditorMode.IsNull() && !m.EditorMode.IsUnknown() {
+		tmp := m.EditorMode.ValueString()
+		attr_editormode = &tmp
+	}
+	var attr_format *string
+	if !m.Format.IsNull() && !m.Format.IsUnknown() {
+		tmp := m.Format.ValueString()
+		attr_format = &tmp
+	}
+	var attr_legendformat *string
+	if !m.LegendFormat.IsNull() && !m.LegendFormat.IsUnknown() {
+		tmp := m.LegendFormat.ValueString()
+		attr_legendformat = &tmp
+	}
+	var attr_intervalfactor *float64
+	if !m.IntervalFactor.IsNull() && !m.IntervalFactor.IsUnknown() {
+		tmp := m.IntervalFactor.ValueFloat64()
+		attr_intervalfactor = &tmp
+	}
 	attr_refid := m.RefId.ValueString()
-	attr_hide := m.Hide.ValueBool()
-	attr_querytype := m.QueryType.ValueString()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
+	var attr_querytype *string
+	if !m.QueryType.IsNull() && !m.QueryType.IsUnknown() {
+		tmp := m.QueryType.ValueString()
+		attr_querytype = &tmp
+	}
 
 	model := &jsonQueryPrometheusDataSourceModel{
 		Expr:           attr_expr,
-		Instant:        &attr_instant,
-		Range:          &attr_range,
-		Exemplar:       &attr_exemplar,
-		EditorMode:     &attr_editormode,
-		Format:         &attr_format,
-		LegendFormat:   &attr_legendformat,
-		IntervalFactor: &attr_intervalfactor,
+		Instant:        attr_instant,
+		Range:          attr_range,
+		Exemplar:       attr_exemplar,
+		EditorMode:     attr_editormode,
+		Format:         attr_format,
+		LegendFormat:   attr_legendformat,
+		IntervalFactor: attr_intervalfactor,
 		RefId:          attr_refid,
-		Hide:           &attr_hide,
-		QueryType:      &attr_querytype,
+		Hide:           attr_hide,
+		QueryType:      attr_querytype,
 	}
 	return json.Marshal(model)
 }

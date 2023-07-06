@@ -69,27 +69,59 @@ func (m QueryLokiDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_expr := m.Expr.ValueString()
-	attr_legendformat := m.LegendFormat.ValueString()
-	attr_maxlines := m.MaxLines.ValueInt64()
-	attr_resolution := m.Resolution.ValueInt64()
-	attr_editormode := m.EditorMode.ValueString()
-	attr_range := m.Range.ValueBool()
-	attr_instant := m.Instant.ValueBool()
+	var attr_legendformat *string
+	if !m.LegendFormat.IsNull() && !m.LegendFormat.IsUnknown() {
+		tmp := m.LegendFormat.ValueString()
+		attr_legendformat = &tmp
+	}
+	var attr_maxlines *int64
+	if !m.MaxLines.IsNull() && !m.MaxLines.IsUnknown() {
+		tmp := m.MaxLines.ValueInt64()
+		attr_maxlines = &tmp
+	}
+	var attr_resolution *int64
+	if !m.Resolution.IsNull() && !m.Resolution.IsUnknown() {
+		tmp := m.Resolution.ValueInt64()
+		attr_resolution = &tmp
+	}
+	var attr_editormode *string
+	if !m.EditorMode.IsNull() && !m.EditorMode.IsUnknown() {
+		tmp := m.EditorMode.ValueString()
+		attr_editormode = &tmp
+	}
+	var attr_range *bool
+	if !m.Range.IsNull() && !m.Range.IsUnknown() {
+		tmp := m.Range.ValueBool()
+		attr_range = &tmp
+	}
+	var attr_instant *bool
+	if !m.Instant.IsNull() && !m.Instant.IsUnknown() {
+		tmp := m.Instant.ValueBool()
+		attr_instant = &tmp
+	}
 	attr_refid := m.RefId.ValueString()
-	attr_hide := m.Hide.ValueBool()
-	attr_querytype := m.QueryType.ValueString()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
+	var attr_querytype *string
+	if !m.QueryType.IsNull() && !m.QueryType.IsUnknown() {
+		tmp := m.QueryType.ValueString()
+		attr_querytype = &tmp
+	}
 
 	model := &jsonQueryLokiDataSourceModel{
 		Expr:         attr_expr,
-		LegendFormat: &attr_legendformat,
-		MaxLines:     &attr_maxlines,
-		Resolution:   &attr_resolution,
-		EditorMode:   &attr_editormode,
-		Range:        &attr_range,
-		Instant:      &attr_instant,
+		LegendFormat: attr_legendformat,
+		MaxLines:     attr_maxlines,
+		Resolution:   attr_resolution,
+		EditorMode:   attr_editormode,
+		Range:        attr_range,
+		Instant:      attr_instant,
 		RefId:        attr_refid,
-		Hide:         &attr_hide,
-		QueryType:    &attr_querytype,
+		Hide:         attr_hide,
+		QueryType:    attr_querytype,
 	}
 	return json.Marshal(model)
 }

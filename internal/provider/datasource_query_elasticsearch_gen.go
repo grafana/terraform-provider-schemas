@@ -57,18 +57,38 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_DateHistogram_Settings) Mar
 	}
 
 	m = m.ApplyDefaults()
-	attr_interval := m.Interval.ValueString()
-	attr_min_doc_count := m.MinDocCount.ValueString()
-	attr_trimedges := m.TrimEdges.ValueString()
-	attr_offset := m.Offset.ValueString()
-	attr_timezone := m.TimeZone.ValueString()
+	var attr_interval *string
+	if !m.Interval.IsNull() && !m.Interval.IsUnknown() {
+		tmp := m.Interval.ValueString()
+		attr_interval = &tmp
+	}
+	var attr_min_doc_count *string
+	if !m.MinDocCount.IsNull() && !m.MinDocCount.IsUnknown() {
+		tmp := m.MinDocCount.ValueString()
+		attr_min_doc_count = &tmp
+	}
+	var attr_trimedges *string
+	if !m.TrimEdges.IsNull() && !m.TrimEdges.IsUnknown() {
+		tmp := m.TrimEdges.ValueString()
+		attr_trimedges = &tmp
+	}
+	var attr_offset *string
+	if !m.Offset.IsNull() && !m.Offset.IsUnknown() {
+		tmp := m.Offset.ValueString()
+		attr_offset = &tmp
+	}
+	var attr_timezone *string
+	if !m.TimeZone.IsNull() && !m.TimeZone.IsUnknown() {
+		tmp := m.TimeZone.ValueString()
+		attr_timezone = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_BucketAggs_DateHistogram_Settings{
-		Interval:    &attr_interval,
-		MinDocCount: &attr_min_doc_count,
-		TrimEdges:   &attr_trimedges,
-		Offset:      &attr_offset,
-		TimeZone:    &attr_timezone,
+		Interval:    attr_interval,
+		MinDocCount: attr_min_doc_count,
+		TrimEdges:   attr_trimedges,
+		Offset:      attr_offset,
+		TimeZone:    attr_timezone,
 	}
 	return json.Marshal(model)
 }
@@ -92,7 +112,11 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_DateHistogram) MarshalJSON(
 	}
 
 	m = m.ApplyDefaults()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
@@ -100,7 +124,7 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_DateHistogram) MarshalJSON(
 	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_BucketAggs_DateHistogram{
-		Field:    &attr_field,
+		Field:    attr_field,
 		Type:     attr_type,
 		Settings: attr_settings,
 	}
@@ -124,12 +148,20 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_Histogram_Settings) Marshal
 	}
 
 	m = m.ApplyDefaults()
-	attr_interval := m.Interval.ValueString()
-	attr_min_doc_count := m.MinDocCount.ValueString()
+	var attr_interval *string
+	if !m.Interval.IsNull() && !m.Interval.IsUnknown() {
+		tmp := m.Interval.ValueString()
+		attr_interval = &tmp
+	}
+	var attr_min_doc_count *string
+	if !m.MinDocCount.IsNull() && !m.MinDocCount.IsUnknown() {
+		tmp := m.MinDocCount.ValueString()
+		attr_min_doc_count = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_BucketAggs_Histogram_Settings{
-		Interval:    &attr_interval,
-		MinDocCount: &attr_min_doc_count,
+		Interval:    attr_interval,
+		MinDocCount: attr_min_doc_count,
 	}
 	return json.Marshal(model)
 }
@@ -153,7 +185,11 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_Histogram) MarshalJSON() ([
 	}
 
 	m = m.ApplyDefaults()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
@@ -161,7 +197,7 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_Histogram) MarshalJSON() ([
 	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_BucketAggs_Histogram{
-		Field:    &attr_field,
+		Field:    attr_field,
 		Type:     attr_type,
 		Settings: attr_settings,
 	}
@@ -191,18 +227,38 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_Terms_Settings) MarshalJSON
 	}
 
 	m = m.ApplyDefaults()
-	attr_order := m.Order.ValueString()
-	attr_size := m.Size.ValueString()
-	attr_min_doc_count := m.MinDocCount.ValueString()
-	attr_orderby := m.OrderBy.ValueString()
-	attr_missing := m.Missing.ValueString()
+	var attr_order *string
+	if !m.Order.IsNull() && !m.Order.IsUnknown() {
+		tmp := m.Order.ValueString()
+		attr_order = &tmp
+	}
+	var attr_size *string
+	if !m.Size.IsNull() && !m.Size.IsUnknown() {
+		tmp := m.Size.ValueString()
+		attr_size = &tmp
+	}
+	var attr_min_doc_count *string
+	if !m.MinDocCount.IsNull() && !m.MinDocCount.IsUnknown() {
+		tmp := m.MinDocCount.ValueString()
+		attr_min_doc_count = &tmp
+	}
+	var attr_orderby *string
+	if !m.OrderBy.IsNull() && !m.OrderBy.IsUnknown() {
+		tmp := m.OrderBy.ValueString()
+		attr_orderby = &tmp
+	}
+	var attr_missing *string
+	if !m.Missing.IsNull() && !m.Missing.IsUnknown() {
+		tmp := m.Missing.ValueString()
+		attr_missing = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_BucketAggs_Terms_Settings{
-		Order:       &attr_order,
-		Size:        &attr_size,
-		MinDocCount: &attr_min_doc_count,
-		OrderBy:     &attr_orderby,
-		Missing:     &attr_missing,
+		Order:       attr_order,
+		Size:        attr_size,
+		MinDocCount: attr_min_doc_count,
+		OrderBy:     attr_orderby,
+		Missing:     attr_missing,
 	}
 	return json.Marshal(model)
 }
@@ -226,7 +282,11 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_Terms) MarshalJSON() ([]byt
 	}
 
 	m = m.ApplyDefaults()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
@@ -234,7 +294,7 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_Terms) MarshalJSON() ([]byt
 	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_BucketAggs_Terms{
-		Field:    &attr_field,
+		Field:    attr_field,
 		Type:     attr_type,
 		Settings: attr_settings,
 	}
@@ -339,10 +399,14 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_GeoHashGrid_Settings) Marsh
 	}
 
 	m = m.ApplyDefaults()
-	attr_precision := m.Precision.ValueString()
+	var attr_precision *string
+	if !m.Precision.IsNull() && !m.Precision.IsUnknown() {
+		tmp := m.Precision.ValueString()
+		attr_precision = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_BucketAggs_GeoHashGrid_Settings{
-		Precision: &attr_precision,
+		Precision: attr_precision,
 	}
 	return json.Marshal(model)
 }
@@ -366,7 +430,11 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_GeoHashGrid) MarshalJSON() 
 	}
 
 	m = m.ApplyDefaults()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
@@ -374,7 +442,7 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_GeoHashGrid) MarshalJSON() 
 	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_BucketAggs_GeoHashGrid{
-		Field:    &attr_field,
+		Field:    attr_field,
 		Type:     attr_type,
 		Settings: attr_settings,
 	}
@@ -418,7 +486,11 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_Nested) MarshalJSON() ([]by
 	}
 
 	m = m.ApplyDefaults()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
@@ -426,7 +498,7 @@ func (m QueryElasticsearchDataSourceModel_BucketAggs_Nested) MarshalJSON() ([]by
 	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_BucketAggs_Nested{
-		Field:    &attr_field,
+		Field:    attr_field,
 		Type:     attr_type,
 		Settings: attr_settings,
 	}
@@ -490,11 +562,15 @@ func (m QueryElasticsearchDataSourceModel_Metrics_Count) MarshalJSON() ([]byte, 
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_Count{
 		Type: attr_type,
-		Hide: &attr_hide,
+		Hide: attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -540,21 +616,33 @@ func (m QueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_Movi
 	}
 
 	m = m.ApplyDefaults()
-	attr_pipelineagg := m.PipelineAgg.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_pipelineagg *string
+	if !m.PipelineAgg.IsNull() && !m.PipelineAgg.IsUnknown() {
+		tmp := m.PipelineAgg.ValueString()
+		attr_pipelineagg = &tmp
+	}
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_MovingAverage{
-		PipelineAgg: &attr_pipelineagg,
-		Field:       &attr_field,
+		PipelineAgg: attr_pipelineagg,
+		Field:       attr_field,
 		Type:        attr_type,
 		Settings:    attr_settings,
-		Hide:        &attr_hide,
+		Hide:        attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -574,10 +662,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_Deri
 	}
 
 	m = m.ApplyDefaults()
-	attr_unit := m.Unit.ValueString()
+	var attr_unit *string
+	if !m.Unit.IsNull() && !m.Unit.IsUnknown() {
+		tmp := m.Unit.ValueString()
+		attr_unit = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_Derivative_Settings{
-		Unit: &attr_unit,
+		Unit: attr_unit,
 	}
 	return json.Marshal(model)
 }
@@ -605,21 +697,33 @@ func (m QueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_Deri
 	}
 
 	m = m.ApplyDefaults()
-	attr_pipelineagg := m.PipelineAgg.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_pipelineagg *string
+	if !m.PipelineAgg.IsNull() && !m.PipelineAgg.IsUnknown() {
+		tmp := m.PipelineAgg.ValueString()
+		attr_pipelineagg = &tmp
+	}
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_Derivative{
-		PipelineAgg: &attr_pipelineagg,
-		Field:       &attr_field,
+		PipelineAgg: attr_pipelineagg,
+		Field:       attr_field,
 		Type:        attr_type,
 		Settings:    attr_settings,
-		Hide:        &attr_hide,
+		Hide:        attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -639,10 +743,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_Cumu
 	}
 
 	m = m.ApplyDefaults()
-	attr_format := m.Format.ValueString()
+	var attr_format *string
+	if !m.Format.IsNull() && !m.Format.IsUnknown() {
+		tmp := m.Format.ValueString()
+		attr_format = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_CumulativeSum_Settings{
-		Format: &attr_format,
+		Format: attr_format,
 	}
 	return json.Marshal(model)
 }
@@ -670,21 +778,33 @@ func (m QueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_Cumu
 	}
 
 	m = m.ApplyDefaults()
-	attr_pipelineagg := m.PipelineAgg.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_pipelineagg *string
+	if !m.PipelineAgg.IsNull() && !m.PipelineAgg.IsUnknown() {
+		tmp := m.PipelineAgg.ValueString()
+		attr_pipelineagg = &tmp
+	}
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_CumulativeSum{
-		PipelineAgg: &attr_pipelineagg,
-		Field:       &attr_field,
+		PipelineAgg: attr_pipelineagg,
+		Field:       attr_field,
 		Type:        attr_type,
 		Settings:    attr_settings,
-		Hide:        &attr_hide,
+		Hide:        attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -781,13 +901,17 @@ func (m QueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_Buck
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_PipelineMetricAggregation_BucketScript{
 		Type:              attr_type,
 		PipelineVariables: attr_pipelinevariables,
 		Settings:          attr_settings,
-		Hide:              &attr_hide,
+		Hide:              attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -915,13 +1039,17 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_BucketScript{
 		Type:              attr_type,
 		PipelineVariables: attr_pipelinevariables,
 		Settings:          attr_settings,
-		Hide:              &attr_hide,
+		Hide:              attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -941,10 +1069,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_format := m.Format.ValueString()
+	var attr_format *string
+	if !m.Format.IsNull() && !m.Format.IsUnknown() {
+		tmp := m.Format.ValueString()
+		attr_format = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_CumulativeSum_Settings{
-		Format: &attr_format,
+		Format: attr_format,
 	}
 	return json.Marshal(model)
 }
@@ -972,21 +1104,33 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_pipelineagg := m.PipelineAgg.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_pipelineagg *string
+	if !m.PipelineAgg.IsNull() && !m.PipelineAgg.IsUnknown() {
+		tmp := m.PipelineAgg.ValueString()
+		attr_pipelineagg = &tmp
+	}
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_CumulativeSum{
-		PipelineAgg: &attr_pipelineagg,
-		Field:       &attr_field,
+		PipelineAgg: attr_pipelineagg,
+		Field:       attr_field,
 		Type:        attr_type,
 		Settings:    attr_settings,
-		Hide:        &attr_hide,
+		Hide:        attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1006,10 +1150,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_unit := m.Unit.ValueString()
+	var attr_unit *string
+	if !m.Unit.IsNull() && !m.Unit.IsUnknown() {
+		tmp := m.Unit.ValueString()
+		attr_unit = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Derivative_Settings{
-		Unit: &attr_unit,
+		Unit: attr_unit,
 	}
 	return json.Marshal(model)
 }
@@ -1037,21 +1185,33 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_pipelineagg := m.PipelineAgg.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_pipelineagg *string
+	if !m.PipelineAgg.IsNull() && !m.PipelineAgg.IsUnknown() {
+		tmp := m.PipelineAgg.ValueString()
+		attr_pipelineagg = &tmp
+	}
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Derivative{
-		PipelineAgg: &attr_pipelineagg,
-		Field:       &attr_field,
+		PipelineAgg: attr_pipelineagg,
+		Field:       attr_field,
 		Type:        attr_type,
 		Settings:    attr_settings,
-		Hide:        &attr_hide,
+		Hide:        attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1071,10 +1231,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_lag := m.Lag.ValueString()
+	var attr_lag *string
+	if !m.Lag.IsNull() && !m.Lag.IsUnknown() {
+		tmp := m.Lag.ValueString()
+		attr_lag = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_SerialDiff_Settings{
-		Lag: &attr_lag,
+		Lag: attr_lag,
 	}
 	return json.Marshal(model)
 }
@@ -1102,21 +1266,33 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_pipelineagg := m.PipelineAgg.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_pipelineagg *string
+	if !m.PipelineAgg.IsNull() && !m.PipelineAgg.IsUnknown() {
+		tmp := m.PipelineAgg.ValueString()
+		attr_pipelineagg = &tmp
+	}
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_SerialDiff{
-		PipelineAgg: &attr_pipelineagg,
-		Field:       &attr_field,
+		PipelineAgg: attr_pipelineagg,
+		Field:       attr_field,
 		Type:        attr_type,
 		Settings:    attr_settings,
-		Hide:        &attr_hide,
+		Hide:        attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1136,10 +1312,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_size := m.Size.ValueString()
+	var attr_size *string
+	if !m.Size.IsNull() && !m.Size.IsUnknown() {
+		tmp := m.Size.ValueString()
+		attr_size = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_RawData_Settings{
-		Size: &attr_size,
+		Size: attr_size,
 	}
 	return json.Marshal(model)
 }
@@ -1168,12 +1348,16 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_RawData{
 		Type:     attr_type,
 		Settings: attr_settings,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1193,10 +1377,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_size := m.Size.ValueString()
+	var attr_size *string
+	if !m.Size.IsNull() && !m.Size.IsUnknown() {
+		tmp := m.Size.ValueString()
+		attr_size = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_RawDocument_Settings{
-		Size: &attr_size,
+		Size: attr_size,
 	}
 	return json.Marshal(model)
 }
@@ -1225,12 +1413,16 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_RawDocument{
 		Type:     attr_type,
 		Settings: attr_settings,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1252,12 +1444,20 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_precision_threshold := m.PrecisionThreshold.ValueString()
-	attr_missing := m.Missing.ValueString()
+	var attr_precision_threshold *string
+	if !m.PrecisionThreshold.IsNull() && !m.PrecisionThreshold.IsUnknown() {
+		tmp := m.PrecisionThreshold.ValueString()
+		attr_precision_threshold = &tmp
+	}
+	var attr_missing *string
+	if !m.Missing.IsNull() && !m.Missing.IsUnknown() {
+		tmp := m.Missing.ValueString()
+		attr_missing = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_UniqueCount_Settings{
-		PrecisionThreshold: &attr_precision_threshold,
-		Missing:            &attr_missing,
+		PrecisionThreshold: attr_precision_threshold,
+		Missing:            attr_missing,
 	}
 	return json.Marshal(model)
 }
@@ -1284,18 +1484,26 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_UniqueCount{
 		Type:     attr_type,
-		Field:    &attr_field,
+		Field:    attr_field,
 		Settings: attr_settings,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1317,14 +1525,18 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_missing := m.Missing.ValueString()
+	var attr_missing *string
+	if !m.Missing.IsNull() && !m.Missing.IsUnknown() {
+		tmp := m.Missing.ValueString()
+		attr_missing = &tmp
+	}
 	attr_percents := []string{}
 	for _, v := range m.Percents.Elements() {
 		attr_percents = append(attr_percents, v.(types.String).ValueString())
 	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Percentiles_Settings{
-		Missing:  &attr_missing,
+		Missing:  attr_missing,
 		Percents: attr_percents,
 	}
 	return json.Marshal(model)
@@ -1354,18 +1566,26 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Percentiles{
 		Type:     attr_type,
-		Field:    &attr_field,
+		Field:    attr_field,
 		Settings: attr_settings,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1387,12 +1607,20 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_missing := m.Missing.ValueString()
-	attr_sigma := m.Sigma.ValueString()
+	var attr_missing *string
+	if !m.Missing.IsNull() && !m.Missing.IsUnknown() {
+		tmp := m.Missing.ValueString()
+		attr_missing = &tmp
+	}
+	var attr_sigma *string
+	if !m.Sigma.IsNull() && !m.Sigma.IsUnknown() {
+		tmp := m.Sigma.ValueString()
+		attr_sigma = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_ExtendedStats_Settings{
-		Missing: &attr_missing,
-		Sigma:   &attr_sigma,
+		Missing: attr_missing,
+		Sigma:   attr_sigma,
 	}
 	return json.Marshal(model)
 }
@@ -1443,19 +1671,27 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	var attr_meta interface{}
 	if m.Meta != nil {
 		attr_meta = m.Meta
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_ExtendedStats{
 		Type:     attr_type,
 		Settings: attr_settings,
-		Field:    &attr_field,
+		Field:    attr_field,
 		Meta:     attr_meta,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1475,10 +1711,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_missing := m.Missing.ValueString()
+	var attr_missing *string
+	if !m.Missing.IsNull() && !m.Missing.IsUnknown() {
+		tmp := m.Missing.ValueString()
+		attr_missing = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Min_Settings{
-		Missing: &attr_missing,
+		Missing: attr_missing,
 	}
 	return json.Marshal(model)
 }
@@ -1505,18 +1745,26 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Min{
 		Type:     attr_type,
-		Field:    &attr_field,
+		Field:    attr_field,
 		Settings: attr_settings,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1536,10 +1784,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_missing := m.Missing.ValueString()
+	var attr_missing *string
+	if !m.Missing.IsNull() && !m.Missing.IsUnknown() {
+		tmp := m.Missing.ValueString()
+		attr_missing = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Max_Settings{
-		Missing: &attr_missing,
+		Missing: attr_missing,
 	}
 	return json.Marshal(model)
 }
@@ -1566,18 +1818,26 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Max{
 		Type:     attr_type,
-		Field:    &attr_field,
+		Field:    attr_field,
 		Settings: attr_settings,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1597,10 +1857,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_missing := m.Missing.ValueString()
+	var attr_missing *string
+	if !m.Missing.IsNull() && !m.Missing.IsUnknown() {
+		tmp := m.Missing.ValueString()
+		attr_missing = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Sum_Settings{
-		Missing: &attr_missing,
+		Missing: attr_missing,
 	}
 	return json.Marshal(model)
 }
@@ -1627,18 +1891,26 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Sum{
 		Type:     attr_type,
-		Field:    &attr_field,
+		Field:    attr_field,
 		Settings: attr_settings,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1658,10 +1930,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_missing := m.Missing.ValueString()
+	var attr_missing *string
+	if !m.Missing.IsNull() && !m.Missing.IsUnknown() {
+		tmp := m.Missing.ValueString()
+		attr_missing = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Average_Settings{
-		Missing: &attr_missing,
+		Missing: attr_missing,
 	}
 	return json.Marshal(model)
 }
@@ -1688,18 +1964,26 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Average{
 		Type:     attr_type,
-		Field:    &attr_field,
+		Field:    attr_field,
 		Settings: attr_settings,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1745,21 +2029,33 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_pipelineagg := m.PipelineAgg.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_pipelineagg *string
+	if !m.PipelineAgg.IsNull() && !m.PipelineAgg.IsUnknown() {
+		tmp := m.PipelineAgg.ValueString()
+		attr_pipelineagg = &tmp
+	}
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_MovingAverage{
-		PipelineAgg: &attr_pipelineagg,
-		Field:       &attr_field,
+		PipelineAgg: attr_pipelineagg,
+		Field:       attr_field,
 		Type:        attr_type,
 		Settings:    attr_settings,
-		Hide:        &attr_hide,
+		Hide:        attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1795,14 +2091,22 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_window := m.Window.ValueString()
+	var attr_window *string
+	if !m.Window.IsNull() && !m.Window.IsUnknown() {
+		tmp := m.Window.ValueString()
+		attr_window = &tmp
+	}
 	attr_script := m.GetAttrScript()
-	attr_shift := m.Shift.ValueString()
+	var attr_shift *string
+	if !m.Shift.IsNull() && !m.Shift.IsUnknown() {
+		tmp := m.Shift.ValueString()
+		attr_shift = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_MovingFunction_Settings{
-		Window: &attr_window,
+		Window: attr_window,
 		Script: attr_script,
-		Shift:  &attr_shift,
+		Shift:  attr_shift,
 	}
 	return json.Marshal(model)
 }
@@ -1830,21 +2134,33 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_pipelineagg := m.PipelineAgg.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_pipelineagg *string
+	if !m.PipelineAgg.IsNull() && !m.PipelineAgg.IsUnknown() {
+		tmp := m.PipelineAgg.ValueString()
+		attr_pipelineagg = &tmp
+	}
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	attr_type := m.Type.ValueString()
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_MovingFunction{
-		PipelineAgg: &attr_pipelineagg,
-		Field:       &attr_field,
+		PipelineAgg: attr_pipelineagg,
+		Field:       attr_field,
 		Type:        attr_type,
 		Settings:    attr_settings,
-		Hide:        &attr_hide,
+		Hide:        attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1864,10 +2180,14 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_limit := m.Limit.ValueString()
+	var attr_limit *string
+	if !m.Limit.IsNull() && !m.Limit.IsUnknown() {
+		tmp := m.Limit.ValueString()
+		attr_limit = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Logs_Settings{
-		Limit: &attr_limit,
+		Limit: attr_limit,
 	}
 	return json.Marshal(model)
 }
@@ -1896,12 +2216,16 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Logs{
 		Type:     attr_type,
 		Settings: attr_settings,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1923,12 +2247,20 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_unit := m.Unit.ValueString()
-	attr_mode := m.Mode.ValueString()
+	var attr_unit *string
+	if !m.Unit.IsNull() && !m.Unit.IsUnknown() {
+		tmp := m.Unit.ValueString()
+		attr_unit = &tmp
+	}
+	var attr_mode *string
+	if !m.Mode.IsNull() && !m.Mode.IsUnknown() {
+		tmp := m.Mode.ValueString()
+		attr_mode = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Rate_Settings{
-		Unit: &attr_unit,
-		Mode: &attr_mode,
+		Unit: attr_unit,
+		Mode: attr_mode,
 	}
 	return json.Marshal(model)
 }
@@ -1955,18 +2287,26 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_field := m.Field.ValueString()
+	var attr_field *string
+	if !m.Field.IsNull() && !m.Field.IsUnknown() {
+		tmp := m.Field.ValueString()
+		attr_field = &tmp
+	}
 	var attr_settings interface{}
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_Rate{
 		Type:     attr_type,
-		Field:    &attr_field,
+		Field:    attr_field,
 		Settings: attr_settings,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -1990,16 +2330,24 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	}
 
 	m = m.ApplyDefaults()
-	attr_order := m.Order.ValueString()
-	attr_orderby := m.OrderBy.ValueString()
+	var attr_order *string
+	if !m.Order.IsNull() && !m.Order.IsUnknown() {
+		tmp := m.Order.ValueString()
+		attr_order = &tmp
+	}
+	var attr_orderby *string
+	if !m.OrderBy.IsNull() && !m.OrderBy.IsUnknown() {
+		tmp := m.OrderBy.ValueString()
+		attr_orderby = &tmp
+	}
 	attr_metrics := []string{}
 	for _, v := range m.Metrics.Elements() {
 		attr_metrics = append(attr_metrics, v.(types.String).ValueString())
 	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_TopMetrics_Settings{
-		Order:   &attr_order,
-		OrderBy: &attr_orderby,
+		Order:   attr_order,
+		OrderBy: attr_orderby,
 		Metrics: attr_metrics,
 	}
 	return json.Marshal(model)
@@ -2031,12 +2379,16 @@ func (m QueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_
 	if m.Settings != nil {
 		attr_settings = m.Settings
 	}
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel_Metrics_MetricAggregationWithSettings_TopMetrics{
 		Type:     attr_type,
 		Settings: attr_settings,
-		Hide:     &attr_hide,
+		Hide:     attr_hide,
 	}
 	return json.Marshal(model)
 }
@@ -2185,9 +2537,21 @@ func (m QueryElasticsearchDataSourceModel) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_alias := m.Alias.ValueString()
-	attr_query := m.Query.ValueString()
-	attr_timefield := m.TimeField.ValueString()
+	var attr_alias *string
+	if !m.Alias.IsNull() && !m.Alias.IsUnknown() {
+		tmp := m.Alias.ValueString()
+		attr_alias = &tmp
+	}
+	var attr_query *string
+	if !m.Query.IsNull() && !m.Query.IsUnknown() {
+		tmp := m.Query.ValueString()
+		attr_query = &tmp
+	}
+	var attr_timefield *string
+	if !m.TimeField.IsNull() && !m.TimeField.IsUnknown() {
+		tmp := m.TimeField.ValueString()
+		attr_timefield = &tmp
+	}
 	attr_bucketaggs := []interface{}{}
 	for _, v := range m.BucketAggs {
 		attr_bucketaggs = append(attr_bucketaggs, v)
@@ -2197,18 +2561,26 @@ func (m QueryElasticsearchDataSourceModel) MarshalJSON() ([]byte, error) {
 		attr_metrics = append(attr_metrics, v)
 	}
 	attr_refid := m.RefId.ValueString()
-	attr_hide := m.Hide.ValueBool()
-	attr_querytype := m.QueryType.ValueString()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
+	var attr_querytype *string
+	if !m.QueryType.IsNull() && !m.QueryType.IsUnknown() {
+		tmp := m.QueryType.ValueString()
+		attr_querytype = &tmp
+	}
 
 	model := &jsonQueryElasticsearchDataSourceModel{
-		Alias:      &attr_alias,
-		Query:      &attr_query,
-		TimeField:  &attr_timefield,
+		Alias:      attr_alias,
+		Query:      attr_query,
+		TimeField:  attr_timefield,
 		BucketAggs: attr_bucketaggs,
 		Metrics:    attr_metrics,
 		RefId:      attr_refid,
-		Hide:       &attr_hide,
-		QueryType:  &attr_querytype,
+		Hide:       attr_hide,
+		QueryType:  attr_querytype,
 	}
 	return json.Marshal(model)
 }

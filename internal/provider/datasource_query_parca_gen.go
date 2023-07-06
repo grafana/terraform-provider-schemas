@@ -61,15 +61,23 @@ func (m QueryParcaDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_labelselector := m.LabelSelector.ValueString()
 	attr_profiletypeid := m.ProfileTypeId.ValueString()
 	attr_refid := m.RefId.ValueString()
-	attr_hide := m.Hide.ValueBool()
-	attr_querytype := m.QueryType.ValueString()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
+	var attr_querytype *string
+	if !m.QueryType.IsNull() && !m.QueryType.IsUnknown() {
+		tmp := m.QueryType.ValueString()
+		attr_querytype = &tmp
+	}
 
 	model := &jsonQueryParcaDataSourceModel{
 		LabelSelector: attr_labelselector,
 		ProfileTypeId: attr_profiletypeid,
 		RefId:         attr_refid,
-		Hide:          &attr_hide,
-		QueryType:     &attr_querytype,
+		Hide:          attr_hide,
+		QueryType:     attr_querytype,
 	}
 	return json.Marshal(model)
 }

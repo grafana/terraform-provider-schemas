@@ -161,12 +161,20 @@ func (m CoreDashboardDataSourceModel_Templating_List_Datasource) MarshalJSON() (
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_uid := m.Uid.ValueString()
+	var attr_type *string
+	if !m.Type.IsNull() && !m.Type.IsUnknown() {
+		tmp := m.Type.ValueString()
+		attr_type = &tmp
+	}
+	var attr_uid *string
+	if !m.Uid.IsNull() && !m.Uid.IsUnknown() {
+		tmp := m.Uid.ValueString()
+		attr_uid = &tmp
+	}
 
 	model := &jsonCoreDashboardDataSourceModel_Templating_List_Datasource{
-		Type: &attr_type,
-		Uid:  &attr_uid,
+		Type: attr_type,
+		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
@@ -224,8 +232,16 @@ func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, err
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_name := m.Name.ValueString()
-	attr_label := m.Label.ValueString()
-	attr_rootstatekey := m.RootStateKey.ValueString()
+	var attr_label *string
+	if !m.Label.IsNull() && !m.Label.IsUnknown() {
+		tmp := m.Label.ValueString()
+		attr_label = &tmp
+	}
+	var attr_rootstatekey *string
+	if !m.RootStateKey.IsNull() && !m.RootStateKey.IsUnknown() {
+		tmp := m.RootStateKey.ValueString()
+		attr_rootstatekey = &tmp
+	}
 	attr_global := m.Global.ValueBool()
 	attr_hide := m.Hide.ValueInt64()
 	attr_skipurlsync := m.SkipUrlSync.ValueBool()
@@ -235,7 +251,11 @@ func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, err
 	if m.Error != nil {
 		attr_error = m.Error
 	}
-	attr_description := m.Description.ValueString()
+	var attr_description *string
+	if !m.Description.IsNull() && !m.Description.IsUnknown() {
+		tmp := m.Description.ValueString()
+		attr_description = &tmp
+	}
 	attr_query := m.GetAttrQuery()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -245,15 +265,15 @@ func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, err
 	model := &jsonCoreDashboardDataSourceModel_Templating_List{
 		Type:         attr_type,
 		Name:         attr_name,
-		Label:        &attr_label,
-		RootStateKey: &attr_rootstatekey,
+		Label:        attr_label,
+		RootStateKey: attr_rootstatekey,
 		Global:       attr_global,
 		Hide:         attr_hide,
 		SkipUrlSync:  attr_skipurlsync,
 		Index:        attr_index,
 		State:        attr_state,
 		Error:        attr_error,
-		Description:  &attr_description,
+		Description:  attr_description,
 		Query:        attr_query,
 		Datasource:   attr_datasource,
 	}
@@ -311,12 +331,20 @@ func (m CoreDashboardDataSourceModel_Annotations_List_Datasource) MarshalJSON() 
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_uid := m.Uid.ValueString()
+	var attr_type *string
+	if !m.Type.IsNull() && !m.Type.IsUnknown() {
+		tmp := m.Type.ValueString()
+		attr_type = &tmp
+	}
+	var attr_uid *string
+	if !m.Uid.IsNull() && !m.Uid.IsUnknown() {
+		tmp := m.Uid.ValueString()
+		attr_uid = &tmp
+	}
 
 	model := &jsonCoreDashboardDataSourceModel_Annotations_List_Datasource{
-		Type: &attr_type,
-		Uid:  &attr_uid,
+		Type: attr_type,
+		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
@@ -338,14 +366,18 @@ func (m CoreDashboardDataSourceModel_Annotations_List_Filter) MarshalJSON() ([]b
 	}
 
 	m = m.ApplyDefaults()
-	attr_exclude := m.Exclude.ValueBool()
+	var attr_exclude *bool
+	if !m.Exclude.IsNull() && !m.Exclude.IsUnknown() {
+		tmp := m.Exclude.ValueBool()
+		attr_exclude = &tmp
+	}
 	attr_ids := []int64{}
 	for _, v := range m.Ids.Elements() {
 		attr_ids = append(attr_ids, v.(types.Int64).ValueInt64())
 	}
 
 	model := &jsonCoreDashboardDataSourceModel_Annotations_List_Filter{
-		Exclude: &attr_exclude,
+		Exclude: attr_exclude,
 		Ids:     attr_ids,
 	}
 	return json.Marshal(model)
@@ -431,7 +463,11 @@ func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, er
 		attr_datasource = m.Datasource
 	}
 	attr_enable := m.Enable.ValueBool()
-	attr_hide := m.Hide.ValueBool()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
 	attr_iconcolor := m.IconColor.ValueString()
 	var attr_filter interface{}
 	if m.Filter != nil {
@@ -441,17 +477,21 @@ func (m CoreDashboardDataSourceModel_Annotations_List) MarshalJSON() ([]byte, er
 	if m.Target != nil {
 		attr_target = m.Target
 	}
-	attr_type := m.Type.ValueString()
+	var attr_type *string
+	if !m.Type.IsNull() && !m.Type.IsUnknown() {
+		tmp := m.Type.ValueString()
+		attr_type = &tmp
+	}
 
 	model := &jsonCoreDashboardDataSourceModel_Annotations_List{
 		Name:       attr_name,
 		Datasource: attr_datasource,
 		Enable:     attr_enable,
-		Hide:       &attr_hide,
+		Hide:       attr_hide,
 		IconColor:  attr_iconcolor,
 		Filter:     attr_filter,
 		Target:     attr_target,
-		Type:       &attr_type,
+		Type:       attr_type,
 	}
 	return json.Marshal(model)
 }
@@ -604,7 +644,11 @@ func (m CoreDashboardDataSourceModel_Snapshot) MarshalJSON() ([]byte, error) {
 	attr_name := m.Name.ValueString()
 	attr_orgid := m.OrgId.ValueInt64()
 	attr_updated := m.Updated.ValueString()
-	attr_url := m.Url.ValueString()
+	var attr_url *string
+	if !m.Url.IsNull() && !m.Url.IsUnknown() {
+		tmp := m.Url.ValueString()
+		attr_url = &tmp
+	}
 	attr_userid := m.UserId.ValueInt64()
 
 	model := &jsonCoreDashboardDataSourceModel_Snapshot{
@@ -616,7 +660,7 @@ func (m CoreDashboardDataSourceModel_Snapshot) MarshalJSON() ([]byte, error) {
 		Name:        attr_name,
 		OrgId:       attr_orgid,
 		Updated:     attr_updated,
-		Url:         &attr_url,
+		Url:         attr_url,
 		UserId:      attr_userid,
 	}
 	return json.Marshal(model)
@@ -694,17 +738,41 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_uid := m.Uid.ValueString()
-	attr_title := m.Title.ValueString()
-	attr_description := m.Description.ValueString()
-	attr_revision := m.Revision.ValueInt64()
-	attr_gnetid := m.GnetId.ValueString()
+	var attr_uid *string
+	if !m.Uid.IsNull() && !m.Uid.IsUnknown() {
+		tmp := m.Uid.ValueString()
+		attr_uid = &tmp
+	}
+	var attr_title *string
+	if !m.Title.IsNull() && !m.Title.IsUnknown() {
+		tmp := m.Title.ValueString()
+		attr_title = &tmp
+	}
+	var attr_description *string
+	if !m.Description.IsNull() && !m.Description.IsUnknown() {
+		tmp := m.Description.ValueString()
+		attr_description = &tmp
+	}
+	var attr_revision *int64
+	if !m.Revision.IsNull() && !m.Revision.IsUnknown() {
+		tmp := m.Revision.ValueInt64()
+		attr_revision = &tmp
+	}
+	var attr_gnetid *string
+	if !m.GnetId.IsNull() && !m.GnetId.IsUnknown() {
+		tmp := m.GnetId.ValueString()
+		attr_gnetid = &tmp
+	}
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
 	}
 	attr_style := m.Style.ValueString()
-	attr_timezone := m.Timezone.ValueString()
+	var attr_timezone *string
+	if !m.Timezone.IsNull() && !m.Timezone.IsUnknown() {
+		tmp := m.Timezone.ValueString()
+		attr_timezone = &tmp
+	}
 	attr_editable := m.Editable.ValueBool()
 	attr_graphtooltip := m.GraphTooltip.ValueInt64()
 	var attr_time interface{}
@@ -715,12 +783,28 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 	if m.Timepicker != nil {
 		attr_timepicker = m.Timepicker
 	}
-	attr_fiscalyearstartmonth := m.FiscalYearStartMonth.ValueInt64()
-	attr_livenow := m.LiveNow.ValueBool()
-	attr_weekstart := m.WeekStart.ValueString()
+	var attr_fiscalyearstartmonth *int64
+	if !m.FiscalYearStartMonth.IsNull() && !m.FiscalYearStartMonth.IsUnknown() {
+		tmp := m.FiscalYearStartMonth.ValueInt64()
+		attr_fiscalyearstartmonth = &tmp
+	}
+	var attr_livenow *bool
+	if !m.LiveNow.IsNull() && !m.LiveNow.IsUnknown() {
+		tmp := m.LiveNow.ValueBool()
+		attr_livenow = &tmp
+	}
+	var attr_weekstart *string
+	if !m.WeekStart.IsNull() && !m.WeekStart.IsUnknown() {
+		tmp := m.WeekStart.ValueString()
+		attr_weekstart = &tmp
+	}
 	attr_refresh := m.GetAttrRefresh()
 	attr_schemaversion := m.SchemaVersion.ValueInt64()
-	attr_version := m.Version.ValueInt64()
+	var attr_version *int64
+	if !m.Version.IsNull() && !m.Version.IsUnknown() {
+		tmp := m.Version.ValueInt64()
+		attr_version = &tmp
+	}
 	attr_panels := []string{}
 	for _, v := range m.Panels.Elements() {
 		attr_panels = append(attr_panels, v.(types.String).ValueString())
@@ -743,24 +827,24 @@ func (m CoreDashboardDataSourceModel) MarshalJSON() ([]byte, error) {
 	}
 
 	model := &jsonCoreDashboardDataSourceModel{
-		Uid:                  &attr_uid,
-		Title:                &attr_title,
-		Description:          &attr_description,
-		Revision:             &attr_revision,
-		GnetId:               &attr_gnetid,
+		Uid:                  attr_uid,
+		Title:                attr_title,
+		Description:          attr_description,
+		Revision:             attr_revision,
+		GnetId:               attr_gnetid,
 		Tags:                 attr_tags,
 		Style:                attr_style,
-		Timezone:             &attr_timezone,
+		Timezone:             attr_timezone,
 		Editable:             attr_editable,
 		GraphTooltip:         attr_graphtooltip,
 		Time:                 attr_time,
 		Timepicker:           attr_timepicker,
-		FiscalYearStartMonth: &attr_fiscalyearstartmonth,
-		LiveNow:              &attr_livenow,
-		WeekStart:            &attr_weekstart,
+		FiscalYearStartMonth: attr_fiscalyearstartmonth,
+		LiveNow:              attr_livenow,
+		WeekStart:            attr_weekstart,
 		Refresh:              attr_refresh,
 		SchemaVersion:        attr_schemaversion,
-		Version:              &attr_version,
+		Version:              attr_version,
 		Panels:               attr_panels,
 		Templating:           attr_templating,
 		Annotations:          attr_annotations,

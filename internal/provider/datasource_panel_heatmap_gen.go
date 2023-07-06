@@ -51,12 +51,20 @@ func (m PanelHeatmapDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_uid := m.Uid.ValueString()
+	var attr_type *string
+	if !m.Type.IsNull() && !m.Type.IsUnknown() {
+		tmp := m.Type.ValueString()
+		attr_type = &tmp
+	}
+	var attr_uid *string
+	if !m.Uid.IsNull() && !m.Uid.IsUnknown() {
+		tmp := m.Uid.ValueString()
+		attr_uid = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Datasource{
-		Type: &attr_type,
-		Uid:  &attr_uid,
+		Type: attr_type,
+		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
@@ -88,14 +96,18 @@ func (m PanelHeatmapDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	attr_static := m.Static.ValueBool()
+	var attr_static *bool
+	if !m.Static.IsNull() && !m.Static.IsUnknown() {
+		tmp := m.Static.ValueBool()
+		attr_static = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
 		Y:      attr_y,
-		Static: &attr_static,
+		Static: attr_static,
 	}
 	return json.Marshal(model)
 }
@@ -222,14 +234,18 @@ func (m PanelHeatmapDataSourceModel_Transformations) MarshalJSON() ([]byte, erro
 	}
 
 	m = m.ApplyDefaults()
-	attr_disabled := m.Disabled.ValueBool()
+	var attr_disabled *bool
+	if !m.Disabled.IsNull() && !m.Disabled.IsUnknown() {
+		tmp := m.Disabled.ValueBool()
+		attr_disabled = &tmp
+	}
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
 	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Transformations{
-		Disabled: &attr_disabled,
+		Disabled: attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
@@ -282,13 +298,21 @@ func (m PanelHeatmapDataSourceModel_Options_Calculation_XBuckets_Scale) MarshalJ
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+	var attr_log *float64
+	if !m.Log.IsNull() && !m.Log.IsUnknown() {
+		tmp := m.Log.ValueFloat64()
+		attr_log = &tmp
+	}
+	var attr_linearthreshold *float64
+	if !m.LinearThreshold.IsNull() && !m.LinearThreshold.IsUnknown() {
+		tmp := m.LinearThreshold.ValueFloat64()
+		attr_linearthreshold = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_XBuckets_Scale{
 		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
+		Log:             attr_log,
+		LinearThreshold: attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
@@ -312,16 +336,24 @@ func (m PanelHeatmapDataSourceModel_Options_Calculation_XBuckets) MarshalJSON() 
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_value := m.Value.ValueString()
+	var attr_mode *string
+	if !m.Mode.IsNull() && !m.Mode.IsUnknown() {
+		tmp := m.Mode.ValueString()
+		attr_mode = &tmp
+	}
+	var attr_value *string
+	if !m.Value.IsNull() && !m.Value.IsUnknown() {
+		tmp := m.Value.ValueString()
+		attr_value = &tmp
+	}
 	var attr_scale interface{}
 	if m.Scale != nil {
 		attr_scale = m.Scale
 	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_XBuckets{
-		Mode:  &attr_mode,
-		Value: &attr_value,
+		Mode:  attr_mode,
+		Value: attr_value,
 		Scale: attr_scale,
 	}
 	return json.Marshal(model)
@@ -347,13 +379,21 @@ func (m PanelHeatmapDataSourceModel_Options_Calculation_YBuckets_Scale) MarshalJ
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+	var attr_log *float64
+	if !m.Log.IsNull() && !m.Log.IsUnknown() {
+		tmp := m.Log.ValueFloat64()
+		attr_log = &tmp
+	}
+	var attr_linearthreshold *float64
+	if !m.LinearThreshold.IsNull() && !m.LinearThreshold.IsUnknown() {
+		tmp := m.LinearThreshold.ValueFloat64()
+		attr_linearthreshold = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_YBuckets_Scale{
 		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
+		Log:             attr_log,
+		LinearThreshold: attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
@@ -377,16 +417,24 @@ func (m PanelHeatmapDataSourceModel_Options_Calculation_YBuckets) MarshalJSON() 
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_value := m.Value.ValueString()
+	var attr_mode *string
+	if !m.Mode.IsNull() && !m.Mode.IsUnknown() {
+		tmp := m.Mode.ValueString()
+		attr_mode = &tmp
+	}
+	var attr_value *string
+	if !m.Value.IsNull() && !m.Value.IsUnknown() {
+		tmp := m.Value.ValueString()
+		attr_value = &tmp
+	}
 	var attr_scale interface{}
 	if m.Scale != nil {
 		attr_scale = m.Scale
 	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_YBuckets{
-		Mode:  &attr_mode,
-		Value: &attr_value,
+		Mode:  attr_mode,
+		Value: attr_value,
 		Scale: attr_scale,
 	}
 	return json.Marshal(model)
@@ -456,26 +504,42 @@ func (m PanelHeatmapDataSourceModel_Options_Color_HeatmapColorOptions) MarshalJS
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
+	var attr_mode *string
+	if !m.Mode.IsNull() && !m.Mode.IsUnknown() {
+		tmp := m.Mode.ValueString()
+		attr_mode = &tmp
+	}
 	attr_scheme := m.Scheme.ValueString()
 	attr_fill := m.Fill.ValueString()
-	attr_scale := m.Scale.ValueString()
+	var attr_scale *string
+	if !m.Scale.IsNull() && !m.Scale.IsUnknown() {
+		tmp := m.Scale.ValueString()
+		attr_scale = &tmp
+	}
 	attr_exponent := m.Exponent.ValueFloat64()
 	attr_steps := m.Steps.ValueInt64()
 	attr_reverse := m.Reverse.ValueBool()
-	attr_min := m.Min.ValueFloat64()
-	attr_max := m.Max.ValueFloat64()
+	var attr_min *float64
+	if !m.Min.IsNull() && !m.Min.IsUnknown() {
+		tmp := m.Min.ValueFloat64()
+		attr_min = &tmp
+	}
+	var attr_max *float64
+	if !m.Max.IsNull() && !m.Max.IsUnknown() {
+		tmp := m.Max.ValueFloat64()
+		attr_max = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_Color_HeatmapColorOptions{
-		Mode:     &attr_mode,
+		Mode:     attr_mode,
 		Scheme:   attr_scheme,
 		Fill:     attr_fill,
-		Scale:    &attr_scale,
+		Scale:    attr_scale,
 		Exponent: attr_exponent,
 		Steps:    attr_steps,
 		Reverse:  attr_reverse,
-		Min:      &attr_min,
-		Max:      &attr_max,
+		Min:      attr_min,
+		Max:      attr_max,
 	}
 	return json.Marshal(model)
 }
@@ -516,12 +580,20 @@ func (m PanelHeatmapDataSourceModel_Options_FilterValues_FilterValueRange) Marsh
 	}
 
 	m = m.ApplyDefaults()
-	attr_le := m.Le.ValueFloat64()
-	attr_ge := m.Ge.ValueFloat64()
+	var attr_le *float64
+	if !m.Le.IsNull() && !m.Le.IsUnknown() {
+		tmp := m.Le.ValueFloat64()
+		attr_le = &tmp
+	}
+	var attr_ge *float64
+	if !m.Ge.IsNull() && !m.Ge.IsUnknown() {
+		tmp := m.Ge.ValueFloat64()
+		attr_ge = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_FilterValues_FilterValueRange{
-		Le: &attr_le,
-		Ge: &attr_ge,
+		Le: attr_le,
+		Ge: attr_ge,
 	}
 	return json.Marshal(model)
 }
@@ -562,12 +634,20 @@ func (m PanelHeatmapDataSourceModel_Options_RowsFrame) MarshalJSON() ([]byte, er
 	}
 
 	m = m.ApplyDefaults()
-	attr_value := m.Value.ValueString()
-	attr_layout := m.Layout.ValueString()
+	var attr_value *string
+	if !m.Value.IsNull() && !m.Value.IsUnknown() {
+		tmp := m.Value.ValueString()
+		attr_value = &tmp
+	}
+	var attr_layout *string
+	if !m.Layout.IsNull() && !m.Layout.IsUnknown() {
+		tmp := m.Layout.ValueString()
+		attr_layout = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_RowsFrame{
-		Value:  &attr_value,
-		Layout: &attr_layout,
+		Value:  attr_value,
+		Layout: attr_layout,
 	}
 	return json.Marshal(model)
 }
@@ -589,12 +669,20 @@ func (m PanelHeatmapDataSourceModel_Options_CellValues_CellValues) MarshalJSON()
 	}
 
 	m = m.ApplyDefaults()
-	attr_unit := m.Unit.ValueString()
-	attr_decimals := m.Decimals.ValueFloat64()
+	var attr_unit *string
+	if !m.Unit.IsNull() && !m.Unit.IsUnknown() {
+		tmp := m.Unit.ValueString()
+		attr_unit = &tmp
+	}
+	var attr_decimals *float64
+	if !m.Decimals.IsNull() && !m.Decimals.IsUnknown() {
+		tmp := m.Decimals.ValueFloat64()
+		attr_decimals = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_CellValues_CellValues{
-		Unit:     &attr_unit,
-		Decimals: &attr_decimals,
+		Unit:     attr_unit,
+		Decimals: attr_decimals,
 	}
 	return json.Marshal(model)
 }
@@ -638,13 +726,21 @@ func (m PanelHeatmapDataSourceModel_Options_YAxis_ScaleDistribution) MarshalJSON
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+	var attr_log *float64
+	if !m.Log.IsNull() && !m.Log.IsUnknown() {
+		tmp := m.Log.ValueFloat64()
+		attr_log = &tmp
+	}
+	var attr_linearthreshold *float64
+	if !m.LinearThreshold.IsNull() && !m.LinearThreshold.IsUnknown() {
+		tmp := m.LinearThreshold.ValueFloat64()
+		attr_linearthreshold = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_YAxis_ScaleDistribution{
 		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
+		Log:             attr_log,
+		LinearThreshold: attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
@@ -690,39 +786,91 @@ func (m PanelHeatmapDataSourceModel_Options_YAxis) MarshalJSON() ([]byte, error)
 	}
 
 	m = m.ApplyDefaults()
-	attr_unit := m.Unit.ValueString()
-	attr_reverse := m.Reverse.ValueBool()
-	attr_decimals := m.Decimals.ValueFloat64()
-	attr_min := m.Min.ValueFloat64()
-	attr_axisplacement := m.AxisPlacement.ValueString()
-	attr_axiscolormode := m.AxisColorMode.ValueString()
-	attr_axislabel := m.AxisLabel.ValueString()
-	attr_axiswidth := m.AxisWidth.ValueFloat64()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
-	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	var attr_unit *string
+	if !m.Unit.IsNull() && !m.Unit.IsUnknown() {
+		tmp := m.Unit.ValueString()
+		attr_unit = &tmp
+	}
+	var attr_reverse *bool
+	if !m.Reverse.IsNull() && !m.Reverse.IsUnknown() {
+		tmp := m.Reverse.ValueBool()
+		attr_reverse = &tmp
+	}
+	var attr_decimals *float64
+	if !m.Decimals.IsNull() && !m.Decimals.IsUnknown() {
+		tmp := m.Decimals.ValueFloat64()
+		attr_decimals = &tmp
+	}
+	var attr_min *float64
+	if !m.Min.IsNull() && !m.Min.IsUnknown() {
+		tmp := m.Min.ValueFloat64()
+		attr_min = &tmp
+	}
+	var attr_axisplacement *string
+	if !m.AxisPlacement.IsNull() && !m.AxisPlacement.IsUnknown() {
+		tmp := m.AxisPlacement.ValueString()
+		attr_axisplacement = &tmp
+	}
+	var attr_axiscolormode *string
+	if !m.AxisColorMode.IsNull() && !m.AxisColorMode.IsUnknown() {
+		tmp := m.AxisColorMode.ValueString()
+		attr_axiscolormode = &tmp
+	}
+	var attr_axislabel *string
+	if !m.AxisLabel.IsNull() && !m.AxisLabel.IsUnknown() {
+		tmp := m.AxisLabel.ValueString()
+		attr_axislabel = &tmp
+	}
+	var attr_axiswidth *float64
+	if !m.AxisWidth.IsNull() && !m.AxisWidth.IsUnknown() {
+		tmp := m.AxisWidth.ValueFloat64()
+		attr_axiswidth = &tmp
+	}
+	var attr_axissoftmin *float64
+	if !m.AxisSoftMin.IsNull() && !m.AxisSoftMin.IsUnknown() {
+		tmp := m.AxisSoftMin.ValueFloat64()
+		attr_axissoftmin = &tmp
+	}
+	var attr_axissoftmax *float64
+	if !m.AxisSoftMax.IsNull() && !m.AxisSoftMax.IsUnknown() {
+		tmp := m.AxisSoftMax.ValueFloat64()
+		attr_axissoftmax = &tmp
+	}
+	var attr_axisgridshow *bool
+	if !m.AxisGridShow.IsNull() && !m.AxisGridShow.IsUnknown() {
+		tmp := m.AxisGridShow.ValueBool()
+		attr_axisgridshow = &tmp
+	}
 	var attr_scaledistribution interface{}
 	if m.ScaleDistribution != nil {
 		attr_scaledistribution = m.ScaleDistribution
 	}
-	attr_max := m.Max.ValueFloat64()
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
+	var attr_max *float64
+	if !m.Max.IsNull() && !m.Max.IsUnknown() {
+		tmp := m.Max.ValueFloat64()
+		attr_max = &tmp
+	}
+	var attr_axiscenteredzero *bool
+	if !m.AxisCenteredZero.IsNull() && !m.AxisCenteredZero.IsUnknown() {
+		tmp := m.AxisCenteredZero.ValueBool()
+		attr_axiscenteredzero = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_YAxis{
-		Unit:              &attr_unit,
-		Reverse:           &attr_reverse,
-		Decimals:          &attr_decimals,
-		Min:               &attr_min,
-		AxisPlacement:     &attr_axisplacement,
-		AxisColorMode:     &attr_axiscolormode,
-		AxisLabel:         &attr_axislabel,
-		AxisWidth:         &attr_axiswidth,
-		AxisSoftMin:       &attr_axissoftmin,
-		AxisSoftMax:       &attr_axissoftmax,
-		AxisGridShow:      &attr_axisgridshow,
+		Unit:              attr_unit,
+		Reverse:           attr_reverse,
+		Decimals:          attr_decimals,
+		Min:               attr_min,
+		AxisPlacement:     attr_axisplacement,
+		AxisColorMode:     attr_axiscolormode,
+		AxisLabel:         attr_axislabel,
+		AxisWidth:         attr_axiswidth,
+		AxisSoftMin:       attr_axissoftmin,
+		AxisSoftMax:       attr_axissoftmax,
+		AxisGridShow:      attr_axisgridshow,
 		ScaleDistribution: attr_scaledistribution,
-		Max:               &attr_max,
-		AxisCenteredZero:  &attr_axiscenteredzero,
+		Max:               attr_max,
+		AxisCenteredZero:  attr_axiscenteredzero,
 	}
 	return json.Marshal(model)
 }
@@ -839,7 +987,11 @@ func (m PanelHeatmapDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_calculate := m.Calculate.ValueBool()
+	var attr_calculate *bool
+	if !m.Calculate.IsNull() && !m.Calculate.IsUnknown() {
+		tmp := m.Calculate.ValueBool()
+		attr_calculate = &tmp
+	}
 	var attr_calculation interface{}
 	if m.Calculation != nil {
 		attr_calculation = m.Calculation
@@ -857,8 +1009,16 @@ func (m PanelHeatmapDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 		attr_rowsframe = m.RowsFrame
 	}
 	attr_showvalue := m.ShowValue.ValueString()
-	attr_cellgap := m.CellGap.ValueInt64()
-	attr_cellradius := m.CellRadius.ValueFloat64()
+	var attr_cellgap *int64
+	if !m.CellGap.IsNull() && !m.CellGap.IsUnknown() {
+		tmp := m.CellGap.ValueInt64()
+		attr_cellgap = &tmp
+	}
+	var attr_cellradius *float64
+	if !m.CellRadius.IsNull() && !m.CellRadius.IsUnknown() {
+		tmp := m.CellRadius.ValueFloat64()
+		attr_cellradius = &tmp
+	}
 	var attr_cellvalues interface{}
 	if m.CellValues != nil {
 		attr_cellvalues = m.CellValues
@@ -881,14 +1041,14 @@ func (m PanelHeatmapDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options{
-		Calculate:    &attr_calculate,
+		Calculate:    attr_calculate,
 		Calculation:  attr_calculation,
 		Color:        attr_color,
 		FilterValues: attr_filtervalues,
 		RowsFrame:    attr_rowsframe,
 		ShowValue:    attr_showvalue,
-		CellGap:      &attr_cellgap,
-		CellRadius:   &attr_cellradius,
+		CellGap:      attr_cellgap,
+		CellRadius:   attr_cellradius,
 		CellValues:   attr_cellvalues,
 		YAxis:        attr_yaxis,
 		Legend:       attr_legend,
@@ -927,16 +1087,32 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Optio
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -992,16 +1168,32 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Optio
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -1091,16 +1283,32 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Optio
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -1186,16 +1394,32 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMa
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -1316,16 +1540,28 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Marsh
 	}
 
 	m = m.ApplyDefaults()
-	attr_value := m.Value.ValueFloat64()
+	var attr_value *float64
+	if !m.Value.IsNull() && !m.Value.IsUnknown() {
+		tmp := m.Value.ValueFloat64()
+		attr_value = &tmp
+	}
 	attr_color := m.Color.ValueString()
-	attr_index := m.Index.ValueInt64()
-	attr_state := m.State.ValueString()
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
+	var attr_state *string
+	if !m.State.IsNull() && !m.State.IsUnknown() {
+		tmp := m.State.ValueString()
+		attr_state = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
-		Value: &attr_value,
+		Value: attr_value,
 		Color: attr_color,
-		Index: &attr_index,
-		State: &attr_state,
+		Index: attr_index,
+		State: attr_state,
 	}
 	return json.Marshal(model)
 }
@@ -1380,13 +1616,21 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_fixedcolor := m.FixedColor.ValueString()
-	attr_seriesby := m.SeriesBy.ValueString()
+	var attr_fixedcolor *string
+	if !m.FixedColor.IsNull() && !m.FixedColor.IsUnknown() {
+		tmp := m.FixedColor.ValueString()
+		attr_fixedcolor = &tmp
+	}
+	var attr_seriesby *string
+	if !m.SeriesBy.IsNull() && !m.SeriesBy.IsUnknown() {
+		tmp := m.SeriesBy.ValueString()
+		attr_seriesby = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
-		FixedColor: &attr_fixedcolor,
-		SeriesBy:   &attr_seriesby,
+		FixedColor: attr_fixedcolor,
+		SeriesBy:   attr_seriesby,
 	}
 	return json.Marshal(model)
 }
@@ -1411,13 +1655,21 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistributio
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+	var attr_log *float64
+	if !m.Log.IsNull() && !m.Log.IsUnknown() {
+		tmp := m.Log.ValueFloat64()
+		attr_log = &tmp
+	}
+	var attr_linearthreshold *float64
+	if !m.LinearThreshold.IsNull() && !m.LinearThreshold.IsUnknown() {
+		tmp := m.LinearThreshold.ValueFloat64()
+		attr_linearthreshold = &tmp
+	}
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
 		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
+		Log:             attr_log,
+		LinearThreshold: attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
@@ -1529,16 +1781,56 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte,
 	}
 
 	m = m.ApplyDefaults()
-	attr_displayname := m.DisplayName.ValueString()
-	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
-	attr_description := m.Description.ValueString()
-	attr_path := m.Path.ValueString()
-	attr_writeable := m.Writeable.ValueBool()
-	attr_filterable := m.Filterable.ValueBool()
-	attr_unit := m.Unit.ValueString()
-	attr_decimals := m.Decimals.ValueFloat64()
-	attr_min := m.Min.ValueFloat64()
-	attr_max := m.Max.ValueFloat64()
+	var attr_displayname *string
+	if !m.DisplayName.IsNull() && !m.DisplayName.IsUnknown() {
+		tmp := m.DisplayName.ValueString()
+		attr_displayname = &tmp
+	}
+	var attr_displaynamefromds *string
+	if !m.DisplayNameFromDS.IsNull() && !m.DisplayNameFromDS.IsUnknown() {
+		tmp := m.DisplayNameFromDS.ValueString()
+		attr_displaynamefromds = &tmp
+	}
+	var attr_description *string
+	if !m.Description.IsNull() && !m.Description.IsUnknown() {
+		tmp := m.Description.ValueString()
+		attr_description = &tmp
+	}
+	var attr_path *string
+	if !m.Path.IsNull() && !m.Path.IsUnknown() {
+		tmp := m.Path.ValueString()
+		attr_path = &tmp
+	}
+	var attr_writeable *bool
+	if !m.Writeable.IsNull() && !m.Writeable.IsUnknown() {
+		tmp := m.Writeable.ValueBool()
+		attr_writeable = &tmp
+	}
+	var attr_filterable *bool
+	if !m.Filterable.IsNull() && !m.Filterable.IsUnknown() {
+		tmp := m.Filterable.ValueBool()
+		attr_filterable = &tmp
+	}
+	var attr_unit *string
+	if !m.Unit.IsNull() && !m.Unit.IsUnknown() {
+		tmp := m.Unit.ValueString()
+		attr_unit = &tmp
+	}
+	var attr_decimals *float64
+	if !m.Decimals.IsNull() && !m.Decimals.IsUnknown() {
+		tmp := m.Decimals.ValueFloat64()
+		attr_decimals = &tmp
+	}
+	var attr_min *float64
+	if !m.Min.IsNull() && !m.Min.IsUnknown() {
+		tmp := m.Min.ValueFloat64()
+		attr_min = &tmp
+	}
+	var attr_max *float64
+	if !m.Max.IsNull() && !m.Max.IsUnknown() {
+		tmp := m.Max.ValueFloat64()
+		attr_max = &tmp
+	}
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -1551,27 +1843,31 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte,
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	attr_novalue := m.NoValue.ValueString()
+	var attr_novalue *string
+	if !m.NoValue.IsNull() && !m.NoValue.IsUnknown() {
+		tmp := m.NoValue.ValueString()
+		attr_novalue = &tmp
+	}
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
 	}
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults{
-		DisplayName:       &attr_displayname,
-		DisplayNameFromDS: &attr_displaynamefromds,
-		Description:       &attr_description,
-		Path:              &attr_path,
-		Writeable:         &attr_writeable,
-		Filterable:        &attr_filterable,
-		Unit:              &attr_unit,
-		Decimals:          &attr_decimals,
-		Min:               &attr_min,
-		Max:               &attr_max,
+		DisplayName:       attr_displayname,
+		DisplayNameFromDS: attr_displaynamefromds,
+		Description:       attr_description,
+		Path:              attr_path,
+		Writeable:         attr_writeable,
+		Filterable:        attr_filterable,
+		Unit:              attr_unit,
+		Decimals:          attr_decimals,
+		Min:               attr_min,
+		Max:               attr_max,
 		Mappings:          attr_mappings,
 		Thresholds:        attr_thresholds,
 		Color:             attr_color,
-		NoValue:           &attr_novalue,
+		NoValue:           attr_novalue,
 		Custom:            attr_custom,
 	}
 	return json.Marshal(model)
@@ -1736,7 +2032,11 @@ func (m PanelHeatmapDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_pluginversion := m.PluginVersion.ValueString()
+	var attr_pluginversion *string
+	if !m.PluginVersion.IsNull() && !m.PluginVersion.IsUnknown() {
+		tmp := m.PluginVersion.ValueString()
+		attr_pluginversion = &tmp
+	}
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -1745,8 +2045,16 @@ func (m PanelHeatmapDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	attr_title := m.Title.ValueString()
-	attr_description := m.Description.ValueString()
+	var attr_title *string
+	if !m.Title.IsNull() && !m.Title.IsUnknown() {
+		tmp := m.Title.ValueString()
+		attr_title = &tmp
+	}
+	var attr_description *string
+	if !m.Description.IsNull() && !m.Description.IsUnknown() {
+		tmp := m.Description.ValueString()
+		attr_description = &tmp
+	}
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -1760,17 +2068,41 @@ func (m PanelHeatmapDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	attr_repeat := m.Repeat.ValueString()
+	var attr_repeat *string
+	if !m.Repeat.IsNull() && !m.Repeat.IsUnknown() {
+		tmp := m.Repeat.ValueString()
+		attr_repeat = &tmp
+	}
 	attr_repeatdirection := m.RepeatDirection.ValueString()
-	attr_repeatpanelid := m.RepeatPanelId.ValueInt64()
-	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
+	var attr_repeatpanelid *int64
+	if !m.RepeatPanelId.IsNull() && !m.RepeatPanelId.IsUnknown() {
+		tmp := m.RepeatPanelId.ValueInt64()
+		attr_repeatpanelid = &tmp
+	}
+	var attr_maxdatapoints *float64
+	if !m.MaxDataPoints.IsNull() && !m.MaxDataPoints.IsUnknown() {
+		tmp := m.MaxDataPoints.ValueFloat64()
+		attr_maxdatapoints = &tmp
+	}
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	attr_interval := m.Interval.ValueString()
-	attr_timefrom := m.TimeFrom.ValueString()
-	attr_timeshift := m.TimeShift.ValueString()
+	var attr_interval *string
+	if !m.Interval.IsNull() && !m.Interval.IsUnknown() {
+		tmp := m.Interval.ValueString()
+		attr_interval = &tmp
+	}
+	var attr_timefrom *string
+	if !m.TimeFrom.IsNull() && !m.TimeFrom.IsUnknown() {
+		tmp := m.TimeFrom.ValueString()
+		attr_timefrom = &tmp
+	}
+	var attr_timeshift *string
+	if !m.TimeShift.IsNull() && !m.TimeShift.IsUnknown() {
+		tmp := m.TimeShift.ValueString()
+		attr_timeshift = &tmp
+	}
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
@@ -1786,23 +2118,23 @@ func (m PanelHeatmapDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	model := &jsonPanelHeatmapDataSourceModel{
 		Type:            attr_type,
-		PluginVersion:   &attr_pluginversion,
+		PluginVersion:   attr_pluginversion,
 		Tags:            attr_tags,
 		Targets:         attr_targets,
-		Title:           &attr_title,
-		Description:     &attr_description,
+		Title:           attr_title,
+		Description:     attr_description,
 		Transparent:     attr_transparent,
 		Datasource:      attr_datasource,
 		GridPos:         attr_gridpos,
 		Links:           attr_links,
-		Repeat:          &attr_repeat,
+		Repeat:          attr_repeat,
 		RepeatDirection: attr_repeatdirection,
-		RepeatPanelId:   &attr_repeatpanelid,
-		MaxDataPoints:   &attr_maxdatapoints,
+		RepeatPanelId:   attr_repeatpanelid,
+		MaxDataPoints:   attr_maxdatapoints,
 		Transformations: attr_transformations,
-		Interval:        &attr_interval,
-		TimeFrom:        &attr_timefrom,
-		TimeShift:       &attr_timeshift,
+		Interval:        attr_interval,
+		TimeFrom:        attr_timefrom,
+		TimeShift:       attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
 		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,

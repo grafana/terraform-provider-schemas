@@ -51,12 +51,20 @@ func (m PanelGeomapDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_uid := m.Uid.ValueString()
+	var attr_type *string
+	if !m.Type.IsNull() && !m.Type.IsUnknown() {
+		tmp := m.Type.ValueString()
+		attr_type = &tmp
+	}
+	var attr_uid *string
+	if !m.Uid.IsNull() && !m.Uid.IsUnknown() {
+		tmp := m.Uid.ValueString()
+		attr_uid = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_Datasource{
-		Type: &attr_type,
-		Uid:  &attr_uid,
+		Type: attr_type,
+		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
@@ -88,14 +96,18 @@ func (m PanelGeomapDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	attr_static := m.Static.ValueBool()
+	var attr_static *bool
+	if !m.Static.IsNull() && !m.Static.IsUnknown() {
+		tmp := m.Static.ValueBool()
+		attr_static = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
 		Y:      attr_y,
-		Static: &attr_static,
+		Static: attr_static,
 	}
 	return json.Marshal(model)
 }
@@ -222,14 +234,18 @@ func (m PanelGeomapDataSourceModel_Transformations) MarshalJSON() ([]byte, error
 	}
 
 	m = m.ApplyDefaults()
-	attr_disabled := m.Disabled.ValueBool()
+	var attr_disabled *bool
+	if !m.Disabled.IsNull() && !m.Disabled.IsUnknown() {
+		tmp := m.Disabled.ValueBool()
+		attr_disabled = &tmp
+	}
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
 	}
 
 	model := &jsonPanelGeomapDataSourceModel_Transformations{
-		Disabled: &attr_disabled,
+		Disabled: attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
@@ -295,28 +311,68 @@ func (m PanelGeomapDataSourceModel_Options_View) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_lat := m.Lat.ValueInt64()
-	attr_lon := m.Lon.ValueInt64()
-	attr_zoom := m.Zoom.ValueInt64()
-	attr_minzoom := m.MinZoom.ValueInt64()
-	attr_maxzoom := m.MaxZoom.ValueInt64()
-	attr_padding := m.Padding.ValueInt64()
-	attr_alllayers := m.AllLayers.ValueBool()
-	attr_lastonly := m.LastOnly.ValueBool()
-	attr_layer := m.Layer.ValueString()
-	attr_shared := m.Shared.ValueBool()
+	var attr_lat *int64
+	if !m.Lat.IsNull() && !m.Lat.IsUnknown() {
+		tmp := m.Lat.ValueInt64()
+		attr_lat = &tmp
+	}
+	var attr_lon *int64
+	if !m.Lon.IsNull() && !m.Lon.IsUnknown() {
+		tmp := m.Lon.ValueInt64()
+		attr_lon = &tmp
+	}
+	var attr_zoom *int64
+	if !m.Zoom.IsNull() && !m.Zoom.IsUnknown() {
+		tmp := m.Zoom.ValueInt64()
+		attr_zoom = &tmp
+	}
+	var attr_minzoom *int64
+	if !m.MinZoom.IsNull() && !m.MinZoom.IsUnknown() {
+		tmp := m.MinZoom.ValueInt64()
+		attr_minzoom = &tmp
+	}
+	var attr_maxzoom *int64
+	if !m.MaxZoom.IsNull() && !m.MaxZoom.IsUnknown() {
+		tmp := m.MaxZoom.ValueInt64()
+		attr_maxzoom = &tmp
+	}
+	var attr_padding *int64
+	if !m.Padding.IsNull() && !m.Padding.IsUnknown() {
+		tmp := m.Padding.ValueInt64()
+		attr_padding = &tmp
+	}
+	var attr_alllayers *bool
+	if !m.AllLayers.IsNull() && !m.AllLayers.IsUnknown() {
+		tmp := m.AllLayers.ValueBool()
+		attr_alllayers = &tmp
+	}
+	var attr_lastonly *bool
+	if !m.LastOnly.IsNull() && !m.LastOnly.IsUnknown() {
+		tmp := m.LastOnly.ValueBool()
+		attr_lastonly = &tmp
+	}
+	var attr_layer *string
+	if !m.Layer.IsNull() && !m.Layer.IsUnknown() {
+		tmp := m.Layer.ValueString()
+		attr_layer = &tmp
+	}
+	var attr_shared *bool
+	if !m.Shared.IsNull() && !m.Shared.IsUnknown() {
+		tmp := m.Shared.ValueBool()
+		attr_shared = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_Options_View{
-		Lat:       &attr_lat,
-		Lon:       &attr_lon,
-		Zoom:      &attr_zoom,
-		MinZoom:   &attr_minzoom,
-		MaxZoom:   &attr_maxzoom,
-		Padding:   &attr_padding,
-		AllLayers: &attr_alllayers,
-		LastOnly:  &attr_lastonly,
-		Layer:     &attr_layer,
-		Shared:    &attr_shared,
+		Lat:       attr_lat,
+		Lon:       attr_lon,
+		Zoom:      attr_zoom,
+		MinZoom:   attr_minzoom,
+		MaxZoom:   attr_maxzoom,
+		Padding:   attr_padding,
+		AllLayers: attr_alllayers,
+		LastOnly:  attr_lastonly,
+		Layer:     attr_layer,
+		Shared:    attr_shared,
 	}
 	return json.Marshal(model)
 }
@@ -357,20 +413,44 @@ func (m PanelGeomapDataSourceModel_Options_Controls) MarshalJSON() ([]byte, erro
 	}
 
 	m = m.ApplyDefaults()
-	attr_showzoom := m.ShowZoom.ValueBool()
-	attr_mousewheelzoom := m.MouseWheelZoom.ValueBool()
-	attr_showattribution := m.ShowAttribution.ValueBool()
-	attr_showscale := m.ShowScale.ValueBool()
-	attr_showdebug := m.ShowDebug.ValueBool()
-	attr_showmeasure := m.ShowMeasure.ValueBool()
+	var attr_showzoom *bool
+	if !m.ShowZoom.IsNull() && !m.ShowZoom.IsUnknown() {
+		tmp := m.ShowZoom.ValueBool()
+		attr_showzoom = &tmp
+	}
+	var attr_mousewheelzoom *bool
+	if !m.MouseWheelZoom.IsNull() && !m.MouseWheelZoom.IsUnknown() {
+		tmp := m.MouseWheelZoom.ValueBool()
+		attr_mousewheelzoom = &tmp
+	}
+	var attr_showattribution *bool
+	if !m.ShowAttribution.IsNull() && !m.ShowAttribution.IsUnknown() {
+		tmp := m.ShowAttribution.ValueBool()
+		attr_showattribution = &tmp
+	}
+	var attr_showscale *bool
+	if !m.ShowScale.IsNull() && !m.ShowScale.IsUnknown() {
+		tmp := m.ShowScale.ValueBool()
+		attr_showscale = &tmp
+	}
+	var attr_showdebug *bool
+	if !m.ShowDebug.IsNull() && !m.ShowDebug.IsUnknown() {
+		tmp := m.ShowDebug.ValueBool()
+		attr_showdebug = &tmp
+	}
+	var attr_showmeasure *bool
+	if !m.ShowMeasure.IsNull() && !m.ShowMeasure.IsUnknown() {
+		tmp := m.ShowMeasure.ValueBool()
+		attr_showmeasure = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_Options_Controls{
-		ShowZoom:        &attr_showzoom,
-		MouseWheelZoom:  &attr_mousewheelzoom,
-		ShowAttribution: &attr_showattribution,
-		ShowScale:       &attr_showscale,
-		ShowDebug:       &attr_showdebug,
-		ShowMeasure:     &attr_showmeasure,
+		ShowZoom:        attr_showzoom,
+		MouseWheelZoom:  attr_mousewheelzoom,
+		ShowAttribution: attr_showattribution,
+		ShowScale:       attr_showscale,
+		ShowDebug:       attr_showdebug,
+		ShowMeasure:     attr_showmeasure,
 	}
 	return json.Marshal(model)
 }
@@ -403,21 +483,45 @@ func (m PanelGeomapDataSourceModel_Options_Basemap_Location) MarshalJSON() ([]by
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_geohash := m.Geohash.ValueString()
-	attr_latitude := m.Latitude.ValueString()
-	attr_longitude := m.Longitude.ValueString()
-	attr_wkt := m.Wkt.ValueString()
-	attr_lookup := m.Lookup.ValueString()
-	attr_gazetteer := m.Gazetteer.ValueString()
+	var attr_geohash *string
+	if !m.Geohash.IsNull() && !m.Geohash.IsUnknown() {
+		tmp := m.Geohash.ValueString()
+		attr_geohash = &tmp
+	}
+	var attr_latitude *string
+	if !m.Latitude.IsNull() && !m.Latitude.IsUnknown() {
+		tmp := m.Latitude.ValueString()
+		attr_latitude = &tmp
+	}
+	var attr_longitude *string
+	if !m.Longitude.IsNull() && !m.Longitude.IsUnknown() {
+		tmp := m.Longitude.ValueString()
+		attr_longitude = &tmp
+	}
+	var attr_wkt *string
+	if !m.Wkt.IsNull() && !m.Wkt.IsUnknown() {
+		tmp := m.Wkt.ValueString()
+		attr_wkt = &tmp
+	}
+	var attr_lookup *string
+	if !m.Lookup.IsNull() && !m.Lookup.IsUnknown() {
+		tmp := m.Lookup.ValueString()
+		attr_lookup = &tmp
+	}
+	var attr_gazetteer *string
+	if !m.Gazetteer.IsNull() && !m.Gazetteer.IsUnknown() {
+		tmp := m.Gazetteer.ValueString()
+		attr_gazetteer = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_Options_Basemap_Location{
 		Mode:      attr_mode,
-		Geohash:   &attr_geohash,
-		Latitude:  &attr_latitude,
-		Longitude: &attr_longitude,
-		Wkt:       &attr_wkt,
-		Lookup:    &attr_lookup,
-		Gazetteer: &attr_gazetteer,
+		Geohash:   attr_geohash,
+		Latitude:  attr_latitude,
+		Longitude: attr_longitude,
+		Wkt:       attr_wkt,
+		Lookup:    attr_lookup,
+		Gazetteer: attr_gazetteer,
 	}
 	return json.Marshal(model)
 }
@@ -451,15 +555,23 @@ func (m PanelGeomapDataSourceModel_Options_Basemap) MarshalJSON() ([]byte, error
 	if m.Location != nil {
 		attr_location = m.Location
 	}
-	attr_opacity := m.Opacity.ValueInt64()
-	attr_tooltip := m.Tooltip.ValueBool()
+	var attr_opacity *int64
+	if !m.Opacity.IsNull() && !m.Opacity.IsUnknown() {
+		tmp := m.Opacity.ValueInt64()
+		attr_opacity = &tmp
+	}
+	var attr_tooltip *bool
+	if !m.Tooltip.IsNull() && !m.Tooltip.IsUnknown() {
+		tmp := m.Tooltip.ValueBool()
+		attr_tooltip = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_Options_Basemap{
 		Type:     attr_type,
 		Name:     attr_name,
 		Location: attr_location,
-		Opacity:  &attr_opacity,
-		Tooltip:  &attr_tooltip,
+		Opacity:  attr_opacity,
+		Tooltip:  attr_tooltip,
 	}
 	return json.Marshal(model)
 }
@@ -492,21 +604,45 @@ func (m PanelGeomapDataSourceModel_Options_Layers_Location) MarshalJSON() ([]byt
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_geohash := m.Geohash.ValueString()
-	attr_latitude := m.Latitude.ValueString()
-	attr_longitude := m.Longitude.ValueString()
-	attr_wkt := m.Wkt.ValueString()
-	attr_lookup := m.Lookup.ValueString()
-	attr_gazetteer := m.Gazetteer.ValueString()
+	var attr_geohash *string
+	if !m.Geohash.IsNull() && !m.Geohash.IsUnknown() {
+		tmp := m.Geohash.ValueString()
+		attr_geohash = &tmp
+	}
+	var attr_latitude *string
+	if !m.Latitude.IsNull() && !m.Latitude.IsUnknown() {
+		tmp := m.Latitude.ValueString()
+		attr_latitude = &tmp
+	}
+	var attr_longitude *string
+	if !m.Longitude.IsNull() && !m.Longitude.IsUnknown() {
+		tmp := m.Longitude.ValueString()
+		attr_longitude = &tmp
+	}
+	var attr_wkt *string
+	if !m.Wkt.IsNull() && !m.Wkt.IsUnknown() {
+		tmp := m.Wkt.ValueString()
+		attr_wkt = &tmp
+	}
+	var attr_lookup *string
+	if !m.Lookup.IsNull() && !m.Lookup.IsUnknown() {
+		tmp := m.Lookup.ValueString()
+		attr_lookup = &tmp
+	}
+	var attr_gazetteer *string
+	if !m.Gazetteer.IsNull() && !m.Gazetteer.IsUnknown() {
+		tmp := m.Gazetteer.ValueString()
+		attr_gazetteer = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_Options_Layers_Location{
 		Mode:      attr_mode,
-		Geohash:   &attr_geohash,
-		Latitude:  &attr_latitude,
-		Longitude: &attr_longitude,
-		Wkt:       &attr_wkt,
-		Lookup:    &attr_lookup,
-		Gazetteer: &attr_gazetteer,
+		Geohash:   attr_geohash,
+		Latitude:  attr_latitude,
+		Longitude: attr_longitude,
+		Wkt:       attr_wkt,
+		Lookup:    attr_lookup,
+		Gazetteer: attr_gazetteer,
 	}
 	return json.Marshal(model)
 }
@@ -540,15 +676,23 @@ func (m PanelGeomapDataSourceModel_Options_Layers) MarshalJSON() ([]byte, error)
 	if m.Location != nil {
 		attr_location = m.Location
 	}
-	attr_opacity := m.Opacity.ValueInt64()
-	attr_tooltip := m.Tooltip.ValueBool()
+	var attr_opacity *int64
+	if !m.Opacity.IsNull() && !m.Opacity.IsUnknown() {
+		tmp := m.Opacity.ValueInt64()
+		attr_opacity = &tmp
+	}
+	var attr_tooltip *bool
+	if !m.Tooltip.IsNull() && !m.Tooltip.IsUnknown() {
+		tmp := m.Tooltip.ValueBool()
+		attr_tooltip = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_Options_Layers{
 		Type:     attr_type,
 		Name:     attr_name,
 		Location: attr_location,
-		Opacity:  &attr_opacity,
-		Tooltip:  &attr_tooltip,
+		Opacity:  attr_opacity,
+		Tooltip:  attr_tooltip,
 	}
 	return json.Marshal(model)
 }
@@ -651,16 +795,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Option
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -716,16 +876,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Option
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -815,16 +991,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Option
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -910,16 +1102,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -1040,16 +1248,28 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Marsha
 	}
 
 	m = m.ApplyDefaults()
-	attr_value := m.Value.ValueFloat64()
+	var attr_value *float64
+	if !m.Value.IsNull() && !m.Value.IsUnknown() {
+		tmp := m.Value.ValueFloat64()
+		attr_value = &tmp
+	}
 	attr_color := m.Color.ValueString()
-	attr_index := m.Index.ValueInt64()
-	attr_state := m.State.ValueString()
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
+	var attr_state *string
+	if !m.State.IsNull() && !m.State.IsUnknown() {
+		tmp := m.State.ValueString()
+		attr_state = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
-		Value: &attr_value,
+		Value: attr_value,
 		Color: attr_color,
-		Index: &attr_index,
-		State: &attr_state,
+		Index: attr_index,
+		State: attr_state,
 	}
 	return json.Marshal(model)
 }
@@ -1104,13 +1324,21 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_fixedcolor := m.FixedColor.ValueString()
-	attr_seriesby := m.SeriesBy.ValueString()
+	var attr_fixedcolor *string
+	if !m.FixedColor.IsNull() && !m.FixedColor.IsUnknown() {
+		tmp := m.FixedColor.ValueString()
+		attr_fixedcolor = &tmp
+	}
+	var attr_seriesby *string
+	if !m.SeriesBy.IsNull() && !m.SeriesBy.IsUnknown() {
+		tmp := m.SeriesBy.ValueString()
+		attr_seriesby = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
-		FixedColor: &attr_fixedcolor,
-		SeriesBy:   &attr_seriesby,
+		FixedColor: attr_fixedcolor,
+		SeriesBy:   attr_seriesby,
 	}
 	return json.Marshal(model)
 }
@@ -1135,13 +1363,21 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+	var attr_log *float64
+	if !m.Log.IsNull() && !m.Log.IsUnknown() {
+		tmp := m.Log.ValueFloat64()
+		attr_log = &tmp
+	}
+	var attr_linearthreshold *float64
+	if !m.LinearThreshold.IsNull() && !m.LinearThreshold.IsUnknown() {
+		tmp := m.LinearThreshold.ValueFloat64()
+		attr_linearthreshold = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
 		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
+		Log:             attr_log,
+		LinearThreshold: attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
@@ -1241,16 +1477,56 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([
 	}
 
 	m = m.ApplyDefaults()
-	attr_linewidth := m.LineWidth.ValueInt64()
-	attr_fillopacity := m.FillOpacity.ValueInt64()
-	attr_gradientmode := m.GradientMode.ValueString()
-	attr_axisplacement := m.AxisPlacement.ValueString()
-	attr_axiscolormode := m.AxisColorMode.ValueString()
-	attr_axislabel := m.AxisLabel.ValueString()
-	attr_axiswidth := m.AxisWidth.ValueFloat64()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
-	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	var attr_linewidth *int64
+	if !m.LineWidth.IsNull() && !m.LineWidth.IsUnknown() {
+		tmp := m.LineWidth.ValueInt64()
+		attr_linewidth = &tmp
+	}
+	var attr_fillopacity *int64
+	if !m.FillOpacity.IsNull() && !m.FillOpacity.IsUnknown() {
+		tmp := m.FillOpacity.ValueInt64()
+		attr_fillopacity = &tmp
+	}
+	var attr_gradientmode *string
+	if !m.GradientMode.IsNull() && !m.GradientMode.IsUnknown() {
+		tmp := m.GradientMode.ValueString()
+		attr_gradientmode = &tmp
+	}
+	var attr_axisplacement *string
+	if !m.AxisPlacement.IsNull() && !m.AxisPlacement.IsUnknown() {
+		tmp := m.AxisPlacement.ValueString()
+		attr_axisplacement = &tmp
+	}
+	var attr_axiscolormode *string
+	if !m.AxisColorMode.IsNull() && !m.AxisColorMode.IsUnknown() {
+		tmp := m.AxisColorMode.ValueString()
+		attr_axiscolormode = &tmp
+	}
+	var attr_axislabel *string
+	if !m.AxisLabel.IsNull() && !m.AxisLabel.IsUnknown() {
+		tmp := m.AxisLabel.ValueString()
+		attr_axislabel = &tmp
+	}
+	var attr_axiswidth *float64
+	if !m.AxisWidth.IsNull() && !m.AxisWidth.IsUnknown() {
+		tmp := m.AxisWidth.ValueFloat64()
+		attr_axiswidth = &tmp
+	}
+	var attr_axissoftmin *float64
+	if !m.AxisSoftMin.IsNull() && !m.AxisSoftMin.IsUnknown() {
+		tmp := m.AxisSoftMin.ValueFloat64()
+		attr_axissoftmin = &tmp
+	}
+	var attr_axissoftmax *float64
+	if !m.AxisSoftMax.IsNull() && !m.AxisSoftMax.IsUnknown() {
+		tmp := m.AxisSoftMax.ValueFloat64()
+		attr_axissoftmax = &tmp
+	}
+	var attr_axisgridshow *bool
+	if !m.AxisGridShow.IsNull() && !m.AxisGridShow.IsUnknown() {
+		tmp := m.AxisGridShow.ValueBool()
+		attr_axisgridshow = &tmp
+	}
 	var attr_scaledistribution interface{}
 	if m.ScaleDistribution != nil {
 		attr_scaledistribution = m.ScaleDistribution
@@ -1263,23 +1539,27 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([
 	if m.ThresholdsStyle != nil {
 		attr_thresholdsstyle = m.ThresholdsStyle
 	}
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
+	var attr_axiscenteredzero *bool
+	if !m.AxisCenteredZero.IsNull() && !m.AxisCenteredZero.IsUnknown() {
+		tmp := m.AxisCenteredZero.ValueBool()
+		attr_axiscenteredzero = &tmp
+	}
 
 	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom{
-		LineWidth:         &attr_linewidth,
-		FillOpacity:       &attr_fillopacity,
-		GradientMode:      &attr_gradientmode,
-		AxisPlacement:     &attr_axisplacement,
-		AxisColorMode:     &attr_axiscolormode,
-		AxisLabel:         &attr_axislabel,
-		AxisWidth:         &attr_axiswidth,
-		AxisSoftMin:       &attr_axissoftmin,
-		AxisSoftMax:       &attr_axissoftmax,
-		AxisGridShow:      &attr_axisgridshow,
+		LineWidth:         attr_linewidth,
+		FillOpacity:       attr_fillopacity,
+		GradientMode:      attr_gradientmode,
+		AxisPlacement:     attr_axisplacement,
+		AxisColorMode:     attr_axiscolormode,
+		AxisLabel:         attr_axislabel,
+		AxisWidth:         attr_axiswidth,
+		AxisSoftMin:       attr_axissoftmin,
+		AxisSoftMax:       attr_axissoftmax,
+		AxisGridShow:      attr_axisgridshow,
 		ScaleDistribution: attr_scaledistribution,
 		HideFrom:          attr_hidefrom,
 		ThresholdsStyle:   attr_thresholdsstyle,
-		AxisCenteredZero:  &attr_axiscenteredzero,
+		AxisCenteredZero:  attr_axiscenteredzero,
 	}
 	return json.Marshal(model)
 }
@@ -1335,16 +1615,56 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, 
 	}
 
 	m = m.ApplyDefaults()
-	attr_displayname := m.DisplayName.ValueString()
-	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
-	attr_description := m.Description.ValueString()
-	attr_path := m.Path.ValueString()
-	attr_writeable := m.Writeable.ValueBool()
-	attr_filterable := m.Filterable.ValueBool()
-	attr_unit := m.Unit.ValueString()
-	attr_decimals := m.Decimals.ValueFloat64()
-	attr_min := m.Min.ValueFloat64()
-	attr_max := m.Max.ValueFloat64()
+	var attr_displayname *string
+	if !m.DisplayName.IsNull() && !m.DisplayName.IsUnknown() {
+		tmp := m.DisplayName.ValueString()
+		attr_displayname = &tmp
+	}
+	var attr_displaynamefromds *string
+	if !m.DisplayNameFromDS.IsNull() && !m.DisplayNameFromDS.IsUnknown() {
+		tmp := m.DisplayNameFromDS.ValueString()
+		attr_displaynamefromds = &tmp
+	}
+	var attr_description *string
+	if !m.Description.IsNull() && !m.Description.IsUnknown() {
+		tmp := m.Description.ValueString()
+		attr_description = &tmp
+	}
+	var attr_path *string
+	if !m.Path.IsNull() && !m.Path.IsUnknown() {
+		tmp := m.Path.ValueString()
+		attr_path = &tmp
+	}
+	var attr_writeable *bool
+	if !m.Writeable.IsNull() && !m.Writeable.IsUnknown() {
+		tmp := m.Writeable.ValueBool()
+		attr_writeable = &tmp
+	}
+	var attr_filterable *bool
+	if !m.Filterable.IsNull() && !m.Filterable.IsUnknown() {
+		tmp := m.Filterable.ValueBool()
+		attr_filterable = &tmp
+	}
+	var attr_unit *string
+	if !m.Unit.IsNull() && !m.Unit.IsUnknown() {
+		tmp := m.Unit.ValueString()
+		attr_unit = &tmp
+	}
+	var attr_decimals *float64
+	if !m.Decimals.IsNull() && !m.Decimals.IsUnknown() {
+		tmp := m.Decimals.ValueFloat64()
+		attr_decimals = &tmp
+	}
+	var attr_min *float64
+	if !m.Min.IsNull() && !m.Min.IsUnknown() {
+		tmp := m.Min.ValueFloat64()
+		attr_min = &tmp
+	}
+	var attr_max *float64
+	if !m.Max.IsNull() && !m.Max.IsUnknown() {
+		tmp := m.Max.ValueFloat64()
+		attr_max = &tmp
+	}
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -1357,27 +1677,31 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, 
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	attr_novalue := m.NoValue.ValueString()
+	var attr_novalue *string
+	if !m.NoValue.IsNull() && !m.NoValue.IsUnknown() {
+		tmp := m.NoValue.ValueString()
+		attr_novalue = &tmp
+	}
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
 	}
 
 	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults{
-		DisplayName:       &attr_displayname,
-		DisplayNameFromDS: &attr_displaynamefromds,
-		Description:       &attr_description,
-		Path:              &attr_path,
-		Writeable:         &attr_writeable,
-		Filterable:        &attr_filterable,
-		Unit:              &attr_unit,
-		Decimals:          &attr_decimals,
-		Min:               &attr_min,
-		Max:               &attr_max,
+		DisplayName:       attr_displayname,
+		DisplayNameFromDS: attr_displaynamefromds,
+		Description:       attr_description,
+		Path:              attr_path,
+		Writeable:         attr_writeable,
+		Filterable:        attr_filterable,
+		Unit:              attr_unit,
+		Decimals:          attr_decimals,
+		Min:               attr_min,
+		Max:               attr_max,
 		Mappings:          attr_mappings,
 		Thresholds:        attr_thresholds,
 		Color:             attr_color,
-		NoValue:           &attr_novalue,
+		NoValue:           attr_novalue,
 		Custom:            attr_custom,
 	}
 	return json.Marshal(model)
@@ -1542,7 +1866,11 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_pluginversion := m.PluginVersion.ValueString()
+	var attr_pluginversion *string
+	if !m.PluginVersion.IsNull() && !m.PluginVersion.IsUnknown() {
+		tmp := m.PluginVersion.ValueString()
+		attr_pluginversion = &tmp
+	}
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -1551,8 +1879,16 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	attr_title := m.Title.ValueString()
-	attr_description := m.Description.ValueString()
+	var attr_title *string
+	if !m.Title.IsNull() && !m.Title.IsUnknown() {
+		tmp := m.Title.ValueString()
+		attr_title = &tmp
+	}
+	var attr_description *string
+	if !m.Description.IsNull() && !m.Description.IsUnknown() {
+		tmp := m.Description.ValueString()
+		attr_description = &tmp
+	}
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -1566,17 +1902,41 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	attr_repeat := m.Repeat.ValueString()
+	var attr_repeat *string
+	if !m.Repeat.IsNull() && !m.Repeat.IsUnknown() {
+		tmp := m.Repeat.ValueString()
+		attr_repeat = &tmp
+	}
 	attr_repeatdirection := m.RepeatDirection.ValueString()
-	attr_repeatpanelid := m.RepeatPanelId.ValueInt64()
-	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
+	var attr_repeatpanelid *int64
+	if !m.RepeatPanelId.IsNull() && !m.RepeatPanelId.IsUnknown() {
+		tmp := m.RepeatPanelId.ValueInt64()
+		attr_repeatpanelid = &tmp
+	}
+	var attr_maxdatapoints *float64
+	if !m.MaxDataPoints.IsNull() && !m.MaxDataPoints.IsUnknown() {
+		tmp := m.MaxDataPoints.ValueFloat64()
+		attr_maxdatapoints = &tmp
+	}
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	attr_interval := m.Interval.ValueString()
-	attr_timefrom := m.TimeFrom.ValueString()
-	attr_timeshift := m.TimeShift.ValueString()
+	var attr_interval *string
+	if !m.Interval.IsNull() && !m.Interval.IsUnknown() {
+		tmp := m.Interval.ValueString()
+		attr_interval = &tmp
+	}
+	var attr_timefrom *string
+	if !m.TimeFrom.IsNull() && !m.TimeFrom.IsUnknown() {
+		tmp := m.TimeFrom.ValueString()
+		attr_timefrom = &tmp
+	}
+	var attr_timeshift *string
+	if !m.TimeShift.IsNull() && !m.TimeShift.IsUnknown() {
+		tmp := m.TimeShift.ValueString()
+		attr_timeshift = &tmp
+	}
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
@@ -1592,23 +1952,23 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	model := &jsonPanelGeomapDataSourceModel{
 		Type:            attr_type,
-		PluginVersion:   &attr_pluginversion,
+		PluginVersion:   attr_pluginversion,
 		Tags:            attr_tags,
 		Targets:         attr_targets,
-		Title:           &attr_title,
-		Description:     &attr_description,
+		Title:           attr_title,
+		Description:     attr_description,
 		Transparent:     attr_transparent,
 		Datasource:      attr_datasource,
 		GridPos:         attr_gridpos,
 		Links:           attr_links,
-		Repeat:          &attr_repeat,
+		Repeat:          attr_repeat,
 		RepeatDirection: attr_repeatdirection,
-		RepeatPanelId:   &attr_repeatpanelid,
-		MaxDataPoints:   &attr_maxdatapoints,
+		RepeatPanelId:   attr_repeatpanelid,
+		MaxDataPoints:   attr_maxdatapoints,
 		Transformations: attr_transformations,
-		Interval:        &attr_interval,
-		TimeFrom:        &attr_timefrom,
-		TimeShift:       &attr_timeshift,
+		Interval:        attr_interval,
+		TimeFrom:        attr_timefrom,
+		TimeShift:       attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
 		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,

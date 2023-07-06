@@ -63,16 +63,24 @@ func (m QueryTestDataDataSourceModel_Stream) MarshalJSON() ([]byte, error) {
 	attr_speed := m.Speed.ValueInt64()
 	attr_spread := m.Spread.ValueInt64()
 	attr_noise := m.Noise.ValueInt64()
-	attr_bands := m.Bands.ValueInt64()
-	attr_url := m.Url.ValueString()
+	var attr_bands *int64
+	if !m.Bands.IsNull() && !m.Bands.IsUnknown() {
+		tmp := m.Bands.ValueInt64()
+		attr_bands = &tmp
+	}
+	var attr_url *string
+	if !m.Url.IsNull() && !m.Url.IsUnknown() {
+		tmp := m.Url.ValueString()
+		attr_url = &tmp
+	}
 
 	model := &jsonQueryTestDataDataSourceModel_Stream{
 		Type:   attr_type,
 		Speed:  attr_speed,
 		Spread: attr_spread,
 		Noise:  attr_noise,
-		Bands:  &attr_bands,
-		Url:    &attr_url,
+		Bands:  attr_bands,
+		Url:    attr_url,
 	}
 	return json.Marshal(model)
 }
@@ -100,18 +108,38 @@ func (m QueryTestDataDataSourceModel_PulseWave) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_timestep := m.TimeStep.ValueInt64()
-	attr_oncount := m.OnCount.ValueInt64()
-	attr_offcount := m.OffCount.ValueInt64()
-	attr_onvalue := m.OnValue.ValueFloat64()
-	attr_offvalue := m.OffValue.ValueFloat64()
+	var attr_timestep *int64
+	if !m.TimeStep.IsNull() && !m.TimeStep.IsUnknown() {
+		tmp := m.TimeStep.ValueInt64()
+		attr_timestep = &tmp
+	}
+	var attr_oncount *int64
+	if !m.OnCount.IsNull() && !m.OnCount.IsUnknown() {
+		tmp := m.OnCount.ValueInt64()
+		attr_oncount = &tmp
+	}
+	var attr_offcount *int64
+	if !m.OffCount.IsNull() && !m.OffCount.IsUnknown() {
+		tmp := m.OffCount.ValueInt64()
+		attr_offcount = &tmp
+	}
+	var attr_onvalue *float64
+	if !m.OnValue.IsNull() && !m.OnValue.IsUnknown() {
+		tmp := m.OnValue.ValueFloat64()
+		attr_onvalue = &tmp
+	}
+	var attr_offvalue *float64
+	if !m.OffValue.IsNull() && !m.OffValue.IsUnknown() {
+		tmp := m.OffValue.ValueFloat64()
+		attr_offvalue = &tmp
+	}
 
 	model := &jsonQueryTestDataDataSourceModel_PulseWave{
-		TimeStep: &attr_timestep,
-		OnCount:  &attr_oncount,
-		OffCount: &attr_offcount,
-		OnValue:  &attr_onvalue,
-		OffValue: &attr_offvalue,
+		TimeStep: attr_timestep,
+		OnCount:  attr_oncount,
+		OffCount: attr_offcount,
+		OnValue:  attr_onvalue,
+		OffValue: attr_offvalue,
 	}
 	return json.Marshal(model)
 }
@@ -137,12 +165,16 @@ func (m QueryTestDataDataSourceModel_Sim_Key) MarshalJSON() ([]byte, error) {
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_tick := m.Tick.ValueFloat64()
-	attr_uid := m.Uid.ValueString()
+	var attr_uid *string
+	if !m.Uid.IsNull() && !m.Uid.IsUnknown() {
+		tmp := m.Uid.ValueString()
+		attr_uid = &tmp
+	}
 
 	model := &jsonQueryTestDataDataSourceModel_Sim_Key{
 		Type: attr_type,
 		Tick: attr_tick,
-		Uid:  &attr_uid,
+		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
@@ -194,14 +226,22 @@ func (m QueryTestDataDataSourceModel_Sim) MarshalJSON() ([]byte, error) {
 	if m.Config != nil {
 		attr_config = m.Config
 	}
-	attr_stream := m.Stream.ValueBool()
-	attr_last := m.Last.ValueBool()
+	var attr_stream *bool
+	if !m.Stream.IsNull() && !m.Stream.IsUnknown() {
+		tmp := m.Stream.ValueBool()
+		attr_stream = &tmp
+	}
+	var attr_last *bool
+	if !m.Last.IsNull() && !m.Last.IsUnknown() {
+		tmp := m.Last.ValueBool()
+		attr_last = &tmp
+	}
 
 	model := &jsonQueryTestDataDataSourceModel_Sim{
 		Key:    attr_key,
 		Config: attr_config,
-		Stream: &attr_stream,
-		Last:   &attr_last,
+		Stream: attr_stream,
+		Last:   attr_last,
 	}
 	return json.Marshal(model)
 }
@@ -227,16 +267,32 @@ func (m QueryTestDataDataSourceModel_CsvWave) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_timestep := m.TimeStep.ValueInt64()
-	attr_name := m.Name.ValueString()
-	attr_valuescsv := m.ValuesCSV.ValueString()
-	attr_labels := m.Labels.ValueString()
+	var attr_timestep *int64
+	if !m.TimeStep.IsNull() && !m.TimeStep.IsUnknown() {
+		tmp := m.TimeStep.ValueInt64()
+		attr_timestep = &tmp
+	}
+	var attr_name *string
+	if !m.Name.IsNull() && !m.Name.IsUnknown() {
+		tmp := m.Name.ValueString()
+		attr_name = &tmp
+	}
+	var attr_valuescsv *string
+	if !m.ValuesCSV.IsNull() && !m.ValuesCSV.IsUnknown() {
+		tmp := m.ValuesCSV.ValueString()
+		attr_valuescsv = &tmp
+	}
+	var attr_labels *string
+	if !m.Labels.IsNull() && !m.Labels.IsUnknown() {
+		tmp := m.Labels.ValueString()
+		attr_labels = &tmp
+	}
 
 	model := &jsonQueryTestDataDataSourceModel_CsvWave{
-		TimeStep:  &attr_timestep,
-		Name:      &attr_name,
-		ValuesCSV: &attr_valuescsv,
-		Labels:    &attr_labels,
+		TimeStep:  attr_timestep,
+		Name:      attr_name,
+		ValuesCSV: attr_valuescsv,
+		Labels:    attr_labels,
 	}
 	return json.Marshal(model)
 }
@@ -258,12 +314,20 @@ func (m QueryTestDataDataSourceModel_Nodes) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_count := m.Count.ValueInt64()
+	var attr_type *string
+	if !m.Type.IsNull() && !m.Type.IsUnknown() {
+		tmp := m.Type.ValueString()
+		attr_type = &tmp
+	}
+	var attr_count *int64
+	if !m.Count.IsNull() && !m.Count.IsUnknown() {
+		tmp := m.Count.ValueInt64()
+		attr_count = &tmp
+	}
 
 	model := &jsonQueryTestDataDataSourceModel_Nodes{
-		Type:  &attr_type,
-		Count: &attr_count,
+		Type:  attr_type,
+		Count: attr_count,
 	}
 	return json.Marshal(model)
 }
@@ -289,8 +353,16 @@ func (m QueryTestDataDataSourceModel_Usa) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_period := m.Period.ValueString()
+	var attr_mode *string
+	if !m.Mode.IsNull() && !m.Mode.IsUnknown() {
+		tmp := m.Mode.ValueString()
+		attr_mode = &tmp
+	}
+	var attr_period *string
+	if !m.Period.IsNull() && !m.Period.IsUnknown() {
+		tmp := m.Period.ValueString()
+		attr_period = &tmp
+	}
 	attr_fields := []string{}
 	for _, v := range m.Fields.Elements() {
 		attr_fields = append(attr_fields, v.(types.String).ValueString())
@@ -301,8 +373,8 @@ func (m QueryTestDataDataSourceModel_Usa) MarshalJSON() ([]byte, error) {
 	}
 
 	model := &jsonQueryTestDataDataSourceModel_Usa{
-		Mode:   &attr_mode,
-		Period: &attr_period,
+		Mode:   attr_mode,
+		Period: attr_period,
 		Fields: attr_fields,
 		States: attr_states,
 	}
@@ -372,9 +444,21 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_alias := m.Alias.ValueString()
-	attr_scenarioid := m.ScenarioId.ValueString()
-	attr_stringinput := m.StringInput.ValueString()
+	var attr_alias *string
+	if !m.Alias.IsNull() && !m.Alias.IsUnknown() {
+		tmp := m.Alias.ValueString()
+		attr_alias = &tmp
+	}
+	var attr_scenarioid *string
+	if !m.ScenarioId.IsNull() && !m.ScenarioId.IsUnknown() {
+		tmp := m.ScenarioId.ValueString()
+		attr_scenarioid = &tmp
+	}
+	var attr_stringinput *string
+	if !m.StringInput.IsNull() && !m.StringInput.IsUnknown() {
+		tmp := m.StringInput.ValueString()
+		attr_stringinput = &tmp
+	}
 	var attr_stream interface{}
 	if m.Stream != nil {
 		attr_stream = m.Stream
@@ -391,51 +475,99 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.CsvWave {
 		attr_csvwave = append(attr_csvwave, v)
 	}
-	attr_labels := m.Labels.ValueString()
-	attr_lines := m.Lines.ValueInt64()
-	attr_levelcolumn := m.LevelColumn.ValueBool()
-	attr_channel := m.Channel.ValueString()
+	var attr_labels *string
+	if !m.Labels.IsNull() && !m.Labels.IsUnknown() {
+		tmp := m.Labels.ValueString()
+		attr_labels = &tmp
+	}
+	var attr_lines *int64
+	if !m.Lines.IsNull() && !m.Lines.IsUnknown() {
+		tmp := m.Lines.ValueInt64()
+		attr_lines = &tmp
+	}
+	var attr_levelcolumn *bool
+	if !m.LevelColumn.IsNull() && !m.LevelColumn.IsUnknown() {
+		tmp := m.LevelColumn.ValueBool()
+		attr_levelcolumn = &tmp
+	}
+	var attr_channel *string
+	if !m.Channel.IsNull() && !m.Channel.IsUnknown() {
+		tmp := m.Channel.ValueString()
+		attr_channel = &tmp
+	}
 	var attr_nodes interface{}
 	if m.Nodes != nil {
 		attr_nodes = m.Nodes
 	}
-	attr_csvfilename := m.CsvFileName.ValueString()
-	attr_csvcontent := m.CsvContent.ValueString()
-	attr_rawframecontent := m.RawFrameContent.ValueString()
-	attr_seriescount := m.SeriesCount.ValueInt64()
+	var attr_csvfilename *string
+	if !m.CsvFileName.IsNull() && !m.CsvFileName.IsUnknown() {
+		tmp := m.CsvFileName.ValueString()
+		attr_csvfilename = &tmp
+	}
+	var attr_csvcontent *string
+	if !m.CsvContent.IsNull() && !m.CsvContent.IsUnknown() {
+		tmp := m.CsvContent.ValueString()
+		attr_csvcontent = &tmp
+	}
+	var attr_rawframecontent *string
+	if !m.RawFrameContent.IsNull() && !m.RawFrameContent.IsUnknown() {
+		tmp := m.RawFrameContent.ValueString()
+		attr_rawframecontent = &tmp
+	}
+	var attr_seriescount *int64
+	if !m.SeriesCount.IsNull() && !m.SeriesCount.IsUnknown() {
+		tmp := m.SeriesCount.ValueInt64()
+		attr_seriescount = &tmp
+	}
 	var attr_usa interface{}
 	if m.Usa != nil {
 		attr_usa = m.Usa
 	}
-	attr_errortype := m.ErrorType.ValueString()
-	attr_spancount := m.SpanCount.ValueInt64()
+	var attr_errortype *string
+	if !m.ErrorType.IsNull() && !m.ErrorType.IsUnknown() {
+		tmp := m.ErrorType.ValueString()
+		attr_errortype = &tmp
+	}
+	var attr_spancount *int64
+	if !m.SpanCount.IsNull() && !m.SpanCount.IsUnknown() {
+		tmp := m.SpanCount.ValueInt64()
+		attr_spancount = &tmp
+	}
 	attr_refid := m.RefId.ValueString()
-	attr_hide := m.Hide.ValueBool()
-	attr_querytype := m.QueryType.ValueString()
+	var attr_hide *bool
+	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
+		tmp := m.Hide.ValueBool()
+		attr_hide = &tmp
+	}
+	var attr_querytype *string
+	if !m.QueryType.IsNull() && !m.QueryType.IsUnknown() {
+		tmp := m.QueryType.ValueString()
+		attr_querytype = &tmp
+	}
 
 	model := &jsonQueryTestDataDataSourceModel{
-		Alias:           &attr_alias,
-		ScenarioId:      &attr_scenarioid,
-		StringInput:     &attr_stringinput,
+		Alias:           attr_alias,
+		ScenarioId:      attr_scenarioid,
+		StringInput:     attr_stringinput,
 		Stream:          attr_stream,
 		PulseWave:       attr_pulsewave,
 		Sim:             attr_sim,
 		CsvWave:         attr_csvwave,
-		Labels:          &attr_labels,
-		Lines:           &attr_lines,
-		LevelColumn:     &attr_levelcolumn,
-		Channel:         &attr_channel,
+		Labels:          attr_labels,
+		Lines:           attr_lines,
+		LevelColumn:     attr_levelcolumn,
+		Channel:         attr_channel,
 		Nodes:           attr_nodes,
-		CsvFileName:     &attr_csvfilename,
-		CsvContent:      &attr_csvcontent,
-		RawFrameContent: &attr_rawframecontent,
-		SeriesCount:     &attr_seriescount,
+		CsvFileName:     attr_csvfilename,
+		CsvContent:      attr_csvcontent,
+		RawFrameContent: attr_rawframecontent,
+		SeriesCount:     attr_seriescount,
 		Usa:             attr_usa,
-		ErrorType:       &attr_errortype,
-		SpanCount:       &attr_spancount,
+		ErrorType:       attr_errortype,
+		SpanCount:       attr_spancount,
 		RefId:           attr_refid,
-		Hide:            &attr_hide,
-		QueryType:       &attr_querytype,
+		Hide:            attr_hide,
+		QueryType:       attr_querytype,
 	}
 	return json.Marshal(model)
 }

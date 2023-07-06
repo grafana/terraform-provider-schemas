@@ -75,9 +75,10 @@ func (s *Model) generateToJSONFunction() string {
 			continue
 		}
 
-		identifier := "attr_" + strings.ToLower(node.Name)
+		fieldName := utils.ToCamelCase(node.Name)
+		varName := "attr_" + strings.ToLower(node.Name)
 		if s.IsDisjunction {
-			identifier = "json_" + s.Name
+			varName = "json_" + s.Name
 		}
 		funcString := node.terraformFunc()
 
@@ -86,37 +87,42 @@ func (s *Model) generateToJSONFunction() string {
 			subTypeGolang := node.subGolangType()
 			subTypeFunc := node.subTerraformFunc()
 			if subType != "" {
-				fmt.Fprintf(&b, "	%s := []%s{}\n", identifier, subTypeGolang)
-				fmt.Fprintf(&b, "	for _, v := range m.%s.Elements() {\n", utils.ToCamelCase(node.Name))
-				fmt.Fprintf(&b, "		%s = append(%s, v.(types.%s).%s)\n", identifier, identifier, subType, subTypeFunc)
+				fmt.Fprintf(&b, "	%s := []%s{}\n", varName, subTypeGolang)
+				fmt.Fprintf(&b, "	for _, v := range m.%s.Elements() {\n", fieldName)
+				fmt.Fprintf(&b, "		%s = append(%s, v.(types.%s).%s)\n", varName, varName, subType, subTypeFunc)
 				b.WriteString("	}\n")
 			} else if node.SubKind == cue.StructKind {
-				fmt.Fprintf(&b, "	%s := []interface{}{}\n", identifier)
-				fmt.Fprintf(&b, "	for _, v := range m.%s {\n", utils.ToCamelCase(node.Name))
-				fmt.Fprintf(&b, "		%s = append(%s, v)\n", identifier, identifier)
+				fmt.Fprintf(&b, "	%s := []interface{}{}\n", varName)
+				fmt.Fprintf(&b, "	for _, v := range m.%s {\n", fieldName)
+				fmt.Fprintf(&b, "		%s = append(%s, v)\n", varName, varName)
 				b.WriteString("	}\n")
 			}
 		} else if node.Kind == cue.StructKind {
 			if !s.IsDisjunction {
-				fmt.Fprintf(&b, "	var %s interface{}\n", identifier)
+				fmt.Fprintf(&b, "	var %s interface{}\n", varName)
 			}
 			if node.Optional {
-				fmt.Fprintf(&b, "	if m.%s != nil {\n", utils.ToCamelCase(node.Name))
-				fmt.Fprintf(&b, "		%s = m.%s\n", identifier, utils.ToCamelCase(node.Name))
+				fmt.Fprintf(&b, "	if m.%s != nil {\n", fieldName)
+				fmt.Fprintf(&b, "		%s = m.%s\n", varName, fieldName)
 				b.WriteString("	}\n")
 			} else {
-				fmt.Fprintf(&b, "	%s = m.%s\n", identifier, utils.ToCamelCase(node.Name))
+				fmt.Fprintf(&b, "	%s = m.%s\n", varName, fieldName)
 			}
 		} else if len(node.DisjunctionKinds) > 0 {
-			fmt.Fprintf(&b, "   %s := m.GetAttr%s()\n", identifier, utils.ToCamelCase(node.Name))
+			fmt.Fprintf(&b, "   %s := m.GetAttr%s()\n", varName, fieldName)
 		} else if funcString != "" {
-			fmt.Fprintf(&b, "	%s := m.%s.%s\n", identifier, utils.ToCamelCase(node.Name), funcString)
 			if node.Optional {
-				identifier = "&" + identifier
+				fmt.Fprintf(&b, "var %s *%s\n", varName, kindMappings[node.Kind].golangType)
+				fmt.Fprintf(&b, "if !m.%s.IsNull() && !m.%s.IsUnknown() {\n", fieldName, fieldName)
+				fmt.Fprintf(&b, "  tmp := m.%s.%s\n", fieldName, funcString)
+				fmt.Fprintf(&b, "  %s = &tmp\n", varName)
+				b.WriteString("}\n")
+			} else {
+				fmt.Fprintf(&b, "%s := m.%s.%s\n", varName, fieldName, funcString)
 			}
 		}
 
-		structLines = append(structLines, fmt.Sprintf("		%s: %s,\n", utils.ToCamelCase(node.Name), identifier))
+		structLines = append(structLines, fmt.Sprintf("		%s: %s,\n", fieldName, varName))
 	}
 
 	if s.IsDisjunction {

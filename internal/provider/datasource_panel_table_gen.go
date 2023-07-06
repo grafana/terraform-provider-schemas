@@ -51,12 +51,20 @@ func (m PanelTableDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_uid := m.Uid.ValueString()
+	var attr_type *string
+	if !m.Type.IsNull() && !m.Type.IsUnknown() {
+		tmp := m.Type.ValueString()
+		attr_type = &tmp
+	}
+	var attr_uid *string
+	if !m.Uid.IsNull() && !m.Uid.IsUnknown() {
+		tmp := m.Uid.ValueString()
+		attr_uid = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_Datasource{
-		Type: &attr_type,
-		Uid:  &attr_uid,
+		Type: attr_type,
+		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
@@ -88,14 +96,18 @@ func (m PanelTableDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	attr_static := m.Static.ValueBool()
+	var attr_static *bool
+	if !m.Static.IsNull() && !m.Static.IsUnknown() {
+		tmp := m.Static.ValueBool()
+		attr_static = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
 		Y:      attr_y,
-		Static: &attr_static,
+		Static: attr_static,
 	}
 	return json.Marshal(model)
 }
@@ -222,14 +234,18 @@ func (m PanelTableDataSourceModel_Transformations) MarshalJSON() ([]byte, error)
 	}
 
 	m = m.ApplyDefaults()
-	attr_disabled := m.Disabled.ValueBool()
+	var attr_disabled *bool
+	if !m.Disabled.IsNull() && !m.Disabled.IsUnknown() {
+		tmp := m.Disabled.ValueBool()
+		attr_disabled = &tmp
+	}
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
 	}
 
 	model := &jsonPanelTableDataSourceModel_Transformations{
-		Disabled: &attr_disabled,
+		Disabled: attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
@@ -280,11 +296,15 @@ func (m PanelTableDataSourceModel_Options_SortBy) MarshalJSON() ([]byte, error) 
 
 	m = m.ApplyDefaults()
 	attr_displayname := m.DisplayName.ValueString()
-	attr_desc := m.Desc.ValueBool()
+	var attr_desc *bool
+	if !m.Desc.IsNull() && !m.Desc.IsUnknown() {
+		tmp := m.Desc.ValueBool()
+		attr_desc = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_Options_SortBy{
 		DisplayName: attr_displayname,
-		Desc:        &attr_desc,
+		Desc:        attr_desc,
 	}
 	return json.Marshal(model)
 }
@@ -315,14 +335,22 @@ func (m PanelTableDataSourceModel_Options_Footer_TableFooterOptions) MarshalJSON
 	for _, v := range m.Fields.Elements() {
 		attr_fields = append(attr_fields, v.(types.String).ValueString())
 	}
-	attr_enablepagination := m.EnablePagination.ValueBool()
-	attr_countrows := m.CountRows.ValueBool()
+	var attr_enablepagination *bool
+	if !m.EnablePagination.IsNull() && !m.EnablePagination.IsUnknown() {
+		tmp := m.EnablePagination.ValueBool()
+		attr_enablepagination = &tmp
+	}
+	var attr_countrows *bool
+	if !m.CountRows.IsNull() && !m.CountRows.IsUnknown() {
+		tmp := m.CountRows.ValueBool()
+		attr_countrows = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_Options_Footer_TableFooterOptions{
 		Show:             attr_show,
 		Fields:           attr_fields,
-		EnablePagination: &attr_enablepagination,
-		CountRows:        &attr_countrows,
+		EnablePagination: attr_enablepagination,
+		CountRows:        attr_countrows,
 	}
 	return json.Marshal(model)
 }
@@ -375,7 +403,11 @@ func (m PanelTableDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	m = m.ApplyDefaults()
 	attr_frameindex := m.FrameIndex.ValueFloat64()
 	attr_showheader := m.ShowHeader.ValueBool()
-	attr_showtypeicons := m.ShowTypeIcons.ValueBool()
+	var attr_showtypeicons *bool
+	if !m.ShowTypeIcons.IsNull() && !m.ShowTypeIcons.IsUnknown() {
+		tmp := m.ShowTypeIcons.ValueBool()
+		attr_showtypeicons = &tmp
+	}
 	attr_sortby := []interface{}{}
 	for _, v := range m.SortBy {
 		attr_sortby = append(attr_sortby, v)
@@ -384,15 +416,19 @@ func (m PanelTableDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	if m.Footer != nil {
 		attr_footer = m.Footer
 	}
-	attr_cellheight := m.CellHeight.ValueString()
+	var attr_cellheight *string
+	if !m.CellHeight.IsNull() && !m.CellHeight.IsUnknown() {
+		tmp := m.CellHeight.ValueString()
+		attr_cellheight = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_Options{
 		FrameIndex:    attr_frameindex,
 		ShowHeader:    attr_showheader,
-		ShowTypeIcons: &attr_showtypeicons,
+		ShowTypeIcons: attr_showtypeicons,
 		SortBy:        attr_sortby,
 		Footer:        attr_footer,
-		CellHeight:    &attr_cellheight,
+		CellHeight:    attr_cellheight,
 	}
 	return json.Marshal(model)
 }
@@ -426,16 +462,32 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -491,16 +543,32 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -590,16 +658,32 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -685,16 +769,32 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	var attr_text *string
+	if !m.Text.IsNull() && !m.Text.IsUnknown() {
+		tmp := m.Text.ValueString()
+		attr_text = &tmp
+	}
+	var attr_color *string
+	if !m.Color.IsNull() && !m.Color.IsUnknown() {
+		tmp := m.Color.ValueString()
+		attr_color = &tmp
+	}
+	var attr_icon *string
+	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
+		tmp := m.Icon.ValueString()
+		attr_icon = &tmp
+	}
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -815,16 +915,28 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Marshal
 	}
 
 	m = m.ApplyDefaults()
-	attr_value := m.Value.ValueFloat64()
+	var attr_value *float64
+	if !m.Value.IsNull() && !m.Value.IsUnknown() {
+		tmp := m.Value.ValueFloat64()
+		attr_value = &tmp
+	}
 	attr_color := m.Color.ValueString()
-	attr_index := m.Index.ValueInt64()
-	attr_state := m.State.ValueString()
+	var attr_index *int64
+	if !m.Index.IsNull() && !m.Index.IsUnknown() {
+		tmp := m.Index.ValueInt64()
+		attr_index = &tmp
+	}
+	var attr_state *string
+	if !m.State.IsNull() && !m.State.IsUnknown() {
+		tmp := m.State.ValueString()
+		attr_state = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
-		Value: &attr_value,
+		Value: attr_value,
 		Color: attr_color,
-		Index: &attr_index,
-		State: &attr_state,
+		Index: attr_index,
+		State: attr_state,
 	}
 	return json.Marshal(model)
 }
@@ -879,13 +991,21 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]b
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_fixedcolor := m.FixedColor.ValueString()
-	attr_seriesby := m.SeriesBy.ValueString()
+	var attr_fixedcolor *string
+	if !m.FixedColor.IsNull() && !m.FixedColor.IsUnknown() {
+		tmp := m.FixedColor.ValueString()
+		attr_fixedcolor = &tmp
+	}
+	var attr_seriesby *string
+	if !m.SeriesBy.IsNull() && !m.SeriesBy.IsUnknown() {
+		tmp := m.SeriesBy.ValueString()
+		attr_seriesby = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
-		FixedColor: &attr_fixedcolor,
-		SeriesBy:   &attr_seriesby,
+		FixedColor: attr_fixedcolor,
+		SeriesBy:   attr_seriesby,
 	}
 	return json.Marshal(model)
 }
@@ -940,17 +1060,25 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]
 	}
 
 	m = m.ApplyDefaults()
-	attr_linewidth := m.LineWidth.ValueInt64()
+	var attr_linewidth *int64
+	if !m.LineWidth.IsNull() && !m.LineWidth.IsUnknown() {
+		tmp := m.LineWidth.ValueInt64()
+		attr_linewidth = &tmp
+	}
 	var attr_hidefrom interface{}
 	if m.HideFrom != nil {
 		attr_hidefrom = m.HideFrom
 	}
-	attr_fillopacity := m.FillOpacity.ValueInt64()
+	var attr_fillopacity *int64
+	if !m.FillOpacity.IsNull() && !m.FillOpacity.IsUnknown() {
+		tmp := m.FillOpacity.ValueInt64()
+		attr_fillopacity = &tmp
+	}
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Custom{
-		LineWidth:   &attr_linewidth,
+		LineWidth:   attr_linewidth,
 		HideFrom:    attr_hidefrom,
-		FillOpacity: &attr_fillopacity,
+		FillOpacity: attr_fillopacity,
 	}
 	return json.Marshal(model)
 }
@@ -1003,16 +1131,56 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, e
 	}
 
 	m = m.ApplyDefaults()
-	attr_displayname := m.DisplayName.ValueString()
-	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
-	attr_description := m.Description.ValueString()
-	attr_path := m.Path.ValueString()
-	attr_writeable := m.Writeable.ValueBool()
-	attr_filterable := m.Filterable.ValueBool()
-	attr_unit := m.Unit.ValueString()
-	attr_decimals := m.Decimals.ValueFloat64()
-	attr_min := m.Min.ValueFloat64()
-	attr_max := m.Max.ValueFloat64()
+	var attr_displayname *string
+	if !m.DisplayName.IsNull() && !m.DisplayName.IsUnknown() {
+		tmp := m.DisplayName.ValueString()
+		attr_displayname = &tmp
+	}
+	var attr_displaynamefromds *string
+	if !m.DisplayNameFromDS.IsNull() && !m.DisplayNameFromDS.IsUnknown() {
+		tmp := m.DisplayNameFromDS.ValueString()
+		attr_displaynamefromds = &tmp
+	}
+	var attr_description *string
+	if !m.Description.IsNull() && !m.Description.IsUnknown() {
+		tmp := m.Description.ValueString()
+		attr_description = &tmp
+	}
+	var attr_path *string
+	if !m.Path.IsNull() && !m.Path.IsUnknown() {
+		tmp := m.Path.ValueString()
+		attr_path = &tmp
+	}
+	var attr_writeable *bool
+	if !m.Writeable.IsNull() && !m.Writeable.IsUnknown() {
+		tmp := m.Writeable.ValueBool()
+		attr_writeable = &tmp
+	}
+	var attr_filterable *bool
+	if !m.Filterable.IsNull() && !m.Filterable.IsUnknown() {
+		tmp := m.Filterable.ValueBool()
+		attr_filterable = &tmp
+	}
+	var attr_unit *string
+	if !m.Unit.IsNull() && !m.Unit.IsUnknown() {
+		tmp := m.Unit.ValueString()
+		attr_unit = &tmp
+	}
+	var attr_decimals *float64
+	if !m.Decimals.IsNull() && !m.Decimals.IsUnknown() {
+		tmp := m.Decimals.ValueFloat64()
+		attr_decimals = &tmp
+	}
+	var attr_min *float64
+	if !m.Min.IsNull() && !m.Min.IsUnknown() {
+		tmp := m.Min.ValueFloat64()
+		attr_min = &tmp
+	}
+	var attr_max *float64
+	if !m.Max.IsNull() && !m.Max.IsUnknown() {
+		tmp := m.Max.ValueFloat64()
+		attr_max = &tmp
+	}
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -1025,27 +1193,31 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, e
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	attr_novalue := m.NoValue.ValueString()
+	var attr_novalue *string
+	if !m.NoValue.IsNull() && !m.NoValue.IsUnknown() {
+		tmp := m.NoValue.ValueString()
+		attr_novalue = &tmp
+	}
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
 	}
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults{
-		DisplayName:       &attr_displayname,
-		DisplayNameFromDS: &attr_displaynamefromds,
-		Description:       &attr_description,
-		Path:              &attr_path,
-		Writeable:         &attr_writeable,
-		Filterable:        &attr_filterable,
-		Unit:              &attr_unit,
-		Decimals:          &attr_decimals,
-		Min:               &attr_min,
-		Max:               &attr_max,
+		DisplayName:       attr_displayname,
+		DisplayNameFromDS: attr_displaynamefromds,
+		Description:       attr_description,
+		Path:              attr_path,
+		Writeable:         attr_writeable,
+		Filterable:        attr_filterable,
+		Unit:              attr_unit,
+		Decimals:          attr_decimals,
+		Min:               attr_min,
+		Max:               attr_max,
 		Mappings:          attr_mappings,
 		Thresholds:        attr_thresholds,
 		Color:             attr_color,
-		NoValue:           &attr_novalue,
+		NoValue:           attr_novalue,
 		Custom:            attr_custom,
 	}
 	return json.Marshal(model)
@@ -1210,7 +1382,11 @@ func (m PanelTableDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_pluginversion := m.PluginVersion.ValueString()
+	var attr_pluginversion *string
+	if !m.PluginVersion.IsNull() && !m.PluginVersion.IsUnknown() {
+		tmp := m.PluginVersion.ValueString()
+		attr_pluginversion = &tmp
+	}
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -1219,8 +1395,16 @@ func (m PanelTableDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	attr_title := m.Title.ValueString()
-	attr_description := m.Description.ValueString()
+	var attr_title *string
+	if !m.Title.IsNull() && !m.Title.IsUnknown() {
+		tmp := m.Title.ValueString()
+		attr_title = &tmp
+	}
+	var attr_description *string
+	if !m.Description.IsNull() && !m.Description.IsUnknown() {
+		tmp := m.Description.ValueString()
+		attr_description = &tmp
+	}
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -1234,17 +1418,41 @@ func (m PanelTableDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	attr_repeat := m.Repeat.ValueString()
+	var attr_repeat *string
+	if !m.Repeat.IsNull() && !m.Repeat.IsUnknown() {
+		tmp := m.Repeat.ValueString()
+		attr_repeat = &tmp
+	}
 	attr_repeatdirection := m.RepeatDirection.ValueString()
-	attr_repeatpanelid := m.RepeatPanelId.ValueInt64()
-	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
+	var attr_repeatpanelid *int64
+	if !m.RepeatPanelId.IsNull() && !m.RepeatPanelId.IsUnknown() {
+		tmp := m.RepeatPanelId.ValueInt64()
+		attr_repeatpanelid = &tmp
+	}
+	var attr_maxdatapoints *float64
+	if !m.MaxDataPoints.IsNull() && !m.MaxDataPoints.IsUnknown() {
+		tmp := m.MaxDataPoints.ValueFloat64()
+		attr_maxdatapoints = &tmp
+	}
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	attr_interval := m.Interval.ValueString()
-	attr_timefrom := m.TimeFrom.ValueString()
-	attr_timeshift := m.TimeShift.ValueString()
+	var attr_interval *string
+	if !m.Interval.IsNull() && !m.Interval.IsUnknown() {
+		tmp := m.Interval.ValueString()
+		attr_interval = &tmp
+	}
+	var attr_timefrom *string
+	if !m.TimeFrom.IsNull() && !m.TimeFrom.IsUnknown() {
+		tmp := m.TimeFrom.ValueString()
+		attr_timefrom = &tmp
+	}
+	var attr_timeshift *string
+	if !m.TimeShift.IsNull() && !m.TimeShift.IsUnknown() {
+		tmp := m.TimeShift.ValueString()
+		attr_timeshift = &tmp
+	}
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
@@ -1260,23 +1468,23 @@ func (m PanelTableDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	model := &jsonPanelTableDataSourceModel{
 		Type:            attr_type,
-		PluginVersion:   &attr_pluginversion,
+		PluginVersion:   attr_pluginversion,
 		Tags:            attr_tags,
 		Targets:         attr_targets,
-		Title:           &attr_title,
-		Description:     &attr_description,
+		Title:           attr_title,
+		Description:     attr_description,
 		Transparent:     attr_transparent,
 		Datasource:      attr_datasource,
 		GridPos:         attr_gridpos,
 		Links:           attr_links,
-		Repeat:          &attr_repeat,
+		Repeat:          attr_repeat,
 		RepeatDirection: attr_repeatdirection,
-		RepeatPanelId:   &attr_repeatpanelid,
-		MaxDataPoints:   &attr_maxdatapoints,
+		RepeatPanelId:   attr_repeatpanelid,
+		MaxDataPoints:   attr_maxdatapoints,
 		Transformations: attr_transformations,
-		Interval:        &attr_interval,
-		TimeFrom:        &attr_timefrom,
-		TimeShift:       &attr_timeshift,
+		Interval:        attr_interval,
+		TimeFrom:        attr_timefrom,
+		TimeShift:       attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
 		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,
