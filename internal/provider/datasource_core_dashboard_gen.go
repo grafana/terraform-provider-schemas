@@ -131,24 +131,6 @@ func (m CoreDashboardDataSourceModel_Timepicker) ApplyDefaults() CoreDashboardDa
 	return m
 }
 
-type CoreDashboardDataSourceModel_Templating_List_Error struct {
-}
-
-func (m CoreDashboardDataSourceModel_Templating_List_Error) MarshalJSON() ([]byte, error) {
-	type jsonCoreDashboardDataSourceModel_Templating_List_Error struct {
-	}
-
-	m = m.ApplyDefaults()
-
-	model := &jsonCoreDashboardDataSourceModel_Templating_List_Error{}
-	return json.Marshal(model)
-}
-
-func (m CoreDashboardDataSourceModel_Templating_List_Error) ApplyDefaults() CoreDashboardDataSourceModel_Templating_List_Error {
-
-	return m
-}
-
 type CoreDashboardDataSourceModel_Templating_List_Datasource struct {
 	Type types.String `tfsdk:"type"`
 	Uid  types.String `tfsdk:"uid"`
@@ -176,20 +158,130 @@ func (m CoreDashboardDataSourceModel_Templating_List_Datasource) ApplyDefaults()
 	return m
 }
 
+type CoreDashboardDataSourceModel_Templating_List_Current struct {
+	Selected types.Bool   `tfsdk:"selected"`
+	Text     types.String `tfsdk:"text"`
+	Value    types.String `tfsdk:"value"`
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List_Current) GetAttrText() interface{} {
+	var attr interface{}
+	var err error
+
+	err = json.Unmarshal([]byte(m.Text.ValueString()), &attr)
+	if err == nil {
+		return attr
+	}
+
+	return m.Text.ValueString()
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List_Current) GetAttrValue() interface{} {
+	var attr interface{}
+	var err error
+
+	err = json.Unmarshal([]byte(m.Value.ValueString()), &attr)
+	if err == nil {
+		return attr
+	}
+
+	return m.Value.ValueString()
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List_Current) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Templating_List_Current struct {
+		Selected *bool       `json:"selected,omitempty"`
+		Text     interface{} `json:"text"`
+		Value    interface{} `json:"value"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_selected := m.Selected.ValueBool()
+	attr_text := m.GetAttrText()
+	attr_value := m.GetAttrValue()
+
+	model := &jsonCoreDashboardDataSourceModel_Templating_List_Current{
+		Selected: &attr_selected,
+		Text:     attr_text,
+		Value:    attr_value,
+	}
+	return json.Marshal(model)
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List_Current) ApplyDefaults() CoreDashboardDataSourceModel_Templating_List_Current {
+
+	return m
+}
+
+type CoreDashboardDataSourceModel_Templating_List_Options struct {
+	Selected types.Bool   `tfsdk:"selected"`
+	Text     types.String `tfsdk:"text"`
+	Value    types.String `tfsdk:"value"`
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List_Options) GetAttrText() interface{} {
+	var attr interface{}
+	var err error
+
+	err = json.Unmarshal([]byte(m.Text.ValueString()), &attr)
+	if err == nil {
+		return attr
+	}
+
+	return m.Text.ValueString()
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List_Options) GetAttrValue() interface{} {
+	var attr interface{}
+	var err error
+
+	err = json.Unmarshal([]byte(m.Value.ValueString()), &attr)
+	if err == nil {
+		return attr
+	}
+
+	return m.Value.ValueString()
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List_Options) MarshalJSON() ([]byte, error) {
+	type jsonCoreDashboardDataSourceModel_Templating_List_Options struct {
+		Selected *bool       `json:"selected,omitempty"`
+		Text     interface{} `json:"text"`
+		Value    interface{} `json:"value"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_selected := m.Selected.ValueBool()
+	attr_text := m.GetAttrText()
+	attr_value := m.GetAttrValue()
+
+	model := &jsonCoreDashboardDataSourceModel_Templating_List_Options{
+		Selected: &attr_selected,
+		Text:     attr_text,
+		Value:    attr_value,
+	}
+	return json.Marshal(model)
+}
+
+func (m CoreDashboardDataSourceModel_Templating_List_Options) ApplyDefaults() CoreDashboardDataSourceModel_Templating_List_Options {
+
+	return m
+}
+
 type CoreDashboardDataSourceModel_Templating_List struct {
-	Type         types.String                                             `tfsdk:"type"`
-	Name         types.String                                             `tfsdk:"name"`
-	Label        types.String                                             `tfsdk:"label"`
-	RootStateKey types.String                                             `tfsdk:"root_state_key"`
-	Global       types.Bool                                               `tfsdk:"global"`
-	Hide         types.Int64                                              `tfsdk:"hide"`
-	SkipUrlSync  types.Bool                                               `tfsdk:"skip_url_sync"`
-	Index        types.Int64                                              `tfsdk:"index"`
-	State        types.String                                             `tfsdk:"state"`
-	Error        *CoreDashboardDataSourceModel_Templating_List_Error      `tfsdk:"error"`
-	Description  types.String                                             `tfsdk:"description"`
-	Query        types.String                                             `tfsdk:"query"`
-	Datasource   *CoreDashboardDataSourceModel_Templating_List_Datasource `tfsdk:"datasource"`
+	Type        types.String                                             `tfsdk:"type"`
+	Name        types.String                                             `tfsdk:"name"`
+	Label       types.String                                             `tfsdk:"label"`
+	Hide        types.Int64                                              `tfsdk:"hide"`
+	SkipUrlSync types.Bool                                               `tfsdk:"skip_url_sync"`
+	Description types.String                                             `tfsdk:"description"`
+	Query       types.String                                             `tfsdk:"query"`
+	Datasource  *CoreDashboardDataSourceModel_Templating_List_Datasource `tfsdk:"datasource"`
+	AllFormat   types.String                                             `tfsdk:"all_format"`
+	Current     *CoreDashboardDataSourceModel_Templating_List_Current    `tfsdk:"current"`
+	Multi       types.Bool                                               `tfsdk:"multi"`
+	Options     []CoreDashboardDataSourceModel_Templating_List_Options   `tfsdk:"options"`
+	Refresh     types.Int64                                              `tfsdk:"refresh"`
 }
 
 func (m CoreDashboardDataSourceModel_Templating_List) GetAttrQuery() interface{} {
@@ -206,69 +298,69 @@ func (m CoreDashboardDataSourceModel_Templating_List) GetAttrQuery() interface{}
 
 func (m CoreDashboardDataSourceModel_Templating_List) MarshalJSON() ([]byte, error) {
 	type jsonCoreDashboardDataSourceModel_Templating_List struct {
-		Type         string      `json:"type"`
-		Name         string      `json:"name"`
-		Label        *string     `json:"label,omitempty"`
-		RootStateKey *string     `json:"rootStateKey,omitempty"`
-		Global       bool        `json:"global"`
-		Hide         int64       `json:"hide"`
-		SkipUrlSync  bool        `json:"skipUrlSync"`
-		Index        int64       `json:"index"`
-		State        string      `json:"state"`
-		Error        interface{} `json:"error,omitempty"`
-		Description  *string     `json:"description,omitempty"`
-		Query        interface{} `json:"query,omitempty"`
-		Datasource   interface{} `json:"datasource,omitempty"`
+		Type        string        `json:"type"`
+		Name        string        `json:"name"`
+		Label       *string       `json:"label,omitempty"`
+		Hide        int64         `json:"hide"`
+		SkipUrlSync bool          `json:"skipUrlSync"`
+		Description *string       `json:"description,omitempty"`
+		Query       interface{}   `json:"query,omitempty"`
+		Datasource  interface{}   `json:"datasource,omitempty"`
+		AllFormat   *string       `json:"allFormat,omitempty"`
+		Current     interface{}   `json:"current,omitempty"`
+		Multi       *bool         `json:"multi,omitempty"`
+		Options     []interface{} `json:"options,omitempty"`
+		Refresh     *int64        `json:"refresh,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_name := m.Name.ValueString()
 	attr_label := m.Label.ValueString()
-	attr_rootstatekey := m.RootStateKey.ValueString()
-	attr_global := m.Global.ValueBool()
 	attr_hide := m.Hide.ValueInt64()
 	attr_skipurlsync := m.SkipUrlSync.ValueBool()
-	attr_index := m.Index.ValueInt64()
-	attr_state := m.State.ValueString()
-	var attr_error interface{}
-	if m.Error != nil {
-		attr_error = m.Error
-	}
 	attr_description := m.Description.ValueString()
 	attr_query := m.GetAttrQuery()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
 		attr_datasource = m.Datasource
 	}
+	attr_allformat := m.AllFormat.ValueString()
+	var attr_current interface{}
+	if m.Current != nil {
+		attr_current = m.Current
+	}
+	attr_multi := m.Multi.ValueBool()
+	attr_options := []interface{}{}
+	for _, v := range m.Options {
+		attr_options = append(attr_options, v)
+	}
+	attr_refresh := m.Refresh.ValueInt64()
 
 	model := &jsonCoreDashboardDataSourceModel_Templating_List{
-		Type:         attr_type,
-		Name:         attr_name,
-		Label:        &attr_label,
-		RootStateKey: &attr_rootstatekey,
-		Global:       attr_global,
-		Hide:         attr_hide,
-		SkipUrlSync:  attr_skipurlsync,
-		Index:        attr_index,
-		State:        attr_state,
-		Error:        attr_error,
-		Description:  &attr_description,
-		Query:        attr_query,
-		Datasource:   attr_datasource,
+		Type:        attr_type,
+		Name:        attr_name,
+		Label:       &attr_label,
+		Hide:        attr_hide,
+		SkipUrlSync: attr_skipurlsync,
+		Description: &attr_description,
+		Query:       attr_query,
+		Datasource:  attr_datasource,
+		AllFormat:   &attr_allformat,
+		Current:     attr_current,
+		Multi:       &attr_multi,
+		Options:     attr_options,
+		Refresh:     &attr_refresh,
 	}
 	return json.Marshal(model)
 }
 
 func (m CoreDashboardDataSourceModel_Templating_List) ApplyDefaults() CoreDashboardDataSourceModel_Templating_List {
-	if m.Global.IsNull() {
-		m.Global = types.BoolValue(false)
-	}
 	if m.SkipUrlSync.IsNull() {
 		m.SkipUrlSync = types.BoolValue(false)
 	}
-	if m.Index.IsNull() {
-		m.Index = types.Int64Value(-1)
+	if m.Multi.IsNull() {
+		m.Multi = types.BoolValue(false)
 	}
 	return m
 }
@@ -827,8 +919,7 @@ func (d *CoreDashboardDataSource) Schema(ctx context.Context, req datasource.Sch
 			},
 			"revision": schema.Int64Attribute{
 				MarkdownDescription: `This property should only be used in dashboards defined by plugins.  It is a quick check
-to see if the version has changed since the last time.  Unclear why using the version property
-is insufficient.`,
+to see if the version has changed since the last time.`,
 				Computed: false,
 				Optional: true,
 				Required: false,
@@ -847,10 +938,11 @@ is insufficient.`,
 				ElementType:         types.StringType,
 			},
 			"style": schema.StringAttribute{
-				MarkdownDescription: `Theme of dashboard. Defaults to "dark".`,
-				Computed:            true,
-				Optional:            true,
-				Required:            false,
+				MarkdownDescription: `Theme of dashboard.
+Default value: dark. Defaults to "dark".`,
+				Computed: true,
+				Optional: true,
+				Required: false,
 			},
 			"timezone": schema.StringAttribute{
 				MarkdownDescription: `Timezone of dashboard. Accepted values are IANA TZDB zone ID or "browser" or "utc". Defaults to "browser".`,
@@ -940,7 +1032,7 @@ Accepted values are relative time strings like {from: 'now-6h', to: 'now'} or ab
 			},
 			"live_now": schema.BoolAttribute{
 				MarkdownDescription: `When set to true, the dashboard will redraw panels at an interval matching the pixel width.
-This will keep data "moving left" regardless of the query refresh rate.  This setting helps
+This will keep data "moving left" regardless of the query refresh rate. This setting helps
 avoid dashboards presenting stale live data`,
 				Computed: false,
 				Optional: true,
@@ -960,8 +1052,7 @@ avoid dashboards presenting stale live data`,
 			},
 			"schema_version": schema.Int64Attribute{
 				MarkdownDescription: `Version of the JSON schema, incremented each time a Grafana update brings
-changes to said schema.
-TODO this is the existing schema numbering system. It will be replaced by Thema's themaVersion. Defaults to 36.`,
+changes to said schema. Defaults to 36.`,
 				Computed: true,
 				Optional: true,
 				Required: false,
@@ -973,99 +1064,69 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 				Required:            false,
 			},
 			"panels": schema.ListAttribute{
-				MarkdownDescription: ``,
+				MarkdownDescription: `List of dashboard panels`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 				ElementType:         types.StringType,
 			},
 			"templating": schema.SingleNestedAttribute{
-				MarkdownDescription: `Contains the list of configured template variables with their saved values along with some other metadata`,
+				MarkdownDescription: `Configured template variables`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
 					"list": schema.ListNestedAttribute{
-						MarkdownDescription: ``,
+						MarkdownDescription: `List of configured template variables with their saved values along with some other metadata`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 						NestedObject: schema.NestedAttributeObject{
 							Attributes: map[string]schema.Attribute{
 								"type": schema.StringAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: `Type of variable`,
 									Computed:            false,
 									Optional:            false,
 									Required:            true,
 								},
 								"name": schema.StringAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: `Name of variable`,
 									Computed:            false,
 									Optional:            false,
 									Required:            true,
 								},
 								"label": schema.StringAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: `Optional display name`,
 									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"root_state_key": schema.StringAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"global": schema.BoolAttribute{
-									MarkdownDescription: ` Defaults to false.`,
-									Computed:            true,
 									Optional:            true,
 									Required:            false,
 								},
 								"hide": schema.Int64Attribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: `Visibility configuration for the variable`,
 									Computed:            false,
 									Optional:            false,
 									Required:            true,
 								},
 								"skip_url_sync": schema.BoolAttribute{
-									MarkdownDescription: ` Defaults to false.`,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-								},
-								"index": schema.Int64Attribute{
-									MarkdownDescription: ` Defaults to -1.`,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-								},
-								"state": schema.StringAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
-								},
-								"error": schema.SingleNestedAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: `Whether the variable value should be managed by URL query params or not. Defaults to false.`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
 								},
 								"description": schema.StringAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: `Description of variable. It can be defined but null.`,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
 								"query": schema.StringAttribute{
-									MarkdownDescription: `JSON-encoded string. TODO: Move this into a separated QueryVariableModel type`,
+									MarkdownDescription: `JSON-encoded string. Query used to fetch values for a variable`,
 									Computed:            false,
 									Optional:            true,
 									Required:            false,
 								},
 								"datasource": schema.SingleNestedAttribute{
-									MarkdownDescription: ``,
+									MarkdownDescription: `Data source used to fetch values for a variable. It can be defined but null.`,
 									Computed:            true,
 									Optional:            true,
 									Required:            false,
@@ -1084,19 +1145,94 @@ TODO this is the existing schema numbering system. It will be replaced by Thema'
 										},
 									},
 								},
+								"all_format": schema.StringAttribute{
+									MarkdownDescription: `Format to use while fetching all values from data source, eg: wildcard, glob, regex, pipe, etc.`,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
+								"current": schema.SingleNestedAttribute{
+									MarkdownDescription: `Shows current selected variable text/value on the dashboard`,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
+									Attributes: map[string]schema.Attribute{
+										"selected": schema.BoolAttribute{
+											MarkdownDescription: `Whether the option is selected or not`,
+											Computed:            false,
+											Optional:            true,
+											Required:            false,
+										},
+										"text": schema.StringAttribute{
+											MarkdownDescription: `JSON-encoded string. Text to be displayed for the option`,
+											Computed:            false,
+											Optional:            false,
+											Required:            true,
+										},
+										"value": schema.StringAttribute{
+											MarkdownDescription: `JSON-encoded string. Value of the option`,
+											Computed:            false,
+											Optional:            false,
+											Required:            true,
+										},
+									},
+								},
+								"multi": schema.BoolAttribute{
+									MarkdownDescription: `Whether multiple values can be selected or not from variable value list. Defaults to false.`,
+									Computed:            true,
+									Optional:            true,
+									Required:            false,
+								},
+								"options": schema.ListNestedAttribute{
+									MarkdownDescription: `Options that can be selected for a variable.`,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+									NestedObject: schema.NestedAttributeObject{
+										Attributes: map[string]schema.Attribute{
+											"selected": schema.BoolAttribute{
+												MarkdownDescription: `Whether the option is selected or not`,
+												Computed:            false,
+												Optional:            true,
+												Required:            false,
+											},
+											"text": schema.StringAttribute{
+												MarkdownDescription: `JSON-encoded string. Text to be displayed for the option`,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+											"value": schema.StringAttribute{
+												MarkdownDescription: `JSON-encoded string. Value of the option`,
+												Computed:            false,
+												Optional:            false,
+												Required:            true,
+											},
+										},
+									},
+								},
+								"refresh": schema.Int64Attribute{
+									MarkdownDescription: ``,
+									Computed:            false,
+									Optional:            true,
+									Required:            false,
+								},
 							},
 						},
 					},
 				},
 			},
 			"annotations": schema.SingleNestedAttribute{
-				MarkdownDescription: `TODO docs`,
-				Computed:            true,
-				Optional:            true,
-				Required:            false,
+				MarkdownDescription: `Contains the list of annotations that are associated with the dashboard.
+Annotations are used to overlay event markers and overlay event tags on graphs.
+Grafana comes with a native annotation store and the ability to add annotation events directly from the graph panel or via the HTTP API.
+See https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/`,
+				Computed: true,
+				Optional: true,
+				Required: false,
 				Attributes: map[string]schema.Attribute{
 					"list": schema.ListNestedAttribute{
-						MarkdownDescription: ``,
+						MarkdownDescription: `List of annotations`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
@@ -1288,7 +1424,7 @@ but code+tests is already depending on it so hard to change`,
 				},
 			},
 			"snapshot": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
+				MarkdownDescription: `Snapshot options. They are present only if the dashboard is a snapshot.`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
