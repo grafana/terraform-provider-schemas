@@ -111,15 +111,7 @@ func (s *Model) generateToJSONFunction() string {
 		} else if len(node.DisjunctionKinds) > 0 {
 			fmt.Fprintf(&b, "   %s := m.GetAttr%s()\n", varName, fieldName)
 		} else if funcString != "" {
-			if node.Optional {
-				fmt.Fprintf(&b, "var %s *%s\n", varName, kindMappings[node.Kind].golangType)
-				fmt.Fprintf(&b, "if !m.%s.IsNull() && !m.%s.IsUnknown() {\n", fieldName, fieldName)
-				fmt.Fprintf(&b, "  tmp := m.%s.%s\n", fieldName, funcString)
-				fmt.Fprintf(&b, "  %s = &tmp\n", varName)
-				b.WriteString("}\n")
-			} else {
-				fmt.Fprintf(&b, "%s := m.%s.%s\n", varName, fieldName, funcString)
-			}
+			fmt.Fprintf(&b, "%s := m.%s.%s\n", varName, fieldName, funcString)
 		}
 
 		structLines = append(structLines, fmt.Sprintf("		%s: %s,\n", fieldName, varName))

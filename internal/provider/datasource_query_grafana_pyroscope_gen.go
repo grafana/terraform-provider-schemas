@@ -68,22 +68,10 @@ func (m QueryGrafanaPyroscopeDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.GroupBy.Elements() {
 		attr_groupby = append(attr_groupby, v.(types.String).ValueString())
 	}
-	var attr_maxnodes *int64
-	if !m.MaxNodes.IsNull() && !m.MaxNodes.IsUnknown() {
-		tmp := m.MaxNodes.ValueInt64()
-		attr_maxnodes = &tmp
-	}
+	attr_maxnodes := m.MaxNodes.ValueInt64Pointer()
 	attr_refid := m.RefId.ValueString()
-	var attr_hide *bool
-	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
-		tmp := m.Hide.ValueBool()
-		attr_hide = &tmp
-	}
-	var attr_querytype *string
-	if !m.QueryType.IsNull() && !m.QueryType.IsUnknown() {
-		tmp := m.QueryType.ValueString()
-		attr_querytype = &tmp
-	}
+	attr_hide := m.Hide.ValueBoolPointer()
+	attr_querytype := m.QueryType.ValueStringPointer()
 
 	model := &jsonQueryGrafanaPyroscopeDataSourceModel{
 		LabelSelector: attr_labelselector,

@@ -52,16 +52,8 @@ func (m PanelXYChartDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	var attr_type *string
-	if !m.Type.IsNull() && !m.Type.IsUnknown() {
-		tmp := m.Type.ValueString()
-		attr_type = &tmp
-	}
-	var attr_uid *string
-	if !m.Uid.IsNull() && !m.Uid.IsUnknown() {
-		tmp := m.Uid.ValueString()
-		attr_uid = &tmp
-	}
+	attr_type := m.Type.ValueStringPointer()
+	attr_uid := m.Uid.ValueStringPointer()
 
 	model := &jsonPanelXYChartDataSourceModel_Datasource{
 		Type: attr_type,
@@ -97,11 +89,7 @@ func (m PanelXYChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	var attr_static *bool
-	if !m.Static.IsNull() && !m.Static.IsUnknown() {
-		tmp := m.Static.ValueBool()
-		attr_static = &tmp
-	}
+	attr_static := m.Static.ValueBoolPointer()
 
 	model := &jsonPanelXYChartDataSourceModel_GridPos{
 		H:      attr_h,
@@ -235,11 +223,7 @@ func (m PanelXYChartDataSourceModel_Transformations) MarshalJSON() ([]byte, erro
 	}
 
 	m = m.ApplyDefaults()
-	var attr_disabled *bool
-	if !m.Disabled.IsNull() && !m.Disabled.IsUnknown() {
-		tmp := m.Disabled.ValueBool()
-		attr_disabled = &tmp
-	}
+	attr_disabled := m.Disabled.ValueBoolPointer()
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
@@ -299,11 +283,7 @@ func (m PanelXYChartDataSourceModel_Options_Dims) MarshalJSON() ([]byte, error) 
 
 	m = m.ApplyDefaults()
 	attr_frame := m.Frame.ValueInt64()
-	var attr_x *string
-	if !m.X.IsNull() && !m.X.IsUnknown() {
-		tmp := m.X.ValueString()
-		attr_x = &tmp
-	}
+	attr_x := m.X.ValueStringPointer()
 	attr_exclude := []string{}
 	for _, v := range m.Exclude.Elements() {
 		attr_exclude = append(attr_exclude, v.(types.String).ValueString())
@@ -353,31 +333,11 @@ func (m PanelXYChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error
 	attr_displaymode := m.DisplayMode.ValueString()
 	attr_placement := m.Placement.ValueString()
 	attr_showlegend := m.ShowLegend.ValueBool()
-	var attr_astable *bool
-	if !m.AsTable.IsNull() && !m.AsTable.IsUnknown() {
-		tmp := m.AsTable.ValueBool()
-		attr_astable = &tmp
-	}
-	var attr_isvisible *bool
-	if !m.IsVisible.IsNull() && !m.IsVisible.IsUnknown() {
-		tmp := m.IsVisible.ValueBool()
-		attr_isvisible = &tmp
-	}
-	var attr_sortby *string
-	if !m.SortBy.IsNull() && !m.SortBy.IsUnknown() {
-		tmp := m.SortBy.ValueString()
-		attr_sortby = &tmp
-	}
-	var attr_sortdesc *bool
-	if !m.SortDesc.IsNull() && !m.SortDesc.IsUnknown() {
-		tmp := m.SortDesc.ValueBool()
-		attr_sortdesc = &tmp
-	}
-	var attr_width *float64
-	if !m.Width.IsNull() && !m.Width.IsUnknown() {
-		tmp := m.Width.ValueFloat64()
-		attr_width = &tmp
-	}
+	attr_astable := m.AsTable.ValueBoolPointer()
+	attr_isvisible := m.IsVisible.ValueBoolPointer()
+	attr_sortby := m.SortBy.ValueStringPointer()
+	attr_sortdesc := m.SortDesc.ValueBoolPointer()
+	attr_width := m.Width.ValueFloat64Pointer()
 	attr_calcs := []string{}
 	for _, v := range m.Calcs.Elements() {
 		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
@@ -451,21 +411,9 @@ func (m PanelXYChartDataSourceModel_Options_Series_PointSize) MarshalJSON() ([]b
 	m = m.ApplyDefaults()
 	attr_min := m.Min.ValueFloat64()
 	attr_max := m.Max.ValueFloat64()
-	var attr_fixed *float64
-	if !m.Fixed.IsNull() && !m.Fixed.IsUnknown() {
-		tmp := m.Fixed.ValueFloat64()
-		attr_fixed = &tmp
-	}
-	var attr_field *string
-	if !m.Field.IsNull() && !m.Field.IsUnknown() {
-		tmp := m.Field.ValueString()
-		attr_field = &tmp
-	}
-	var attr_mode *string
-	if !m.Mode.IsNull() && !m.Mode.IsUnknown() {
-		tmp := m.Mode.ValueString()
-		attr_mode = &tmp
-	}
+	attr_fixed := m.Fixed.ValueFloat64Pointer()
+	attr_field := m.Field.ValueStringPointer()
+	attr_mode := m.Mode.ValueStringPointer()
 
 	model := &jsonPanelXYChartDataSourceModel_Options_Series_PointSize{
 		Min:   attr_min,
@@ -494,16 +442,8 @@ func (m PanelXYChartDataSourceModel_Options_Series_LineColor) MarshalJSON() ([]b
 	}
 
 	m = m.ApplyDefaults()
-	var attr_fixed *string
-	if !m.Fixed.IsNull() && !m.Fixed.IsUnknown() {
-		tmp := m.Fixed.ValueString()
-		attr_fixed = &tmp
-	}
-	var attr_field *string
-	if !m.Field.IsNull() && !m.Field.IsUnknown() {
-		tmp := m.Field.ValueString()
-		attr_field = &tmp
-	}
+	attr_fixed := m.Fixed.ValueStringPointer()
+	attr_field := m.Field.ValueStringPointer()
 
 	model := &jsonPanelXYChartDataSourceModel_Options_Series_LineColor{
 		Fixed: attr_fixed,
@@ -529,16 +469,8 @@ func (m PanelXYChartDataSourceModel_Options_Series_PointColor) MarshalJSON() ([]
 	}
 
 	m = m.ApplyDefaults()
-	var attr_fixed *string
-	if !m.Fixed.IsNull() && !m.Fixed.IsUnknown() {
-		tmp := m.Fixed.ValueString()
-		attr_fixed = &tmp
-	}
-	var attr_field *string
-	if !m.Field.IsNull() && !m.Field.IsUnknown() {
-		tmp := m.Field.ValueString()
-		attr_field = &tmp
-	}
+	attr_fixed := m.Fixed.ValueStringPointer()
+	attr_field := m.Field.ValueStringPointer()
 
 	model := &jsonPanelXYChartDataSourceModel_Options_Series_PointColor{
 		Fixed: attr_fixed,
@@ -567,16 +499,8 @@ func (m PanelXYChartDataSourceModel_Options_Series_LabelValue) MarshalJSON() ([]
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	var attr_field *string
-	if !m.Field.IsNull() && !m.Field.IsUnknown() {
-		tmp := m.Field.ValueString()
-		attr_field = &tmp
-	}
-	var attr_fixed *string
-	if !m.Fixed.IsNull() && !m.Fixed.IsUnknown() {
-		tmp := m.Fixed.ValueString()
-		attr_fixed = &tmp
-	}
+	attr_field := m.Field.ValueStringPointer()
+	attr_fixed := m.Fixed.ValueStringPointer()
 
 	model := &jsonPanelXYChartDataSourceModel_Options_Series_LabelValue{
 		Mode:  attr_mode,
@@ -603,11 +527,7 @@ func (m PanelXYChartDataSourceModel_Options_Series_LineStyle) MarshalJSON() ([]b
 	}
 
 	m = m.ApplyDefaults()
-	var attr_fill *string
-	if !m.Fill.IsNull() && !m.Fill.IsUnknown() {
-		tmp := m.Fill.ValueString()
-		attr_fill = &tmp
-	}
+	attr_fill := m.Fill.ValueStringPointer()
 	attr_dash := []float64{}
 	for _, v := range m.Dash.Elements() {
 		attr_dash = append(attr_dash, v.(types.Float64).ValueFloat64())
@@ -673,16 +593,8 @@ func (m PanelXYChartDataSourceModel_Options_Series_ScaleDistribution) MarshalJSO
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	var attr_log *float64
-	if !m.Log.IsNull() && !m.Log.IsUnknown() {
-		tmp := m.Log.ValueFloat64()
-		attr_log = &tmp
-	}
-	var attr_linearthreshold *float64
-	if !m.LinearThreshold.IsNull() && !m.LinearThreshold.IsUnknown() {
-		tmp := m.LinearThreshold.ValueFloat64()
-		attr_linearthreshold = &tmp
-	}
+	attr_log := m.Log.ValueFloat64Pointer()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64Pointer()
 
 	model := &jsonPanelXYChartDataSourceModel_Options_Series_ScaleDistribution{
 		Type:            attr_type,
@@ -747,21 +659,9 @@ func (m PanelXYChartDataSourceModel_Options_Series) MarshalJSON() ([]byte, error
 	}
 
 	m = m.ApplyDefaults()
-	var attr_x *string
-	if !m.X.IsNull() && !m.X.IsUnknown() {
-		tmp := m.X.ValueString()
-		attr_x = &tmp
-	}
-	var attr_y *string
-	if !m.Y.IsNull() && !m.Y.IsUnknown() {
-		tmp := m.Y.ValueString()
-		attr_y = &tmp
-	}
-	var attr_show *string
-	if !m.Show.IsNull() && !m.Show.IsUnknown() {
-		tmp := m.Show.ValueString()
-		attr_show = &tmp
-	}
+	attr_x := m.X.ValueStringPointer()
+	attr_y := m.Y.ValueStringPointer()
+	attr_show := m.Show.ValueStringPointer()
 	var attr_pointsize interface{}
 	if m.PointSize != nil {
 		attr_pointsize = m.PointSize
@@ -778,11 +678,7 @@ func (m PanelXYChartDataSourceModel_Options_Series) MarshalJSON() ([]byte, error
 	if m.LabelValue != nil {
 		attr_labelvalue = m.LabelValue
 	}
-	var attr_linewidth *int64
-	if !m.LineWidth.IsNull() && !m.LineWidth.IsUnknown() {
-		tmp := m.LineWidth.ValueInt64()
-		attr_linewidth = &tmp
-	}
+	attr_linewidth := m.LineWidth.ValueInt64Pointer()
 	var attr_linestyle interface{}
 	if m.LineStyle != nil {
 		attr_linestyle = m.LineStyle
@@ -791,60 +687,20 @@ func (m PanelXYChartDataSourceModel_Options_Series) MarshalJSON() ([]byte, error
 	if m.HideFrom != nil {
 		attr_hidefrom = m.HideFrom
 	}
-	var attr_axisplacement *string
-	if !m.AxisPlacement.IsNull() && !m.AxisPlacement.IsUnknown() {
-		tmp := m.AxisPlacement.ValueString()
-		attr_axisplacement = &tmp
-	}
-	var attr_axiscolormode *string
-	if !m.AxisColorMode.IsNull() && !m.AxisColorMode.IsUnknown() {
-		tmp := m.AxisColorMode.ValueString()
-		attr_axiscolormode = &tmp
-	}
-	var attr_axislabel *string
-	if !m.AxisLabel.IsNull() && !m.AxisLabel.IsUnknown() {
-		tmp := m.AxisLabel.ValueString()
-		attr_axislabel = &tmp
-	}
-	var attr_axiswidth *float64
-	if !m.AxisWidth.IsNull() && !m.AxisWidth.IsUnknown() {
-		tmp := m.AxisWidth.ValueFloat64()
-		attr_axiswidth = &tmp
-	}
-	var attr_axissoftmin *float64
-	if !m.AxisSoftMin.IsNull() && !m.AxisSoftMin.IsUnknown() {
-		tmp := m.AxisSoftMin.ValueFloat64()
-		attr_axissoftmin = &tmp
-	}
-	var attr_axissoftmax *float64
-	if !m.AxisSoftMax.IsNull() && !m.AxisSoftMax.IsUnknown() {
-		tmp := m.AxisSoftMax.ValueFloat64()
-		attr_axissoftmax = &tmp
-	}
-	var attr_axisgridshow *bool
-	if !m.AxisGridShow.IsNull() && !m.AxisGridShow.IsUnknown() {
-		tmp := m.AxisGridShow.ValueBool()
-		attr_axisgridshow = &tmp
-	}
+	attr_axisplacement := m.AxisPlacement.ValueStringPointer()
+	attr_axiscolormode := m.AxisColorMode.ValueStringPointer()
+	attr_axislabel := m.AxisLabel.ValueStringPointer()
+	attr_axiswidth := m.AxisWidth.ValueFloat64Pointer()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64Pointer()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64Pointer()
+	attr_axisgridshow := m.AxisGridShow.ValueBoolPointer()
 	var attr_scaledistribution interface{}
 	if m.ScaleDistribution != nil {
 		attr_scaledistribution = m.ScaleDistribution
 	}
-	var attr_name *string
-	if !m.Name.IsNull() && !m.Name.IsUnknown() {
-		tmp := m.Name.ValueString()
-		attr_name = &tmp
-	}
-	var attr_label *string
-	if !m.Label.IsNull() && !m.Label.IsUnknown() {
-		tmp := m.Label.ValueString()
-		attr_label = &tmp
-	}
-	var attr_axiscenteredzero *bool
-	if !m.AxisCenteredZero.IsNull() && !m.AxisCenteredZero.IsUnknown() {
-		tmp := m.AxisCenteredZero.ValueBool()
-		attr_axiscenteredzero = &tmp
-	}
+	attr_name := m.Name.ValueStringPointer()
+	attr_label := m.Label.ValueStringPointer()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBoolPointer()
 
 	model := &jsonPanelXYChartDataSourceModel_Options_Series{
 		X:                 attr_x,
@@ -900,11 +756,7 @@ func (m PanelXYChartDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	var attr_seriesmapping *string
-	if !m.SeriesMapping.IsNull() && !m.SeriesMapping.IsUnknown() {
-		tmp := m.SeriesMapping.ValueString()
-		attr_seriesmapping = &tmp
-	}
+	attr_seriesmapping := m.SeriesMapping.ValueStringPointer()
 	var attr_dims interface{}
 	if m.Dims != nil {
 		attr_dims = m.Dims
@@ -953,26 +805,10 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Optio
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
 		Text:  attr_text,
@@ -1034,26 +870,10 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Optio
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
 		Text:  attr_text,
@@ -1149,26 +969,10 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Optio
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
 		Text:  attr_text,
@@ -1260,26 +1064,10 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMa
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
 		Text:  attr_text,
@@ -1406,22 +1194,10 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Marsh
 	}
 
 	m = m.ApplyDefaults()
-	var attr_value *float64
-	if !m.Value.IsNull() && !m.Value.IsUnknown() {
-		tmp := m.Value.ValueFloat64()
-		attr_value = &tmp
-	}
+	attr_value := m.Value.ValueFloat64Pointer()
 	attr_color := m.Color.ValueString()
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
-	var attr_state *string
-	if !m.State.IsNull() && !m.State.IsUnknown() {
-		tmp := m.State.ValueString()
-		attr_state = &tmp
-	}
+	attr_index := m.Index.ValueInt64Pointer()
+	attr_state := m.State.ValueStringPointer()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
 		Value: attr_value,
@@ -1482,16 +1258,8 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	var attr_fixedcolor *string
-	if !m.FixedColor.IsNull() && !m.FixedColor.IsUnknown() {
-		tmp := m.FixedColor.ValueString()
-		attr_fixedcolor = &tmp
-	}
-	var attr_seriesby *string
-	if !m.SeriesBy.IsNull() && !m.SeriesBy.IsUnknown() {
-		tmp := m.SeriesBy.ValueString()
-		attr_seriesby = &tmp
-	}
+	attr_fixedcolor := m.FixedColor.ValueStringPointer()
+	attr_seriesby := m.SeriesBy.ValueStringPointer()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
@@ -1541,11 +1309,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) Marsh
 	}
 
 	m = m.ApplyDefaults()
-	var attr_fill *string
-	if !m.Fill.IsNull() && !m.Fill.IsUnknown() {
-		tmp := m.Fill.ValueString()
-		attr_fill = &tmp
-	}
+	attr_fill := m.Fill.ValueStringPointer()
 	attr_dash := []float64{}
 	for _, v := range m.Dash.Elements() {
 		attr_dash = append(attr_dash, v.(types.Float64).ValueFloat64())
@@ -1580,16 +1344,8 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistributio
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	var attr_log *float64
-	if !m.Log.IsNull() && !m.Log.IsUnknown() {
-		tmp := m.Log.ValueFloat64()
-		attr_log = &tmp
-	}
-	var attr_linearthreshold *float64
-	if !m.LinearThreshold.IsNull() && !m.LinearThreshold.IsUnknown() {
-		tmp := m.LinearThreshold.ValueFloat64()
-		attr_linearthreshold = &tmp
-	}
+	attr_log := m.Log.ValueFloat64Pointer()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64Pointer()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
 		Type:            attr_type,
@@ -1616,16 +1372,8 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking) Marsha
 	}
 
 	m = m.ApplyDefaults()
-	var attr_mode *string
-	if !m.Mode.IsNull() && !m.Mode.IsUnknown() {
-		tmp := m.Mode.ValueString()
-		attr_mode = &tmp
-	}
-	var attr_group *string
-	if !m.Group.IsNull() && !m.Group.IsUnknown() {
-		tmp := m.Group.ValueString()
-		attr_group = &tmp
-	}
+	attr_mode := m.Mode.ValueStringPointer()
+	attr_group := m.Group.ValueStringPointer()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking{
 		Mode:  attr_mode,
@@ -1754,113 +1502,37 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() (
 	}
 
 	m = m.ApplyDefaults()
-	var attr_drawstyle *string
-	if !m.DrawStyle.IsNull() && !m.DrawStyle.IsUnknown() {
-		tmp := m.DrawStyle.ValueString()
-		attr_drawstyle = &tmp
-	}
-	var attr_gradientmode *string
-	if !m.GradientMode.IsNull() && !m.GradientMode.IsUnknown() {
-		tmp := m.GradientMode.ValueString()
-		attr_gradientmode = &tmp
-	}
+	attr_drawstyle := m.DrawStyle.ValueStringPointer()
+	attr_gradientmode := m.GradientMode.ValueStringPointer()
 	var attr_thresholdsstyle interface{}
 	if m.ThresholdsStyle != nil {
 		attr_thresholdsstyle = m.ThresholdsStyle
 	}
-	var attr_linecolor *string
-	if !m.LineColor.IsNull() && !m.LineColor.IsUnknown() {
-		tmp := m.LineColor.ValueString()
-		attr_linecolor = &tmp
-	}
-	var attr_linewidth *float64
-	if !m.LineWidth.IsNull() && !m.LineWidth.IsUnknown() {
-		tmp := m.LineWidth.ValueFloat64()
-		attr_linewidth = &tmp
-	}
-	var attr_lineinterpolation *string
-	if !m.LineInterpolation.IsNull() && !m.LineInterpolation.IsUnknown() {
-		tmp := m.LineInterpolation.ValueString()
-		attr_lineinterpolation = &tmp
-	}
+	attr_linecolor := m.LineColor.ValueStringPointer()
+	attr_linewidth := m.LineWidth.ValueFloat64Pointer()
+	attr_lineinterpolation := m.LineInterpolation.ValueStringPointer()
 	var attr_linestyle interface{}
 	if m.LineStyle != nil {
 		attr_linestyle = m.LineStyle
 	}
-	var attr_fillcolor *string
-	if !m.FillColor.IsNull() && !m.FillColor.IsUnknown() {
-		tmp := m.FillColor.ValueString()
-		attr_fillcolor = &tmp
-	}
-	var attr_fillopacity *float64
-	if !m.FillOpacity.IsNull() && !m.FillOpacity.IsUnknown() {
-		tmp := m.FillOpacity.ValueFloat64()
-		attr_fillopacity = &tmp
-	}
-	var attr_showpoints *string
-	if !m.ShowPoints.IsNull() && !m.ShowPoints.IsUnknown() {
-		tmp := m.ShowPoints.ValueString()
-		attr_showpoints = &tmp
-	}
-	var attr_pointsize *float64
-	if !m.PointSize.IsNull() && !m.PointSize.IsUnknown() {
-		tmp := m.PointSize.ValueFloat64()
-		attr_pointsize = &tmp
-	}
-	var attr_pointcolor *string
-	if !m.PointColor.IsNull() && !m.PointColor.IsUnknown() {
-		tmp := m.PointColor.ValueString()
-		attr_pointcolor = &tmp
-	}
-	var attr_axisplacement *string
-	if !m.AxisPlacement.IsNull() && !m.AxisPlacement.IsUnknown() {
-		tmp := m.AxisPlacement.ValueString()
-		attr_axisplacement = &tmp
-	}
-	var attr_axiscolormode *string
-	if !m.AxisColorMode.IsNull() && !m.AxisColorMode.IsUnknown() {
-		tmp := m.AxisColorMode.ValueString()
-		attr_axiscolormode = &tmp
-	}
-	var attr_axislabel *string
-	if !m.AxisLabel.IsNull() && !m.AxisLabel.IsUnknown() {
-		tmp := m.AxisLabel.ValueString()
-		attr_axislabel = &tmp
-	}
-	var attr_axiswidth *float64
-	if !m.AxisWidth.IsNull() && !m.AxisWidth.IsUnknown() {
-		tmp := m.AxisWidth.ValueFloat64()
-		attr_axiswidth = &tmp
-	}
-	var attr_axissoftmin *float64
-	if !m.AxisSoftMin.IsNull() && !m.AxisSoftMin.IsUnknown() {
-		tmp := m.AxisSoftMin.ValueFloat64()
-		attr_axissoftmin = &tmp
-	}
-	var attr_axissoftmax *float64
-	if !m.AxisSoftMax.IsNull() && !m.AxisSoftMax.IsUnknown() {
-		tmp := m.AxisSoftMax.ValueFloat64()
-		attr_axissoftmax = &tmp
-	}
-	var attr_axisgridshow *bool
-	if !m.AxisGridShow.IsNull() && !m.AxisGridShow.IsUnknown() {
-		tmp := m.AxisGridShow.ValueBool()
-		attr_axisgridshow = &tmp
-	}
+	attr_fillcolor := m.FillColor.ValueStringPointer()
+	attr_fillopacity := m.FillOpacity.ValueFloat64Pointer()
+	attr_showpoints := m.ShowPoints.ValueStringPointer()
+	attr_pointsize := m.PointSize.ValueFloat64Pointer()
+	attr_pointcolor := m.PointColor.ValueStringPointer()
+	attr_axisplacement := m.AxisPlacement.ValueStringPointer()
+	attr_axiscolormode := m.AxisColorMode.ValueStringPointer()
+	attr_axislabel := m.AxisLabel.ValueStringPointer()
+	attr_axiswidth := m.AxisWidth.ValueFloat64Pointer()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64Pointer()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64Pointer()
+	attr_axisgridshow := m.AxisGridShow.ValueBoolPointer()
 	var attr_scaledistribution interface{}
 	if m.ScaleDistribution != nil {
 		attr_scaledistribution = m.ScaleDistribution
 	}
-	var attr_baralignment *int64
-	if !m.BarAlignment.IsNull() && !m.BarAlignment.IsUnknown() {
-		tmp := m.BarAlignment.ValueInt64()
-		attr_baralignment = &tmp
-	}
-	var attr_barwidthfactor *float64
-	if !m.BarWidthFactor.IsNull() && !m.BarWidthFactor.IsUnknown() {
-		tmp := m.BarWidthFactor.ValueFloat64()
-		attr_barwidthfactor = &tmp
-	}
+	attr_baralignment := m.BarAlignment.ValueInt64Pointer()
+	attr_barwidthfactor := m.BarWidthFactor.ValueFloat64Pointer()
 	var attr_stacking interface{}
 	if m.Stacking != nil {
 		attr_stacking = m.Stacking
@@ -1869,32 +1541,12 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() (
 	if m.HideFrom != nil {
 		attr_hidefrom = m.HideFrom
 	}
-	var attr_transform *string
-	if !m.Transform.IsNull() && !m.Transform.IsUnknown() {
-		tmp := m.Transform.ValueString()
-		attr_transform = &tmp
-	}
+	attr_transform := m.Transform.ValueStringPointer()
 	attr_spannulls := m.GetAttrSpanNulls()
-	var attr_fillbelowto *string
-	if !m.FillBelowTo.IsNull() && !m.FillBelowTo.IsUnknown() {
-		tmp := m.FillBelowTo.ValueString()
-		attr_fillbelowto = &tmp
-	}
-	var attr_pointsymbol *string
-	if !m.PointSymbol.IsNull() && !m.PointSymbol.IsUnknown() {
-		tmp := m.PointSymbol.ValueString()
-		attr_pointsymbol = &tmp
-	}
-	var attr_axiscenteredzero *bool
-	if !m.AxisCenteredZero.IsNull() && !m.AxisCenteredZero.IsUnknown() {
-		tmp := m.AxisCenteredZero.ValueBool()
-		attr_axiscenteredzero = &tmp
-	}
-	var attr_barmaxwidth *float64
-	if !m.BarMaxWidth.IsNull() && !m.BarMaxWidth.IsUnknown() {
-		tmp := m.BarMaxWidth.ValueFloat64()
-		attr_barmaxwidth = &tmp
-	}
+	attr_fillbelowto := m.FillBelowTo.ValueStringPointer()
+	attr_pointsymbol := m.PointSymbol.ValueStringPointer()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBoolPointer()
+	attr_barmaxwidth := m.BarMaxWidth.ValueFloat64Pointer()
 
 	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom{
 		DrawStyle:         attr_drawstyle,
@@ -1974,56 +1626,16 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte,
 	}
 
 	m = m.ApplyDefaults()
-	var attr_displayname *string
-	if !m.DisplayName.IsNull() && !m.DisplayName.IsUnknown() {
-		tmp := m.DisplayName.ValueString()
-		attr_displayname = &tmp
-	}
-	var attr_displaynamefromds *string
-	if !m.DisplayNameFromDS.IsNull() && !m.DisplayNameFromDS.IsUnknown() {
-		tmp := m.DisplayNameFromDS.ValueString()
-		attr_displaynamefromds = &tmp
-	}
-	var attr_description *string
-	if !m.Description.IsNull() && !m.Description.IsUnknown() {
-		tmp := m.Description.ValueString()
-		attr_description = &tmp
-	}
-	var attr_path *string
-	if !m.Path.IsNull() && !m.Path.IsUnknown() {
-		tmp := m.Path.ValueString()
-		attr_path = &tmp
-	}
-	var attr_writeable *bool
-	if !m.Writeable.IsNull() && !m.Writeable.IsUnknown() {
-		tmp := m.Writeable.ValueBool()
-		attr_writeable = &tmp
-	}
-	var attr_filterable *bool
-	if !m.Filterable.IsNull() && !m.Filterable.IsUnknown() {
-		tmp := m.Filterable.ValueBool()
-		attr_filterable = &tmp
-	}
-	var attr_unit *string
-	if !m.Unit.IsNull() && !m.Unit.IsUnknown() {
-		tmp := m.Unit.ValueString()
-		attr_unit = &tmp
-	}
-	var attr_decimals *float64
-	if !m.Decimals.IsNull() && !m.Decimals.IsUnknown() {
-		tmp := m.Decimals.ValueFloat64()
-		attr_decimals = &tmp
-	}
-	var attr_min *float64
-	if !m.Min.IsNull() && !m.Min.IsUnknown() {
-		tmp := m.Min.ValueFloat64()
-		attr_min = &tmp
-	}
-	var attr_max *float64
-	if !m.Max.IsNull() && !m.Max.IsUnknown() {
-		tmp := m.Max.ValueFloat64()
-		attr_max = &tmp
-	}
+	attr_displayname := m.DisplayName.ValueStringPointer()
+	attr_displaynamefromds := m.DisplayNameFromDS.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
+	attr_path := m.Path.ValueStringPointer()
+	attr_writeable := m.Writeable.ValueBoolPointer()
+	attr_filterable := m.Filterable.ValueBoolPointer()
+	attr_unit := m.Unit.ValueStringPointer()
+	attr_decimals := m.Decimals.ValueFloat64Pointer()
+	attr_min := m.Min.ValueFloat64Pointer()
+	attr_max := m.Max.ValueFloat64Pointer()
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -2036,11 +1648,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte,
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	var attr_novalue *string
-	if !m.NoValue.IsNull() && !m.NoValue.IsUnknown() {
-		tmp := m.NoValue.ValueString()
-		attr_novalue = &tmp
-	}
+	attr_novalue := m.NoValue.ValueStringPointer()
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
@@ -2225,11 +1833,7 @@ func (m PanelXYChartDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	var attr_pluginversion *string
-	if !m.PluginVersion.IsNull() && !m.PluginVersion.IsUnknown() {
-		tmp := m.PluginVersion.ValueString()
-		attr_pluginversion = &tmp
-	}
+	attr_pluginversion := m.PluginVersion.ValueStringPointer()
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -2238,16 +1842,8 @@ func (m PanelXYChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	var attr_title *string
-	if !m.Title.IsNull() && !m.Title.IsUnknown() {
-		tmp := m.Title.ValueString()
-		attr_title = &tmp
-	}
-	var attr_description *string
-	if !m.Description.IsNull() && !m.Description.IsUnknown() {
-		tmp := m.Description.ValueString()
-		attr_description = &tmp
-	}
+	attr_title := m.Title.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -2261,41 +1857,17 @@ func (m PanelXYChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	var attr_repeat *string
-	if !m.Repeat.IsNull() && !m.Repeat.IsUnknown() {
-		tmp := m.Repeat.ValueString()
-		attr_repeat = &tmp
-	}
+	attr_repeat := m.Repeat.ValueStringPointer()
 	attr_repeatdirection := m.RepeatDirection.ValueString()
-	var attr_repeatpanelid *int64
-	if !m.RepeatPanelId.IsNull() && !m.RepeatPanelId.IsUnknown() {
-		tmp := m.RepeatPanelId.ValueInt64()
-		attr_repeatpanelid = &tmp
-	}
-	var attr_maxdatapoints *float64
-	if !m.MaxDataPoints.IsNull() && !m.MaxDataPoints.IsUnknown() {
-		tmp := m.MaxDataPoints.ValueFloat64()
-		attr_maxdatapoints = &tmp
-	}
+	attr_repeatpanelid := m.RepeatPanelId.ValueInt64Pointer()
+	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64Pointer()
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	var attr_interval *string
-	if !m.Interval.IsNull() && !m.Interval.IsUnknown() {
-		tmp := m.Interval.ValueString()
-		attr_interval = &tmp
-	}
-	var attr_timefrom *string
-	if !m.TimeFrom.IsNull() && !m.TimeFrom.IsUnknown() {
-		tmp := m.TimeFrom.ValueString()
-		attr_timefrom = &tmp
-	}
-	var attr_timeshift *string
-	if !m.TimeShift.IsNull() && !m.TimeShift.IsUnknown() {
-		tmp := m.TimeShift.ValueString()
-		attr_timeshift = &tmp
-	}
+	attr_interval := m.Interval.ValueStringPointer()
+	attr_timefrom := m.TimeFrom.ValueStringPointer()
+	attr_timeshift := m.TimeShift.ValueStringPointer()
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel

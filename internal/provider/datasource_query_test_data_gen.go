@@ -63,16 +63,8 @@ func (m QueryTestDataDataSourceModel_Stream) MarshalJSON() ([]byte, error) {
 	attr_speed := m.Speed.ValueInt64()
 	attr_spread := m.Spread.ValueInt64()
 	attr_noise := m.Noise.ValueInt64()
-	var attr_bands *int64
-	if !m.Bands.IsNull() && !m.Bands.IsUnknown() {
-		tmp := m.Bands.ValueInt64()
-		attr_bands = &tmp
-	}
-	var attr_url *string
-	if !m.Url.IsNull() && !m.Url.IsUnknown() {
-		tmp := m.Url.ValueString()
-		attr_url = &tmp
-	}
+	attr_bands := m.Bands.ValueInt64Pointer()
+	attr_url := m.Url.ValueStringPointer()
 
 	model := &jsonQueryTestDataDataSourceModel_Stream{
 		Type:   attr_type,
@@ -108,31 +100,11 @@ func (m QueryTestDataDataSourceModel_PulseWave) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	var attr_timestep *int64
-	if !m.TimeStep.IsNull() && !m.TimeStep.IsUnknown() {
-		tmp := m.TimeStep.ValueInt64()
-		attr_timestep = &tmp
-	}
-	var attr_oncount *int64
-	if !m.OnCount.IsNull() && !m.OnCount.IsUnknown() {
-		tmp := m.OnCount.ValueInt64()
-		attr_oncount = &tmp
-	}
-	var attr_offcount *int64
-	if !m.OffCount.IsNull() && !m.OffCount.IsUnknown() {
-		tmp := m.OffCount.ValueInt64()
-		attr_offcount = &tmp
-	}
-	var attr_onvalue *float64
-	if !m.OnValue.IsNull() && !m.OnValue.IsUnknown() {
-		tmp := m.OnValue.ValueFloat64()
-		attr_onvalue = &tmp
-	}
-	var attr_offvalue *float64
-	if !m.OffValue.IsNull() && !m.OffValue.IsUnknown() {
-		tmp := m.OffValue.ValueFloat64()
-		attr_offvalue = &tmp
-	}
+	attr_timestep := m.TimeStep.ValueInt64Pointer()
+	attr_oncount := m.OnCount.ValueInt64Pointer()
+	attr_offcount := m.OffCount.ValueInt64Pointer()
+	attr_onvalue := m.OnValue.ValueFloat64Pointer()
+	attr_offvalue := m.OffValue.ValueFloat64Pointer()
 
 	model := &jsonQueryTestDataDataSourceModel_PulseWave{
 		TimeStep: attr_timestep,
@@ -165,11 +137,7 @@ func (m QueryTestDataDataSourceModel_Sim_Key) MarshalJSON() ([]byte, error) {
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_tick := m.Tick.ValueFloat64()
-	var attr_uid *string
-	if !m.Uid.IsNull() && !m.Uid.IsUnknown() {
-		tmp := m.Uid.ValueString()
-		attr_uid = &tmp
-	}
+	attr_uid := m.Uid.ValueStringPointer()
 
 	model := &jsonQueryTestDataDataSourceModel_Sim_Key{
 		Type: attr_type,
@@ -226,16 +194,8 @@ func (m QueryTestDataDataSourceModel_Sim) MarshalJSON() ([]byte, error) {
 	if m.Config != nil {
 		attr_config = m.Config
 	}
-	var attr_stream *bool
-	if !m.Stream.IsNull() && !m.Stream.IsUnknown() {
-		tmp := m.Stream.ValueBool()
-		attr_stream = &tmp
-	}
-	var attr_last *bool
-	if !m.Last.IsNull() && !m.Last.IsUnknown() {
-		tmp := m.Last.ValueBool()
-		attr_last = &tmp
-	}
+	attr_stream := m.Stream.ValueBoolPointer()
+	attr_last := m.Last.ValueBoolPointer()
 
 	model := &jsonQueryTestDataDataSourceModel_Sim{
 		Key:    attr_key,
@@ -267,26 +227,10 @@ func (m QueryTestDataDataSourceModel_CsvWave) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	var attr_timestep *int64
-	if !m.TimeStep.IsNull() && !m.TimeStep.IsUnknown() {
-		tmp := m.TimeStep.ValueInt64()
-		attr_timestep = &tmp
-	}
-	var attr_name *string
-	if !m.Name.IsNull() && !m.Name.IsUnknown() {
-		tmp := m.Name.ValueString()
-		attr_name = &tmp
-	}
-	var attr_valuescsv *string
-	if !m.ValuesCSV.IsNull() && !m.ValuesCSV.IsUnknown() {
-		tmp := m.ValuesCSV.ValueString()
-		attr_valuescsv = &tmp
-	}
-	var attr_labels *string
-	if !m.Labels.IsNull() && !m.Labels.IsUnknown() {
-		tmp := m.Labels.ValueString()
-		attr_labels = &tmp
-	}
+	attr_timestep := m.TimeStep.ValueInt64Pointer()
+	attr_name := m.Name.ValueStringPointer()
+	attr_valuescsv := m.ValuesCSV.ValueStringPointer()
+	attr_labels := m.Labels.ValueStringPointer()
 
 	model := &jsonQueryTestDataDataSourceModel_CsvWave{
 		TimeStep:  attr_timestep,
@@ -314,16 +258,8 @@ func (m QueryTestDataDataSourceModel_Nodes) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	var attr_type *string
-	if !m.Type.IsNull() && !m.Type.IsUnknown() {
-		tmp := m.Type.ValueString()
-		attr_type = &tmp
-	}
-	var attr_count *int64
-	if !m.Count.IsNull() && !m.Count.IsUnknown() {
-		tmp := m.Count.ValueInt64()
-		attr_count = &tmp
-	}
+	attr_type := m.Type.ValueStringPointer()
+	attr_count := m.Count.ValueInt64Pointer()
 
 	model := &jsonQueryTestDataDataSourceModel_Nodes{
 		Type:  attr_type,
@@ -353,16 +289,8 @@ func (m QueryTestDataDataSourceModel_Usa) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	var attr_mode *string
-	if !m.Mode.IsNull() && !m.Mode.IsUnknown() {
-		tmp := m.Mode.ValueString()
-		attr_mode = &tmp
-	}
-	var attr_period *string
-	if !m.Period.IsNull() && !m.Period.IsUnknown() {
-		tmp := m.Period.ValueString()
-		attr_period = &tmp
-	}
+	attr_mode := m.Mode.ValueStringPointer()
+	attr_period := m.Period.ValueStringPointer()
 	attr_fields := []string{}
 	for _, v := range m.Fields.Elements() {
 		attr_fields = append(attr_fields, v.(types.String).ValueString())
@@ -444,21 +372,9 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	var attr_alias *string
-	if !m.Alias.IsNull() && !m.Alias.IsUnknown() {
-		tmp := m.Alias.ValueString()
-		attr_alias = &tmp
-	}
-	var attr_scenarioid *string
-	if !m.ScenarioId.IsNull() && !m.ScenarioId.IsUnknown() {
-		tmp := m.ScenarioId.ValueString()
-		attr_scenarioid = &tmp
-	}
-	var attr_stringinput *string
-	if !m.StringInput.IsNull() && !m.StringInput.IsUnknown() {
-		tmp := m.StringInput.ValueString()
-		attr_stringinput = &tmp
-	}
+	attr_alias := m.Alias.ValueStringPointer()
+	attr_scenarioid := m.ScenarioId.ValueStringPointer()
+	attr_stringinput := m.StringInput.ValueStringPointer()
 	var attr_stream interface{}
 	if m.Stream != nil {
 		attr_stream = m.Stream
@@ -475,75 +391,27 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.CsvWave {
 		attr_csvwave = append(attr_csvwave, v)
 	}
-	var attr_labels *string
-	if !m.Labels.IsNull() && !m.Labels.IsUnknown() {
-		tmp := m.Labels.ValueString()
-		attr_labels = &tmp
-	}
-	var attr_lines *int64
-	if !m.Lines.IsNull() && !m.Lines.IsUnknown() {
-		tmp := m.Lines.ValueInt64()
-		attr_lines = &tmp
-	}
-	var attr_levelcolumn *bool
-	if !m.LevelColumn.IsNull() && !m.LevelColumn.IsUnknown() {
-		tmp := m.LevelColumn.ValueBool()
-		attr_levelcolumn = &tmp
-	}
-	var attr_channel *string
-	if !m.Channel.IsNull() && !m.Channel.IsUnknown() {
-		tmp := m.Channel.ValueString()
-		attr_channel = &tmp
-	}
+	attr_labels := m.Labels.ValueStringPointer()
+	attr_lines := m.Lines.ValueInt64Pointer()
+	attr_levelcolumn := m.LevelColumn.ValueBoolPointer()
+	attr_channel := m.Channel.ValueStringPointer()
 	var attr_nodes interface{}
 	if m.Nodes != nil {
 		attr_nodes = m.Nodes
 	}
-	var attr_csvfilename *string
-	if !m.CsvFileName.IsNull() && !m.CsvFileName.IsUnknown() {
-		tmp := m.CsvFileName.ValueString()
-		attr_csvfilename = &tmp
-	}
-	var attr_csvcontent *string
-	if !m.CsvContent.IsNull() && !m.CsvContent.IsUnknown() {
-		tmp := m.CsvContent.ValueString()
-		attr_csvcontent = &tmp
-	}
-	var attr_rawframecontent *string
-	if !m.RawFrameContent.IsNull() && !m.RawFrameContent.IsUnknown() {
-		tmp := m.RawFrameContent.ValueString()
-		attr_rawframecontent = &tmp
-	}
-	var attr_seriescount *int64
-	if !m.SeriesCount.IsNull() && !m.SeriesCount.IsUnknown() {
-		tmp := m.SeriesCount.ValueInt64()
-		attr_seriescount = &tmp
-	}
+	attr_csvfilename := m.CsvFileName.ValueStringPointer()
+	attr_csvcontent := m.CsvContent.ValueStringPointer()
+	attr_rawframecontent := m.RawFrameContent.ValueStringPointer()
+	attr_seriescount := m.SeriesCount.ValueInt64Pointer()
 	var attr_usa interface{}
 	if m.Usa != nil {
 		attr_usa = m.Usa
 	}
-	var attr_errortype *string
-	if !m.ErrorType.IsNull() && !m.ErrorType.IsUnknown() {
-		tmp := m.ErrorType.ValueString()
-		attr_errortype = &tmp
-	}
-	var attr_spancount *int64
-	if !m.SpanCount.IsNull() && !m.SpanCount.IsUnknown() {
-		tmp := m.SpanCount.ValueInt64()
-		attr_spancount = &tmp
-	}
+	attr_errortype := m.ErrorType.ValueStringPointer()
+	attr_spancount := m.SpanCount.ValueInt64Pointer()
 	attr_refid := m.RefId.ValueString()
-	var attr_hide *bool
-	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
-		tmp := m.Hide.ValueBool()
-		attr_hide = &tmp
-	}
-	var attr_querytype *string
-	if !m.QueryType.IsNull() && !m.QueryType.IsUnknown() {
-		tmp := m.QueryType.ValueString()
-		attr_querytype = &tmp
-	}
+	attr_hide := m.Hide.ValueBoolPointer()
+	attr_querytype := m.QueryType.ValueStringPointer()
 
 	model := &jsonQueryTestDataDataSourceModel{
 		Alias:           attr_alias,

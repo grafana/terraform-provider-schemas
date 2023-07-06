@@ -12,26 +12,26 @@ var kindMappings = map[cue.Kind]*kindMapping{
 	cue.BoolKind: {
 		terraformType: "Bool",
 		golangType:    "bool",
-		terraformFunc: "ValueBool()",
+		terraformFunc: "ValueBool",
 	},
 	cue.IntKind: {
 		terraformType: "Int64",
 		golangType:    "int64",
-		terraformFunc: "ValueInt64()",
+		terraformFunc: "ValueInt64",
 	},
 	cue.FloatKind: {
 		terraformType: "Float64",
 		golangType:    "float64",
-		terraformFunc: "ValueFloat64()",
+		terraformFunc: "ValueFloat64",
 	},
 	cue.NumberKind: {
 		terraformType: "Float64",
 		golangType:    "float64",
-		terraformFunc: "ValueFloat64()",
+		terraformFunc: "ValueFloat64",
 	},
 	cue.StringKind: {
 		terraformType: "String",
 		golangType:    "string",
-		terraformFunc: "ValueString()",
+		terraformFunc: "ValueString",
 	},
 }

@@ -69,47 +69,15 @@ func (m QueryLokiDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_expr := m.Expr.ValueString()
-	var attr_legendformat *string
-	if !m.LegendFormat.IsNull() && !m.LegendFormat.IsUnknown() {
-		tmp := m.LegendFormat.ValueString()
-		attr_legendformat = &tmp
-	}
-	var attr_maxlines *int64
-	if !m.MaxLines.IsNull() && !m.MaxLines.IsUnknown() {
-		tmp := m.MaxLines.ValueInt64()
-		attr_maxlines = &tmp
-	}
-	var attr_resolution *int64
-	if !m.Resolution.IsNull() && !m.Resolution.IsUnknown() {
-		tmp := m.Resolution.ValueInt64()
-		attr_resolution = &tmp
-	}
-	var attr_editormode *string
-	if !m.EditorMode.IsNull() && !m.EditorMode.IsUnknown() {
-		tmp := m.EditorMode.ValueString()
-		attr_editormode = &tmp
-	}
-	var attr_range *bool
-	if !m.Range.IsNull() && !m.Range.IsUnknown() {
-		tmp := m.Range.ValueBool()
-		attr_range = &tmp
-	}
-	var attr_instant *bool
-	if !m.Instant.IsNull() && !m.Instant.IsUnknown() {
-		tmp := m.Instant.ValueBool()
-		attr_instant = &tmp
-	}
+	attr_legendformat := m.LegendFormat.ValueStringPointer()
+	attr_maxlines := m.MaxLines.ValueInt64Pointer()
+	attr_resolution := m.Resolution.ValueInt64Pointer()
+	attr_editormode := m.EditorMode.ValueStringPointer()
+	attr_range := m.Range.ValueBoolPointer()
+	attr_instant := m.Instant.ValueBoolPointer()
 	attr_refid := m.RefId.ValueString()
-	var attr_hide *bool
-	if !m.Hide.IsNull() && !m.Hide.IsUnknown() {
-		tmp := m.Hide.ValueBool()
-		attr_hide = &tmp
-	}
-	var attr_querytype *string
-	if !m.QueryType.IsNull() && !m.QueryType.IsUnknown() {
-		tmp := m.QueryType.ValueString()
-		attr_querytype = &tmp
-	}
+	attr_hide := m.Hide.ValueBoolPointer()
+	attr_querytype := m.QueryType.ValueStringPointer()
 
 	model := &jsonQueryLokiDataSourceModel{
 		Expr:         attr_expr,

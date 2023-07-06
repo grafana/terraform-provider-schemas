@@ -51,16 +51,8 @@ func (m PanelPieChartDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	var attr_type *string
-	if !m.Type.IsNull() && !m.Type.IsUnknown() {
-		tmp := m.Type.ValueString()
-		attr_type = &tmp
-	}
-	var attr_uid *string
-	if !m.Uid.IsNull() && !m.Uid.IsUnknown() {
-		tmp := m.Uid.ValueString()
-		attr_uid = &tmp
-	}
+	attr_type := m.Type.ValueStringPointer()
+	attr_uid := m.Uid.ValueStringPointer()
 
 	model := &jsonPanelPieChartDataSourceModel_Datasource{
 		Type: attr_type,
@@ -96,11 +88,7 @@ func (m PanelPieChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	var attr_static *bool
-	if !m.Static.IsNull() && !m.Static.IsUnknown() {
-		tmp := m.Static.ValueBool()
-		attr_static = &tmp
-	}
+	attr_static := m.Static.ValueBoolPointer()
 
 	model := &jsonPanelPieChartDataSourceModel_GridPos{
 		H:      attr_h,
@@ -234,11 +222,7 @@ func (m PanelPieChartDataSourceModel_Transformations) MarshalJSON() ([]byte, err
 	}
 
 	m = m.ApplyDefaults()
-	var attr_disabled *bool
-	if !m.Disabled.IsNull() && !m.Disabled.IsUnknown() {
-		tmp := m.Disabled.ValueBool()
-		attr_disabled = &tmp
-	}
+	attr_disabled := m.Disabled.ValueBoolPointer()
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
@@ -326,25 +310,13 @@ func (m PanelPieChartDataSourceModel_Options_ReduceOptions) MarshalJSON() ([]byt
 	}
 
 	m = m.ApplyDefaults()
-	var attr_values *bool
-	if !m.Values.IsNull() && !m.Values.IsUnknown() {
-		tmp := m.Values.ValueBool()
-		attr_values = &tmp
-	}
-	var attr_limit *float64
-	if !m.Limit.IsNull() && !m.Limit.IsUnknown() {
-		tmp := m.Limit.ValueFloat64()
-		attr_limit = &tmp
-	}
+	attr_values := m.Values.ValueBoolPointer()
+	attr_limit := m.Limit.ValueFloat64Pointer()
 	attr_calcs := []string{}
 	for _, v := range m.Calcs.Elements() {
 		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
 	}
-	var attr_fields *string
-	if !m.Fields.IsNull() && !m.Fields.IsUnknown() {
-		tmp := m.Fields.ValueString()
-		attr_fields = &tmp
-	}
+	attr_fields := m.Fields.ValueStringPointer()
 
 	model := &jsonPanelPieChartDataSourceModel_Options_ReduceOptions{
 		Values: attr_values,
@@ -374,16 +346,8 @@ func (m PanelPieChartDataSourceModel_Options_Text) MarshalJSON() ([]byte, error)
 	}
 
 	m = m.ApplyDefaults()
-	var attr_titlesize *float64
-	if !m.TitleSize.IsNull() && !m.TitleSize.IsUnknown() {
-		tmp := m.TitleSize.ValueFloat64()
-		attr_titlesize = &tmp
-	}
-	var attr_valuesize *float64
-	if !m.ValueSize.IsNull() && !m.ValueSize.IsUnknown() {
-		tmp := m.ValueSize.ValueFloat64()
-		attr_valuesize = &tmp
-	}
+	attr_titlesize := m.TitleSize.ValueFloat64Pointer()
+	attr_valuesize := m.ValueSize.ValueFloat64Pointer()
 
 	model := &jsonPanelPieChartDataSourceModel_Options_Text{
 		TitleSize: attr_titlesize,
@@ -426,31 +390,11 @@ func (m PanelPieChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, erro
 	attr_displaymode := m.DisplayMode.ValueString()
 	attr_placement := m.Placement.ValueString()
 	attr_showlegend := m.ShowLegend.ValueBool()
-	var attr_astable *bool
-	if !m.AsTable.IsNull() && !m.AsTable.IsUnknown() {
-		tmp := m.AsTable.ValueBool()
-		attr_astable = &tmp
-	}
-	var attr_isvisible *bool
-	if !m.IsVisible.IsNull() && !m.IsVisible.IsUnknown() {
-		tmp := m.IsVisible.ValueBool()
-		attr_isvisible = &tmp
-	}
-	var attr_sortby *string
-	if !m.SortBy.IsNull() && !m.SortBy.IsUnknown() {
-		tmp := m.SortBy.ValueString()
-		attr_sortby = &tmp
-	}
-	var attr_sortdesc *bool
-	if !m.SortDesc.IsNull() && !m.SortDesc.IsUnknown() {
-		tmp := m.SortDesc.ValueBool()
-		attr_sortdesc = &tmp
-	}
-	var attr_width *float64
-	if !m.Width.IsNull() && !m.Width.IsUnknown() {
-		tmp := m.Width.ValueFloat64()
-		attr_width = &tmp
-	}
+	attr_astable := m.AsTable.ValueBoolPointer()
+	attr_isvisible := m.IsVisible.ValueBoolPointer()
+	attr_sortby := m.SortBy.ValueStringPointer()
+	attr_sortdesc := m.SortDesc.ValueBoolPointer()
+	attr_width := m.Width.ValueFloat64Pointer()
 	attr_calcs := []string{}
 	for _, v := range m.Calcs.Elements() {
 		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
@@ -548,26 +492,10 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Opti
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
 		Text:  attr_text,
@@ -629,26 +557,10 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Opti
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
 		Text:  attr_text,
@@ -744,26 +656,10 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Opti
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
 		Text:  attr_text,
@@ -855,26 +751,10 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueM
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
 		Text:  attr_text,
@@ -1001,22 +881,10 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Mars
 	}
 
 	m = m.ApplyDefaults()
-	var attr_value *float64
-	if !m.Value.IsNull() && !m.Value.IsUnknown() {
-		tmp := m.Value.ValueFloat64()
-		attr_value = &tmp
-	}
+	attr_value := m.Value.ValueFloat64Pointer()
 	attr_color := m.Color.ValueString()
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
-	var attr_state *string
-	if !m.State.IsNull() && !m.State.IsUnknown() {
-		tmp := m.State.ValueString()
-		attr_state = &tmp
-	}
+	attr_index := m.Index.ValueInt64Pointer()
+	attr_state := m.State.ValueStringPointer()
 
 	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
 		Value: attr_value,
@@ -1077,16 +945,8 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() (
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	var attr_fixedcolor *string
-	if !m.FixedColor.IsNull() && !m.FixedColor.IsUnknown() {
-		tmp := m.FixedColor.ValueString()
-		attr_fixedcolor = &tmp
-	}
-	var attr_seriesby *string
-	if !m.SeriesBy.IsNull() && !m.SeriesBy.IsUnknown() {
-		tmp := m.SeriesBy.ValueString()
-		attr_seriesby = &tmp
-	}
+	attr_fixedcolor := m.FixedColor.ValueStringPointer()
+	attr_seriesby := m.SeriesBy.ValueStringPointer()
 
 	model := &jsonPanelPieChartDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
@@ -1196,56 +1056,16 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte
 	}
 
 	m = m.ApplyDefaults()
-	var attr_displayname *string
-	if !m.DisplayName.IsNull() && !m.DisplayName.IsUnknown() {
-		tmp := m.DisplayName.ValueString()
-		attr_displayname = &tmp
-	}
-	var attr_displaynamefromds *string
-	if !m.DisplayNameFromDS.IsNull() && !m.DisplayNameFromDS.IsUnknown() {
-		tmp := m.DisplayNameFromDS.ValueString()
-		attr_displaynamefromds = &tmp
-	}
-	var attr_description *string
-	if !m.Description.IsNull() && !m.Description.IsUnknown() {
-		tmp := m.Description.ValueString()
-		attr_description = &tmp
-	}
-	var attr_path *string
-	if !m.Path.IsNull() && !m.Path.IsUnknown() {
-		tmp := m.Path.ValueString()
-		attr_path = &tmp
-	}
-	var attr_writeable *bool
-	if !m.Writeable.IsNull() && !m.Writeable.IsUnknown() {
-		tmp := m.Writeable.ValueBool()
-		attr_writeable = &tmp
-	}
-	var attr_filterable *bool
-	if !m.Filterable.IsNull() && !m.Filterable.IsUnknown() {
-		tmp := m.Filterable.ValueBool()
-		attr_filterable = &tmp
-	}
-	var attr_unit *string
-	if !m.Unit.IsNull() && !m.Unit.IsUnknown() {
-		tmp := m.Unit.ValueString()
-		attr_unit = &tmp
-	}
-	var attr_decimals *float64
-	if !m.Decimals.IsNull() && !m.Decimals.IsUnknown() {
-		tmp := m.Decimals.ValueFloat64()
-		attr_decimals = &tmp
-	}
-	var attr_min *float64
-	if !m.Min.IsNull() && !m.Min.IsUnknown() {
-		tmp := m.Min.ValueFloat64()
-		attr_min = &tmp
-	}
-	var attr_max *float64
-	if !m.Max.IsNull() && !m.Max.IsUnknown() {
-		tmp := m.Max.ValueFloat64()
-		attr_max = &tmp
-	}
+	attr_displayname := m.DisplayName.ValueStringPointer()
+	attr_displaynamefromds := m.DisplayNameFromDS.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
+	attr_path := m.Path.ValueStringPointer()
+	attr_writeable := m.Writeable.ValueBoolPointer()
+	attr_filterable := m.Filterable.ValueBoolPointer()
+	attr_unit := m.Unit.ValueStringPointer()
+	attr_decimals := m.Decimals.ValueFloat64Pointer()
+	attr_min := m.Min.ValueFloat64Pointer()
+	attr_max := m.Max.ValueFloat64Pointer()
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -1258,11 +1078,7 @@ func (m PanelPieChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	var attr_novalue *string
-	if !m.NoValue.IsNull() && !m.NoValue.IsUnknown() {
-		tmp := m.NoValue.ValueString()
-		attr_novalue = &tmp
-	}
+	attr_novalue := m.NoValue.ValueStringPointer()
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
@@ -1447,11 +1263,7 @@ func (m PanelPieChartDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	var attr_pluginversion *string
-	if !m.PluginVersion.IsNull() && !m.PluginVersion.IsUnknown() {
-		tmp := m.PluginVersion.ValueString()
-		attr_pluginversion = &tmp
-	}
+	attr_pluginversion := m.PluginVersion.ValueStringPointer()
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -1460,16 +1272,8 @@ func (m PanelPieChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	var attr_title *string
-	if !m.Title.IsNull() && !m.Title.IsUnknown() {
-		tmp := m.Title.ValueString()
-		attr_title = &tmp
-	}
-	var attr_description *string
-	if !m.Description.IsNull() && !m.Description.IsUnknown() {
-		tmp := m.Description.ValueString()
-		attr_description = &tmp
-	}
+	attr_title := m.Title.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -1483,41 +1287,17 @@ func (m PanelPieChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	var attr_repeat *string
-	if !m.Repeat.IsNull() && !m.Repeat.IsUnknown() {
-		tmp := m.Repeat.ValueString()
-		attr_repeat = &tmp
-	}
+	attr_repeat := m.Repeat.ValueStringPointer()
 	attr_repeatdirection := m.RepeatDirection.ValueString()
-	var attr_repeatpanelid *int64
-	if !m.RepeatPanelId.IsNull() && !m.RepeatPanelId.IsUnknown() {
-		tmp := m.RepeatPanelId.ValueInt64()
-		attr_repeatpanelid = &tmp
-	}
-	var attr_maxdatapoints *float64
-	if !m.MaxDataPoints.IsNull() && !m.MaxDataPoints.IsUnknown() {
-		tmp := m.MaxDataPoints.ValueFloat64()
-		attr_maxdatapoints = &tmp
-	}
+	attr_repeatpanelid := m.RepeatPanelId.ValueInt64Pointer()
+	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64Pointer()
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	var attr_interval *string
-	if !m.Interval.IsNull() && !m.Interval.IsUnknown() {
-		tmp := m.Interval.ValueString()
-		attr_interval = &tmp
-	}
-	var attr_timefrom *string
-	if !m.TimeFrom.IsNull() && !m.TimeFrom.IsUnknown() {
-		tmp := m.TimeFrom.ValueString()
-		attr_timefrom = &tmp
-	}
-	var attr_timeshift *string
-	if !m.TimeShift.IsNull() && !m.TimeShift.IsUnknown() {
-		tmp := m.TimeShift.ValueString()
-		attr_timeshift = &tmp
-	}
+	attr_interval := m.Interval.ValueStringPointer()
+	attr_timefrom := m.TimeFrom.ValueStringPointer()
+	attr_timeshift := m.TimeShift.ValueStringPointer()
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel

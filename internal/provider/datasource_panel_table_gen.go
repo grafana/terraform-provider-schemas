@@ -51,16 +51,8 @@ func (m PanelTableDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	var attr_type *string
-	if !m.Type.IsNull() && !m.Type.IsUnknown() {
-		tmp := m.Type.ValueString()
-		attr_type = &tmp
-	}
-	var attr_uid *string
-	if !m.Uid.IsNull() && !m.Uid.IsUnknown() {
-		tmp := m.Uid.ValueString()
-		attr_uid = &tmp
-	}
+	attr_type := m.Type.ValueStringPointer()
+	attr_uid := m.Uid.ValueStringPointer()
 
 	model := &jsonPanelTableDataSourceModel_Datasource{
 		Type: attr_type,
@@ -96,11 +88,7 @@ func (m PanelTableDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	var attr_static *bool
-	if !m.Static.IsNull() && !m.Static.IsUnknown() {
-		tmp := m.Static.ValueBool()
-		attr_static = &tmp
-	}
+	attr_static := m.Static.ValueBoolPointer()
 
 	model := &jsonPanelTableDataSourceModel_GridPos{
 		H:      attr_h,
@@ -234,11 +222,7 @@ func (m PanelTableDataSourceModel_Transformations) MarshalJSON() ([]byte, error)
 	}
 
 	m = m.ApplyDefaults()
-	var attr_disabled *bool
-	if !m.Disabled.IsNull() && !m.Disabled.IsUnknown() {
-		tmp := m.Disabled.ValueBool()
-		attr_disabled = &tmp
-	}
+	attr_disabled := m.Disabled.ValueBoolPointer()
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
@@ -296,11 +280,7 @@ func (m PanelTableDataSourceModel_Options_SortBy) MarshalJSON() ([]byte, error) 
 
 	m = m.ApplyDefaults()
 	attr_displayname := m.DisplayName.ValueString()
-	var attr_desc *bool
-	if !m.Desc.IsNull() && !m.Desc.IsUnknown() {
-		tmp := m.Desc.ValueBool()
-		attr_desc = &tmp
-	}
+	attr_desc := m.Desc.ValueBoolPointer()
 
 	model := &jsonPanelTableDataSourceModel_Options_SortBy{
 		DisplayName: attr_displayname,
@@ -335,16 +315,8 @@ func (m PanelTableDataSourceModel_Options_Footer_TableFooterOptions) MarshalJSON
 	for _, v := range m.Fields.Elements() {
 		attr_fields = append(attr_fields, v.(types.String).ValueString())
 	}
-	var attr_enablepagination *bool
-	if !m.EnablePagination.IsNull() && !m.EnablePagination.IsUnknown() {
-		tmp := m.EnablePagination.ValueBool()
-		attr_enablepagination = &tmp
-	}
-	var attr_countrows *bool
-	if !m.CountRows.IsNull() && !m.CountRows.IsUnknown() {
-		tmp := m.CountRows.ValueBool()
-		attr_countrows = &tmp
-	}
+	attr_enablepagination := m.EnablePagination.ValueBoolPointer()
+	attr_countrows := m.CountRows.ValueBoolPointer()
 
 	model := &jsonPanelTableDataSourceModel_Options_Footer_TableFooterOptions{
 		Show:             attr_show,
@@ -403,11 +375,7 @@ func (m PanelTableDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	m = m.ApplyDefaults()
 	attr_frameindex := m.FrameIndex.ValueFloat64()
 	attr_showheader := m.ShowHeader.ValueBool()
-	var attr_showtypeicons *bool
-	if !m.ShowTypeIcons.IsNull() && !m.ShowTypeIcons.IsUnknown() {
-		tmp := m.ShowTypeIcons.ValueBool()
-		attr_showtypeicons = &tmp
-	}
+	attr_showtypeicons := m.ShowTypeIcons.ValueBoolPointer()
 	attr_sortby := []interface{}{}
 	for _, v := range m.SortBy {
 		attr_sortby = append(attr_sortby, v)
@@ -416,11 +384,7 @@ func (m PanelTableDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	if m.Footer != nil {
 		attr_footer = m.Footer
 	}
-	var attr_cellheight *string
-	if !m.CellHeight.IsNull() && !m.CellHeight.IsUnknown() {
-		tmp := m.CellHeight.ValueString()
-		attr_cellheight = &tmp
-	}
+	attr_cellheight := m.CellHeight.ValueStringPointer()
 
 	model := &jsonPanelTableDataSourceModel_Options{
 		FrameIndex:    attr_frameindex,
@@ -462,26 +426,10 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
 		Text:  attr_text,
@@ -543,26 +491,10 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
 		Text:  attr_text,
@@ -658,26 +590,10 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
 		Text:  attr_text,
@@ -769,26 +685,10 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_
 	}
 
 	m = m.ApplyDefaults()
-	var attr_text *string
-	if !m.Text.IsNull() && !m.Text.IsUnknown() {
-		tmp := m.Text.ValueString()
-		attr_text = &tmp
-	}
-	var attr_color *string
-	if !m.Color.IsNull() && !m.Color.IsUnknown() {
-		tmp := m.Color.ValueString()
-		attr_color = &tmp
-	}
-	var attr_icon *string
-	if !m.Icon.IsNull() && !m.Icon.IsUnknown() {
-		tmp := m.Icon.ValueString()
-		attr_icon = &tmp
-	}
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
 		Text:  attr_text,
@@ -915,22 +815,10 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Marshal
 	}
 
 	m = m.ApplyDefaults()
-	var attr_value *float64
-	if !m.Value.IsNull() && !m.Value.IsUnknown() {
-		tmp := m.Value.ValueFloat64()
-		attr_value = &tmp
-	}
+	attr_value := m.Value.ValueFloat64Pointer()
 	attr_color := m.Color.ValueString()
-	var attr_index *int64
-	if !m.Index.IsNull() && !m.Index.IsUnknown() {
-		tmp := m.Index.ValueInt64()
-		attr_index = &tmp
-	}
-	var attr_state *string
-	if !m.State.IsNull() && !m.State.IsUnknown() {
-		tmp := m.State.ValueString()
-		attr_state = &tmp
-	}
+	attr_index := m.Index.ValueInt64Pointer()
+	attr_state := m.State.ValueStringPointer()
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
 		Value: attr_value,
@@ -991,16 +879,8 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]b
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	var attr_fixedcolor *string
-	if !m.FixedColor.IsNull() && !m.FixedColor.IsUnknown() {
-		tmp := m.FixedColor.ValueString()
-		attr_fixedcolor = &tmp
-	}
-	var attr_seriesby *string
-	if !m.SeriesBy.IsNull() && !m.SeriesBy.IsUnknown() {
-		tmp := m.SeriesBy.ValueString()
-		attr_seriesby = &tmp
-	}
+	attr_fixedcolor := m.FixedColor.ValueStringPointer()
+	attr_seriesby := m.SeriesBy.ValueStringPointer()
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
@@ -1060,20 +940,12 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]
 	}
 
 	m = m.ApplyDefaults()
-	var attr_linewidth *int64
-	if !m.LineWidth.IsNull() && !m.LineWidth.IsUnknown() {
-		tmp := m.LineWidth.ValueInt64()
-		attr_linewidth = &tmp
-	}
+	attr_linewidth := m.LineWidth.ValueInt64Pointer()
 	var attr_hidefrom interface{}
 	if m.HideFrom != nil {
 		attr_hidefrom = m.HideFrom
 	}
-	var attr_fillopacity *int64
-	if !m.FillOpacity.IsNull() && !m.FillOpacity.IsUnknown() {
-		tmp := m.FillOpacity.ValueInt64()
-		attr_fillopacity = &tmp
-	}
+	attr_fillopacity := m.FillOpacity.ValueInt64Pointer()
 
 	model := &jsonPanelTableDataSourceModel_FieldConfig_Defaults_Custom{
 		LineWidth:   attr_linewidth,
@@ -1131,56 +1003,16 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, e
 	}
 
 	m = m.ApplyDefaults()
-	var attr_displayname *string
-	if !m.DisplayName.IsNull() && !m.DisplayName.IsUnknown() {
-		tmp := m.DisplayName.ValueString()
-		attr_displayname = &tmp
-	}
-	var attr_displaynamefromds *string
-	if !m.DisplayNameFromDS.IsNull() && !m.DisplayNameFromDS.IsUnknown() {
-		tmp := m.DisplayNameFromDS.ValueString()
-		attr_displaynamefromds = &tmp
-	}
-	var attr_description *string
-	if !m.Description.IsNull() && !m.Description.IsUnknown() {
-		tmp := m.Description.ValueString()
-		attr_description = &tmp
-	}
-	var attr_path *string
-	if !m.Path.IsNull() && !m.Path.IsUnknown() {
-		tmp := m.Path.ValueString()
-		attr_path = &tmp
-	}
-	var attr_writeable *bool
-	if !m.Writeable.IsNull() && !m.Writeable.IsUnknown() {
-		tmp := m.Writeable.ValueBool()
-		attr_writeable = &tmp
-	}
-	var attr_filterable *bool
-	if !m.Filterable.IsNull() && !m.Filterable.IsUnknown() {
-		tmp := m.Filterable.ValueBool()
-		attr_filterable = &tmp
-	}
-	var attr_unit *string
-	if !m.Unit.IsNull() && !m.Unit.IsUnknown() {
-		tmp := m.Unit.ValueString()
-		attr_unit = &tmp
-	}
-	var attr_decimals *float64
-	if !m.Decimals.IsNull() && !m.Decimals.IsUnknown() {
-		tmp := m.Decimals.ValueFloat64()
-		attr_decimals = &tmp
-	}
-	var attr_min *float64
-	if !m.Min.IsNull() && !m.Min.IsUnknown() {
-		tmp := m.Min.ValueFloat64()
-		attr_min = &tmp
-	}
-	var attr_max *float64
-	if !m.Max.IsNull() && !m.Max.IsUnknown() {
-		tmp := m.Max.ValueFloat64()
-		attr_max = &tmp
-	}
+	attr_displayname := m.DisplayName.ValueStringPointer()
+	attr_displaynamefromds := m.DisplayNameFromDS.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
+	attr_path := m.Path.ValueStringPointer()
+	attr_writeable := m.Writeable.ValueBoolPointer()
+	attr_filterable := m.Filterable.ValueBoolPointer()
+	attr_unit := m.Unit.ValueStringPointer()
+	attr_decimals := m.Decimals.ValueFloat64Pointer()
+	attr_min := m.Min.ValueFloat64Pointer()
+	attr_max := m.Max.ValueFloat64Pointer()
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -1193,11 +1025,7 @@ func (m PanelTableDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, e
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	var attr_novalue *string
-	if !m.NoValue.IsNull() && !m.NoValue.IsUnknown() {
-		tmp := m.NoValue.ValueString()
-		attr_novalue = &tmp
-	}
+	attr_novalue := m.NoValue.ValueStringPointer()
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
@@ -1382,11 +1210,7 @@ func (m PanelTableDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	var attr_pluginversion *string
-	if !m.PluginVersion.IsNull() && !m.PluginVersion.IsUnknown() {
-		tmp := m.PluginVersion.ValueString()
-		attr_pluginversion = &tmp
-	}
+	attr_pluginversion := m.PluginVersion.ValueStringPointer()
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -1395,16 +1219,8 @@ func (m PanelTableDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	var attr_title *string
-	if !m.Title.IsNull() && !m.Title.IsUnknown() {
-		tmp := m.Title.ValueString()
-		attr_title = &tmp
-	}
-	var attr_description *string
-	if !m.Description.IsNull() && !m.Description.IsUnknown() {
-		tmp := m.Description.ValueString()
-		attr_description = &tmp
-	}
+	attr_title := m.Title.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -1418,41 +1234,17 @@ func (m PanelTableDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	var attr_repeat *string
-	if !m.Repeat.IsNull() && !m.Repeat.IsUnknown() {
-		tmp := m.Repeat.ValueString()
-		attr_repeat = &tmp
-	}
+	attr_repeat := m.Repeat.ValueStringPointer()
 	attr_repeatdirection := m.RepeatDirection.ValueString()
-	var attr_repeatpanelid *int64
-	if !m.RepeatPanelId.IsNull() && !m.RepeatPanelId.IsUnknown() {
-		tmp := m.RepeatPanelId.ValueInt64()
-		attr_repeatpanelid = &tmp
-	}
-	var attr_maxdatapoints *float64
-	if !m.MaxDataPoints.IsNull() && !m.MaxDataPoints.IsUnknown() {
-		tmp := m.MaxDataPoints.ValueFloat64()
-		attr_maxdatapoints = &tmp
-	}
+	attr_repeatpanelid := m.RepeatPanelId.ValueInt64Pointer()
+	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64Pointer()
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	var attr_interval *string
-	if !m.Interval.IsNull() && !m.Interval.IsUnknown() {
-		tmp := m.Interval.ValueString()
-		attr_interval = &tmp
-	}
-	var attr_timefrom *string
-	if !m.TimeFrom.IsNull() && !m.TimeFrom.IsUnknown() {
-		tmp := m.TimeFrom.ValueString()
-		attr_timefrom = &tmp
-	}
-	var attr_timeshift *string
-	if !m.TimeShift.IsNull() && !m.TimeShift.IsUnknown() {
-		tmp := m.TimeShift.ValueString()
-		attr_timeshift = &tmp
-	}
+	attr_interval := m.Interval.ValueStringPointer()
+	attr_timefrom := m.TimeFrom.ValueStringPointer()
+	attr_timeshift := m.TimeShift.ValueStringPointer()
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
