@@ -29,24 +29,24 @@ var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &PanelXYChartDataSource{}
-	_ datasource.DataSourceWithConfigure = &PanelXYChartDataSource{}
+	_ datasource.DataSource              = &PanelCandlestickDataSource{}
+	_ datasource.DataSourceWithConfigure = &PanelCandlestickDataSource{}
 )
 
-func NewPanelXYChartDataSource() datasource.DataSource {
-	return &PanelXYChartDataSource{}
+func NewPanelCandlestickDataSource() datasource.DataSource {
+	return &PanelCandlestickDataSource{}
 }
 
-// PanelXYChartDataSource defines the data source implementation.
-type PanelXYChartDataSource struct{}
+// PanelCandlestickDataSource defines the data source implementation.
+type PanelCandlestickDataSource struct{}
 
-type PanelXYChartDataSourceModel_Datasource struct {
+type PanelCandlestickDataSourceModel_Datasource struct {
 	Type types.String `tfsdk:"type"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelXYChartDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Datasource struct {
+func (m PanelCandlestickDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Datasource struct {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
@@ -55,19 +55,19 @@ func (m PanelXYChartDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	attr_type := m.Type.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelXYChartDataSourceModel_Datasource{
+	model := &jsonPanelCandlestickDataSourceModel_Datasource{
 		Type: &attr_type,
 		Uid:  &attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_Datasource) ApplyDefaults() PanelXYChartDataSourceModel_Datasource {
+func (m PanelCandlestickDataSourceModel_Datasource) ApplyDefaults() PanelCandlestickDataSourceModel_Datasource {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_GridPos struct {
+type PanelCandlestickDataSourceModel_GridPos struct {
 	H      types.Int64 `tfsdk:"h"`
 	W      types.Int64 `tfsdk:"w"`
 	X      types.Int64 `tfsdk:"x"`
@@ -75,8 +75,8 @@ type PanelXYChartDataSourceModel_GridPos struct {
 	Static types.Bool  `tfsdk:"static"`
 }
 
-func (m PanelXYChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_GridPos struct {
+func (m PanelCandlestickDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_GridPos struct {
 		H      int64 `json:"h"`
 		W      int64 `json:"w"`
 		X      int64 `json:"x"`
@@ -91,7 +91,7 @@ func (m PanelXYChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_y := m.Y.ValueInt64()
 	attr_static := m.Static.ValueBool()
 
-	model := &jsonPanelXYChartDataSourceModel_GridPos{
+	model := &jsonPanelCandlestickDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
@@ -101,7 +101,7 @@ func (m PanelXYChartDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_GridPos) ApplyDefaults() PanelXYChartDataSourceModel_GridPos {
+func (m PanelCandlestickDataSourceModel_GridPos) ApplyDefaults() PanelCandlestickDataSourceModel_GridPos {
 	if m.H.IsNull() {
 		m.H = types.Int64Value(9)
 	}
@@ -117,7 +117,7 @@ func (m PanelXYChartDataSourceModel_GridPos) ApplyDefaults() PanelXYChartDataSou
 	return m
 }
 
-type PanelXYChartDataSourceModel_Links struct {
+type PanelCandlestickDataSourceModel_Links struct {
 	Title       types.String `tfsdk:"title"`
 	Type        types.String `tfsdk:"type"`
 	Icon        types.String `tfsdk:"icon"`
@@ -130,8 +130,8 @@ type PanelXYChartDataSourceModel_Links struct {
 	KeepTime    types.Bool   `tfsdk:"keep_time"`
 }
 
-func (m PanelXYChartDataSourceModel_Links) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Links struct {
+func (m PanelCandlestickDataSourceModel_Links) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Links struct {
 		Title       string   `json:"title"`
 		Type        string   `json:"type"`
 		Icon        string   `json:"icon"`
@@ -159,7 +159,7 @@ func (m PanelXYChartDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	attr_includevars := m.IncludeVars.ValueBool()
 	attr_keeptime := m.KeepTime.ValueBool()
 
-	model := &jsonPanelXYChartDataSourceModel_Links{
+	model := &jsonPanelCandlestickDataSourceModel_Links{
 		Title:       attr_title,
 		Type:        attr_type,
 		Icon:        attr_icon,
@@ -174,7 +174,7 @@ func (m PanelXYChartDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_Links) ApplyDefaults() PanelXYChartDataSourceModel_Links {
+func (m PanelCandlestickDataSourceModel_Links) ApplyDefaults() PanelCandlestickDataSourceModel_Links {
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
@@ -193,31 +193,31 @@ func (m PanelXYChartDataSourceModel_Links) ApplyDefaults() PanelXYChartDataSourc
 	return m
 }
 
-type PanelXYChartDataSourceModel_Transformations_Filter struct {
+type PanelCandlestickDataSourceModel_Transformations_Filter struct {
 }
 
-func (m PanelXYChartDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Transformations_Filter struct {
+func (m PanelCandlestickDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Transformations_Filter struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelXYChartDataSourceModel_Transformations_Filter{}
+	model := &jsonPanelCandlestickDataSourceModel_Transformations_Filter{}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_Transformations_Filter) ApplyDefaults() PanelXYChartDataSourceModel_Transformations_Filter {
+func (m PanelCandlestickDataSourceModel_Transformations_Filter) ApplyDefaults() PanelCandlestickDataSourceModel_Transformations_Filter {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_Transformations struct {
-	Disabled types.Bool                                          `tfsdk:"disabled"`
-	Filter   *PanelXYChartDataSourceModel_Transformations_Filter `tfsdk:"filter"`
+type PanelCandlestickDataSourceModel_Transformations struct {
+	Disabled types.Bool                                              `tfsdk:"disabled"`
+	Filter   *PanelCandlestickDataSourceModel_Transformations_Filter `tfsdk:"filter"`
 }
 
-func (m PanelXYChartDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Transformations struct {
+func (m PanelCandlestickDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Transformations struct {
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
@@ -229,25 +229,25 @@ func (m PanelXYChartDataSourceModel_Transformations) MarshalJSON() ([]byte, erro
 		attr_filter = m.Filter
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_Transformations{
+	model := &jsonPanelCandlestickDataSourceModel_Transformations{
 		Disabled: &attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_Transformations) ApplyDefaults() PanelXYChartDataSourceModel_Transformations {
+func (m PanelCandlestickDataSourceModel_Transformations) ApplyDefaults() PanelCandlestickDataSourceModel_Transformations {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_LibraryPanel struct {
+type PanelCandlestickDataSourceModel_LibraryPanel struct {
 	Name types.String `tfsdk:"name"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelXYChartDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_LibraryPanel struct {
+func (m PanelCandlestickDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_LibraryPanel struct {
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
@@ -256,55 +256,108 @@ func (m PanelXYChartDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) 
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelXYChartDataSourceModel_LibraryPanel{
+	model := &jsonPanelCandlestickDataSourceModel_LibraryPanel{
 		Name: attr_name,
 		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_LibraryPanel) ApplyDefaults() PanelXYChartDataSourceModel_LibraryPanel {
+func (m PanelCandlestickDataSourceModel_LibraryPanel) ApplyDefaults() PanelCandlestickDataSourceModel_LibraryPanel {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_Options_Dims struct {
-	Frame   types.Int64  `tfsdk:"frame"`
-	X       types.String `tfsdk:"x"`
-	Exclude types.List   `tfsdk:"exclude"`
+type PanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap struct {
+	Open   types.String `tfsdk:"open"`
+	High   types.String `tfsdk:"high"`
+	Low    types.String `tfsdk:"low"`
+	Close  types.String `tfsdk:"close"`
+	Volume types.String `tfsdk:"volume"`
 }
 
-func (m PanelXYChartDataSourceModel_Options_Dims) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options_Dims struct {
-		Frame   int64    `json:"frame"`
-		X       *string  `json:"x,omitempty"`
-		Exclude []string `json:"exclude,omitempty"`
+func (m PanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap struct {
+		Open   *string `json:"open,omitempty"`
+		High   *string `json:"high,omitempty"`
+		Low    *string `json:"low,omitempty"`
+		Close  *string `json:"close,omitempty"`
+		Volume *string `json:"volume,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_frame := m.Frame.ValueInt64()
-	attr_x := m.X.ValueString()
-	attr_exclude := []string{}
-	for _, v := range m.Exclude.Elements() {
-		attr_exclude = append(attr_exclude, v.(types.String).ValueString())
-	}
+	attr_open := m.Open.ValueString()
+	attr_high := m.High.ValueString()
+	attr_low := m.Low.ValueString()
+	attr_close := m.Close.ValueString()
+	attr_volume := m.Volume.ValueString()
 
-	model := &jsonPanelXYChartDataSourceModel_Options_Dims{
-		Frame:   attr_frame,
-		X:       &attr_x,
-		Exclude: attr_exclude,
+	model := &jsonPanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap{
+		Open:   &attr_open,
+		High:   &attr_high,
+		Low:    &attr_low,
+		Close:  &attr_close,
+		Volume: &attr_volume,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_Options_Dims) ApplyDefaults() PanelXYChartDataSourceModel_Options_Dims {
-	if len(m.Exclude.Elements()) == 0 {
-		m.Exclude, _ = types.ListValue(types.StringType, []attr.Value{})
-	}
+func (m PanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap) ApplyDefaults() PanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap {
+
 	return m
 }
 
-type PanelXYChartDataSourceModel_Options_Legend struct {
+type PanelCandlestickDataSourceModel_Options_Fields struct {
+	CandlestickFieldMap *PanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap `tfsdk:"candlestick_field_map"`
+}
+
+func (m PanelCandlestickDataSourceModel_Options_Fields) MarshalJSON() ([]byte, error) {
+	var json_PanelCandlestickDataSourceModel_Options_Fields interface{}
+	m = m.ApplyDefaults()
+	if m.CandlestickFieldMap != nil {
+		json_PanelCandlestickDataSourceModel_Options_Fields = m.CandlestickFieldMap
+	}
+
+	return json.Marshal(json_PanelCandlestickDataSourceModel_Options_Fields)
+}
+
+func (m PanelCandlestickDataSourceModel_Options_Fields) ApplyDefaults() PanelCandlestickDataSourceModel_Options_Fields {
+
+	return m
+}
+
+type PanelCandlestickDataSourceModel_Options_Colors struct {
+	Down types.String `tfsdk:"down"`
+	Up   types.String `tfsdk:"up"`
+	Flat types.String `tfsdk:"flat"`
+}
+
+func (m PanelCandlestickDataSourceModel_Options_Colors) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Options_Colors struct {
+		Down string `json:"down"`
+		Up   string `json:"up"`
+		Flat string `json:"flat"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_down := m.Down.ValueString()
+	attr_up := m.Up.ValueString()
+	attr_flat := m.Flat.ValueString()
+
+	model := &jsonPanelCandlestickDataSourceModel_Options_Colors{
+		Down: attr_down,
+		Up:   attr_up,
+		Flat: attr_flat,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelCandlestickDataSourceModel_Options_Colors) ApplyDefaults() PanelCandlestickDataSourceModel_Options_Colors {
+
+	return m
+}
+
+type PanelCandlestickDataSourceModel_Options_Legend struct {
 	DisplayMode types.String  `tfsdk:"display_mode"`
 	Placement   types.String  `tfsdk:"placement"`
 	ShowLegend  types.Bool    `tfsdk:"show_legend"`
@@ -316,8 +369,8 @@ type PanelXYChartDataSourceModel_Options_Legend struct {
 	Calcs       types.List    `tfsdk:"calcs"`
 }
 
-func (m PanelXYChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options_Legend struct {
+func (m PanelCandlestickDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Options_Legend struct {
 		DisplayMode string   `json:"displayMode"`
 		Placement   string   `json:"placement"`
 		ShowLegend  bool     `json:"showLegend"`
@@ -343,7 +396,7 @@ func (m PanelXYChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error
 		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_Options_Legend{
+	model := &jsonPanelCandlestickDataSourceModel_Options_Legend{
 		DisplayMode: attr_displaymode,
 		Placement:   attr_placement,
 		ShowLegend:  attr_showlegend,
@@ -357,447 +410,89 @@ func (m PanelXYChartDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_Options_Legend) ApplyDefaults() PanelXYChartDataSourceModel_Options_Legend {
+func (m PanelCandlestickDataSourceModel_Options_Legend) ApplyDefaults() PanelCandlestickDataSourceModel_Options_Legend {
 	if len(m.Calcs.Elements()) == 0 {
 		m.Calcs, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
 	return m
 }
 
-type PanelXYChartDataSourceModel_Options_Tooltip struct {
-	Mode types.String `tfsdk:"mode"`
-	Sort types.String `tfsdk:"sort"`
+type PanelCandlestickDataSourceModel_Options struct {
+	Mode             types.String                                    `tfsdk:"mode"`
+	CandleStyle      types.String                                    `tfsdk:"candle_style"`
+	ColorStrategy    types.String                                    `tfsdk:"color_strategy"`
+	Fields           *PanelCandlestickDataSourceModel_Options_Fields `tfsdk:"fields"`
+	Colors           *PanelCandlestickDataSourceModel_Options_Colors `tfsdk:"colors"`
+	Legend           *PanelCandlestickDataSourceModel_Options_Legend `tfsdk:"legend"`
+	IncludeAllFields types.Bool                                      `tfsdk:"include_all_fields"`
 }
 
-func (m PanelXYChartDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options_Tooltip struct {
-		Mode string `json:"mode"`
-		Sort string `json:"sort"`
+func (m PanelCandlestickDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Options struct {
+		Mode             string      `json:"mode"`
+		CandleStyle      string      `json:"candleStyle"`
+		ColorStrategy    string      `json:"colorStrategy"`
+		Fields           interface{} `json:"fields,omitempty"`
+		Colors           interface{} `json:"colors,omitempty"`
+		Legend           interface{} `json:"legend,omitempty"`
+		IncludeAllFields *bool       `json:"includeAllFields,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_sort := m.Sort.ValueString()
-
-	model := &jsonPanelXYChartDataSourceModel_Options_Tooltip{
-		Mode: attr_mode,
-		Sort: attr_sort,
+	attr_candlestyle := m.CandleStyle.ValueString()
+	attr_colorstrategy := m.ColorStrategy.ValueString()
+	var attr_fields interface{}
+	if m.Fields != nil {
+		attr_fields = m.Fields
 	}
-	return json.Marshal(model)
-}
-
-func (m PanelXYChartDataSourceModel_Options_Tooltip) ApplyDefaults() PanelXYChartDataSourceModel_Options_Tooltip {
-
-	return m
-}
-
-type PanelXYChartDataSourceModel_Options_Series_PointSize struct {
-	Min   types.Float64 `tfsdk:"min"`
-	Max   types.Float64 `tfsdk:"max"`
-	Fixed types.Float64 `tfsdk:"fixed"`
-	Field types.String  `tfsdk:"field"`
-	Mode  types.String  `tfsdk:"mode"`
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_PointSize) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options_Series_PointSize struct {
-		Min   float64  `json:"min"`
-		Max   float64  `json:"max"`
-		Fixed *float64 `json:"fixed,omitempty"`
-		Field *string  `json:"field,omitempty"`
-		Mode  *string  `json:"mode,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_min := m.Min.ValueFloat64()
-	attr_max := m.Max.ValueFloat64()
-	attr_fixed := m.Fixed.ValueFloat64()
-	attr_field := m.Field.ValueString()
-	attr_mode := m.Mode.ValueString()
-
-	model := &jsonPanelXYChartDataSourceModel_Options_Series_PointSize{
-		Min:   attr_min,
-		Max:   attr_max,
-		Fixed: &attr_fixed,
-		Field: &attr_field,
-		Mode:  &attr_mode,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_PointSize) ApplyDefaults() PanelXYChartDataSourceModel_Options_Series_PointSize {
-
-	return m
-}
-
-type PanelXYChartDataSourceModel_Options_Series_LineColor struct {
-	Fixed types.String `tfsdk:"fixed"`
-	Field types.String `tfsdk:"field"`
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_LineColor) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options_Series_LineColor struct {
-		Fixed *string `json:"fixed,omitempty"`
-		Field *string `json:"field,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_fixed := m.Fixed.ValueString()
-	attr_field := m.Field.ValueString()
-
-	model := &jsonPanelXYChartDataSourceModel_Options_Series_LineColor{
-		Fixed: &attr_fixed,
-		Field: &attr_field,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_LineColor) ApplyDefaults() PanelXYChartDataSourceModel_Options_Series_LineColor {
-
-	return m
-}
-
-type PanelXYChartDataSourceModel_Options_Series_PointColor struct {
-	Fixed types.String `tfsdk:"fixed"`
-	Field types.String `tfsdk:"field"`
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_PointColor) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options_Series_PointColor struct {
-		Fixed *string `json:"fixed,omitempty"`
-		Field *string `json:"field,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_fixed := m.Fixed.ValueString()
-	attr_field := m.Field.ValueString()
-
-	model := &jsonPanelXYChartDataSourceModel_Options_Series_PointColor{
-		Fixed: &attr_fixed,
-		Field: &attr_field,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_PointColor) ApplyDefaults() PanelXYChartDataSourceModel_Options_Series_PointColor {
-
-	return m
-}
-
-type PanelXYChartDataSourceModel_Options_Series_LabelValue struct {
-	Mode  types.String `tfsdk:"mode"`
-	Field types.String `tfsdk:"field"`
-	Fixed types.String `tfsdk:"fixed"`
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_LabelValue) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options_Series_LabelValue struct {
-		Mode  string  `json:"mode"`
-		Field *string `json:"field,omitempty"`
-		Fixed *string `json:"fixed,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_field := m.Field.ValueString()
-	attr_fixed := m.Fixed.ValueString()
-
-	model := &jsonPanelXYChartDataSourceModel_Options_Series_LabelValue{
-		Mode:  attr_mode,
-		Field: &attr_field,
-		Fixed: &attr_fixed,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_LabelValue) ApplyDefaults() PanelXYChartDataSourceModel_Options_Series_LabelValue {
-
-	return m
-}
-
-type PanelXYChartDataSourceModel_Options_Series_LineStyle struct {
-	Fill types.String `tfsdk:"fill"`
-	Dash types.List   `tfsdk:"dash"`
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_LineStyle) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options_Series_LineStyle struct {
-		Fill *string   `json:"fill,omitempty"`
-		Dash []float64 `json:"dash,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_fill := m.Fill.ValueString()
-	attr_dash := []float64{}
-	for _, v := range m.Dash.Elements() {
-		attr_dash = append(attr_dash, v.(types.Float64).ValueFloat64())
-	}
-
-	model := &jsonPanelXYChartDataSourceModel_Options_Series_LineStyle{
-		Fill: &attr_fill,
-		Dash: attr_dash,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_LineStyle) ApplyDefaults() PanelXYChartDataSourceModel_Options_Series_LineStyle {
-	if len(m.Dash.Elements()) == 0 {
-		m.Dash, _ = types.ListValue(types.Float64Type, []attr.Value{})
-	}
-	return m
-}
-
-type PanelXYChartDataSourceModel_Options_Series_HideFrom struct {
-	Tooltip types.Bool `tfsdk:"tooltip"`
-	Legend  types.Bool `tfsdk:"legend"`
-	Viz     types.Bool `tfsdk:"viz"`
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options_Series_HideFrom struct {
-		Tooltip bool `json:"tooltip"`
-		Legend  bool `json:"legend"`
-		Viz     bool `json:"viz"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_tooltip := m.Tooltip.ValueBool()
-	attr_legend := m.Legend.ValueBool()
-	attr_viz := m.Viz.ValueBool()
-
-	model := &jsonPanelXYChartDataSourceModel_Options_Series_HideFrom{
-		Tooltip: attr_tooltip,
-		Legend:  attr_legend,
-		Viz:     attr_viz,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_HideFrom) ApplyDefaults() PanelXYChartDataSourceModel_Options_Series_HideFrom {
-
-	return m
-}
-
-type PanelXYChartDataSourceModel_Options_Series_ScaleDistribution struct {
-	Type            types.String  `tfsdk:"type"`
-	Log             types.Float64 `tfsdk:"log"`
-	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_ScaleDistribution) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options_Series_ScaleDistribution struct {
-		Type            string   `json:"type"`
-		Log             *float64 `json:"log,omitempty"`
-		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
-
-	model := &jsonPanelXYChartDataSourceModel_Options_Series_ScaleDistribution{
-		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series_ScaleDistribution) ApplyDefaults() PanelXYChartDataSourceModel_Options_Series_ScaleDistribution {
-
-	return m
-}
-
-type PanelXYChartDataSourceModel_Options_Series struct {
-	X                 types.String                                                  `tfsdk:"x"`
-	Y                 types.String                                                  `tfsdk:"y"`
-	Show              types.String                                                  `tfsdk:"show"`
-	PointSize         *PanelXYChartDataSourceModel_Options_Series_PointSize         `tfsdk:"point_size"`
-	LineColor         *PanelXYChartDataSourceModel_Options_Series_LineColor         `tfsdk:"line_color"`
-	PointColor        *PanelXYChartDataSourceModel_Options_Series_PointColor        `tfsdk:"point_color"`
-	LabelValue        *PanelXYChartDataSourceModel_Options_Series_LabelValue        `tfsdk:"label_value"`
-	LineWidth         types.Int64                                                   `tfsdk:"line_width"`
-	LineStyle         *PanelXYChartDataSourceModel_Options_Series_LineStyle         `tfsdk:"line_style"`
-	HideFrom          *PanelXYChartDataSourceModel_Options_Series_HideFrom          `tfsdk:"hide_from"`
-	AxisPlacement     types.String                                                  `tfsdk:"axis_placement"`
-	AxisColorMode     types.String                                                  `tfsdk:"axis_color_mode"`
-	AxisLabel         types.String                                                  `tfsdk:"axis_label"`
-	AxisWidth         types.Float64                                                 `tfsdk:"axis_width"`
-	AxisSoftMin       types.Float64                                                 `tfsdk:"axis_soft_min"`
-	AxisSoftMax       types.Float64                                                 `tfsdk:"axis_soft_max"`
-	AxisGridShow      types.Bool                                                    `tfsdk:"axis_grid_show"`
-	ScaleDistribution *PanelXYChartDataSourceModel_Options_Series_ScaleDistribution `tfsdk:"scale_distribution"`
-	Name              types.String                                                  `tfsdk:"name"`
-	Label             types.String                                                  `tfsdk:"label"`
-	AxisCenteredZero  types.Bool                                                    `tfsdk:"axis_centered_zero"`
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options_Series struct {
-		X                 *string     `json:"x,omitempty"`
-		Y                 *string     `json:"y,omitempty"`
-		Show              *string     `json:"show,omitempty"`
-		PointSize         interface{} `json:"pointSize,omitempty"`
-		LineColor         interface{} `json:"lineColor,omitempty"`
-		PointColor        interface{} `json:"pointColor,omitempty"`
-		LabelValue        interface{} `json:"labelValue,omitempty"`
-		LineWidth         *int64      `json:"lineWidth,omitempty"`
-		LineStyle         interface{} `json:"lineStyle,omitempty"`
-		HideFrom          interface{} `json:"hideFrom,omitempty"`
-		AxisPlacement     *string     `json:"axisPlacement,omitempty"`
-		AxisColorMode     *string     `json:"axisColorMode,omitempty"`
-		AxisLabel         *string     `json:"axisLabel,omitempty"`
-		AxisWidth         *float64    `json:"axisWidth,omitempty"`
-		AxisSoftMin       *float64    `json:"axisSoftMin,omitempty"`
-		AxisSoftMax       *float64    `json:"axisSoftMax,omitempty"`
-		AxisGridShow      *bool       `json:"axisGridShow,omitempty"`
-		ScaleDistribution interface{} `json:"scaleDistribution,omitempty"`
-		Name              *string     `json:"name,omitempty"`
-		Label             *string     `json:"label,omitempty"`
-		AxisCenteredZero  *bool       `json:"axisCenteredZero,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_x := m.X.ValueString()
-	attr_y := m.Y.ValueString()
-	attr_show := m.Show.ValueString()
-	var attr_pointsize interface{}
-	if m.PointSize != nil {
-		attr_pointsize = m.PointSize
-	}
-	var attr_linecolor interface{}
-	if m.LineColor != nil {
-		attr_linecolor = m.LineColor
-	}
-	var attr_pointcolor interface{}
-	if m.PointColor != nil {
-		attr_pointcolor = m.PointColor
-	}
-	var attr_labelvalue interface{}
-	if m.LabelValue != nil {
-		attr_labelvalue = m.LabelValue
-	}
-	attr_linewidth := m.LineWidth.ValueInt64()
-	var attr_linestyle interface{}
-	if m.LineStyle != nil {
-		attr_linestyle = m.LineStyle
-	}
-	var attr_hidefrom interface{}
-	if m.HideFrom != nil {
-		attr_hidefrom = m.HideFrom
-	}
-	attr_axisplacement := m.AxisPlacement.ValueString()
-	attr_axiscolormode := m.AxisColorMode.ValueString()
-	attr_axislabel := m.AxisLabel.ValueString()
-	attr_axiswidth := m.AxisWidth.ValueFloat64()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
-	attr_axisgridshow := m.AxisGridShow.ValueBool()
-	var attr_scaledistribution interface{}
-	if m.ScaleDistribution != nil {
-		attr_scaledistribution = m.ScaleDistribution
-	}
-	attr_name := m.Name.ValueString()
-	attr_label := m.Label.ValueString()
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
-
-	model := &jsonPanelXYChartDataSourceModel_Options_Series{
-		X:                 &attr_x,
-		Y:                 &attr_y,
-		Show:              &attr_show,
-		PointSize:         attr_pointsize,
-		LineColor:         attr_linecolor,
-		PointColor:        attr_pointcolor,
-		LabelValue:        attr_labelvalue,
-		LineWidth:         &attr_linewidth,
-		LineStyle:         attr_linestyle,
-		HideFrom:          attr_hidefrom,
-		AxisPlacement:     &attr_axisplacement,
-		AxisColorMode:     &attr_axiscolormode,
-		AxisLabel:         &attr_axislabel,
-		AxisWidth:         &attr_axiswidth,
-		AxisSoftMin:       &attr_axissoftmin,
-		AxisSoftMax:       &attr_axissoftmax,
-		AxisGridShow:      &attr_axisgridshow,
-		ScaleDistribution: attr_scaledistribution,
-		Name:              &attr_name,
-		Label:             &attr_label,
-		AxisCenteredZero:  &attr_axiscenteredzero,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelXYChartDataSourceModel_Options_Series) ApplyDefaults() PanelXYChartDataSourceModel_Options_Series {
-	if m.Show.IsNull() {
-		m.Show = types.StringValue(`points`)
-	}
-	if m.Label.IsNull() {
-		m.Label = types.StringValue(`auto`)
-	}
-	return m
-}
-
-type PanelXYChartDataSourceModel_Options struct {
-	SeriesMapping types.String                                 `tfsdk:"series_mapping"`
-	Dims          *PanelXYChartDataSourceModel_Options_Dims    `tfsdk:"dims"`
-	Legend        *PanelXYChartDataSourceModel_Options_Legend  `tfsdk:"legend"`
-	Tooltip       *PanelXYChartDataSourceModel_Options_Tooltip `tfsdk:"tooltip"`
-	Series        []PanelXYChartDataSourceModel_Options_Series `tfsdk:"series"`
-}
-
-func (m PanelXYChartDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_Options struct {
-		SeriesMapping *string       `json:"seriesMapping,omitempty"`
-		Dims          interface{}   `json:"dims,omitempty"`
-		Legend        interface{}   `json:"legend,omitempty"`
-		Tooltip       interface{}   `json:"tooltip,omitempty"`
-		Series        []interface{} `json:"series,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_seriesmapping := m.SeriesMapping.ValueString()
-	var attr_dims interface{}
-	if m.Dims != nil {
-		attr_dims = m.Dims
+	var attr_colors interface{}
+	if m.Colors != nil {
+		attr_colors = m.Colors
 	}
 	var attr_legend interface{}
 	if m.Legend != nil {
 		attr_legend = m.Legend
 	}
-	var attr_tooltip interface{}
-	if m.Tooltip != nil {
-		attr_tooltip = m.Tooltip
-	}
-	attr_series := []interface{}{}
-	for _, v := range m.Series {
-		attr_series = append(attr_series, v)
-	}
+	attr_includeallfields := m.IncludeAllFields.ValueBool()
 
-	model := &jsonPanelXYChartDataSourceModel_Options{
-		SeriesMapping: &attr_seriesmapping,
-		Dims:          attr_dims,
-		Legend:        attr_legend,
-		Tooltip:       attr_tooltip,
-		Series:        attr_series,
+	model := &jsonPanelCandlestickDataSourceModel_Options{
+		Mode:             attr_mode,
+		CandleStyle:      attr_candlestyle,
+		ColorStrategy:    attr_colorstrategy,
+		Fields:           attr_fields,
+		Colors:           attr_colors,
+		Legend:           attr_legend,
+		IncludeAllFields: &attr_includeallfields,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_Options) ApplyDefaults() PanelXYChartDataSourceModel_Options {
-
+func (m PanelCandlestickDataSourceModel_Options) ApplyDefaults() PanelCandlestickDataSourceModel_Options {
+	if m.Mode.IsNull() {
+		m.Mode = types.StringValue(`candles+volume`)
+	}
+	if m.CandleStyle.IsNull() {
+		m.CandleStyle = types.StringValue(`candles`)
+	}
+	if m.ColorStrategy.IsNull() {
+		m.ColorStrategy = types.StringValue(`open-close`)
+	}
+	if m.IncludeAllFields.IsNull() {
+		m.IncludeAllFields = types.BoolValue(false)
+	}
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -810,7 +505,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Optio
 	attr_icon := m.Icon.ValueString()
 	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
 		Text:  &attr_text,
 		Color: &attr_color,
 		Icon:  &attr_icon,
@@ -819,18 +514,18 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Optio
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
-	Type    types.String                                                                           `tfsdk:"type"`
-	Options *map[string]PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options `tfsdk:"options"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
+	Type    types.String                                                                               `tfsdk:"type"`
+	Options *map[string]PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options `tfsdk:"options"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -842,27 +537,27 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) Mars
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -875,7 +570,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Optio
 	attr_icon := m.Icon.ValueString()
 	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
 		Text:  &attr_text,
 		Color: &attr_color,
 		Icon:  &attr_icon,
@@ -884,18 +579,18 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Optio
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
-	From   types.String                                                                       `tfsdk:"from"`
-	To     types.String                                                                       `tfsdk:"to"`
-	Result *PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result `tfsdk:"result"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
+	From   types.String                                                                           `tfsdk:"from"`
+	To     types.String                                                                           `tfsdk:"to"`
+	Result *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result `tfsdk:"result"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrFrom() interface{} {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrFrom() interface{} {
 	var attr interface{}
 	var err error
 
@@ -911,7 +606,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Optio
 	return m.From.ValueString()
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrTo() interface{} {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrTo() interface{} {
 	var attr interface{}
 	var err error
 
@@ -927,8 +622,8 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Optio
 	return m.To.ValueString()
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
 		From   interface{} `json:"from"`
 		To     interface{} `json:"to"`
 		Result interface{} `json:"result,omitempty"`
@@ -942,7 +637,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Optio
 		attr_result = m.Result
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options{
 		From:   attr_from,
 		To:     attr_to,
 		Result: attr_result,
@@ -950,18 +645,18 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Optio
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
-	Type    types.String                                                                `tfsdk:"type"`
-	Options *PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options `tfsdk:"options"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
+	Type    types.String                                                                    `tfsdk:"type"`
+	Options *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options `tfsdk:"options"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -973,27 +668,27 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) Mars
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -1006,7 +701,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Optio
 	attr_icon := m.Icon.ValueString()
 	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
 		Text:  &attr_text,
 		Color: &attr_color,
 		Icon:  &attr_icon,
@@ -1015,18 +710,18 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Optio
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
-	Pattern types.String                                                                       `tfsdk:"pattern"`
-	Result  *PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result `tfsdk:"result"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
+	Pattern types.String                                                                           `tfsdk:"pattern"`
+	Result  *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result `tfsdk:"result"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
 		Pattern string      `json:"pattern"`
 		Result  interface{} `json:"result,omitempty"`
 	}
@@ -1038,25 +733,25 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Optio
 		attr_result = m.Result
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options{
 		Pattern: attr_pattern,
 		Result:  attr_result,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
-	Type    types.String                                                                `tfsdk:"type"`
-	Options *PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options `tfsdk:"options"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
+	Type    types.String                                                                    `tfsdk:"type"`
+	Options *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options `tfsdk:"options"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -1068,27 +763,27 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) Mars
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -1101,7 +796,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMa
 	attr_icon := m.Icon.ValueString()
 	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
 		Text:  &attr_text,
 		Color: &attr_color,
 		Icon:  &attr_icon,
@@ -1110,18 +805,18 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMa
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
-	Match  types.String                                                                              `tfsdk:"match"`
-	Result *PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
+	Match  types.String                                                                                  `tfsdk:"match"`
+	Result *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
 		Match  string      `json:"match"`
 		Result interface{} `json:"result,omitempty"`
 	}
@@ -1133,25 +828,25 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMa
 		attr_result = m.Result
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options{
 		Match:  attr_match,
 		Result: attr_result,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
-	Type    types.String                                                                       `tfsdk:"type"`
-	Options *PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options `tfsdk:"options"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
+	Type    types.String                                                                           `tfsdk:"type"`
+	Options *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options `tfsdk:"options"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -1163,55 +858,55 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMa
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings struct {
-	ValueMap        *PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap        `tfsdk:"value_map"`
-	RangeMap        *PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap        `tfsdk:"range_map"`
-	RegexMap        *PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap        `tfsdk:"regex_map"`
-	SpecialValueMap *PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap `tfsdk:"special_value_map"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings struct {
+	ValueMap        *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap        `tfsdk:"value_map"`
+	RangeMap        *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap        `tfsdk:"range_map"`
+	RegexMap        *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap        `tfsdk:"regex_map"`
+	SpecialValueMap *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap `tfsdk:"special_value_map"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() ([]byte, error) {
-	var json_PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings interface{}
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() ([]byte, error) {
+	var json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings interface{}
 	m = m.ApplyDefaults()
 	if m.ValueMap != nil {
-		json_PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings = m.ValueMap
+		json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings = m.ValueMap
 	}
 	if m.RangeMap != nil {
-		json_PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings = m.RangeMap
+		json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings = m.RangeMap
 	}
 	if m.RegexMap != nil {
-		json_PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings = m.RegexMap
+		json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings = m.RegexMap
 	}
 	if m.SpecialValueMap != nil {
-		json_PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings = m.SpecialValueMap
+		json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings = m.SpecialValueMap
 	}
 
-	return json.Marshal(json_PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings)
+	return json.Marshal(json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.String `tfsdk:"value"`
 	Color types.String `tfsdk:"color"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) GetAttrValue() interface{} {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) GetAttrValue() interface{} {
 	var attr interface{}
 	var err error
 
@@ -1227,8 +922,8 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) GetAt
 	return m.Value.ValueString()
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 		Value interface{} `json:"value"`
 		Color string      `json:"color"`
 	}
@@ -1237,25 +932,25 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Marsh
 	attr_value := m.GetAttrValue()
 	attr_color := m.Color.ValueString()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
 		Value: attr_value,
 		Color: attr_color,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds struct {
-	Mode  types.String                                                        `tfsdk:"mode"`
-	Steps []PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+	Mode  types.String                                                            `tfsdk:"mode"`
+	Steps []PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps,omitempty"`
 	}
@@ -1267,26 +962,26 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON
 		attr_steps = append(attr_steps, v)
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds{
 		Mode:  attr_mode,
 		Steps: attr_steps,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Color struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color struct {
 	Mode       types.String `tfsdk:"mode"`
 	FixedColor types.String `tfsdk:"fixed_color"`
 	SeriesBy   types.String `tfsdk:"series_by"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Color struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Color struct {
 		Mode       string  `json:"mode"`
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
@@ -1297,7 +992,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([
 	attr_fixedcolor := m.FixedColor.ValueString()
 	attr_seriesby := m.SeriesBy.ValueString()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Color{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
 		FixedColor: &attr_fixedcolor,
 		SeriesBy:   &attr_seriesby,
@@ -1305,41 +1000,41 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Color {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
 	Mode types.String `tfsdk:"mode"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
 		Mode string `json:"mode"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
 		Mode: attr_mode,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
 	Fill types.String `tfsdk:"fill"`
 	Dash types.List   `tfsdk:"dash"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
 		Fill *string   `json:"fill,omitempty"`
 		Dash []float64 `json:"dash,omitempty"`
 	}
@@ -1351,28 +1046,28 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) Marsh
 		attr_dash = append(attr_dash, v.(types.Float64).ValueFloat64())
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle{
 		Fill: &attr_fill,
 		Dash: attr_dash,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle {
 	if len(m.Dash.Elements()) == 0 {
 		m.Dash, _ = types.ListValue(types.Float64Type, []attr.Value{})
 	}
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
 	Type            types.String  `tfsdk:"type"`
 	Log             types.Float64 `tfsdk:"log"`
 	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
 		Type            string   `json:"type"`
 		Log             *float64 `json:"log,omitempty"`
 		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
@@ -1383,7 +1078,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistributio
 	attr_log := m.Log.ValueFloat64()
 	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
 		Type:            attr_type,
 		Log:             &attr_log,
 		LinearThreshold: &attr_linearthreshold,
@@ -1391,18 +1086,18 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistributio
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
 	Mode  types.String `tfsdk:"mode"`
 	Group types.String `tfsdk:"group"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
 		Mode  *string `json:"mode,omitempty"`
 		Group *string `json:"group,omitempty"`
 	}
@@ -1411,26 +1106,26 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking) Marsha
 	attr_mode := m.Mode.ValueString()
 	attr_group := m.Group.ValueString()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking{
 		Mode:  &attr_mode,
 		Group: &attr_group,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
 	Tooltip types.Bool `tfsdk:"tooltip"`
 	Legend  types.Bool `tfsdk:"legend"`
 	Viz     types.Bool `tfsdk:"viz"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
 		Tooltip bool `json:"tooltip"`
 		Legend  bool `json:"legend"`
 		Viz     bool `json:"viz"`
@@ -1441,7 +1136,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) Marsha
 	attr_legend := m.Legend.ValueBool()
 	attr_viz := m.Viz.ValueBool()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
 		Tooltip: attr_tooltip,
 		Legend:  attr_legend,
 		Viz:     attr_viz,
@@ -1449,45 +1144,45 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) Marsha
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom struct {
-	DrawStyle         types.String                                                               `tfsdk:"draw_style"`
-	GradientMode      types.String                                                               `tfsdk:"gradient_mode"`
-	ThresholdsStyle   *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
-	LineColor         types.String                                                               `tfsdk:"line_color"`
-	LineWidth         types.Float64                                                              `tfsdk:"line_width"`
-	LineInterpolation types.String                                                               `tfsdk:"line_interpolation"`
-	LineStyle         *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_LineStyle         `tfsdk:"line_style"`
-	FillColor         types.String                                                               `tfsdk:"fill_color"`
-	FillOpacity       types.Float64                                                              `tfsdk:"fill_opacity"`
-	ShowPoints        types.String                                                               `tfsdk:"show_points"`
-	PointSize         types.Float64                                                              `tfsdk:"point_size"`
-	PointColor        types.String                                                               `tfsdk:"point_color"`
-	AxisPlacement     types.String                                                               `tfsdk:"axis_placement"`
-	AxisColorMode     types.String                                                               `tfsdk:"axis_color_mode"`
-	AxisLabel         types.String                                                               `tfsdk:"axis_label"`
-	AxisWidth         types.Float64                                                              `tfsdk:"axis_width"`
-	AxisSoftMin       types.Float64                                                              `tfsdk:"axis_soft_min"`
-	AxisSoftMax       types.Float64                                                              `tfsdk:"axis_soft_max"`
-	AxisGridShow      types.Bool                                                                 `tfsdk:"axis_grid_show"`
-	ScaleDistribution *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
-	BarAlignment      types.Int64                                                                `tfsdk:"bar_alignment"`
-	BarWidthFactor    types.Float64                                                              `tfsdk:"bar_width_factor"`
-	Stacking          *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_Stacking          `tfsdk:"stacking"`
-	HideFrom          *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
-	Transform         types.String                                                               `tfsdk:"transform"`
-	SpanNulls         types.String                                                               `tfsdk:"span_nulls"`
-	FillBelowTo       types.String                                                               `tfsdk:"fill_below_to"`
-	PointSymbol       types.String                                                               `tfsdk:"point_symbol"`
-	AxisCenteredZero  types.Bool                                                                 `tfsdk:"axis_centered_zero"`
-	BarMaxWidth       types.Float64                                                              `tfsdk:"bar_max_width"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom struct {
+	DrawStyle         types.String                                                                   `tfsdk:"draw_style"`
+	GradientMode      types.String                                                                   `tfsdk:"gradient_mode"`
+	ThresholdsStyle   *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
+	LineColor         types.String                                                                   `tfsdk:"line_color"`
+	LineWidth         types.Float64                                                                  `tfsdk:"line_width"`
+	LineInterpolation types.String                                                                   `tfsdk:"line_interpolation"`
+	LineStyle         *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle         `tfsdk:"line_style"`
+	FillColor         types.String                                                                   `tfsdk:"fill_color"`
+	FillOpacity       types.Float64                                                                  `tfsdk:"fill_opacity"`
+	ShowPoints        types.String                                                                   `tfsdk:"show_points"`
+	PointSize         types.Float64                                                                  `tfsdk:"point_size"`
+	PointColor        types.String                                                                   `tfsdk:"point_color"`
+	AxisPlacement     types.String                                                                   `tfsdk:"axis_placement"`
+	AxisColorMode     types.String                                                                   `tfsdk:"axis_color_mode"`
+	AxisLabel         types.String                                                                   `tfsdk:"axis_label"`
+	AxisWidth         types.Float64                                                                  `tfsdk:"axis_width"`
+	AxisSoftMin       types.Float64                                                                  `tfsdk:"axis_soft_min"`
+	AxisSoftMax       types.Float64                                                                  `tfsdk:"axis_soft_max"`
+	AxisGridShow      types.Bool                                                                     `tfsdk:"axis_grid_show"`
+	ScaleDistribution *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
+	BarAlignment      types.Int64                                                                    `tfsdk:"bar_alignment"`
+	BarWidthFactor    types.Float64                                                                  `tfsdk:"bar_width_factor"`
+	Stacking          *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking          `tfsdk:"stacking"`
+	HideFrom          *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
+	Transform         types.String                                                                   `tfsdk:"transform"`
+	SpanNulls         types.String                                                                   `tfsdk:"span_nulls"`
+	FillBelowTo       types.String                                                                   `tfsdk:"fill_below_to"`
+	PointSymbol       types.String                                                                   `tfsdk:"point_symbol"`
+	AxisCenteredZero  types.Bool                                                                     `tfsdk:"axis_centered_zero"`
+	BarMaxWidth       types.Float64                                                                  `tfsdk:"bar_max_width"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom) GetAttrSpanNulls() interface{} {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom) GetAttrSpanNulls() interface{} {
 	var attr interface{}
 	var err error
 
@@ -1503,8 +1198,8 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom) GetAttrSpanNull
 	return m.SpanNulls.ValueString()
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom struct {
 		DrawStyle         *string     `json:"drawStyle,omitempty"`
 		GradientMode      *string     `json:"gradientMode,omitempty"`
 		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
@@ -1584,7 +1279,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() (
 	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
 	attr_barmaxwidth := m.BarMaxWidth.ValueFloat64()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults_Custom{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom{
 		DrawStyle:         &attr_drawstyle,
 		GradientMode:      &attr_gradientmode,
 		ThresholdsStyle:   attr_thresholdsstyle,
@@ -1619,31 +1314,31 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() (
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Defaults struct {
-	DisplayName       types.String                                                 `tfsdk:"display_name"`
-	DisplayNameFromDS types.String                                                 `tfsdk:"display_name_from_ds"`
-	Description       types.String                                                 `tfsdk:"description"`
-	Path              types.String                                                 `tfsdk:"path"`
-	Writeable         types.Bool                                                   `tfsdk:"writeable"`
-	Filterable        types.Bool                                                   `tfsdk:"filterable"`
-	Unit              types.String                                                 `tfsdk:"unit"`
-	Decimals          types.Float64                                                `tfsdk:"decimals"`
-	Min               types.Float64                                                `tfsdk:"min"`
-	Max               types.Float64                                                `tfsdk:"max"`
-	Mappings          []PanelXYChartDataSourceModel_FieldConfig_Defaults_Mappings  `tfsdk:"mappings"`
-	Thresholds        *PanelXYChartDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
-	Color             *PanelXYChartDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
-	NoValue           types.String                                                 `tfsdk:"no_value"`
-	Custom            *PanelXYChartDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults struct {
+	DisplayName       types.String                                                     `tfsdk:"display_name"`
+	DisplayNameFromDS types.String                                                     `tfsdk:"display_name_from_ds"`
+	Description       types.String                                                     `tfsdk:"description"`
+	Path              types.String                                                     `tfsdk:"path"`
+	Writeable         types.Bool                                                       `tfsdk:"writeable"`
+	Filterable        types.Bool                                                       `tfsdk:"filterable"`
+	Unit              types.String                                                     `tfsdk:"unit"`
+	Decimals          types.Float64                                                    `tfsdk:"decimals"`
+	Min               types.Float64                                                    `tfsdk:"min"`
+	Max               types.Float64                                                    `tfsdk:"max"`
+	Mappings          []PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings  `tfsdk:"mappings"`
+	Thresholds        *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
+	Color             *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
+	NoValue           types.String                                                     `tfsdk:"no_value"`
+	Custom            *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Defaults struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults struct {
 		DisplayName       *string       `json:"displayName,omitempty"`
 		DisplayNameFromDS *string       `json:"displayNameFromDS,omitempty"`
 		Description       *string       `json:"description,omitempty"`
@@ -1690,7 +1385,7 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte,
 		attr_custom = m.Custom
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Defaults{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults{
 		DisplayName:       &attr_displayname,
 		DisplayNameFromDS: &attr_displaynamefromds,
 		Description:       &attr_description,
@@ -1710,54 +1405,54 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte,
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Defaults {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Overrides_Matcher struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher struct {
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Overrides_Matcher struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Overrides_Matcher{}
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher{}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Overrides_Matcher {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Overrides_Properties struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties struct {
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Overrides_Properties struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Overrides_Properties{}
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties{}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Overrides_Properties {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    *PanelXYChartDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
-	Properties []PanelXYChartDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
+type PanelCandlestickDataSourceModel_FieldConfig_Overrides struct {
+	Matcher    *PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
+	Properties []PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig_Overrides struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides struct {
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties,omitempty"`
 	}
@@ -1772,25 +1467,25 @@ func (m PanelXYChartDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte
 		attr_properties = append(attr_properties, v)
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig_Overrides{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides{
 		Matcher:    attr_matcher,
 		Properties: attr_properties,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig_Overrides {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Overrides {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel_FieldConfig struct {
-	Defaults  *PanelXYChartDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
-	Overrides []PanelXYChartDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
+type PanelCandlestickDataSourceModel_FieldConfig struct {
+	Defaults  *PanelCandlestickDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
+	Overrides []PanelCandlestickDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel_FieldConfig struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig struct {
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides,omitempty"`
 	}
@@ -1805,45 +1500,45 @@ func (m PanelXYChartDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 		attr_overrides = append(attr_overrides, v)
 	}
 
-	model := &jsonPanelXYChartDataSourceModel_FieldConfig{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig{
 		Defaults:  attr_defaults,
 		Overrides: attr_overrides,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel_FieldConfig) ApplyDefaults() PanelXYChartDataSourceModel_FieldConfig {
+func (m PanelCandlestickDataSourceModel_FieldConfig) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig {
 
 	return m
 }
 
-type PanelXYChartDataSourceModel struct {
-	RenderedJSON    types.String                                  `tfsdk:"rendered_json"`
-	Type            types.String                                  `tfsdk:"type"`
-	PluginVersion   types.String                                  `tfsdk:"plugin_version"`
-	Tags            types.List                                    `tfsdk:"tags"`
-	Targets         types.List                                    `tfsdk:"targets"`
-	Title           types.String                                  `tfsdk:"title"`
-	Description     types.String                                  `tfsdk:"description"`
-	Transparent     types.Bool                                    `tfsdk:"transparent"`
-	Datasource      *PanelXYChartDataSourceModel_Datasource       `tfsdk:"datasource"`
-	GridPos         *PanelXYChartDataSourceModel_GridPos          `tfsdk:"grid_pos"`
-	Links           []PanelXYChartDataSourceModel_Links           `tfsdk:"links"`
-	Repeat          types.String                                  `tfsdk:"repeat"`
-	RepeatDirection types.String                                  `tfsdk:"repeat_direction"`
-	RepeatPanelId   types.Int64                                   `tfsdk:"repeat_panel_id"`
-	MaxDataPoints   types.Float64                                 `tfsdk:"max_data_points"`
-	Transformations []PanelXYChartDataSourceModel_Transformations `tfsdk:"transformations"`
-	Interval        types.String                                  `tfsdk:"interval"`
-	TimeFrom        types.String                                  `tfsdk:"time_from"`
-	TimeShift       types.String                                  `tfsdk:"time_shift"`
-	LibraryPanel    *PanelXYChartDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	Options         *PanelXYChartDataSourceModel_Options          `tfsdk:"options"`
-	FieldConfig     *PanelXYChartDataSourceModel_FieldConfig      `tfsdk:"field_config"`
+type PanelCandlestickDataSourceModel struct {
+	RenderedJSON    types.String                                      `tfsdk:"rendered_json"`
+	Type            types.String                                      `tfsdk:"type"`
+	PluginVersion   types.String                                      `tfsdk:"plugin_version"`
+	Tags            types.List                                        `tfsdk:"tags"`
+	Targets         types.List                                        `tfsdk:"targets"`
+	Title           types.String                                      `tfsdk:"title"`
+	Description     types.String                                      `tfsdk:"description"`
+	Transparent     types.Bool                                        `tfsdk:"transparent"`
+	Datasource      *PanelCandlestickDataSourceModel_Datasource       `tfsdk:"datasource"`
+	GridPos         *PanelCandlestickDataSourceModel_GridPos          `tfsdk:"grid_pos"`
+	Links           []PanelCandlestickDataSourceModel_Links           `tfsdk:"links"`
+	Repeat          types.String                                      `tfsdk:"repeat"`
+	RepeatDirection types.String                                      `tfsdk:"repeat_direction"`
+	RepeatPanelId   types.Int64                                       `tfsdk:"repeat_panel_id"`
+	MaxDataPoints   types.Float64                                     `tfsdk:"max_data_points"`
+	Transformations []PanelCandlestickDataSourceModel_Transformations `tfsdk:"transformations"`
+	Interval        types.String                                      `tfsdk:"interval"`
+	TimeFrom        types.String                                      `tfsdk:"time_from"`
+	TimeShift       types.String                                      `tfsdk:"time_shift"`
+	LibraryPanel    *PanelCandlestickDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
+	Options         *PanelCandlestickDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelCandlestickDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
-func (m PanelXYChartDataSourceModel) MarshalJSON() ([]byte, error) {
-	type jsonPanelXYChartDataSourceModel struct {
+func (m PanelCandlestickDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel struct {
 		Type            string        `json:"type"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
 		Tags            []string      `json:"tags,omitempty"`
@@ -1917,7 +1612,7 @@ func (m PanelXYChartDataSourceModel) MarshalJSON() ([]byte, error) {
 		attr_fieldconfig = m.FieldConfig
 	}
 
-	model := &jsonPanelXYChartDataSourceModel{
+	model := &jsonPanelCandlestickDataSourceModel{
 		Type:            attr_type,
 		PluginVersion:   &attr_pluginversion,
 		Tags:            attr_tags,
@@ -1943,9 +1638,9 @@ func (m PanelXYChartDataSourceModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelXYChartDataSourceModel) ApplyDefaults() PanelXYChartDataSourceModel {
+func (m PanelCandlestickDataSourceModel) ApplyDefaults() PanelCandlestickDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`xychart`)
+		m.Type = types.StringValue(`candlestick`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -1962,17 +1657,17 @@ func (m PanelXYChartDataSourceModel) ApplyDefaults() PanelXYChartDataSourceModel
 	return m
 }
 
-func (d *PanelXYChartDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_panel_xy_chart"
+func (d *PanelCandlestickDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_panel_candlestick"
 }
 
-func (d *PanelXYChartDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *PanelCandlestickDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. This is used to find the plugin to display the panel. Defaults to "xychart".`,
+				MarkdownDescription: `The panel plugin type id. This is used to find the plugin to display the panel. Defaults to "candlestick".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -2250,36 +1945,93 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
-					"series_mapping": schema.StringAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
+					"mode": schema.StringAttribute{
+						MarkdownDescription: `Sets which dimensions are used for the visualization. Defaults to "candles+volume".`,
+						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
-					"dims": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
+					"candle_style": schema.StringAttribute{
+						MarkdownDescription: `Sets the style of the candlesticks. Defaults to "candles".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"color_strategy": schema.StringAttribute{
+						MarkdownDescription: `Sets the color strategy for the candlesticks. Defaults to "open-close".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"fields": schema.SingleNestedAttribute{
+						MarkdownDescription: `Map fields to appropriate dimension`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 						Attributes: map[string]schema.Attribute{
-							"frame": schema.Int64Attribute{
+							"candlestick_field_map": schema.SingleNestedAttribute{
+								MarkdownDescription: ``,
+								Computed:            true,
+								Optional:            true,
+								Required:            false,
+								Attributes: map[string]schema.Attribute{
+									"open": schema.StringAttribute{
+										MarkdownDescription: `Corresponds to the starting value of the given period`,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"high": schema.StringAttribute{
+										MarkdownDescription: `Corresponds to the highest value of the given period`,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"low": schema.StringAttribute{
+										MarkdownDescription: `Corresponds to the lowest value of the given period`,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"close": schema.StringAttribute{
+										MarkdownDescription: `Corresponds to the final (end) value of the given period`,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+									"volume": schema.StringAttribute{
+										MarkdownDescription: `Corresponds to the sample count in the given period. (e.g. number of trades)`,
+										Computed:            false,
+										Optional:            true,
+										Required:            false,
+									},
+								},
+							},
+						},
+					},
+					"colors": schema.SingleNestedAttribute{
+						MarkdownDescription: `Set which colors are used when the price movement is up or down`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"down": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-							"x": schema.StringAttribute{
+							"up": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
-								Optional:            true,
-								Required:            false,
+								Optional:            false,
+								Required:            true,
 							},
-							"exclude": schema.ListAttribute{
+							"flat": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
-								Optional:            true,
-								Required:            false,
-								ElementType:         types.StringType,
+								Optional:            false,
+								Required:            true,
 							},
 						},
 					},
@@ -2346,296 +2098,11 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 							},
 						},
 					},
-					"tooltip": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
+					"include_all_fields": schema.BoolAttribute{
+						MarkdownDescription: `When enabled, all fields will be sent to the graph. Defaults to false.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"mode": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"sort": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-						},
-					},
-					"series": schema.ListNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						NestedObject: schema.NestedAttributeObject{
-							Attributes: map[string]schema.Attribute{
-								"x": schema.StringAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"y": schema.StringAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"show": schema.StringAttribute{
-									MarkdownDescription: ` Defaults to "points".`,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-								},
-								"point_size": schema.SingleNestedAttribute{
-									MarkdownDescription: ``,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-									Attributes: map[string]schema.Attribute{
-										"min": schema.Float64Attribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
-										},
-										"max": schema.Float64Attribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
-										},
-										"fixed": schema.Float64Attribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"field": schema.StringAttribute{
-											MarkdownDescription: `fixed: T -- will be added by each element`,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"mode": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-									},
-								},
-								"line_color": schema.SingleNestedAttribute{
-									MarkdownDescription: ``,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-									Attributes: map[string]schema.Attribute{
-										"fixed": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"field": schema.StringAttribute{
-											MarkdownDescription: `fixed: T -- will be added by each element`,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-									},
-								},
-								"point_color": schema.SingleNestedAttribute{
-									MarkdownDescription: ``,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-									Attributes: map[string]schema.Attribute{
-										"fixed": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"field": schema.StringAttribute{
-											MarkdownDescription: `fixed: T -- will be added by each element`,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-									},
-								},
-								"label_value": schema.SingleNestedAttribute{
-									MarkdownDescription: ``,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-									Attributes: map[string]schema.Attribute{
-										"mode": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
-										},
-										"field": schema.StringAttribute{
-											MarkdownDescription: `fixed: T -- will be added by each element`,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"fixed": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-									},
-								},
-								"line_width": schema.Int64Attribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"line_style": schema.SingleNestedAttribute{
-									MarkdownDescription: ``,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-									Attributes: map[string]schema.Attribute{
-										"fill": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"dash": schema.ListAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-											ElementType:         types.Float64Type,
-										},
-									},
-								},
-								"hide_from": schema.SingleNestedAttribute{
-									MarkdownDescription: ``,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-									Attributes: map[string]schema.Attribute{
-										"tooltip": schema.BoolAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
-										},
-										"legend": schema.BoolAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
-										},
-										"viz": schema.BoolAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
-										},
-									},
-								},
-								"axis_placement": schema.StringAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"axis_color_mode": schema.StringAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"axis_label": schema.StringAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"axis_width": schema.Float64Attribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"axis_soft_min": schema.Float64Attribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"axis_soft_max": schema.Float64Attribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"axis_grid_show": schema.BoolAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"scale_distribution": schema.SingleNestedAttribute{
-									MarkdownDescription: ``,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-									Attributes: map[string]schema.Attribute{
-										"type": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
-										},
-										"log": schema.Float64Attribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"linear_threshold": schema.Float64Attribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-									},
-								},
-								"name": schema.StringAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-								"label": schema.StringAttribute{
-									MarkdownDescription: ` Defaults to "auto".`,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-								},
-								"axis_centered_zero": schema.BoolAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-							},
-						},
 					},
 				},
 			},
@@ -3343,11 +2810,11 @@ X axis that should be considered connected.  For timeseries, this is millisecond
 	}
 }
 
-func (d *PanelXYChartDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *PanelCandlestickDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *PanelXYChartDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data PanelXYChartDataSourceModel
+func (d *PanelCandlestickDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data PanelCandlestickDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

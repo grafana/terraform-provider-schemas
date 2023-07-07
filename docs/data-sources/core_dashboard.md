@@ -17,7 +17,10 @@ description: |-
 
 ### Optional
 
-- `annotations` (Attributes) TODO docs (see [below for nested schema](#nestedatt--annotations))
+- `annotations` (Attributes) Contains the list of annotations that are associated with the dashboard.
+Annotations are used to overlay event markers and overlay event tags on graphs.
+Grafana comes with a native annotation store and the ability to add annotation events directly from the graph panel or via the HTTP API.
+See https://grafana.com/docs/grafana/latest/dashboards/build-dashboards/annotate-visualizations/ (see [below for nested schema](#nestedatt--annotations))
 - `description` (String) Description of dashboard.
 - `editable` (Boolean) Whether a dashboard is editable or not. Defaults to true.
 - `fiscal_year_start_month` (Number) The month that the fiscal year starts on.  0 = January, 11 = December. Defaults to 0.
@@ -26,20 +29,19 @@ description: |-
 Accepted values are 0 (sync turned off), 1 (shared crosshair), 2 (shared crosshair and tooltip). Defaults to 0.
 - `links` (Attributes List) Links with references to other dashboards or external websites. (see [below for nested schema](#nestedatt--links))
 - `live_now` (Boolean) When set to true, the dashboard will redraw panels at an interval matching the pixel width.
-This will keep data "moving left" regardless of the query refresh rate.  This setting helps
+This will keep data "moving left" regardless of the query refresh rate. This setting helps
 avoid dashboards presenting stale live data
-- `panels` (List of String)
+- `panels` (List of String) List of dashboard panels
 - `refresh` (String) Refresh rate of dashboard. Represented via interval string, e.g. "5s", "1m", "1h", "1d".
 - `revision` (Number) This property should only be used in dashboards defined by plugins.  It is a quick check
-to see if the version has changed since the last time.  Unclear why using the version property
-is insufficient.
+to see if the version has changed since the last time.
 - `schema_version` (Number) Version of the JSON schema, incremented each time a Grafana update brings
-changes to said schema.
-TODO this is the existing schema numbering system. It will be replaced by Thema's themaVersion. Defaults to 36.
-- `snapshot` (Attributes) (see [below for nested schema](#nestedatt--snapshot))
-- `style` (String) Theme of dashboard. Defaults to "dark".
+changes to said schema. Defaults to 36.
+- `snapshot` (Attributes) Snapshot options. They are present only if the dashboard is a snapshot. (see [below for nested schema](#nestedatt--snapshot))
+- `style` (String) Theme of dashboard.
+Default value: dark. Defaults to "dark".
 - `tags` (List of String) Tags associated with dashboard.
-- `templating` (Attributes) Contains the list of configured template variables with their saved values along with some other metadata (see [below for nested schema](#nestedatt--templating))
+- `templating` (Attributes) Configured template variables (see [below for nested schema](#nestedatt--templating))
 - `time` (Attributes) Time range for dashboard.
 Accepted values are relative time strings like {from: 'now-6h', to: 'now'} or absolute time strings like {from: '2020-07-10T08:00:00.000Z', to: '2020-07-10T14:00:00.000Z'}. (see [below for nested schema](#nestedatt--time))
 - `timepicker` (Attributes) Configuration of the time picker shown at the top of a dashboard. (see [below for nested schema](#nestedatt--timepicker))
@@ -58,7 +60,7 @@ Accepted values are relative time strings like {from: 'now-6h', to: 'now'} or ab
 
 Optional:
 
-- `list` (Attributes List) (see [below for nested schema](#nestedatt--annotations--list))
+- `list` (Attributes List) List of annotations (see [below for nested schema](#nestedatt--annotations--list))
 
 <a id="nestedatt--annotations--list"></a>
 ### Nested Schema for `annotations.list`
@@ -161,29 +163,42 @@ Optional:
 
 Optional:
 
-- `list` (Attributes List) (see [below for nested schema](#nestedatt--templating--list))
+- `list` (Attributes List) List of configured template variables with their saved values along with some other metadata (see [below for nested schema](#nestedatt--templating--list))
 
 <a id="nestedatt--templating--list"></a>
 ### Nested Schema for `templating.list`
 
 Required:
 
-- `hide` (Number)
-- `name` (String)
-- `state` (String)
-- `type` (String)
+- `hide` (Number) Visibility configuration for the variable
+- `name` (String) Name of variable
+- `type` (String) Type of variable
 
 Optional:
 
-- `datasource` (Attributes) (see [below for nested schema](#nestedatt--templating--list--datasource))
-- `description` (String)
-- `error` (Attributes) (see [below for nested schema](#nestedatt--templating--list--error))
-- `global` (Boolean) Defaults to false.
-- `index` (Number) Defaults to -1.
-- `label` (String)
-- `query` (String) JSON-encoded string. TODO: Move this into a separated QueryVariableModel type
-- `root_state_key` (String)
-- `skip_url_sync` (Boolean) Defaults to false.
+- `all_format` (String) Format to use while fetching all values from data source, eg: wildcard, glob, regex, pipe, etc.
+- `current` (Attributes) Shows current selected variable text/value on the dashboard (see [below for nested schema](#nestedatt--templating--list--current))
+- `datasource` (Attributes) Data source used to fetch values for a variable. It can be defined but null. (see [below for nested schema](#nestedatt--templating--list--datasource))
+- `description` (String) Description of variable. It can be defined but null.
+- `label` (String) Optional display name
+- `multi` (Boolean) Whether multiple values can be selected or not from variable value list. Defaults to false.
+- `options` (Attributes List) Options that can be selected for a variable. (see [below for nested schema](#nestedatt--templating--list--options))
+- `query` (String) JSON-encoded string. Query used to fetch values for a variable
+- `refresh` (Number)
+- `skip_url_sync` (Boolean) Whether the variable value should be managed by URL query params or not. Defaults to false.
+
+<a id="nestedatt--templating--list--current"></a>
+### Nested Schema for `templating.list.current`
+
+Required:
+
+- `text` (String) JSON-encoded string. Text to be displayed for the option
+- `value` (String) JSON-encoded string. Value of the option
+
+Optional:
+
+- `selected` (Boolean) Whether the option is selected or not
+
 
 <a id="nestedatt--templating--list--datasource"></a>
 ### Nested Schema for `templating.list.datasource`
@@ -194,8 +209,17 @@ Optional:
 - `uid` (String) Specific datasource instance
 
 
-<a id="nestedatt--templating--list--error"></a>
-### Nested Schema for `templating.list.error`
+<a id="nestedatt--templating--list--options"></a>
+### Nested Schema for `templating.list.options`
+
+Required:
+
+- `text` (String) JSON-encoded string. Text to be displayed for the option
+- `value` (String) JSON-encoded string. Value of the option
+
+Optional:
+
+- `selected` (Boolean) Whether the option is selected or not
 
 
 

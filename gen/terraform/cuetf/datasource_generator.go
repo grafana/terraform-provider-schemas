@@ -18,7 +18,7 @@ import (
 // GenerateDataSource takes a cue.Value and generates the corresponding Terraform data source.
 func GenerateDataSource(schema thema.Schema) (b []byte, err error) {
 	value := schema.Underlying().LookupPath(cue.MakePath(cue.Str("schema"), cue.Str("spec")))
-	if err := value.Validate(); err != nil {
+	if !value.Exists() {
 		value = schema.Underlying().LookupPath(cue.MakePath(cue.Str("schema")))
 	}
 

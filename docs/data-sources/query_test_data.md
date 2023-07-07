@@ -28,6 +28,7 @@ By default, the UI will assign A->Z; however setting meaningful names may be use
 - `csv_content` (String)
 - `csv_file_name` (String)
 - `csv_wave` (Attributes List) (see [below for nested schema](#nestedatt--csv_wave))
+- `drop_percent` (Number) Drop percentage (the chance we will lose a point 0-100)
 - `error_type` (String)
 - `hide` (Boolean) true if query is disabled (ie should not be returned to the dashboard)
 Note this does not always imply that the query should not be executed since
