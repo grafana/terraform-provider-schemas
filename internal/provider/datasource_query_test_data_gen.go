@@ -340,6 +340,7 @@ type QueryTestDataDataSourceModel struct {
 	Usa             *QueryTestDataDataSourceModel_Usa       `tfsdk:"usa"`
 	ErrorType       types.String                            `tfsdk:"error_type"`
 	SpanCount       types.Int64                             `tfsdk:"span_count"`
+	DropPercent     types.Float64                           `tfsdk:"drop_percent"`
 	RefId           types.String                            `tfsdk:"ref_id"`
 	Hide            types.Bool                              `tfsdk:"hide"`
 	QueryType       types.String                            `tfsdk:"query_type"`
@@ -366,6 +367,7 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 		Usa             interface{}   `json:"usa,omitempty"`
 		ErrorType       *string       `json:"errorType,omitempty"`
 		SpanCount       *int64        `json:"spanCount,omitempty"`
+		DropPercent     *float64      `json:"dropPercent,omitempty"`
 		RefId           string        `json:"refId"`
 		Hide            *bool         `json:"hide,omitempty"`
 		QueryType       *string       `json:"queryType,omitempty"`
@@ -409,6 +411,7 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	}
 	attr_errortype := m.ErrorType.ValueStringPointer()
 	attr_spancount := m.SpanCount.ValueInt64Pointer()
+	attr_droppercent := m.DropPercent.ValueFloat64Pointer()
 	attr_refid := m.RefId.ValueString()
 	attr_hide := m.Hide.ValueBoolPointer()
 	attr_querytype := m.QueryType.ValueStringPointer()
@@ -433,6 +436,7 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 		Usa:             attr_usa,
 		ErrorType:       attr_errortype,
 		SpanCount:       attr_spancount,
+		DropPercent:     attr_droppercent,
 		RefId:           attr_refid,
 		Hide:            attr_hide,
 		QueryType:       attr_querytype,
@@ -752,6 +756,12 @@ func (d *QueryTestDataDataSource) Schema(ctx context.Context, req datasource.Sch
 			},
 			"span_count": schema.Int64Attribute{
 				MarkdownDescription: ``,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
+			},
+			"drop_percent": schema.Float64Attribute{
+				MarkdownDescription: `Drop percentage (the chance we will lose a point 0-100)`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,

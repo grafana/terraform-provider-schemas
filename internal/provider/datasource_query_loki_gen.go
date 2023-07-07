@@ -48,6 +48,7 @@ type QueryLokiDataSourceModel struct {
 	EditorMode   types.String `tfsdk:"editor_mode"`
 	Range        types.Bool   `tfsdk:"range"`
 	Instant      types.Bool   `tfsdk:"instant"`
+	Step         types.String `tfsdk:"step"`
 	RefId        types.String `tfsdk:"ref_id"`
 	Hide         types.Bool   `tfsdk:"hide"`
 	QueryType    types.String `tfsdk:"query_type"`
@@ -62,6 +63,7 @@ func (m QueryLokiDataSourceModel) MarshalJSON() ([]byte, error) {
 		EditorMode   *string `json:"editorMode,omitempty"`
 		Range        *bool   `json:"range,omitempty"`
 		Instant      *bool   `json:"instant,omitempty"`
+		Step         *string `json:"step,omitempty"`
 		RefId        string  `json:"refId"`
 		Hide         *bool   `json:"hide,omitempty"`
 		QueryType    *string `json:"queryType,omitempty"`
@@ -75,6 +77,7 @@ func (m QueryLokiDataSourceModel) MarshalJSON() ([]byte, error) {
 	attr_editormode := m.EditorMode.ValueStringPointer()
 	attr_range := m.Range.ValueBoolPointer()
 	attr_instant := m.Instant.ValueBoolPointer()
+	attr_step := m.Step.ValueStringPointer()
 	attr_refid := m.RefId.ValueString()
 	attr_hide := m.Hide.ValueBoolPointer()
 	attr_querytype := m.QueryType.ValueStringPointer()
@@ -87,6 +90,7 @@ func (m QueryLokiDataSourceModel) MarshalJSON() ([]byte, error) {
 		EditorMode:   attr_editormode,
 		Range:        attr_range,
 		Instant:      attr_instant,
+		Step:         attr_step,
 		RefId:        attr_refid,
 		Hide:         attr_hide,
 		QueryType:    attr_querytype,
@@ -127,10 +131,11 @@ func (d *QueryLokiDataSource) Schema(ctx context.Context, req datasource.SchemaR
 				Required:            false,
 			},
 			"resolution": schema.Int64Attribute{
-				MarkdownDescription: `Used to scale the interval value.`,
+				MarkdownDescription: `@deprecated, now use step.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
+				DeprecationMessage:  `Now use step.`,
 			},
 			"editor_mode": schema.StringAttribute{
 				MarkdownDescription: ``,
@@ -151,6 +156,12 @@ func (d *QueryLokiDataSource) Schema(ctx context.Context, req datasource.SchemaR
 				Optional:            true,
 				Required:            false,
 				DeprecationMessage:  `Now use queryType.`,
+			},
+			"step": schema.StringAttribute{
+				MarkdownDescription: `Used to set step value for range queries.`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
 			},
 			"ref_id": schema.StringAttribute{
 				MarkdownDescription: `A unique identifier for the query within the list of targets.

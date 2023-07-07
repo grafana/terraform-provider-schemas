@@ -13,6 +13,7 @@ package provider
 import (
 	"context"
 	"encoding/json"
+	"strconv"
 
 	"github.com/hashicorp/terraform-plugin-framework/attr"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -499,21 +500,53 @@ func (m PanelStatDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_
 }
 
 type PanelStatDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
-	From   types.Float64                                                                   `tfsdk:"from"`
-	To     types.Float64                                                                   `tfsdk:"to"`
+	From   types.String                                                                    `tfsdk:"from"`
+	To     types.String                                                                    `tfsdk:"to"`
 	Result *PanelStatDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result `tfsdk:"result"`
+}
+
+func (m PanelStatDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrFrom() interface{} {
+	var attr interface{}
+	var err error
+
+	attr, err = strconv.ParseFloat(m.From.ValueString(), 64)
+	if err == nil {
+		return attr
+	}
+
+	if err == nil {
+		return attr
+	}
+
+	return m.From.ValueString()
+}
+
+func (m PanelStatDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrTo() interface{} {
+	var attr interface{}
+	var err error
+
+	attr, err = strconv.ParseFloat(m.To.ValueString(), 64)
+	if err == nil {
+		return attr
+	}
+
+	if err == nil {
+		return attr
+	}
+
+	return m.To.ValueString()
 }
 
 func (m PanelStatDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
-		From   float64     `json:"from"`
-		To     float64     `json:"to"`
+		From   interface{} `json:"from"`
+		To     interface{} `json:"to"`
 		Result interface{} `json:"result,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_from := m.From.ValueFloat64()
-	attr_to := m.To.ValueFloat64()
+	attr_from := m.GetAttrFrom()
+	attr_to := m.GetAttrTo()
 	var attr_result interface{}
 	if m.Result != nil {
 		attr_result = m.Result
@@ -693,30 +726,26 @@ func (m PanelStatDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_O
 }
 
 type PanelStatDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
-	Match   types.String                                                                           `tfsdk:"match"`
-	Pattern types.String                                                                           `tfsdk:"pattern"`
-	Result  *PanelStatDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
+	Match  types.String                                                                           `tfsdk:"match"`
+	Result *PanelStatDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
 }
 
 func (m PanelStatDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
-		Match   string      `json:"match"`
-		Pattern string      `json:"pattern"`
-		Result  interface{} `json:"result,omitempty"`
+		Match  string      `json:"match"`
+		Result interface{} `json:"result,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_match := m.Match.ValueString()
-	attr_pattern := m.Pattern.ValueString()
 	var attr_result interface{}
 	if m.Result != nil {
 		attr_result = m.Result
 	}
 
 	model := &jsonPanelStatDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options{
-		Match:   attr_match,
-		Pattern: attr_pattern,
-		Result:  attr_result,
+		Match:  attr_match,
+		Result: attr_result,
 	}
 	return json.Marshal(model)
 }
@@ -788,31 +817,39 @@ func (m PanelStatDataSourceModel_FieldConfig_Defaults_Mappings) ApplyDefaults() 
 }
 
 type PanelStatDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
-	Value types.Float64 `tfsdk:"value"`
-	Color types.String  `tfsdk:"color"`
-	Index types.Int64   `tfsdk:"index"`
-	State types.String  `tfsdk:"state"`
+	Value types.String `tfsdk:"value"`
+	Color types.String `tfsdk:"color"`
+}
+
+func (m PanelStatDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) GetAttrValue() interface{} {
+	var attr interface{}
+	var err error
+
+	attr, err = strconv.ParseFloat(m.Value.ValueString(), 64)
+	if err == nil {
+		return attr
+	}
+
+	if err == nil {
+		return attr
+	}
+
+	return m.Value.ValueString()
 }
 
 func (m PanelStatDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
 	type jsonPanelStatDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
-		Value *float64 `json:"value,omitempty"`
-		Color string   `json:"color"`
-		Index *int64   `json:"index,omitempty"`
-		State *string  `json:"state,omitempty"`
+		Value interface{} `json:"value"`
+		Color string      `json:"color"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_value := m.Value.ValueFloat64Pointer()
+	attr_value := m.GetAttrValue()
 	attr_color := m.Color.ValueString()
-	attr_index := m.Index.ValueInt64Pointer()
-	attr_state := m.State.ValueStringPointer()
 
 	model := &jsonPanelStatDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
 		Value: attr_value,
 		Color: attr_color,
-		Index: attr_index,
-		State: attr_state,
 	}
 	return json.Marshal(model)
 }
@@ -1171,7 +1208,7 @@ func (m PanelStatDataSourceModel) MarshalJSON() ([]byte, error) {
 		GridPos         interface{}   `json:"gridPos,omitempty"`
 		Links           []interface{} `json:"links,omitempty"`
 		Repeat          *string       `json:"repeat,omitempty"`
-		RepeatDirection string        `json:"repeatDirection"`
+		RepeatDirection *string       `json:"repeatDirection,omitempty"`
 		RepeatPanelId   *int64        `json:"repeatPanelId,omitempty"`
 		MaxDataPoints   *float64      `json:"maxDataPoints,omitempty"`
 		Transformations []interface{} `json:"transformations,omitempty"`
@@ -1210,7 +1247,7 @@ func (m PanelStatDataSourceModel) MarshalJSON() ([]byte, error) {
 		attr_links = append(attr_links, v)
 	}
 	attr_repeat := m.Repeat.ValueStringPointer()
-	attr_repeatdirection := m.RepeatDirection.ValueString()
+	attr_repeatdirection := m.RepeatDirection.ValueStringPointer()
 	attr_repeatpanelid := m.RepeatPanelId.ValueInt64Pointer()
 	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64Pointer()
 	attr_transformations := []interface{}{}
@@ -1288,26 +1325,26 @@ func (d *PanelStatDataSource) Schema(ctx context.Context, req datasource.SchemaR
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. May not be empty. Defaults to "stat".`,
+				MarkdownDescription: `The panel plugin type id. This is used to find the plugin to display the panel. Defaults to "stat".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
 			},
 			"plugin_version": schema.StringAttribute{
-				MarkdownDescription: `FIXME this almost certainly has to be changed in favor of scuemata versions`,
+				MarkdownDescription: `The version of the plugin that is used for this panel. This is used to find the plugin to display the panel and to migrate old panel configs.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 			},
 			"tags": schema.ListAttribute{
-				MarkdownDescription: `TODO docs`,
+				MarkdownDescription: `Tags for the panel.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
 				ElementType:         types.StringType,
 			},
 			"targets": schema.ListAttribute{
-				MarkdownDescription: `TODO docs`,
+				MarkdownDescription: `Depends on the panel plugin. See the plugin documentation for details.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
@@ -1320,7 +1357,7 @@ func (d *PanelStatDataSource) Schema(ctx context.Context, req datasource.SchemaR
 				Required:            false,
 			},
 			"description": schema.StringAttribute{
-				MarkdownDescription: `Description.`,
+				MarkdownDescription: `Panel description.`,
 				Computed:            false,
 				Optional:            true,
 				Required:            false,
@@ -1338,13 +1375,13 @@ func (d *PanelStatDataSource) Schema(ctx context.Context, req datasource.SchemaR
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
 					"type": schema.StringAttribute{
-						MarkdownDescription: ``,
+						MarkdownDescription: `The plugin type-id`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
 					},
 					"uid": schema.StringAttribute{
-						MarkdownDescription: ``,
+						MarkdownDescription: `Specific datasource instance`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
@@ -1358,31 +1395,31 @@ func (d *PanelStatDataSource) Schema(ctx context.Context, req datasource.SchemaR
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
 					"h": schema.Int64Attribute{
-						MarkdownDescription: `Panel. Defaults to 9.`,
+						MarkdownDescription: `Panel height. The height is the number of rows from the top edge of the panel. Defaults to 9.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 					"w": schema.Int64Attribute{
-						MarkdownDescription: `Panel. Defaults to 12.`,
+						MarkdownDescription: `Panel width. The width is the number of columns from the left edge of the panel. Defaults to 12.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 					"x": schema.Int64Attribute{
-						MarkdownDescription: `Panel x. Defaults to 0.`,
+						MarkdownDescription: `Panel x. The x coordinate is the number of columns from the left edge of the grid. Defaults to 0.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 					"y": schema.Int64Attribute{
-						MarkdownDescription: `Panel y. Defaults to 0.`,
+						MarkdownDescription: `Panel y. The y coordinate is the number of rows from the top edge of the grid. Defaults to 0.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 					},
 					"static": schema.BoolAttribute{
-						MarkdownDescription: `Whether the panel is fixed within the grid`,
+						MarkdownDescription: `Whether the panel is fixed within the grid. If true, the panel will not be affected by other panels' interactions`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,
@@ -1390,11 +1427,10 @@ func (d *PanelStatDataSource) Schema(ctx context.Context, req datasource.SchemaR
 				},
 			},
 			"links": schema.ListNestedAttribute{
-				MarkdownDescription: `Panel links.
-TODO fill this out - seems there are a couple variants?`,
-				Computed: false,
-				Optional: true,
-				Required: false,
+				MarkdownDescription: `Panel links.`,
+				Computed:            false,
+				Optional:            true,
+				Required:            false,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"title": schema.StringAttribute{
@@ -1469,8 +1505,7 @@ TODO fill this out - seems there are a couple variants?`,
 			},
 			"repeat_direction": schema.StringAttribute{
 				MarkdownDescription: `Direction to repeat in if 'repeat' is set.
-"h" for horizontal, "v" for vertical.
-TODO this is probably optional. Defaults to "h".`,
+h for horizontal, v for vertical. Defaults to "h".`,
 				Computed: true,
 				Optional: true,
 				Required: false,
@@ -1488,10 +1523,12 @@ TODO this is probably optional. Defaults to "h".`,
 				Required:            false,
 			},
 			"transformations": schema.ListNestedAttribute{
-				MarkdownDescription: ``,
-				Computed:            false,
-				Optional:            true,
-				Required:            false,
+				MarkdownDescription: `List of transformations that are applied to the panel data before rendering.
+When there are multiple transformations, Grafana applies them in the order they are listed.
+Each transformation creates a result set that then passes on to the next transformation in the processing pipeline.`,
+				Computed: false,
+				Optional: true,
+				Required: false,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"disabled": schema.BoolAttribute{
@@ -1501,7 +1538,7 @@ TODO this is probably optional. Defaults to "h".`,
 							Required:            false,
 						},
 						"filter": schema.SingleNestedAttribute{
-							MarkdownDescription: `Optional frame matcher.  When missing it will be applied to all results`,
+							MarkdownDescription: `Optional frame matcher. When missing it will be applied to all results`,
 							Computed:            true,
 							Optional:            true,
 							Required:            false,
@@ -1547,13 +1584,13 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
 					"name": schema.StringAttribute{
-						MarkdownDescription: ``,
+						MarkdownDescription: `Library panel name`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
 					},
 					"uid": schema.StringAttribute{
-						MarkdownDescription: ``,
+						MarkdownDescription: `Library panel uid`,
 						Computed:            false,
 						Optional:            false,
 						Required:            true,
@@ -1652,13 +1689,13 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				},
 			},
 			"field_config": schema.SingleNestedAttribute{
-				MarkdownDescription: ``,
+				MarkdownDescription: `Field options allow you to change how the data is displayed in your visualizations.`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
 					"defaults": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
+						MarkdownDescription: `Defaults are the options applied to all fields.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
@@ -1693,7 +1730,7 @@ may be used to update the results`,
 								Required: false,
 							},
 							"writeable": schema.BoolAttribute{
-								MarkdownDescription: `True if data source can write a value to the path.  Auth/authz are supported separately`,
+								MarkdownDescription: `True if data source can write a value to the path. Auth/authz are supported separately`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
@@ -1705,25 +1742,37 @@ may be used to update the results`,
 								Required:            false,
 							},
 							"unit": schema.StringAttribute{
-								MarkdownDescription: `Numeric Options`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
+								MarkdownDescription: `Unit a field should use. The unit you select is applied to all fields except time.
+You can use the units ID availables in Grafana or a custom unit.
+Available units in Grafana: https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts
+As custom unit, you can use the following formats:
+suffix:<suffix> for custom unit that should go after value.
+prefix:<prefix> for custom unit that should go before value.
+time:<format> For custom date time formats type for example time:YYYY-MM-DD.
+si:<base scale><unit characters> for custom SI units. For example: si: mF. This one is a bit more advanced as you can specify both a unit and the source data scale. So if your source data is represented as milli (thousands of) something prefix the unit with that SI scale character.
+count:<unit> for a custom count unit.
+currency:<unit> for custom a currency unit.`,
+								Computed: false,
+								Optional: true,
+								Required: false,
 							},
 							"decimals": schema.Float64Attribute{
-								MarkdownDescription: `Significant digits (for display)`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
+								MarkdownDescription: `Specify the number of decimals Grafana includes in the rendered value.
+If you leave this field blank, Grafana automatically truncates the number of decimals based on the value.
+For example 1.1234 will display as 1.12 and 100.456 will display as 100.
+To display all decimals, set the unit to String.`,
+								Computed: false,
+								Optional: true,
+								Required: false,
 							},
 							"min": schema.Float64Attribute{
-								MarkdownDescription: ``,
+								MarkdownDescription: `The minimum value used in percentage threshold calculations. Leave blank for auto calculation based on all series and fields.`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
 							},
 							"max": schema.Float64Attribute{
-								MarkdownDescription: ``,
+								MarkdownDescription: `The maximum value used in percentage threshold calculations. Leave blank for auto calculation based on all series and fields.`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
@@ -1748,32 +1797,32 @@ may be used to update the results`,
 													Required:            true,
 												},
 												"options": schema.MapNestedAttribute{
-													MarkdownDescription: ``,
+													MarkdownDescription: `Map with <value_to_match>: ValueMappingResult. For example: { "10": { text: "Perfection!", color: "green" } }`,
 													Computed:            false,
 													Optional:            true,
 													Required:            false,
 													NestedObject: schema.NestedAttributeObject{
 														Attributes: map[string]schema.Attribute{
 															"text": schema.StringAttribute{
-																MarkdownDescription: ``,
+																MarkdownDescription: `Text to display when the value matches`,
 																Computed:            false,
 																Optional:            true,
 																Required:            false,
 															},
 															"color": schema.StringAttribute{
-																MarkdownDescription: ``,
+																MarkdownDescription: `Text to use when the value matches`,
 																Computed:            false,
 																Optional:            true,
 																Required:            false,
 															},
 															"icon": schema.StringAttribute{
-																MarkdownDescription: ``,
+																MarkdownDescription: `Icon to display when the value matches. Only specific visualizations.`,
 																Computed:            false,
 																Optional:            true,
 																Required:            false,
 															},
 															"index": schema.Int64Attribute{
-																MarkdownDescription: ``,
+																MarkdownDescription: `Position in the mapping array. Only used internally.`,
 																Computed:            false,
 																Optional:            true,
 																Required:            false,
@@ -1796,49 +1845,49 @@ may be used to update the results`,
 													Required:            true,
 												},
 												"options": schema.SingleNestedAttribute{
-													MarkdownDescription: ``,
+													MarkdownDescription: `Range to match against and the result to apply when the value is within the range`,
 													Computed:            true,
 													Optional:            true,
 													Required:            false,
 													Attributes: map[string]schema.Attribute{
-														"from": schema.Float64Attribute{
-															MarkdownDescription: `to and from are number | null in current ts, really not sure what to do`,
+														"from": schema.StringAttribute{
+															MarkdownDescription: `Min value of the range. It can be null which means -Infinity`,
 															Computed:            false,
 															Optional:            false,
 															Required:            true,
 														},
-														"to": schema.Float64Attribute{
-															MarkdownDescription: ``,
+														"to": schema.StringAttribute{
+															MarkdownDescription: `Max value of the range. It can be null which means +Infinity`,
 															Computed:            false,
 															Optional:            false,
 															Required:            true,
 														},
 														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
+															MarkdownDescription: `Config to apply when the value is within the range`,
 															Computed:            true,
 															Optional:            true,
 															Required:            false,
 															Attributes: map[string]schema.Attribute{
 																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Text to display when the value matches`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
 																},
 																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Text to use when the value matches`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
 																},
 																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Icon to display when the value matches. Only specific visualizations.`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
 																},
 																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Position in the mapping array. Only used internally.`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
@@ -1862,43 +1911,43 @@ may be used to update the results`,
 													Required:            true,
 												},
 												"options": schema.SingleNestedAttribute{
-													MarkdownDescription: ``,
+													MarkdownDescription: `Regular expression to match against and the result to apply when the value matches the regex`,
 													Computed:            true,
 													Optional:            true,
 													Required:            false,
 													Attributes: map[string]schema.Attribute{
 														"pattern": schema.StringAttribute{
-															MarkdownDescription: ``,
+															MarkdownDescription: `Regular expression to match against`,
 															Computed:            false,
 															Optional:            false,
 															Required:            true,
 														},
 														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
+															MarkdownDescription: `Config to apply when the value matches the regex`,
 															Computed:            true,
 															Optional:            true,
 															Required:            false,
 															Attributes: map[string]schema.Attribute{
 																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Text to display when the value matches`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
 																},
 																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Text to use when the value matches`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
 																},
 																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Icon to display when the value matches. Only specific visualizations.`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
 																},
 																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Position in the mapping array. Only used internally.`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
@@ -1928,43 +1977,37 @@ may be used to update the results`,
 													Required:            false,
 													Attributes: map[string]schema.Attribute{
 														"match": schema.StringAttribute{
-															MarkdownDescription: ``,
-															Computed:            false,
-															Optional:            false,
-															Required:            true,
-														},
-														"pattern": schema.StringAttribute{
-															MarkdownDescription: ``,
+															MarkdownDescription: `Special value to match against`,
 															Computed:            false,
 															Optional:            false,
 															Required:            true,
 														},
 														"result": schema.SingleNestedAttribute{
-															MarkdownDescription: ``,
+															MarkdownDescription: `Config to apply when the value matches the special value`,
 															Computed:            true,
 															Optional:            true,
 															Required:            false,
 															Attributes: map[string]schema.Attribute{
 																"text": schema.StringAttribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Text to display when the value matches`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
 																},
 																"color": schema.StringAttribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Text to use when the value matches`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
 																},
 																"icon": schema.StringAttribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Icon to display when the value matches. Only specific visualizations.`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
 																},
 																"index": schema.Int64Attribute{
-																	MarkdownDescription: ``,
+																	MarkdownDescription: `Position in the mapping array. Only used internally.`,
 																	Computed:            false,
 																	Optional:            true,
 																	Required:            false,
@@ -1985,7 +2028,7 @@ may be used to update the results`,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
 									"mode": schema.StringAttribute{
-										MarkdownDescription: ``,
+										MarkdownDescription: `Thresholds mode.`,
 										Computed:            false,
 										Optional:            false,
 										Required:            true,
@@ -1997,12 +2040,12 @@ may be used to update the results`,
 										Required:            false,
 										NestedObject: schema.NestedAttributeObject{
 											Attributes: map[string]schema.Attribute{
-												"value": schema.Float64Attribute{
+												"value": schema.StringAttribute{
 													MarkdownDescription: `Value represents a specified metric for the threshold, which triggers a visual change in the dashboard when this value is met or exceeded.
-FIXME the corresponding typescript field is required/non-optional, but nulls currently appear here when serializing -Infinity to JSON`,
+Nulls currently appear here when serializing -Infinity to JSON.`,
 													Computed: false,
-													Optional: true,
-													Required: false,
+													Optional: false,
+													Required: true,
 												},
 												"color": schema.StringAttribute{
 													MarkdownDescription: `Color represents the color of the visual change that will occur in the dashboard when the threshold value is met or exceeded.`,
@@ -2010,45 +2053,31 @@ FIXME the corresponding typescript field is required/non-optional, but nulls cur
 													Optional:            false,
 													Required:            true,
 												},
-												"index": schema.Int64Attribute{
-													MarkdownDescription: `Threshold index, an old property that is not needed an should only appear in older dashboards`,
-													Computed:            false,
-													Optional:            true,
-													Required:            false,
-												},
-												"state": schema.StringAttribute{
-													MarkdownDescription: `TODO docs
-TODO are the values here enumerable into a disjunction?
-Some seem to be listed in typescript comment`,
-													Computed: false,
-													Optional: true,
-													Required: false,
-												},
 											},
 										},
 									},
 								},
 							},
 							"color": schema.SingleNestedAttribute{
-								MarkdownDescription: `Map values to a display color`,
+								MarkdownDescription: `Panel color configuration`,
 								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
 									"mode": schema.StringAttribute{
-										MarkdownDescription: `The main color scheme mode`,
+										MarkdownDescription: `The main color scheme mode.`,
 										Computed:            false,
 										Optional:            false,
 										Required:            true,
 									},
 									"fixed_color": schema.StringAttribute{
-										MarkdownDescription: `Stores the fixed color value if mode is fixed`,
+										MarkdownDescription: `The fixed color value for fixed or shades color modes.`,
 										Computed:            false,
 										Optional:            true,
 										Required:            false,
 									},
 									"series_by": schema.StringAttribute{
-										MarkdownDescription: `Some visualizations need to know how to assign a series color from by value color schemes`,
+										MarkdownDescription: `Some visualizations need to know how to assign a series color from by value color schemes.`,
 										Computed:            false,
 										Optional:            true,
 										Required:            false,
@@ -2098,7 +2127,7 @@ Some seem to be listed in typescript comment`,
 						},
 					},
 					"overrides": schema.ListNestedAttribute{
-						MarkdownDescription: ``,
+						MarkdownDescription: `Overrides are the options applied to specific fields overriding the defaults.`,
 						Computed:            false,
 						Optional:            true,
 						Required:            false,

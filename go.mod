@@ -3,7 +3,7 @@ module github.com/grafana/terraform-provider-schemas
 go 1.20
 
 require (
-	github.com/grafana/thema v0.0.0-20230524160113-4e9d6e28a640
+	github.com/grafana/thema v0.0.0-20230615161902-b6e21996aef8
 	github.com/hashicorp/terraform-plugin-docs v0.15.0
 	github.com/hashicorp/terraform-plugin-framework v1.3.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
@@ -78,13 +78,13 @@ require (
 
 require (
 	github.com/google/go-cmp v0.5.9 // indirect
-	github.com/grafana/grafana v1.9.2-0.20230602090925-7b2bd48677bf
+	github.com/grafana/grafana v1.9.2-0.20230706143427-a8d2a9ae2ba1
 	github.com/yalue/merged_fs v1.2.3 // indirect
-	golang.org/x/sync v0.2.0 // indirect
+	golang.org/x/sync v0.3.0 // indirect
 )
 
 require (
-	cuelang.org/go v0.5.0
+	cuelang.org/go v0.6.0-0.dev
 	github.com/cockroachdb/apd/v2 v2.0.2 // indirect
 	github.com/emicklei/proto v1.11.2 // indirect
 	github.com/fatih/color v1.15.0 // indirect
@@ -117,7 +117,7 @@ require (
 	golang.org/x/net v0.10.0 // indirect
 	golang.org/x/sys v0.8.0 // indirect
 	golang.org/x/text v0.9.0
-	golang.org/x/tools v0.9.2 // indirect
+	golang.org/x/tools v0.9.2
 	google.golang.org/grpc v1.55.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

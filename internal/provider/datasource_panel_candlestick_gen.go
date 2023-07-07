@@ -29,45 +29,45 @@ var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &PanelGeomapDataSource{}
-	_ datasource.DataSourceWithConfigure = &PanelGeomapDataSource{}
+	_ datasource.DataSource              = &PanelCandlestickDataSource{}
+	_ datasource.DataSourceWithConfigure = &PanelCandlestickDataSource{}
 )
 
-func NewPanelGeomapDataSource() datasource.DataSource {
-	return &PanelGeomapDataSource{}
+func NewPanelCandlestickDataSource() datasource.DataSource {
+	return &PanelCandlestickDataSource{}
 }
 
-// PanelGeomapDataSource defines the data source implementation.
-type PanelGeomapDataSource struct{}
+// PanelCandlestickDataSource defines the data source implementation.
+type PanelCandlestickDataSource struct{}
 
-type PanelGeomapDataSourceModel_Datasource struct {
+type PanelCandlestickDataSourceModel_Datasource struct {
 	Type types.String `tfsdk:"type"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelGeomapDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Datasource struct {
+func (m PanelCandlestickDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Datasource struct {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueStringPointer()
-	attr_uid := m.Uid.ValueStringPointer()
+	attr_type := m.Type.ValueString()
+	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_Datasource{
-		Type: attr_type,
-		Uid:  attr_uid,
+	model := &jsonPanelCandlestickDataSourceModel_Datasource{
+		Type: &attr_type,
+		Uid:  &attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Datasource) ApplyDefaults() PanelGeomapDataSourceModel_Datasource {
+func (m PanelCandlestickDataSourceModel_Datasource) ApplyDefaults() PanelCandlestickDataSourceModel_Datasource {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_GridPos struct {
+type PanelCandlestickDataSourceModel_GridPos struct {
 	H      types.Int64 `tfsdk:"h"`
 	W      types.Int64 `tfsdk:"w"`
 	X      types.Int64 `tfsdk:"x"`
@@ -75,8 +75,8 @@ type PanelGeomapDataSourceModel_GridPos struct {
 	Static types.Bool  `tfsdk:"static"`
 }
 
-func (m PanelGeomapDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_GridPos struct {
+func (m PanelCandlestickDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_GridPos struct {
 		H      int64 `json:"h"`
 		W      int64 `json:"w"`
 		X      int64 `json:"x"`
@@ -89,19 +89,19 @@ func (m PanelGeomapDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	attr_static := m.Static.ValueBoolPointer()
+	attr_static := m.Static.ValueBool()
 
-	model := &jsonPanelGeomapDataSourceModel_GridPos{
+	model := &jsonPanelCandlestickDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
 		Y:      attr_y,
-		Static: attr_static,
+		Static: &attr_static,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_GridPos) ApplyDefaults() PanelGeomapDataSourceModel_GridPos {
+func (m PanelCandlestickDataSourceModel_GridPos) ApplyDefaults() PanelCandlestickDataSourceModel_GridPos {
 	if m.H.IsNull() {
 		m.H = types.Int64Value(9)
 	}
@@ -117,7 +117,7 @@ func (m PanelGeomapDataSourceModel_GridPos) ApplyDefaults() PanelGeomapDataSourc
 	return m
 }
 
-type PanelGeomapDataSourceModel_Links struct {
+type PanelCandlestickDataSourceModel_Links struct {
 	Title       types.String `tfsdk:"title"`
 	Type        types.String `tfsdk:"type"`
 	Icon        types.String `tfsdk:"icon"`
@@ -130,8 +130,8 @@ type PanelGeomapDataSourceModel_Links struct {
 	KeepTime    types.Bool   `tfsdk:"keep_time"`
 }
 
-func (m PanelGeomapDataSourceModel_Links) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Links struct {
+func (m PanelCandlestickDataSourceModel_Links) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Links struct {
 		Title       string   `json:"title"`
 		Type        string   `json:"type"`
 		Icon        string   `json:"icon"`
@@ -159,7 +159,7 @@ func (m PanelGeomapDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	attr_includevars := m.IncludeVars.ValueBool()
 	attr_keeptime := m.KeepTime.ValueBool()
 
-	model := &jsonPanelGeomapDataSourceModel_Links{
+	model := &jsonPanelCandlestickDataSourceModel_Links{
 		Title:       attr_title,
 		Type:        attr_type,
 		Icon:        attr_icon,
@@ -174,7 +174,7 @@ func (m PanelGeomapDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Links) ApplyDefaults() PanelGeomapDataSourceModel_Links {
+func (m PanelCandlestickDataSourceModel_Links) ApplyDefaults() PanelCandlestickDataSourceModel_Links {
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
@@ -193,61 +193,61 @@ func (m PanelGeomapDataSourceModel_Links) ApplyDefaults() PanelGeomapDataSourceM
 	return m
 }
 
-type PanelGeomapDataSourceModel_Transformations_Filter struct {
+type PanelCandlestickDataSourceModel_Transformations_Filter struct {
 }
 
-func (m PanelGeomapDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Transformations_Filter struct {
+func (m PanelCandlestickDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Transformations_Filter struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelGeomapDataSourceModel_Transformations_Filter{}
+	model := &jsonPanelCandlestickDataSourceModel_Transformations_Filter{}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Transformations_Filter) ApplyDefaults() PanelGeomapDataSourceModel_Transformations_Filter {
+func (m PanelCandlestickDataSourceModel_Transformations_Filter) ApplyDefaults() PanelCandlestickDataSourceModel_Transformations_Filter {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_Transformations struct {
-	Disabled types.Bool                                         `tfsdk:"disabled"`
-	Filter   *PanelGeomapDataSourceModel_Transformations_Filter `tfsdk:"filter"`
+type PanelCandlestickDataSourceModel_Transformations struct {
+	Disabled types.Bool                                              `tfsdk:"disabled"`
+	Filter   *PanelCandlestickDataSourceModel_Transformations_Filter `tfsdk:"filter"`
 }
 
-func (m PanelGeomapDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Transformations struct {
+func (m PanelCandlestickDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Transformations struct {
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_disabled := m.Disabled.ValueBoolPointer()
+	attr_disabled := m.Disabled.ValueBool()
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_Transformations{
-		Disabled: attr_disabled,
+	model := &jsonPanelCandlestickDataSourceModel_Transformations{
+		Disabled: &attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Transformations) ApplyDefaults() PanelGeomapDataSourceModel_Transformations {
+func (m PanelCandlestickDataSourceModel_Transformations) ApplyDefaults() PanelCandlestickDataSourceModel_Transformations {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_LibraryPanel struct {
+type PanelCandlestickDataSourceModel_LibraryPanel struct {
 	Name types.String `tfsdk:"name"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelGeomapDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_LibraryPanel struct {
+func (m PanelCandlestickDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_LibraryPanel struct {
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
@@ -256,395 +256,243 @@ func (m PanelGeomapDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_LibraryPanel{
+	model := &jsonPanelCandlestickDataSourceModel_LibraryPanel{
 		Name: attr_name,
 		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_LibraryPanel) ApplyDefaults() PanelGeomapDataSourceModel_LibraryPanel {
+func (m PanelCandlestickDataSourceModel_LibraryPanel) ApplyDefaults() PanelCandlestickDataSourceModel_LibraryPanel {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_Options_View struct {
-	Lat       types.Int64  `tfsdk:"lat"`
-	Lon       types.Int64  `tfsdk:"lon"`
-	Zoom      types.Int64  `tfsdk:"zoom"`
-	MinZoom   types.Int64  `tfsdk:"min_zoom"`
-	MaxZoom   types.Int64  `tfsdk:"max_zoom"`
-	Padding   types.Int64  `tfsdk:"padding"`
-	AllLayers types.Bool   `tfsdk:"all_layers"`
-	LastOnly  types.Bool   `tfsdk:"last_only"`
-	Layer     types.String `tfsdk:"layer"`
-	Shared    types.Bool   `tfsdk:"shared"`
+type PanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap struct {
+	Open   types.String `tfsdk:"open"`
+	High   types.String `tfsdk:"high"`
+	Low    types.String `tfsdk:"low"`
+	Close  types.String `tfsdk:"close"`
+	Volume types.String `tfsdk:"volume"`
 }
 
-func (m PanelGeomapDataSourceModel_Options_View) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_View struct {
-		Lat       *int64  `json:"lat,omitempty"`
-		Lon       *int64  `json:"lon,omitempty"`
-		Zoom      *int64  `json:"zoom,omitempty"`
-		MinZoom   *int64  `json:"minZoom,omitempty"`
-		MaxZoom   *int64  `json:"maxZoom,omitempty"`
-		Padding   *int64  `json:"padding,omitempty"`
-		AllLayers *bool   `json:"allLayers,omitempty"`
-		LastOnly  *bool   `json:"lastOnly,omitempty"`
-		Layer     *string `json:"layer,omitempty"`
-		Shared    *bool   `json:"shared,omitempty"`
+func (m PanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap struct {
+		Open   *string `json:"open,omitempty"`
+		High   *string `json:"high,omitempty"`
+		Low    *string `json:"low,omitempty"`
+		Close  *string `json:"close,omitempty"`
+		Volume *string `json:"volume,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_lat := m.Lat.ValueInt64Pointer()
-	attr_lon := m.Lon.ValueInt64Pointer()
-	attr_zoom := m.Zoom.ValueInt64Pointer()
-	attr_minzoom := m.MinZoom.ValueInt64Pointer()
-	attr_maxzoom := m.MaxZoom.ValueInt64Pointer()
-	attr_padding := m.Padding.ValueInt64Pointer()
-	attr_alllayers := m.AllLayers.ValueBoolPointer()
-	attr_lastonly := m.LastOnly.ValueBoolPointer()
-	attr_layer := m.Layer.ValueStringPointer()
-	attr_shared := m.Shared.ValueBoolPointer()
+	attr_open := m.Open.ValueString()
+	attr_high := m.High.ValueString()
+	attr_low := m.Low.ValueString()
+	attr_close := m.Close.ValueString()
+	attr_volume := m.Volume.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_Options_View{
-		Lat:       attr_lat,
-		Lon:       attr_lon,
-		Zoom:      attr_zoom,
-		MinZoom:   attr_minzoom,
-		MaxZoom:   attr_maxzoom,
-		Padding:   attr_padding,
-		AllLayers: attr_alllayers,
-		LastOnly:  attr_lastonly,
-		Layer:     attr_layer,
-		Shared:    attr_shared,
+	model := &jsonPanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap{
+		Open:   &attr_open,
+		High:   &attr_high,
+		Low:    &attr_low,
+		Close:  &attr_close,
+		Volume: &attr_volume,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Options_View) ApplyDefaults() PanelGeomapDataSourceModel_Options_View {
-	if m.Lat.IsNull() {
-		m.Lat = types.Int64Value(0)
-	}
-	if m.Lon.IsNull() {
-		m.Lon = types.Int64Value(0)
-	}
-	if m.Zoom.IsNull() {
-		m.Zoom = types.Int64Value(1)
-	}
-	if m.AllLayers.IsNull() {
-		m.AllLayers = types.BoolValue(true)
-	}
+func (m PanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap) ApplyDefaults() PanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap {
+
 	return m
 }
 
-type PanelGeomapDataSourceModel_Options_Controls struct {
-	ShowZoom        types.Bool `tfsdk:"show_zoom"`
-	MouseWheelZoom  types.Bool `tfsdk:"mouse_wheel_zoom"`
-	ShowAttribution types.Bool `tfsdk:"show_attribution"`
-	ShowScale       types.Bool `tfsdk:"show_scale"`
-	ShowDebug       types.Bool `tfsdk:"show_debug"`
-	ShowMeasure     types.Bool `tfsdk:"show_measure"`
+type PanelCandlestickDataSourceModel_Options_Fields struct {
+	CandlestickFieldMap *PanelCandlestickDataSourceModel_Options_Fields_CandlestickFieldMap `tfsdk:"candlestick_field_map"`
 }
 
-func (m PanelGeomapDataSourceModel_Options_Controls) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Controls struct {
-		ShowZoom        *bool `json:"showZoom,omitempty"`
-		MouseWheelZoom  *bool `json:"mouseWheelZoom,omitempty"`
-		ShowAttribution *bool `json:"showAttribution,omitempty"`
-		ShowScale       *bool `json:"showScale,omitempty"`
-		ShowDebug       *bool `json:"showDebug,omitempty"`
-		ShowMeasure     *bool `json:"showMeasure,omitempty"`
+func (m PanelCandlestickDataSourceModel_Options_Fields) MarshalJSON() ([]byte, error) {
+	var json_PanelCandlestickDataSourceModel_Options_Fields interface{}
+	m = m.ApplyDefaults()
+	if m.CandlestickFieldMap != nil {
+		json_PanelCandlestickDataSourceModel_Options_Fields = m.CandlestickFieldMap
+	}
+
+	return json.Marshal(json_PanelCandlestickDataSourceModel_Options_Fields)
+}
+
+func (m PanelCandlestickDataSourceModel_Options_Fields) ApplyDefaults() PanelCandlestickDataSourceModel_Options_Fields {
+
+	return m
+}
+
+type PanelCandlestickDataSourceModel_Options_Colors struct {
+	Down types.String `tfsdk:"down"`
+	Up   types.String `tfsdk:"up"`
+	Flat types.String `tfsdk:"flat"`
+}
+
+func (m PanelCandlestickDataSourceModel_Options_Colors) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Options_Colors struct {
+		Down string `json:"down"`
+		Up   string `json:"up"`
+		Flat string `json:"flat"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_showzoom := m.ShowZoom.ValueBoolPointer()
-	attr_mousewheelzoom := m.MouseWheelZoom.ValueBoolPointer()
-	attr_showattribution := m.ShowAttribution.ValueBoolPointer()
-	attr_showscale := m.ShowScale.ValueBoolPointer()
-	attr_showdebug := m.ShowDebug.ValueBoolPointer()
-	attr_showmeasure := m.ShowMeasure.ValueBoolPointer()
+	attr_down := m.Down.ValueString()
+	attr_up := m.Up.ValueString()
+	attr_flat := m.Flat.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_Options_Controls{
-		ShowZoom:        attr_showzoom,
-		MouseWheelZoom:  attr_mousewheelzoom,
-		ShowAttribution: attr_showattribution,
-		ShowScale:       attr_showscale,
-		ShowDebug:       attr_showdebug,
-		ShowMeasure:     attr_showmeasure,
+	model := &jsonPanelCandlestickDataSourceModel_Options_Colors{
+		Down: attr_down,
+		Up:   attr_up,
+		Flat: attr_flat,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Options_Controls) ApplyDefaults() PanelGeomapDataSourceModel_Options_Controls {
+func (m PanelCandlestickDataSourceModel_Options_Colors) ApplyDefaults() PanelCandlestickDataSourceModel_Options_Colors {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_Options_Basemap_Location struct {
-	Mode      types.String `tfsdk:"mode"`
-	Geohash   types.String `tfsdk:"geohash"`
-	Latitude  types.String `tfsdk:"latitude"`
-	Longitude types.String `tfsdk:"longitude"`
-	Wkt       types.String `tfsdk:"wkt"`
-	Lookup    types.String `tfsdk:"lookup"`
-	Gazetteer types.String `tfsdk:"gazetteer"`
+type PanelCandlestickDataSourceModel_Options_Legend struct {
+	DisplayMode types.String  `tfsdk:"display_mode"`
+	Placement   types.String  `tfsdk:"placement"`
+	ShowLegend  types.Bool    `tfsdk:"show_legend"`
+	AsTable     types.Bool    `tfsdk:"as_table"`
+	IsVisible   types.Bool    `tfsdk:"is_visible"`
+	SortBy      types.String  `tfsdk:"sort_by"`
+	SortDesc    types.Bool    `tfsdk:"sort_desc"`
+	Width       types.Float64 `tfsdk:"width"`
+	Calcs       types.List    `tfsdk:"calcs"`
 }
 
-func (m PanelGeomapDataSourceModel_Options_Basemap_Location) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Basemap_Location struct {
-		Mode      string  `json:"mode"`
-		Geohash   *string `json:"geohash,omitempty"`
-		Latitude  *string `json:"latitude,omitempty"`
-		Longitude *string `json:"longitude,omitempty"`
-		Wkt       *string `json:"wkt,omitempty"`
-		Lookup    *string `json:"lookup,omitempty"`
-		Gazetteer *string `json:"gazetteer,omitempty"`
+func (m PanelCandlestickDataSourceModel_Options_Legend) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Options_Legend struct {
+		DisplayMode string   `json:"displayMode"`
+		Placement   string   `json:"placement"`
+		ShowLegend  bool     `json:"showLegend"`
+		AsTable     *bool    `json:"asTable,omitempty"`
+		IsVisible   *bool    `json:"isVisible,omitempty"`
+		SortBy      *string  `json:"sortBy,omitempty"`
+		SortDesc    *bool    `json:"sortDesc,omitempty"`
+		Width       *float64 `json:"width,omitempty"`
+		Calcs       []string `json:"calcs,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_geohash := m.Geohash.ValueStringPointer()
-	attr_latitude := m.Latitude.ValueStringPointer()
-	attr_longitude := m.Longitude.ValueStringPointer()
-	attr_wkt := m.Wkt.ValueStringPointer()
-	attr_lookup := m.Lookup.ValueStringPointer()
-	attr_gazetteer := m.Gazetteer.ValueStringPointer()
+	attr_displaymode := m.DisplayMode.ValueString()
+	attr_placement := m.Placement.ValueString()
+	attr_showlegend := m.ShowLegend.ValueBool()
+	attr_astable := m.AsTable.ValueBool()
+	attr_isvisible := m.IsVisible.ValueBool()
+	attr_sortby := m.SortBy.ValueString()
+	attr_sortdesc := m.SortDesc.ValueBool()
+	attr_width := m.Width.ValueFloat64()
+	attr_calcs := []string{}
+	for _, v := range m.Calcs.Elements() {
+		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
+	}
 
-	model := &jsonPanelGeomapDataSourceModel_Options_Basemap_Location{
-		Mode:      attr_mode,
-		Geohash:   attr_geohash,
-		Latitude:  attr_latitude,
-		Longitude: attr_longitude,
-		Wkt:       attr_wkt,
-		Lookup:    attr_lookup,
-		Gazetteer: attr_gazetteer,
+	model := &jsonPanelCandlestickDataSourceModel_Options_Legend{
+		DisplayMode: attr_displaymode,
+		Placement:   attr_placement,
+		ShowLegend:  attr_showlegend,
+		AsTable:     &attr_astable,
+		IsVisible:   &attr_isvisible,
+		SortBy:      &attr_sortby,
+		SortDesc:    &attr_sortdesc,
+		Width:       &attr_width,
+		Calcs:       attr_calcs,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Options_Basemap_Location) ApplyDefaults() PanelGeomapDataSourceModel_Options_Basemap_Location {
-
+func (m PanelCandlestickDataSourceModel_Options_Legend) ApplyDefaults() PanelCandlestickDataSourceModel_Options_Legend {
+	if len(m.Calcs.Elements()) == 0 {
+		m.Calcs, _ = types.ListValue(types.StringType, []attr.Value{})
+	}
 	return m
 }
 
-type PanelGeomapDataSourceModel_Options_Basemap struct {
-	Type     types.String                                         `tfsdk:"type"`
-	Name     types.String                                         `tfsdk:"name"`
-	Location *PanelGeomapDataSourceModel_Options_Basemap_Location `tfsdk:"location"`
-	Opacity  types.Int64                                          `tfsdk:"opacity"`
-	Tooltip  types.Bool                                           `tfsdk:"tooltip"`
+type PanelCandlestickDataSourceModel_Options struct {
+	Mode             types.String                                    `tfsdk:"mode"`
+	CandleStyle      types.String                                    `tfsdk:"candle_style"`
+	ColorStrategy    types.String                                    `tfsdk:"color_strategy"`
+	Fields           *PanelCandlestickDataSourceModel_Options_Fields `tfsdk:"fields"`
+	Colors           *PanelCandlestickDataSourceModel_Options_Colors `tfsdk:"colors"`
+	Legend           *PanelCandlestickDataSourceModel_Options_Legend `tfsdk:"legend"`
+	IncludeAllFields types.Bool                                      `tfsdk:"include_all_fields"`
 }
 
-func (m PanelGeomapDataSourceModel_Options_Basemap) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Basemap struct {
-		Type     string      `json:"type"`
-		Name     string      `json:"name"`
-		Location interface{} `json:"location,omitempty"`
-		Opacity  *int64      `json:"opacity,omitempty"`
-		Tooltip  *bool       `json:"tooltip,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_name := m.Name.ValueString()
-	var attr_location interface{}
-	if m.Location != nil {
-		attr_location = m.Location
-	}
-	attr_opacity := m.Opacity.ValueInt64Pointer()
-	attr_tooltip := m.Tooltip.ValueBoolPointer()
-
-	model := &jsonPanelGeomapDataSourceModel_Options_Basemap{
-		Type:     attr_type,
-		Name:     attr_name,
-		Location: attr_location,
-		Opacity:  attr_opacity,
-		Tooltip:  attr_tooltip,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelGeomapDataSourceModel_Options_Basemap) ApplyDefaults() PanelGeomapDataSourceModel_Options_Basemap {
-
-	return m
-}
-
-type PanelGeomapDataSourceModel_Options_Layers_Location struct {
-	Mode      types.String `tfsdk:"mode"`
-	Geohash   types.String `tfsdk:"geohash"`
-	Latitude  types.String `tfsdk:"latitude"`
-	Longitude types.String `tfsdk:"longitude"`
-	Wkt       types.String `tfsdk:"wkt"`
-	Lookup    types.String `tfsdk:"lookup"`
-	Gazetteer types.String `tfsdk:"gazetteer"`
-}
-
-func (m PanelGeomapDataSourceModel_Options_Layers_Location) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Layers_Location struct {
-		Mode      string  `json:"mode"`
-		Geohash   *string `json:"geohash,omitempty"`
-		Latitude  *string `json:"latitude,omitempty"`
-		Longitude *string `json:"longitude,omitempty"`
-		Wkt       *string `json:"wkt,omitempty"`
-		Lookup    *string `json:"lookup,omitempty"`
-		Gazetteer *string `json:"gazetteer,omitempty"`
+func (m PanelCandlestickDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_Options struct {
+		Mode             string      `json:"mode"`
+		CandleStyle      string      `json:"candleStyle"`
+		ColorStrategy    string      `json:"colorStrategy"`
+		Fields           interface{} `json:"fields,omitempty"`
+		Colors           interface{} `json:"colors,omitempty"`
+		Legend           interface{} `json:"legend,omitempty"`
+		IncludeAllFields *bool       `json:"includeAllFields,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_geohash := m.Geohash.ValueStringPointer()
-	attr_latitude := m.Latitude.ValueStringPointer()
-	attr_longitude := m.Longitude.ValueStringPointer()
-	attr_wkt := m.Wkt.ValueStringPointer()
-	attr_lookup := m.Lookup.ValueStringPointer()
-	attr_gazetteer := m.Gazetteer.ValueStringPointer()
+	attr_candlestyle := m.CandleStyle.ValueString()
+	attr_colorstrategy := m.ColorStrategy.ValueString()
+	var attr_fields interface{}
+	if m.Fields != nil {
+		attr_fields = m.Fields
+	}
+	var attr_colors interface{}
+	if m.Colors != nil {
+		attr_colors = m.Colors
+	}
+	var attr_legend interface{}
+	if m.Legend != nil {
+		attr_legend = m.Legend
+	}
+	attr_includeallfields := m.IncludeAllFields.ValueBool()
 
-	model := &jsonPanelGeomapDataSourceModel_Options_Layers_Location{
-		Mode:      attr_mode,
-		Geohash:   attr_geohash,
-		Latitude:  attr_latitude,
-		Longitude: attr_longitude,
-		Wkt:       attr_wkt,
-		Lookup:    attr_lookup,
-		Gazetteer: attr_gazetteer,
+	model := &jsonPanelCandlestickDataSourceModel_Options{
+		Mode:             attr_mode,
+		CandleStyle:      attr_candlestyle,
+		ColorStrategy:    attr_colorstrategy,
+		Fields:           attr_fields,
+		Colors:           attr_colors,
+		Legend:           attr_legend,
+		IncludeAllFields: &attr_includeallfields,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Options_Layers_Location) ApplyDefaults() PanelGeomapDataSourceModel_Options_Layers_Location {
-
+func (m PanelCandlestickDataSourceModel_Options) ApplyDefaults() PanelCandlestickDataSourceModel_Options {
+	if m.Mode.IsNull() {
+		m.Mode = types.StringValue(`candles+volume`)
+	}
+	if m.CandleStyle.IsNull() {
+		m.CandleStyle = types.StringValue(`candles`)
+	}
+	if m.ColorStrategy.IsNull() {
+		m.ColorStrategy = types.StringValue(`open-close`)
+	}
+	if m.IncludeAllFields.IsNull() {
+		m.IncludeAllFields = types.BoolValue(false)
+	}
 	return m
 }
 
-type PanelGeomapDataSourceModel_Options_Layers struct {
-	Type     types.String                                        `tfsdk:"type"`
-	Name     types.String                                        `tfsdk:"name"`
-	Location *PanelGeomapDataSourceModel_Options_Layers_Location `tfsdk:"location"`
-	Opacity  types.Int64                                         `tfsdk:"opacity"`
-	Tooltip  types.Bool                                          `tfsdk:"tooltip"`
-}
-
-func (m PanelGeomapDataSourceModel_Options_Layers) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Layers struct {
-		Type     string      `json:"type"`
-		Name     string      `json:"name"`
-		Location interface{} `json:"location,omitempty"`
-		Opacity  *int64      `json:"opacity,omitempty"`
-		Tooltip  *bool       `json:"tooltip,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_name := m.Name.ValueString()
-	var attr_location interface{}
-	if m.Location != nil {
-		attr_location = m.Location
-	}
-	attr_opacity := m.Opacity.ValueInt64Pointer()
-	attr_tooltip := m.Tooltip.ValueBoolPointer()
-
-	model := &jsonPanelGeomapDataSourceModel_Options_Layers{
-		Type:     attr_type,
-		Name:     attr_name,
-		Location: attr_location,
-		Opacity:  attr_opacity,
-		Tooltip:  attr_tooltip,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelGeomapDataSourceModel_Options_Layers) ApplyDefaults() PanelGeomapDataSourceModel_Options_Layers {
-
-	return m
-}
-
-type PanelGeomapDataSourceModel_Options_Tooltip struct {
-	Mode types.String `tfsdk:"mode"`
-}
-
-func (m PanelGeomapDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Tooltip struct {
-		Mode string `json:"mode"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-
-	model := &jsonPanelGeomapDataSourceModel_Options_Tooltip{
-		Mode: attr_mode,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelGeomapDataSourceModel_Options_Tooltip) ApplyDefaults() PanelGeomapDataSourceModel_Options_Tooltip {
-
-	return m
-}
-
-type PanelGeomapDataSourceModel_Options struct {
-	View     *PanelGeomapDataSourceModel_Options_View     `tfsdk:"view"`
-	Controls *PanelGeomapDataSourceModel_Options_Controls `tfsdk:"controls"`
-	Basemap  *PanelGeomapDataSourceModel_Options_Basemap  `tfsdk:"basemap"`
-	Layers   []PanelGeomapDataSourceModel_Options_Layers  `tfsdk:"layers"`
-	Tooltip  *PanelGeomapDataSourceModel_Options_Tooltip  `tfsdk:"tooltip"`
-}
-
-func (m PanelGeomapDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options struct {
-		View     interface{}   `json:"view,omitempty"`
-		Controls interface{}   `json:"controls,omitempty"`
-		Basemap  interface{}   `json:"basemap,omitempty"`
-		Layers   []interface{} `json:"layers,omitempty"`
-		Tooltip  interface{}   `json:"tooltip,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	var attr_view interface{}
-	if m.View != nil {
-		attr_view = m.View
-	}
-	var attr_controls interface{}
-	if m.Controls != nil {
-		attr_controls = m.Controls
-	}
-	var attr_basemap interface{}
-	if m.Basemap != nil {
-		attr_basemap = m.Basemap
-	}
-	attr_layers := []interface{}{}
-	for _, v := range m.Layers {
-		attr_layers = append(attr_layers, v)
-	}
-	var attr_tooltip interface{}
-	if m.Tooltip != nil {
-		attr_tooltip = m.Tooltip
-	}
-
-	model := &jsonPanelGeomapDataSourceModel_Options{
-		View:     attr_view,
-		Controls: attr_controls,
-		Basemap:  attr_basemap,
-		Layers:   attr_layers,
-		Tooltip:  attr_tooltip,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelGeomapDataSourceModel_Options) ApplyDefaults() PanelGeomapDataSourceModel_Options {
-
-	return m
-}
-
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -652,32 +500,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Option
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueStringPointer()
-	attr_color := m.Color.ValueStringPointer()
-	attr_icon := m.Icon.ValueStringPointer()
-	attr_index := m.Index.ValueInt64Pointer()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
-		Text:  attr_text,
-		Color: attr_color,
-		Icon:  attr_icon,
-		Index: attr_index,
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
-	Type    types.String                                                                          `tfsdk:"type"`
-	Options *map[string]PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options `tfsdk:"options"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
+	Type    types.String                                                                               `tfsdk:"type"`
+	Options *map[string]PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options `tfsdk:"options"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -689,27 +537,27 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) Marsh
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -717,32 +565,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Option
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueStringPointer()
-	attr_color := m.Color.ValueStringPointer()
-	attr_icon := m.Icon.ValueStringPointer()
-	attr_index := m.Index.ValueInt64Pointer()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  attr_text,
-		Color: attr_color,
-		Icon:  attr_icon,
-		Index: attr_index,
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
-	From   types.String                                                                      `tfsdk:"from"`
-	To     types.String                                                                      `tfsdk:"to"`
-	Result *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result `tfsdk:"result"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
+	From   types.String                                                                           `tfsdk:"from"`
+	To     types.String                                                                           `tfsdk:"to"`
+	Result *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result `tfsdk:"result"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrFrom() interface{} {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrFrom() interface{} {
 	var attr interface{}
 	var err error
 
@@ -758,7 +606,7 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Option
 	return m.From.ValueString()
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrTo() interface{} {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrTo() interface{} {
 	var attr interface{}
 	var err error
 
@@ -774,8 +622,8 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Option
 	return m.To.ValueString()
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
 		From   interface{} `json:"from"`
 		To     interface{} `json:"to"`
 		Result interface{} `json:"result,omitempty"`
@@ -789,7 +637,7 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Option
 		attr_result = m.Result
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options{
 		From:   attr_from,
 		To:     attr_to,
 		Result: attr_result,
@@ -797,18 +645,18 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Option
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
-	Type    types.String                                                               `tfsdk:"type"`
-	Options *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options `tfsdk:"options"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
+	Type    types.String                                                                    `tfsdk:"type"`
+	Options *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options `tfsdk:"options"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -820,27 +668,27 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) Marsh
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -848,32 +696,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Option
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueStringPointer()
-	attr_color := m.Color.ValueStringPointer()
-	attr_icon := m.Icon.ValueStringPointer()
-	attr_index := m.Index.ValueInt64Pointer()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  attr_text,
-		Color: attr_color,
-		Icon:  attr_icon,
-		Index: attr_index,
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
-	Pattern types.String                                                                      `tfsdk:"pattern"`
-	Result  *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result `tfsdk:"result"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
+	Pattern types.String                                                                           `tfsdk:"pattern"`
+	Result  *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result `tfsdk:"result"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
 		Pattern string      `json:"pattern"`
 		Result  interface{} `json:"result,omitempty"`
 	}
@@ -885,25 +733,25 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Option
 		attr_result = m.Result
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options{
 		Pattern: attr_pattern,
 		Result:  attr_result,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
-	Type    types.String                                                               `tfsdk:"type"`
-	Options *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options `tfsdk:"options"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
+	Type    types.String                                                                    `tfsdk:"type"`
+	Options *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options `tfsdk:"options"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -915,27 +763,27 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) Marsh
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -943,32 +791,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueStringPointer()
-	attr_color := m.Color.ValueStringPointer()
-	attr_icon := m.Icon.ValueStringPointer()
-	attr_index := m.Index.ValueInt64Pointer()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  attr_text,
-		Color: attr_color,
-		Icon:  attr_icon,
-		Index: attr_index,
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
-	Match  types.String                                                                             `tfsdk:"match"`
-	Result *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
+	Match  types.String                                                                                  `tfsdk:"match"`
+	Result *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
 		Match  string      `json:"match"`
 		Result interface{} `json:"result,omitempty"`
 	}
@@ -980,25 +828,25 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap
 		attr_result = m.Result
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options{
 		Match:  attr_match,
 		Result: attr_result,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
-	Type    types.String                                                                      `tfsdk:"type"`
-	Options *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options `tfsdk:"options"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
+	Type    types.String                                                                           `tfsdk:"type"`
+	Options *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options `tfsdk:"options"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -1010,55 +858,55 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings struct {
-	ValueMap        *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap        `tfsdk:"value_map"`
-	RangeMap        *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap        `tfsdk:"range_map"`
-	RegexMap        *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap        `tfsdk:"regex_map"`
-	SpecialValueMap *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap `tfsdk:"special_value_map"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings struct {
+	ValueMap        *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap        `tfsdk:"value_map"`
+	RangeMap        *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap        `tfsdk:"range_map"`
+	RegexMap        *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap        `tfsdk:"regex_map"`
+	SpecialValueMap *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap `tfsdk:"special_value_map"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() ([]byte, error) {
-	var json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings interface{}
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() ([]byte, error) {
+	var json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings interface{}
 	m = m.ApplyDefaults()
 	if m.ValueMap != nil {
-		json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings = m.ValueMap
+		json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings = m.ValueMap
 	}
 	if m.RangeMap != nil {
-		json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings = m.RangeMap
+		json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings = m.RangeMap
 	}
 	if m.RegexMap != nil {
-		json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings = m.RegexMap
+		json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings = m.RegexMap
 	}
 	if m.SpecialValueMap != nil {
-		json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings = m.SpecialValueMap
+		json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings = m.SpecialValueMap
 	}
 
-	return json.Marshal(json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings)
+	return json.Marshal(json_PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.String `tfsdk:"value"`
 	Color types.String `tfsdk:"color"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) GetAttrValue() interface{} {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) GetAttrValue() interface{} {
 	var attr interface{}
 	var err error
 
@@ -1074,8 +922,8 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) GetAtt
 	return m.Value.ValueString()
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 		Value interface{} `json:"value"`
 		Color string      `json:"color"`
 	}
@@ -1084,25 +932,25 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Marsha
 	attr_value := m.GetAttrValue()
 	attr_color := m.Color.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
 		Value: attr_value,
 		Color: attr_color,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds struct {
-	Mode  types.String                                                       `tfsdk:"mode"`
-	Steps []PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+	Mode  types.String                                                            `tfsdk:"mode"`
+	Steps []PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps,omitempty"`
 	}
@@ -1114,26 +962,26 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON(
 		attr_steps = append(attr_steps, v)
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds{
 		Mode:  attr_mode,
 		Steps: attr_steps,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Color struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color struct {
 	Mode       types.String `tfsdk:"mode"`
 	FixedColor types.String `tfsdk:"fixed_color"`
 	SeriesBy   types.String `tfsdk:"series_by"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Color struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Color struct {
 		Mode       string  `json:"mode"`
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
@@ -1141,85 +989,85 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_fixedcolor := m.FixedColor.ValueStringPointer()
-	attr_seriesby := m.SeriesBy.ValueStringPointer()
+	attr_fixedcolor := m.FixedColor.ValueString()
+	attr_seriesby := m.SeriesBy.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Color{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
-		FixedColor: attr_fixedcolor,
-		SeriesBy:   attr_seriesby,
+		FixedColor: &attr_fixedcolor,
+		SeriesBy:   &attr_seriesby,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Color {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
 	Mode types.String `tfsdk:"mode"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
 		Mode string `json:"mode"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
 		Mode: attr_mode,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
 	Fill types.String `tfsdk:"fill"`
 	Dash types.List   `tfsdk:"dash"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
 		Fill *string   `json:"fill,omitempty"`
 		Dash []float64 `json:"dash,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_fill := m.Fill.ValueStringPointer()
+	attr_fill := m.Fill.ValueString()
 	attr_dash := []float64{}
 	for _, v := range m.Dash.Elements() {
 		attr_dash = append(attr_dash, v.(types.Float64).ValueFloat64())
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle{
-		Fill: attr_fill,
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle{
+		Fill: &attr_fill,
 		Dash: attr_dash,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle {
 	if len(m.Dash.Elements()) == 0 {
 		m.Dash, _ = types.ListValue(types.Float64Type, []attr.Value{})
 	}
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
 	Type            types.String  `tfsdk:"type"`
 	Log             types.Float64 `tfsdk:"log"`
 	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
 		Type            string   `json:"type"`
 		Log             *float64 `json:"log,omitempty"`
 		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
@@ -1227,57 +1075,57 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64Pointer()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64Pointer()
+	attr_log := m.Log.ValueFloat64()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
 		Type:            attr_type,
-		Log:             attr_log,
-		LinearThreshold: attr_linearthreshold,
+		Log:             &attr_log,
+		LinearThreshold: &attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
 	Mode  types.String `tfsdk:"mode"`
 	Group types.String `tfsdk:"group"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
 		Mode  *string `json:"mode,omitempty"`
 		Group *string `json:"group,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueStringPointer()
-	attr_group := m.Group.ValueStringPointer()
+	attr_mode := m.Mode.ValueString()
+	attr_group := m.Group.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking{
-		Mode:  attr_mode,
-		Group: attr_group,
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking{
+		Mode:  &attr_mode,
+		Group: &attr_group,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
 	Tooltip types.Bool `tfsdk:"tooltip"`
 	Legend  types.Bool `tfsdk:"legend"`
 	Viz     types.Bool `tfsdk:"viz"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
 		Tooltip bool `json:"tooltip"`
 		Legend  bool `json:"legend"`
 		Viz     bool `json:"viz"`
@@ -1288,7 +1136,7 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) Marshal
 	attr_legend := m.Legend.ValueBool()
 	attr_viz := m.Viz.ValueBool()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
 		Tooltip: attr_tooltip,
 		Legend:  attr_legend,
 		Viz:     attr_viz,
@@ -1296,45 +1144,45 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) Marshal
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom struct {
-	DrawStyle         types.String                                                              `tfsdk:"draw_style"`
-	GradientMode      types.String                                                              `tfsdk:"gradient_mode"`
-	ThresholdsStyle   *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
-	LineColor         types.String                                                              `tfsdk:"line_color"`
-	LineWidth         types.Float64                                                             `tfsdk:"line_width"`
-	LineInterpolation types.String                                                              `tfsdk:"line_interpolation"`
-	LineStyle         *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle         `tfsdk:"line_style"`
-	FillColor         types.String                                                              `tfsdk:"fill_color"`
-	FillOpacity       types.Float64                                                             `tfsdk:"fill_opacity"`
-	ShowPoints        types.String                                                              `tfsdk:"show_points"`
-	PointSize         types.Float64                                                             `tfsdk:"point_size"`
-	PointColor        types.String                                                              `tfsdk:"point_color"`
-	AxisPlacement     types.String                                                              `tfsdk:"axis_placement"`
-	AxisColorMode     types.String                                                              `tfsdk:"axis_color_mode"`
-	AxisLabel         types.String                                                              `tfsdk:"axis_label"`
-	AxisWidth         types.Float64                                                             `tfsdk:"axis_width"`
-	AxisSoftMin       types.Float64                                                             `tfsdk:"axis_soft_min"`
-	AxisSoftMax       types.Float64                                                             `tfsdk:"axis_soft_max"`
-	AxisGridShow      types.Bool                                                                `tfsdk:"axis_grid_show"`
-	ScaleDistribution *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
-	BarAlignment      types.Int64                                                               `tfsdk:"bar_alignment"`
-	BarWidthFactor    types.Float64                                                             `tfsdk:"bar_width_factor"`
-	Stacking          *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking          `tfsdk:"stacking"`
-	HideFrom          *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
-	Transform         types.String                                                              `tfsdk:"transform"`
-	SpanNulls         types.String                                                              `tfsdk:"span_nulls"`
-	FillBelowTo       types.String                                                              `tfsdk:"fill_below_to"`
-	PointSymbol       types.String                                                              `tfsdk:"point_symbol"`
-	AxisCenteredZero  types.Bool                                                                `tfsdk:"axis_centered_zero"`
-	BarMaxWidth       types.Float64                                                             `tfsdk:"bar_max_width"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom struct {
+	DrawStyle         types.String                                                                   `tfsdk:"draw_style"`
+	GradientMode      types.String                                                                   `tfsdk:"gradient_mode"`
+	ThresholdsStyle   *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
+	LineColor         types.String                                                                   `tfsdk:"line_color"`
+	LineWidth         types.Float64                                                                  `tfsdk:"line_width"`
+	LineInterpolation types.String                                                                   `tfsdk:"line_interpolation"`
+	LineStyle         *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_LineStyle         `tfsdk:"line_style"`
+	FillColor         types.String                                                                   `tfsdk:"fill_color"`
+	FillOpacity       types.Float64                                                                  `tfsdk:"fill_opacity"`
+	ShowPoints        types.String                                                                   `tfsdk:"show_points"`
+	PointSize         types.Float64                                                                  `tfsdk:"point_size"`
+	PointColor        types.String                                                                   `tfsdk:"point_color"`
+	AxisPlacement     types.String                                                                   `tfsdk:"axis_placement"`
+	AxisColorMode     types.String                                                                   `tfsdk:"axis_color_mode"`
+	AxisLabel         types.String                                                                   `tfsdk:"axis_label"`
+	AxisWidth         types.Float64                                                                  `tfsdk:"axis_width"`
+	AxisSoftMin       types.Float64                                                                  `tfsdk:"axis_soft_min"`
+	AxisSoftMax       types.Float64                                                                  `tfsdk:"axis_soft_max"`
+	AxisGridShow      types.Bool                                                                     `tfsdk:"axis_grid_show"`
+	ScaleDistribution *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
+	BarAlignment      types.Int64                                                                    `tfsdk:"bar_alignment"`
+	BarWidthFactor    types.Float64                                                                  `tfsdk:"bar_width_factor"`
+	Stacking          *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_Stacking          `tfsdk:"stacking"`
+	HideFrom          *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
+	Transform         types.String                                                                   `tfsdk:"transform"`
+	SpanNulls         types.String                                                                   `tfsdk:"span_nulls"`
+	FillBelowTo       types.String                                                                   `tfsdk:"fill_below_to"`
+	PointSymbol       types.String                                                                   `tfsdk:"point_symbol"`
+	AxisCenteredZero  types.Bool                                                                     `tfsdk:"axis_centered_zero"`
+	BarMaxWidth       types.Float64                                                                  `tfsdk:"bar_max_width"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) GetAttrSpanNulls() interface{} {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom) GetAttrSpanNulls() interface{} {
 	var attr interface{}
 	var err error
 
@@ -1350,8 +1198,8 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) GetAttrSpanNulls
 	return m.SpanNulls.ValueString()
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom struct {
 		DrawStyle         *string     `json:"drawStyle,omitempty"`
 		GradientMode      *string     `json:"gradientMode,omitempty"`
 		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
@@ -1385,37 +1233,37 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([
 	}
 
 	m = m.ApplyDefaults()
-	attr_drawstyle := m.DrawStyle.ValueStringPointer()
-	attr_gradientmode := m.GradientMode.ValueStringPointer()
+	attr_drawstyle := m.DrawStyle.ValueString()
+	attr_gradientmode := m.GradientMode.ValueString()
 	var attr_thresholdsstyle interface{}
 	if m.ThresholdsStyle != nil {
 		attr_thresholdsstyle = m.ThresholdsStyle
 	}
-	attr_linecolor := m.LineColor.ValueStringPointer()
-	attr_linewidth := m.LineWidth.ValueFloat64Pointer()
-	attr_lineinterpolation := m.LineInterpolation.ValueStringPointer()
+	attr_linecolor := m.LineColor.ValueString()
+	attr_linewidth := m.LineWidth.ValueFloat64()
+	attr_lineinterpolation := m.LineInterpolation.ValueString()
 	var attr_linestyle interface{}
 	if m.LineStyle != nil {
 		attr_linestyle = m.LineStyle
 	}
-	attr_fillcolor := m.FillColor.ValueStringPointer()
-	attr_fillopacity := m.FillOpacity.ValueFloat64Pointer()
-	attr_showpoints := m.ShowPoints.ValueStringPointer()
-	attr_pointsize := m.PointSize.ValueFloat64Pointer()
-	attr_pointcolor := m.PointColor.ValueStringPointer()
-	attr_axisplacement := m.AxisPlacement.ValueStringPointer()
-	attr_axiscolormode := m.AxisColorMode.ValueStringPointer()
-	attr_axislabel := m.AxisLabel.ValueStringPointer()
-	attr_axiswidth := m.AxisWidth.ValueFloat64Pointer()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64Pointer()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64Pointer()
-	attr_axisgridshow := m.AxisGridShow.ValueBoolPointer()
+	attr_fillcolor := m.FillColor.ValueString()
+	attr_fillopacity := m.FillOpacity.ValueFloat64()
+	attr_showpoints := m.ShowPoints.ValueString()
+	attr_pointsize := m.PointSize.ValueFloat64()
+	attr_pointcolor := m.PointColor.ValueString()
+	attr_axisplacement := m.AxisPlacement.ValueString()
+	attr_axiscolormode := m.AxisColorMode.ValueString()
+	attr_axislabel := m.AxisLabel.ValueString()
+	attr_axiswidth := m.AxisWidth.ValueFloat64()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
+	attr_axisgridshow := m.AxisGridShow.ValueBool()
 	var attr_scaledistribution interface{}
 	if m.ScaleDistribution != nil {
 		attr_scaledistribution = m.ScaleDistribution
 	}
-	attr_baralignment := m.BarAlignment.ValueInt64Pointer()
-	attr_barwidthfactor := m.BarWidthFactor.ValueFloat64Pointer()
+	attr_baralignment := m.BarAlignment.ValueInt64()
+	attr_barwidthfactor := m.BarWidthFactor.ValueFloat64()
 	var attr_stacking interface{}
 	if m.Stacking != nil {
 		attr_stacking = m.Stacking
@@ -1424,73 +1272,73 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([
 	if m.HideFrom != nil {
 		attr_hidefrom = m.HideFrom
 	}
-	attr_transform := m.Transform.ValueStringPointer()
+	attr_transform := m.Transform.ValueString()
 	attr_spannulls := m.GetAttrSpanNulls()
-	attr_fillbelowto := m.FillBelowTo.ValueStringPointer()
-	attr_pointsymbol := m.PointSymbol.ValueStringPointer()
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBoolPointer()
-	attr_barmaxwidth := m.BarMaxWidth.ValueFloat64Pointer()
+	attr_fillbelowto := m.FillBelowTo.ValueString()
+	attr_pointsymbol := m.PointSymbol.ValueString()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
+	attr_barmaxwidth := m.BarMaxWidth.ValueFloat64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom{
-		DrawStyle:         attr_drawstyle,
-		GradientMode:      attr_gradientmode,
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom{
+		DrawStyle:         &attr_drawstyle,
+		GradientMode:      &attr_gradientmode,
 		ThresholdsStyle:   attr_thresholdsstyle,
-		LineColor:         attr_linecolor,
-		LineWidth:         attr_linewidth,
-		LineInterpolation: attr_lineinterpolation,
+		LineColor:         &attr_linecolor,
+		LineWidth:         &attr_linewidth,
+		LineInterpolation: &attr_lineinterpolation,
 		LineStyle:         attr_linestyle,
-		FillColor:         attr_fillcolor,
-		FillOpacity:       attr_fillopacity,
-		ShowPoints:        attr_showpoints,
-		PointSize:         attr_pointsize,
-		PointColor:        attr_pointcolor,
-		AxisPlacement:     attr_axisplacement,
-		AxisColorMode:     attr_axiscolormode,
-		AxisLabel:         attr_axislabel,
-		AxisWidth:         attr_axiswidth,
-		AxisSoftMin:       attr_axissoftmin,
-		AxisSoftMax:       attr_axissoftmax,
-		AxisGridShow:      attr_axisgridshow,
+		FillColor:         &attr_fillcolor,
+		FillOpacity:       &attr_fillopacity,
+		ShowPoints:        &attr_showpoints,
+		PointSize:         &attr_pointsize,
+		PointColor:        &attr_pointcolor,
+		AxisPlacement:     &attr_axisplacement,
+		AxisColorMode:     &attr_axiscolormode,
+		AxisLabel:         &attr_axislabel,
+		AxisWidth:         &attr_axiswidth,
+		AxisSoftMin:       &attr_axissoftmin,
+		AxisSoftMax:       &attr_axissoftmax,
+		AxisGridShow:      &attr_axisgridshow,
 		ScaleDistribution: attr_scaledistribution,
-		BarAlignment:      attr_baralignment,
-		BarWidthFactor:    attr_barwidthfactor,
+		BarAlignment:      &attr_baralignment,
+		BarWidthFactor:    &attr_barwidthfactor,
 		Stacking:          attr_stacking,
 		HideFrom:          attr_hidefrom,
-		Transform:         attr_transform,
+		Transform:         &attr_transform,
 		SpanNulls:         attr_spannulls,
-		FillBelowTo:       attr_fillbelowto,
-		PointSymbol:       attr_pointsymbol,
-		AxisCenteredZero:  attr_axiscenteredzero,
-		BarMaxWidth:       attr_barmaxwidth,
+		FillBelowTo:       &attr_fillbelowto,
+		PointSymbol:       &attr_pointsymbol,
+		AxisCenteredZero:  &attr_axiscenteredzero,
+		BarMaxWidth:       &attr_barmaxwidth,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults struct {
-	DisplayName       types.String                                                `tfsdk:"display_name"`
-	DisplayNameFromDS types.String                                                `tfsdk:"display_name_from_ds"`
-	Description       types.String                                                `tfsdk:"description"`
-	Path              types.String                                                `tfsdk:"path"`
-	Writeable         types.Bool                                                  `tfsdk:"writeable"`
-	Filterable        types.Bool                                                  `tfsdk:"filterable"`
-	Unit              types.String                                                `tfsdk:"unit"`
-	Decimals          types.Float64                                               `tfsdk:"decimals"`
-	Min               types.Float64                                               `tfsdk:"min"`
-	Max               types.Float64                                               `tfsdk:"max"`
-	Mappings          []PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings  `tfsdk:"mappings"`
-	Thresholds        *PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
-	Color             *PanelGeomapDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
-	NoValue           types.String                                                `tfsdk:"no_value"`
-	Custom            *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
+type PanelCandlestickDataSourceModel_FieldConfig_Defaults struct {
+	DisplayName       types.String                                                     `tfsdk:"display_name"`
+	DisplayNameFromDS types.String                                                     `tfsdk:"display_name_from_ds"`
+	Description       types.String                                                     `tfsdk:"description"`
+	Path              types.String                                                     `tfsdk:"path"`
+	Writeable         types.Bool                                                       `tfsdk:"writeable"`
+	Filterable        types.Bool                                                       `tfsdk:"filterable"`
+	Unit              types.String                                                     `tfsdk:"unit"`
+	Decimals          types.Float64                                                    `tfsdk:"decimals"`
+	Min               types.Float64                                                    `tfsdk:"min"`
+	Max               types.Float64                                                    `tfsdk:"max"`
+	Mappings          []PanelCandlestickDataSourceModel_FieldConfig_Defaults_Mappings  `tfsdk:"mappings"`
+	Thresholds        *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
+	Color             *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
+	NoValue           types.String                                                     `tfsdk:"no_value"`
+	Custom            *PanelCandlestickDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults struct {
 		DisplayName       *string       `json:"displayName,omitempty"`
 		DisplayNameFromDS *string       `json:"displayNameFromDS,omitempty"`
 		Description       *string       `json:"description,omitempty"`
@@ -1509,16 +1357,16 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, 
 	}
 
 	m = m.ApplyDefaults()
-	attr_displayname := m.DisplayName.ValueStringPointer()
-	attr_displaynamefromds := m.DisplayNameFromDS.ValueStringPointer()
-	attr_description := m.Description.ValueStringPointer()
-	attr_path := m.Path.ValueStringPointer()
-	attr_writeable := m.Writeable.ValueBoolPointer()
-	attr_filterable := m.Filterable.ValueBoolPointer()
-	attr_unit := m.Unit.ValueStringPointer()
-	attr_decimals := m.Decimals.ValueFloat64Pointer()
-	attr_min := m.Min.ValueFloat64Pointer()
-	attr_max := m.Max.ValueFloat64Pointer()
+	attr_displayname := m.DisplayName.ValueString()
+	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
+	attr_description := m.Description.ValueString()
+	attr_path := m.Path.ValueString()
+	attr_writeable := m.Writeable.ValueBool()
+	attr_filterable := m.Filterable.ValueBool()
+	attr_unit := m.Unit.ValueString()
+	attr_decimals := m.Decimals.ValueFloat64()
+	attr_min := m.Min.ValueFloat64()
+	attr_max := m.Max.ValueFloat64()
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -1531,80 +1379,80 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, 
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	attr_novalue := m.NoValue.ValueStringPointer()
+	attr_novalue := m.NoValue.ValueString()
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults{
-		DisplayName:       attr_displayname,
-		DisplayNameFromDS: attr_displaynamefromds,
-		Description:       attr_description,
-		Path:              attr_path,
-		Writeable:         attr_writeable,
-		Filterable:        attr_filterable,
-		Unit:              attr_unit,
-		Decimals:          attr_decimals,
-		Min:               attr_min,
-		Max:               attr_max,
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Defaults{
+		DisplayName:       &attr_displayname,
+		DisplayNameFromDS: &attr_displaynamefromds,
+		Description:       &attr_description,
+		Path:              &attr_path,
+		Writeable:         &attr_writeable,
+		Filterable:        &attr_filterable,
+		Unit:              &attr_unit,
+		Decimals:          &attr_decimals,
+		Min:               &attr_min,
+		Max:               &attr_max,
 		Mappings:          attr_mappings,
 		Thresholds:        attr_thresholds,
 		Color:             attr_color,
-		NoValue:           attr_novalue,
+		NoValue:           &attr_novalue,
 		Custom:            attr_custom,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Defaults {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher struct {
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher{}
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher{}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties struct {
+type PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties struct {
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Properties struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Properties{}
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties{}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    *PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
-	Properties []PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
+type PanelCandlestickDataSourceModel_FieldConfig_Overrides struct {
+	Matcher    *PanelCandlestickDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
+	Properties []PanelCandlestickDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Overrides struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides struct {
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties,omitempty"`
 	}
@@ -1619,25 +1467,25 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte,
 		attr_properties = append(attr_properties, v)
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Overrides{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig_Overrides{
 		Matcher:    attr_matcher,
 		Properties: attr_properties,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Overrides {
+func (m PanelCandlestickDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig_Overrides {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig struct {
-	Defaults  *PanelGeomapDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
-	Overrides []PanelGeomapDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
+type PanelCandlestickDataSourceModel_FieldConfig struct {
+	Defaults  *PanelCandlestickDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
+	Overrides []PanelCandlestickDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig struct {
+func (m PanelCandlestickDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel_FieldConfig struct {
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides,omitempty"`
 	}
@@ -1652,45 +1500,45 @@ func (m PanelGeomapDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 		attr_overrides = append(attr_overrides, v)
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig{
+	model := &jsonPanelCandlestickDataSourceModel_FieldConfig{
 		Defaults:  attr_defaults,
 		Overrides: attr_overrides,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig {
+func (m PanelCandlestickDataSourceModel_FieldConfig) ApplyDefaults() PanelCandlestickDataSourceModel_FieldConfig {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel struct {
-	RenderedJSON    types.String                                 `tfsdk:"rendered_json"`
-	Type            types.String                                 `tfsdk:"type"`
-	PluginVersion   types.String                                 `tfsdk:"plugin_version"`
-	Tags            types.List                                   `tfsdk:"tags"`
-	Targets         types.List                                   `tfsdk:"targets"`
-	Title           types.String                                 `tfsdk:"title"`
-	Description     types.String                                 `tfsdk:"description"`
-	Transparent     types.Bool                                   `tfsdk:"transparent"`
-	Datasource      *PanelGeomapDataSourceModel_Datasource       `tfsdk:"datasource"`
-	GridPos         *PanelGeomapDataSourceModel_GridPos          `tfsdk:"grid_pos"`
-	Links           []PanelGeomapDataSourceModel_Links           `tfsdk:"links"`
-	Repeat          types.String                                 `tfsdk:"repeat"`
-	RepeatDirection types.String                                 `tfsdk:"repeat_direction"`
-	RepeatPanelId   types.Int64                                  `tfsdk:"repeat_panel_id"`
-	MaxDataPoints   types.Float64                                `tfsdk:"max_data_points"`
-	Transformations []PanelGeomapDataSourceModel_Transformations `tfsdk:"transformations"`
-	Interval        types.String                                 `tfsdk:"interval"`
-	TimeFrom        types.String                                 `tfsdk:"time_from"`
-	TimeShift       types.String                                 `tfsdk:"time_shift"`
-	LibraryPanel    *PanelGeomapDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	Options         *PanelGeomapDataSourceModel_Options          `tfsdk:"options"`
-	FieldConfig     *PanelGeomapDataSourceModel_FieldConfig      `tfsdk:"field_config"`
+type PanelCandlestickDataSourceModel struct {
+	RenderedJSON    types.String                                      `tfsdk:"rendered_json"`
+	Type            types.String                                      `tfsdk:"type"`
+	PluginVersion   types.String                                      `tfsdk:"plugin_version"`
+	Tags            types.List                                        `tfsdk:"tags"`
+	Targets         types.List                                        `tfsdk:"targets"`
+	Title           types.String                                      `tfsdk:"title"`
+	Description     types.String                                      `tfsdk:"description"`
+	Transparent     types.Bool                                        `tfsdk:"transparent"`
+	Datasource      *PanelCandlestickDataSourceModel_Datasource       `tfsdk:"datasource"`
+	GridPos         *PanelCandlestickDataSourceModel_GridPos          `tfsdk:"grid_pos"`
+	Links           []PanelCandlestickDataSourceModel_Links           `tfsdk:"links"`
+	Repeat          types.String                                      `tfsdk:"repeat"`
+	RepeatDirection types.String                                      `tfsdk:"repeat_direction"`
+	RepeatPanelId   types.Int64                                       `tfsdk:"repeat_panel_id"`
+	MaxDataPoints   types.Float64                                     `tfsdk:"max_data_points"`
+	Transformations []PanelCandlestickDataSourceModel_Transformations `tfsdk:"transformations"`
+	Interval        types.String                                      `tfsdk:"interval"`
+	TimeFrom        types.String                                      `tfsdk:"time_from"`
+	TimeShift       types.String                                      `tfsdk:"time_shift"`
+	LibraryPanel    *PanelCandlestickDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
+	Options         *PanelCandlestickDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelCandlestickDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
-func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel struct {
+func (m PanelCandlestickDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonPanelCandlestickDataSourceModel struct {
 		Type            string        `json:"type"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
 		Tags            []string      `json:"tags,omitempty"`
@@ -1716,7 +1564,7 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_pluginversion := m.PluginVersion.ValueStringPointer()
+	attr_pluginversion := m.PluginVersion.ValueString()
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -1725,8 +1573,8 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	attr_title := m.Title.ValueStringPointer()
-	attr_description := m.Description.ValueStringPointer()
+	attr_title := m.Title.ValueString()
+	attr_description := m.Description.ValueString()
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -1740,17 +1588,17 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	attr_repeat := m.Repeat.ValueStringPointer()
-	attr_repeatdirection := m.RepeatDirection.ValueStringPointer()
-	attr_repeatpanelid := m.RepeatPanelId.ValueInt64Pointer()
-	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64Pointer()
+	attr_repeat := m.Repeat.ValueString()
+	attr_repeatdirection := m.RepeatDirection.ValueString()
+	attr_repeatpanelid := m.RepeatPanelId.ValueInt64()
+	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	attr_interval := m.Interval.ValueStringPointer()
-	attr_timefrom := m.TimeFrom.ValueStringPointer()
-	attr_timeshift := m.TimeShift.ValueStringPointer()
+	attr_interval := m.Interval.ValueString()
+	attr_timefrom := m.TimeFrom.ValueString()
+	attr_timeshift := m.TimeShift.ValueString()
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
@@ -1764,25 +1612,25 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 		attr_fieldconfig = m.FieldConfig
 	}
 
-	model := &jsonPanelGeomapDataSourceModel{
+	model := &jsonPanelCandlestickDataSourceModel{
 		Type:            attr_type,
-		PluginVersion:   attr_pluginversion,
+		PluginVersion:   &attr_pluginversion,
 		Tags:            attr_tags,
 		Targets:         attr_targets,
-		Title:           attr_title,
-		Description:     attr_description,
+		Title:           &attr_title,
+		Description:     &attr_description,
 		Transparent:     attr_transparent,
 		Datasource:      attr_datasource,
 		GridPos:         attr_gridpos,
 		Links:           attr_links,
-		Repeat:          attr_repeat,
-		RepeatDirection: attr_repeatdirection,
-		RepeatPanelId:   attr_repeatpanelid,
-		MaxDataPoints:   attr_maxdatapoints,
+		Repeat:          &attr_repeat,
+		RepeatDirection: &attr_repeatdirection,
+		RepeatPanelId:   &attr_repeatpanelid,
+		MaxDataPoints:   &attr_maxdatapoints,
 		Transformations: attr_transformations,
-		Interval:        attr_interval,
-		TimeFrom:        attr_timefrom,
-		TimeShift:       attr_timeshift,
+		Interval:        &attr_interval,
+		TimeFrom:        &attr_timefrom,
+		TimeShift:       &attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
 		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,
@@ -1790,9 +1638,9 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel) ApplyDefaults() PanelGeomapDataSourceModel {
+func (m PanelCandlestickDataSourceModel) ApplyDefaults() PanelCandlestickDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`geomap`)
+		m.Type = types.StringValue(`candlestick`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -1809,17 +1657,17 @@ func (m PanelGeomapDataSourceModel) ApplyDefaults() PanelGeomapDataSourceModel {
 	return m
 }
 
-func (d *PanelGeomapDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_panel_geomap"
+func (d *PanelCandlestickDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_panel_candlestick"
 }
 
-func (d *PanelGeomapDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *PanelCandlestickDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. This is used to find the plugin to display the panel. Defaults to "geomap".`,
+				MarkdownDescription: `The panel plugin type id. This is used to find the plugin to display the panel. Defaults to "candlestick".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -2097,301 +1945,164 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
-					"view": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
+					"mode": schema.StringAttribute{
+						MarkdownDescription: `Sets which dimensions are used for the visualization. Defaults to "candles+volume".`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"lat": schema.Int64Attribute{
-								MarkdownDescription: ` Defaults to 0.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"lon": schema.Int64Attribute{
-								MarkdownDescription: ` Defaults to 0.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"zoom": schema.Int64Attribute{
-								MarkdownDescription: ` Defaults to 1.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"min_zoom": schema.Int64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"max_zoom": schema.Int64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"padding": schema.Int64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"all_layers": schema.BoolAttribute{
-								MarkdownDescription: ` Defaults to true.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"last_only": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"layer": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"shared": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
 					},
-					"controls": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
+					"candle_style": schema.StringAttribute{
+						MarkdownDescription: `Sets the style of the candlesticks. Defaults to "candles".`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"show_zoom": schema.BoolAttribute{
-								MarkdownDescription: `Zoom (upper left)`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"mouse_wheel_zoom": schema.BoolAttribute{
-								MarkdownDescription: `let the mouse wheel zoom`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_attribution": schema.BoolAttribute{
-								MarkdownDescription: `Lower right`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_scale": schema.BoolAttribute{
-								MarkdownDescription: `Scale options`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_debug": schema.BoolAttribute{
-								MarkdownDescription: `Show debug`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_measure": schema.BoolAttribute{
-								MarkdownDescription: `Show measure`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
 					},
-					"basemap": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
+					"color_strategy": schema.StringAttribute{
+						MarkdownDescription: `Sets the color strategy for the candlesticks. Defaults to "open-close".`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+					},
+					"fields": schema.SingleNestedAttribute{
+						MarkdownDescription: `Map fields to appropriate dimension`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 						Attributes: map[string]schema.Attribute{
-							"type": schema.StringAttribute{
+							"candlestick_field_map": schema.SingleNestedAttribute{
 								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"name": schema.StringAttribute{
-								MarkdownDescription: `configured unique display name`,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
-							"location": schema.SingleNestedAttribute{
-								MarkdownDescription: `Common method to define geometry fields`,
 								Computed:            true,
 								Optional:            true,
 								Required:            false,
 								Attributes: map[string]schema.Attribute{
-									"mode": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            false,
-										Required:            true,
-									},
-									"geohash": schema.StringAttribute{
-										MarkdownDescription: `Field mappings`,
+									"open": schema.StringAttribute{
+										MarkdownDescription: `Corresponds to the starting value of the given period`,
 										Computed:            false,
 										Optional:            true,
 										Required:            false,
 									},
-									"latitude": schema.StringAttribute{
-										MarkdownDescription: ``,
+									"high": schema.StringAttribute{
+										MarkdownDescription: `Corresponds to the highest value of the given period`,
 										Computed:            false,
 										Optional:            true,
 										Required:            false,
 									},
-									"longitude": schema.StringAttribute{
-										MarkdownDescription: ``,
+									"low": schema.StringAttribute{
+										MarkdownDescription: `Corresponds to the lowest value of the given period`,
 										Computed:            false,
 										Optional:            true,
 										Required:            false,
 									},
-									"wkt": schema.StringAttribute{
-										MarkdownDescription: ``,
+									"close": schema.StringAttribute{
+										MarkdownDescription: `Corresponds to the final (end) value of the given period`,
 										Computed:            false,
 										Optional:            true,
 										Required:            false,
 									},
-									"lookup": schema.StringAttribute{
-										MarkdownDescription: ``,
+									"volume": schema.StringAttribute{
+										MarkdownDescription: `Corresponds to the sample count in the given period. (e.g. number of trades)`,
 										Computed:            false,
 										Optional:            true,
 										Required:            false,
 									},
-									"gazetteer": schema.StringAttribute{
-										MarkdownDescription: `Path to Gazetteer`,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-								},
-							},
-							"opacity": schema.Int64Attribute{
-								MarkdownDescription: `Common properties:
-https://openlayers.org/en/latest/apidoc/module-ol_layer_Base-BaseLayer.html
-Layer opacity (0-1)`,
-								Computed: false,
-								Optional: true,
-								Required: false,
-							},
-							"tooltip": schema.BoolAttribute{
-								MarkdownDescription: `Check tooltip (defaults to true)`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
-					},
-					"layers": schema.ListNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						NestedObject: schema.NestedAttributeObject{
-							Attributes: map[string]schema.Attribute{
-								"type": schema.StringAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
-								},
-								"name": schema.StringAttribute{
-									MarkdownDescription: `configured unique display name`,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
-								},
-								"location": schema.SingleNestedAttribute{
-									MarkdownDescription: `Common method to define geometry fields`,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
-									Attributes: map[string]schema.Attribute{
-										"mode": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            false,
-											Required:            true,
-										},
-										"geohash": schema.StringAttribute{
-											MarkdownDescription: `Field mappings`,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"latitude": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"longitude": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"wkt": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"lookup": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"gazetteer": schema.StringAttribute{
-											MarkdownDescription: `Path to Gazetteer`,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-									},
-								},
-								"opacity": schema.Int64Attribute{
-									MarkdownDescription: `Common properties:
-https://openlayers.org/en/latest/apidoc/module-ol_layer_Base-BaseLayer.html
-Layer opacity (0-1)`,
-									Computed: false,
-									Optional: true,
-									Required: false,
-								},
-								"tooltip": schema.BoolAttribute{
-									MarkdownDescription: `Check tooltip (defaults to true)`,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
 								},
 							},
 						},
 					},
-					"tooltip": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
+					"colors": schema.SingleNestedAttribute{
+						MarkdownDescription: `Set which colors are used when the price movement is up or down`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
 						Attributes: map[string]schema.Attribute{
-							"mode": schema.StringAttribute{
+							"down": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"up": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"flat": schema.StringAttribute{
 								MarkdownDescription: ``,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
 						},
+					},
+					"legend": schema.SingleNestedAttribute{
+						MarkdownDescription: ``,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
+						Attributes: map[string]schema.Attribute{
+							"display_mode": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"placement": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"show_legend": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
+							},
+							"as_table": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"is_visible": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_by": schema.StringAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"sort_desc": schema.BoolAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"width": schema.Float64Attribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+							},
+							"calcs": schema.ListAttribute{
+								MarkdownDescription: ``,
+								Computed:            false,
+								Optional:            true,
+								Required:            false,
+								ElementType:         types.StringType,
+							},
+						},
+					},
+					"include_all_fields": schema.BoolAttribute{
+						MarkdownDescription: `When enabled, all fields will be sent to the graph. Defaults to false.`,
+						Computed:            true,
+						Optional:            true,
+						Required:            false,
 					},
 				},
 			},
@@ -3099,11 +2810,11 @@ X axis that should be considered connected.  For timeseries, this is millisecond
 	}
 }
 
-func (d *PanelGeomapDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *PanelCandlestickDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *PanelGeomapDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data PanelGeomapDataSourceModel
+func (d *PanelCandlestickDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data PanelCandlestickDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

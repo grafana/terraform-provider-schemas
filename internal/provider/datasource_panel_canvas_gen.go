@@ -29,45 +29,45 @@ var _ diag.Diagnostic
 
 // Ensure provider defined types fully satisfy framework interfaces.
 var (
-	_ datasource.DataSource              = &PanelGeomapDataSource{}
-	_ datasource.DataSourceWithConfigure = &PanelGeomapDataSource{}
+	_ datasource.DataSource              = &PanelCanvasDataSource{}
+	_ datasource.DataSourceWithConfigure = &PanelCanvasDataSource{}
 )
 
-func NewPanelGeomapDataSource() datasource.DataSource {
-	return &PanelGeomapDataSource{}
+func NewPanelCanvasDataSource() datasource.DataSource {
+	return &PanelCanvasDataSource{}
 }
 
-// PanelGeomapDataSource defines the data source implementation.
-type PanelGeomapDataSource struct{}
+// PanelCanvasDataSource defines the data source implementation.
+type PanelCanvasDataSource struct{}
 
-type PanelGeomapDataSourceModel_Datasource struct {
+type PanelCanvasDataSourceModel_Datasource struct {
 	Type types.String `tfsdk:"type"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelGeomapDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Datasource struct {
+func (m PanelCanvasDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Datasource struct {
 		Type *string `json:"type,omitempty"`
 		Uid  *string `json:"uid,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueStringPointer()
-	attr_uid := m.Uid.ValueStringPointer()
+	attr_type := m.Type.ValueString()
+	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_Datasource{
-		Type: attr_type,
-		Uid:  attr_uid,
+	model := &jsonPanelCanvasDataSourceModel_Datasource{
+		Type: &attr_type,
+		Uid:  &attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Datasource) ApplyDefaults() PanelGeomapDataSourceModel_Datasource {
+func (m PanelCanvasDataSourceModel_Datasource) ApplyDefaults() PanelCanvasDataSourceModel_Datasource {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_GridPos struct {
+type PanelCanvasDataSourceModel_GridPos struct {
 	H      types.Int64 `tfsdk:"h"`
 	W      types.Int64 `tfsdk:"w"`
 	X      types.Int64 `tfsdk:"x"`
@@ -75,8 +75,8 @@ type PanelGeomapDataSourceModel_GridPos struct {
 	Static types.Bool  `tfsdk:"static"`
 }
 
-func (m PanelGeomapDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_GridPos struct {
+func (m PanelCanvasDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_GridPos struct {
 		H      int64 `json:"h"`
 		W      int64 `json:"w"`
 		X      int64 `json:"x"`
@@ -89,19 +89,19 @@ func (m PanelGeomapDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	attr_static := m.Static.ValueBoolPointer()
+	attr_static := m.Static.ValueBool()
 
-	model := &jsonPanelGeomapDataSourceModel_GridPos{
+	model := &jsonPanelCanvasDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
 		Y:      attr_y,
-		Static: attr_static,
+		Static: &attr_static,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_GridPos) ApplyDefaults() PanelGeomapDataSourceModel_GridPos {
+func (m PanelCanvasDataSourceModel_GridPos) ApplyDefaults() PanelCanvasDataSourceModel_GridPos {
 	if m.H.IsNull() {
 		m.H = types.Int64Value(9)
 	}
@@ -117,7 +117,7 @@ func (m PanelGeomapDataSourceModel_GridPos) ApplyDefaults() PanelGeomapDataSourc
 	return m
 }
 
-type PanelGeomapDataSourceModel_Links struct {
+type PanelCanvasDataSourceModel_Links struct {
 	Title       types.String `tfsdk:"title"`
 	Type        types.String `tfsdk:"type"`
 	Icon        types.String `tfsdk:"icon"`
@@ -130,8 +130,8 @@ type PanelGeomapDataSourceModel_Links struct {
 	KeepTime    types.Bool   `tfsdk:"keep_time"`
 }
 
-func (m PanelGeomapDataSourceModel_Links) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Links struct {
+func (m PanelCanvasDataSourceModel_Links) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Links struct {
 		Title       string   `json:"title"`
 		Type        string   `json:"type"`
 		Icon        string   `json:"icon"`
@@ -159,7 +159,7 @@ func (m PanelGeomapDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	attr_includevars := m.IncludeVars.ValueBool()
 	attr_keeptime := m.KeepTime.ValueBool()
 
-	model := &jsonPanelGeomapDataSourceModel_Links{
+	model := &jsonPanelCanvasDataSourceModel_Links{
 		Title:       attr_title,
 		Type:        attr_type,
 		Icon:        attr_icon,
@@ -174,7 +174,7 @@ func (m PanelGeomapDataSourceModel_Links) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Links) ApplyDefaults() PanelGeomapDataSourceModel_Links {
+func (m PanelCanvasDataSourceModel_Links) ApplyDefaults() PanelCanvasDataSourceModel_Links {
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
 	}
@@ -193,61 +193,61 @@ func (m PanelGeomapDataSourceModel_Links) ApplyDefaults() PanelGeomapDataSourceM
 	return m
 }
 
-type PanelGeomapDataSourceModel_Transformations_Filter struct {
+type PanelCanvasDataSourceModel_Transformations_Filter struct {
 }
 
-func (m PanelGeomapDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Transformations_Filter struct {
+func (m PanelCanvasDataSourceModel_Transformations_Filter) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Transformations_Filter struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelGeomapDataSourceModel_Transformations_Filter{}
+	model := &jsonPanelCanvasDataSourceModel_Transformations_Filter{}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Transformations_Filter) ApplyDefaults() PanelGeomapDataSourceModel_Transformations_Filter {
+func (m PanelCanvasDataSourceModel_Transformations_Filter) ApplyDefaults() PanelCanvasDataSourceModel_Transformations_Filter {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_Transformations struct {
+type PanelCanvasDataSourceModel_Transformations struct {
 	Disabled types.Bool                                         `tfsdk:"disabled"`
-	Filter   *PanelGeomapDataSourceModel_Transformations_Filter `tfsdk:"filter"`
+	Filter   *PanelCanvasDataSourceModel_Transformations_Filter `tfsdk:"filter"`
 }
 
-func (m PanelGeomapDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Transformations struct {
+func (m PanelCanvasDataSourceModel_Transformations) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Transformations struct {
 		Disabled *bool       `json:"disabled,omitempty"`
 		Filter   interface{} `json:"filter,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_disabled := m.Disabled.ValueBoolPointer()
+	attr_disabled := m.Disabled.ValueBool()
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_Transformations{
-		Disabled: attr_disabled,
+	model := &jsonPanelCanvasDataSourceModel_Transformations{
+		Disabled: &attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Transformations) ApplyDefaults() PanelGeomapDataSourceModel_Transformations {
+func (m PanelCanvasDataSourceModel_Transformations) ApplyDefaults() PanelCanvasDataSourceModel_Transformations {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_LibraryPanel struct {
+type PanelCanvasDataSourceModel_LibraryPanel struct {
 	Name types.String `tfsdk:"name"`
 	Uid  types.String `tfsdk:"uid"`
 }
 
-func (m PanelGeomapDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_LibraryPanel struct {
+func (m PanelCanvasDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_LibraryPanel struct {
 		Name string `json:"name"`
 		Uid  string `json:"uid"`
 	}
@@ -256,395 +256,559 @@ func (m PanelGeomapDataSourceModel_LibraryPanel) MarshalJSON() ([]byte, error) {
 	attr_name := m.Name.ValueString()
 	attr_uid := m.Uid.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_LibraryPanel{
+	model := &jsonPanelCanvasDataSourceModel_LibraryPanel{
 		Name: attr_name,
 		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_LibraryPanel) ApplyDefaults() PanelGeomapDataSourceModel_LibraryPanel {
+func (m PanelCanvasDataSourceModel_LibraryPanel) ApplyDefaults() PanelCanvasDataSourceModel_LibraryPanel {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_Options_View struct {
-	Lat       types.Int64  `tfsdk:"lat"`
-	Lon       types.Int64  `tfsdk:"lon"`
-	Zoom      types.Int64  `tfsdk:"zoom"`
-	MinZoom   types.Int64  `tfsdk:"min_zoom"`
-	MaxZoom   types.Int64  `tfsdk:"max_zoom"`
-	Padding   types.Int64  `tfsdk:"padding"`
-	AllLayers types.Bool   `tfsdk:"all_layers"`
-	LastOnly  types.Bool   `tfsdk:"last_only"`
-	Layer     types.String `tfsdk:"layer"`
-	Shared    types.Bool   `tfsdk:"shared"`
+type PanelCanvasDataSourceModel_Options_Root_Elements_Constraint struct {
+	Horizontal types.String `tfsdk:"horizontal"`
+	Vertical   types.String `tfsdk:"vertical"`
 }
 
-func (m PanelGeomapDataSourceModel_Options_View) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_View struct {
-		Lat       *int64  `json:"lat,omitempty"`
-		Lon       *int64  `json:"lon,omitempty"`
-		Zoom      *int64  `json:"zoom,omitempty"`
-		MinZoom   *int64  `json:"minZoom,omitempty"`
-		MaxZoom   *int64  `json:"maxZoom,omitempty"`
-		Padding   *int64  `json:"padding,omitempty"`
-		AllLayers *bool   `json:"allLayers,omitempty"`
-		LastOnly  *bool   `json:"lastOnly,omitempty"`
-		Layer     *string `json:"layer,omitempty"`
-		Shared    *bool   `json:"shared,omitempty"`
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Constraint) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Constraint struct {
+		Horizontal *string `json:"horizontal,omitempty"`
+		Vertical   *string `json:"vertical,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_lat := m.Lat.ValueInt64Pointer()
-	attr_lon := m.Lon.ValueInt64Pointer()
-	attr_zoom := m.Zoom.ValueInt64Pointer()
-	attr_minzoom := m.MinZoom.ValueInt64Pointer()
-	attr_maxzoom := m.MaxZoom.ValueInt64Pointer()
-	attr_padding := m.Padding.ValueInt64Pointer()
-	attr_alllayers := m.AllLayers.ValueBoolPointer()
-	attr_lastonly := m.LastOnly.ValueBoolPointer()
-	attr_layer := m.Layer.ValueStringPointer()
-	attr_shared := m.Shared.ValueBoolPointer()
+	attr_horizontal := m.Horizontal.ValueString()
+	attr_vertical := m.Vertical.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_Options_View{
-		Lat:       attr_lat,
-		Lon:       attr_lon,
-		Zoom:      attr_zoom,
-		MinZoom:   attr_minzoom,
-		MaxZoom:   attr_maxzoom,
-		Padding:   attr_padding,
-		AllLayers: attr_alllayers,
-		LastOnly:  attr_lastonly,
-		Layer:     attr_layer,
-		Shared:    attr_shared,
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Constraint{
+		Horizontal: &attr_horizontal,
+		Vertical:   &attr_vertical,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Options_View) ApplyDefaults() PanelGeomapDataSourceModel_Options_View {
-	if m.Lat.IsNull() {
-		m.Lat = types.Int64Value(0)
-	}
-	if m.Lon.IsNull() {
-		m.Lon = types.Int64Value(0)
-	}
-	if m.Zoom.IsNull() {
-		m.Zoom = types.Int64Value(1)
-	}
-	if m.AllLayers.IsNull() {
-		m.AllLayers = types.BoolValue(true)
-	}
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Constraint) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Constraint {
+
 	return m
 }
 
-type PanelGeomapDataSourceModel_Options_Controls struct {
-	ShowZoom        types.Bool `tfsdk:"show_zoom"`
-	MouseWheelZoom  types.Bool `tfsdk:"mouse_wheel_zoom"`
-	ShowAttribution types.Bool `tfsdk:"show_attribution"`
-	ShowScale       types.Bool `tfsdk:"show_scale"`
-	ShowDebug       types.Bool `tfsdk:"show_debug"`
-	ShowMeasure     types.Bool `tfsdk:"show_measure"`
+type PanelCanvasDataSourceModel_Options_Root_Elements_Placement struct {
+	Top    types.Float64 `tfsdk:"top"`
+	Left   types.Float64 `tfsdk:"left"`
+	Right  types.Float64 `tfsdk:"right"`
+	Bottom types.Float64 `tfsdk:"bottom"`
+	Width  types.Float64 `tfsdk:"width"`
+	Height types.Float64 `tfsdk:"height"`
 }
 
-func (m PanelGeomapDataSourceModel_Options_Controls) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Controls struct {
-		ShowZoom        *bool `json:"showZoom,omitempty"`
-		MouseWheelZoom  *bool `json:"mouseWheelZoom,omitempty"`
-		ShowAttribution *bool `json:"showAttribution,omitempty"`
-		ShowScale       *bool `json:"showScale,omitempty"`
-		ShowDebug       *bool `json:"showDebug,omitempty"`
-		ShowMeasure     *bool `json:"showMeasure,omitempty"`
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Placement) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Placement struct {
+		Top    *float64 `json:"top,omitempty"`
+		Left   *float64 `json:"left,omitempty"`
+		Right  *float64 `json:"right,omitempty"`
+		Bottom *float64 `json:"bottom,omitempty"`
+		Width  *float64 `json:"width,omitempty"`
+		Height *float64 `json:"height,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_showzoom := m.ShowZoom.ValueBoolPointer()
-	attr_mousewheelzoom := m.MouseWheelZoom.ValueBoolPointer()
-	attr_showattribution := m.ShowAttribution.ValueBoolPointer()
-	attr_showscale := m.ShowScale.ValueBoolPointer()
-	attr_showdebug := m.ShowDebug.ValueBoolPointer()
-	attr_showmeasure := m.ShowMeasure.ValueBoolPointer()
+	attr_top := m.Top.ValueFloat64()
+	attr_left := m.Left.ValueFloat64()
+	attr_right := m.Right.ValueFloat64()
+	attr_bottom := m.Bottom.ValueFloat64()
+	attr_width := m.Width.ValueFloat64()
+	attr_height := m.Height.ValueFloat64()
 
-	model := &jsonPanelGeomapDataSourceModel_Options_Controls{
-		ShowZoom:        attr_showzoom,
-		MouseWheelZoom:  attr_mousewheelzoom,
-		ShowAttribution: attr_showattribution,
-		ShowScale:       attr_showscale,
-		ShowDebug:       attr_showdebug,
-		ShowMeasure:     attr_showmeasure,
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Placement{
+		Top:    &attr_top,
+		Left:   &attr_left,
+		Right:  &attr_right,
+		Bottom: &attr_bottom,
+		Width:  &attr_width,
+		Height: &attr_height,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Options_Controls) ApplyDefaults() PanelGeomapDataSourceModel_Options_Controls {
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Placement) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Placement {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_Options_Basemap_Location struct {
-	Mode      types.String `tfsdk:"mode"`
-	Geohash   types.String `tfsdk:"geohash"`
-	Latitude  types.String `tfsdk:"latitude"`
-	Longitude types.String `tfsdk:"longitude"`
-	Wkt       types.String `tfsdk:"wkt"`
-	Lookup    types.String `tfsdk:"lookup"`
-	Gazetteer types.String `tfsdk:"gazetteer"`
+type PanelCanvasDataSourceModel_Options_Root_Elements_Background_Color struct {
+	Fixed types.String `tfsdk:"fixed"`
+	Field types.String `tfsdk:"field"`
 }
 
-func (m PanelGeomapDataSourceModel_Options_Basemap_Location) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Basemap_Location struct {
-		Mode      string  `json:"mode"`
-		Geohash   *string `json:"geohash,omitempty"`
-		Latitude  *string `json:"latitude,omitempty"`
-		Longitude *string `json:"longitude,omitempty"`
-		Wkt       *string `json:"wkt,omitempty"`
-		Lookup    *string `json:"lookup,omitempty"`
-		Gazetteer *string `json:"gazetteer,omitempty"`
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Background_Color) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Background_Color struct {
+		Fixed *string `json:"fixed,omitempty"`
+		Field *string `json:"field,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_fixed := m.Fixed.ValueString()
+	attr_field := m.Field.ValueString()
+
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Background_Color{
+		Fixed: &attr_fixed,
+		Field: &attr_field,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Background_Color) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Background_Color {
+
+	return m
+}
+
+type PanelCanvasDataSourceModel_Options_Root_Elements_Background_Image struct {
+	Mode  types.String `tfsdk:"mode"`
+	Field types.String `tfsdk:"field"`
+	Fixed types.String `tfsdk:"fixed"`
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Background_Image) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Background_Image struct {
+		Mode  string  `json:"mode"`
+		Field *string `json:"field,omitempty"`
+		Fixed *string `json:"fixed,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_geohash := m.Geohash.ValueStringPointer()
-	attr_latitude := m.Latitude.ValueStringPointer()
-	attr_longitude := m.Longitude.ValueStringPointer()
-	attr_wkt := m.Wkt.ValueStringPointer()
-	attr_lookup := m.Lookup.ValueStringPointer()
-	attr_gazetteer := m.Gazetteer.ValueStringPointer()
+	attr_field := m.Field.ValueString()
+	attr_fixed := m.Fixed.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_Options_Basemap_Location{
-		Mode:      attr_mode,
-		Geohash:   attr_geohash,
-		Latitude:  attr_latitude,
-		Longitude: attr_longitude,
-		Wkt:       attr_wkt,
-		Lookup:    attr_lookup,
-		Gazetteer: attr_gazetteer,
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Background_Image{
+		Mode:  attr_mode,
+		Field: &attr_field,
+		Fixed: &attr_fixed,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Options_Basemap_Location) ApplyDefaults() PanelGeomapDataSourceModel_Options_Basemap_Location {
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Background_Image) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Background_Image {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_Options_Basemap struct {
-	Type     types.String                                         `tfsdk:"type"`
-	Name     types.String                                         `tfsdk:"name"`
-	Location *PanelGeomapDataSourceModel_Options_Basemap_Location `tfsdk:"location"`
-	Opacity  types.Int64                                          `tfsdk:"opacity"`
-	Tooltip  types.Bool                                           `tfsdk:"tooltip"`
+type PanelCanvasDataSourceModel_Options_Root_Elements_Background struct {
+	Color *PanelCanvasDataSourceModel_Options_Root_Elements_Background_Color `tfsdk:"color"`
+	Image *PanelCanvasDataSourceModel_Options_Root_Elements_Background_Image `tfsdk:"image"`
+	Size  types.String                                                       `tfsdk:"size"`
 }
 
-func (m PanelGeomapDataSourceModel_Options_Basemap) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Basemap struct {
-		Type     string      `json:"type"`
-		Name     string      `json:"name"`
-		Location interface{} `json:"location,omitempty"`
-		Opacity  *int64      `json:"opacity,omitempty"`
-		Tooltip  *bool       `json:"tooltip,omitempty"`
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Background) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Background struct {
+		Color interface{} `json:"color,omitempty"`
+		Image interface{} `json:"image,omitempty"`
+		Size  *string     `json:"size,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
+	var attr_color interface{}
+	if m.Color != nil {
+		attr_color = m.Color
+	}
+	var attr_image interface{}
+	if m.Image != nil {
+		attr_image = m.Image
+	}
+	attr_size := m.Size.ValueString()
+
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Background{
+		Color: attr_color,
+		Image: attr_image,
+		Size:  &attr_size,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Background) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Background {
+
+	return m
+}
+
+type PanelCanvasDataSourceModel_Options_Root_Elements_Border_Color struct {
+	Fixed types.String `tfsdk:"fixed"`
+	Field types.String `tfsdk:"field"`
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Border_Color) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Border_Color struct {
+		Fixed *string `json:"fixed,omitempty"`
+		Field *string `json:"field,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_fixed := m.Fixed.ValueString()
+	attr_field := m.Field.ValueString()
+
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Border_Color{
+		Fixed: &attr_fixed,
+		Field: &attr_field,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Border_Color) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Border_Color {
+
+	return m
+}
+
+type PanelCanvasDataSourceModel_Options_Root_Elements_Border struct {
+	Color *PanelCanvasDataSourceModel_Options_Root_Elements_Border_Color `tfsdk:"color"`
+	Width types.Float64                                                  `tfsdk:"width"`
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Border) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Border struct {
+		Color interface{} `json:"color,omitempty"`
+		Width *float64    `json:"width,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	var attr_color interface{}
+	if m.Color != nil {
+		attr_color = m.Color
+	}
+	attr_width := m.Width.ValueFloat64()
+
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Border{
+		Color: attr_color,
+		Width: &attr_width,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Border) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Border {
+
+	return m
+}
+
+type PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Source struct {
+	X types.Float64 `tfsdk:"x"`
+	Y types.Float64 `tfsdk:"y"`
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Source) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Connections_Source struct {
+		X float64 `json:"x"`
+		Y float64 `json:"y"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_x := m.X.ValueFloat64()
+	attr_y := m.Y.ValueFloat64()
+
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Connections_Source{
+		X: attr_x,
+		Y: attr_y,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Source) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Source {
+
+	return m
+}
+
+type PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Target struct {
+	X types.Float64 `tfsdk:"x"`
+	Y types.Float64 `tfsdk:"y"`
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Target) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Connections_Target struct {
+		X float64 `json:"x"`
+		Y float64 `json:"y"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_x := m.X.ValueFloat64()
+	attr_y := m.Y.ValueFloat64()
+
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Connections_Target{
+		X: attr_x,
+		Y: attr_y,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Target) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Target {
+
+	return m
+}
+
+type PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Color struct {
+	Fixed types.String `tfsdk:"fixed"`
+	Field types.String `tfsdk:"field"`
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Color) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Connections_Color struct {
+		Fixed *string `json:"fixed,omitempty"`
+		Field *string `json:"field,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_fixed := m.Fixed.ValueString()
+	attr_field := m.Field.ValueString()
+
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Connections_Color{
+		Fixed: &attr_fixed,
+		Field: &attr_field,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Color) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Color {
+
+	return m
+}
+
+type PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Size struct {
+	Min   types.Float64 `tfsdk:"min"`
+	Max   types.Float64 `tfsdk:"max"`
+	Fixed types.Float64 `tfsdk:"fixed"`
+	Field types.String  `tfsdk:"field"`
+	Mode  types.String  `tfsdk:"mode"`
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Size) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Connections_Size struct {
+		Min   float64  `json:"min"`
+		Max   float64  `json:"max"`
+		Fixed *float64 `json:"fixed,omitempty"`
+		Field *string  `json:"field,omitempty"`
+		Mode  *string  `json:"mode,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	attr_min := m.Min.ValueFloat64()
+	attr_max := m.Max.ValueFloat64()
+	attr_fixed := m.Fixed.ValueFloat64()
+	attr_field := m.Field.ValueString()
+	attr_mode := m.Mode.ValueString()
+
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Connections_Size{
+		Min:   attr_min,
+		Max:   attr_max,
+		Fixed: &attr_fixed,
+		Field: &attr_field,
+		Mode:  &attr_mode,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Size) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Size {
+
+	return m
+}
+
+type PanelCanvasDataSourceModel_Options_Root_Elements_Connections struct {
+	Source     *PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Source `tfsdk:"source"`
+	Target     *PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Target `tfsdk:"target"`
+	TargetName types.String                                                         `tfsdk:"target_name"`
+	Path       types.String                                                         `tfsdk:"path"`
+	Color      *PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Color  `tfsdk:"color"`
+	Size       *PanelCanvasDataSourceModel_Options_Root_Elements_Connections_Size   `tfsdk:"size"`
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Connections) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements_Connections struct {
+		Source     interface{} `json:"source,omitempty"`
+		Target     interface{} `json:"target,omitempty"`
+		TargetName *string     `json:"targetName,omitempty"`
+		Path       string      `json:"path"`
+		Color      interface{} `json:"color,omitempty"`
+		Size       interface{} `json:"size,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
+	var attr_source interface{}
+	if m.Source != nil {
+		attr_source = m.Source
+	}
+	var attr_target interface{}
+	if m.Target != nil {
+		attr_target = m.Target
+	}
+	attr_targetname := m.TargetName.ValueString()
+	attr_path := m.Path.ValueString()
+	var attr_color interface{}
+	if m.Color != nil {
+		attr_color = m.Color
+	}
+	var attr_size interface{}
+	if m.Size != nil {
+		attr_size = m.Size
+	}
+
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements_Connections{
+		Source:     attr_source,
+		Target:     attr_target,
+		TargetName: &attr_targetname,
+		Path:       attr_path,
+		Color:      attr_color,
+		Size:       attr_size,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements_Connections) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements_Connections {
+
+	return m
+}
+
+type PanelCanvasDataSourceModel_Options_Root_Elements struct {
+	Name        types.String                                                   `tfsdk:"name"`
+	Type        types.String                                                   `tfsdk:"type"`
+	Constraint  *PanelCanvasDataSourceModel_Options_Root_Elements_Constraint   `tfsdk:"constraint"`
+	Placement   *PanelCanvasDataSourceModel_Options_Root_Elements_Placement    `tfsdk:"placement"`
+	Background  *PanelCanvasDataSourceModel_Options_Root_Elements_Background   `tfsdk:"background"`
+	Border      *PanelCanvasDataSourceModel_Options_Root_Elements_Border       `tfsdk:"border"`
+	Connections []PanelCanvasDataSourceModel_Options_Root_Elements_Connections `tfsdk:"connections"`
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root_Elements struct {
+		Name        string        `json:"name"`
+		Type        string        `json:"type"`
+		Constraint  interface{}   `json:"constraint,omitempty"`
+		Placement   interface{}   `json:"placement,omitempty"`
+		Background  interface{}   `json:"background,omitempty"`
+		Border      interface{}   `json:"border,omitempty"`
+		Connections []interface{} `json:"connections,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
 	attr_name := m.Name.ValueString()
-	var attr_location interface{}
-	if m.Location != nil {
-		attr_location = m.Location
-	}
-	attr_opacity := m.Opacity.ValueInt64Pointer()
-	attr_tooltip := m.Tooltip.ValueBoolPointer()
-
-	model := &jsonPanelGeomapDataSourceModel_Options_Basemap{
-		Type:     attr_type,
-		Name:     attr_name,
-		Location: attr_location,
-		Opacity:  attr_opacity,
-		Tooltip:  attr_tooltip,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelGeomapDataSourceModel_Options_Basemap) ApplyDefaults() PanelGeomapDataSourceModel_Options_Basemap {
-
-	return m
-}
-
-type PanelGeomapDataSourceModel_Options_Layers_Location struct {
-	Mode      types.String `tfsdk:"mode"`
-	Geohash   types.String `tfsdk:"geohash"`
-	Latitude  types.String `tfsdk:"latitude"`
-	Longitude types.String `tfsdk:"longitude"`
-	Wkt       types.String `tfsdk:"wkt"`
-	Lookup    types.String `tfsdk:"lookup"`
-	Gazetteer types.String `tfsdk:"gazetteer"`
-}
-
-func (m PanelGeomapDataSourceModel_Options_Layers_Location) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Layers_Location struct {
-		Mode      string  `json:"mode"`
-		Geohash   *string `json:"geohash,omitempty"`
-		Latitude  *string `json:"latitude,omitempty"`
-		Longitude *string `json:"longitude,omitempty"`
-		Wkt       *string `json:"wkt,omitempty"`
-		Lookup    *string `json:"lookup,omitempty"`
-		Gazetteer *string `json:"gazetteer,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_geohash := m.Geohash.ValueStringPointer()
-	attr_latitude := m.Latitude.ValueStringPointer()
-	attr_longitude := m.Longitude.ValueStringPointer()
-	attr_wkt := m.Wkt.ValueStringPointer()
-	attr_lookup := m.Lookup.ValueStringPointer()
-	attr_gazetteer := m.Gazetteer.ValueStringPointer()
-
-	model := &jsonPanelGeomapDataSourceModel_Options_Layers_Location{
-		Mode:      attr_mode,
-		Geohash:   attr_geohash,
-		Latitude:  attr_latitude,
-		Longitude: attr_longitude,
-		Wkt:       attr_wkt,
-		Lookup:    attr_lookup,
-		Gazetteer: attr_gazetteer,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelGeomapDataSourceModel_Options_Layers_Location) ApplyDefaults() PanelGeomapDataSourceModel_Options_Layers_Location {
-
-	return m
-}
-
-type PanelGeomapDataSourceModel_Options_Layers struct {
-	Type     types.String                                        `tfsdk:"type"`
-	Name     types.String                                        `tfsdk:"name"`
-	Location *PanelGeomapDataSourceModel_Options_Layers_Location `tfsdk:"location"`
-	Opacity  types.Int64                                         `tfsdk:"opacity"`
-	Tooltip  types.Bool                                          `tfsdk:"tooltip"`
-}
-
-func (m PanelGeomapDataSourceModel_Options_Layers) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Layers struct {
-		Type     string      `json:"type"`
-		Name     string      `json:"name"`
-		Location interface{} `json:"location,omitempty"`
-		Opacity  *int64      `json:"opacity,omitempty"`
-		Tooltip  *bool       `json:"tooltip,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
+	var attr_constraint interface{}
+	if m.Constraint != nil {
+		attr_constraint = m.Constraint
+	}
+	var attr_placement interface{}
+	if m.Placement != nil {
+		attr_placement = m.Placement
+	}
+	var attr_background interface{}
+	if m.Background != nil {
+		attr_background = m.Background
+	}
+	var attr_border interface{}
+	if m.Border != nil {
+		attr_border = m.Border
+	}
+	attr_connections := []interface{}{}
+	for _, v := range m.Connections {
+		attr_connections = append(attr_connections, v)
+	}
+
+	model := &jsonPanelCanvasDataSourceModel_Options_Root_Elements{
+		Name:        attr_name,
+		Type:        attr_type,
+		Constraint:  attr_constraint,
+		Placement:   attr_placement,
+		Background:  attr_background,
+		Border:      attr_border,
+		Connections: attr_connections,
+	}
+	return json.Marshal(model)
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root_Elements) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root_Elements {
+
+	return m
+}
+
+type PanelCanvasDataSourceModel_Options_Root struct {
+	Name     types.String                                       `tfsdk:"name"`
+	Type     types.String                                       `tfsdk:"type"`
+	Elements []PanelCanvasDataSourceModel_Options_Root_Elements `tfsdk:"elements"`
+}
+
+func (m PanelCanvasDataSourceModel_Options_Root) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options_Root struct {
+		Name     string        `json:"name"`
+		Type     string        `json:"type"`
+		Elements []interface{} `json:"elements,omitempty"`
+	}
+
+	m = m.ApplyDefaults()
 	attr_name := m.Name.ValueString()
-	var attr_location interface{}
-	if m.Location != nil {
-		attr_location = m.Location
+	attr_type := m.Type.ValueString()
+	attr_elements := []interface{}{}
+	for _, v := range m.Elements {
+		attr_elements = append(attr_elements, v)
 	}
-	attr_opacity := m.Opacity.ValueInt64Pointer()
-	attr_tooltip := m.Tooltip.ValueBoolPointer()
 
-	model := &jsonPanelGeomapDataSourceModel_Options_Layers{
-		Type:     attr_type,
+	model := &jsonPanelCanvasDataSourceModel_Options_Root{
 		Name:     attr_name,
-		Location: attr_location,
-		Opacity:  attr_opacity,
-		Tooltip:  attr_tooltip,
+		Type:     attr_type,
+		Elements: attr_elements,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Options_Layers) ApplyDefaults() PanelGeomapDataSourceModel_Options_Layers {
+func (m PanelCanvasDataSourceModel_Options_Root) ApplyDefaults() PanelCanvasDataSourceModel_Options_Root {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_Options_Tooltip struct {
-	Mode types.String `tfsdk:"mode"`
+type PanelCanvasDataSourceModel_Options struct {
+	InlineEditing     types.Bool                               `tfsdk:"inline_editing"`
+	ShowAdvancedTypes types.Bool                               `tfsdk:"show_advanced_types"`
+	Root              *PanelCanvasDataSourceModel_Options_Root `tfsdk:"root"`
 }
 
-func (m PanelGeomapDataSourceModel_Options_Tooltip) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options_Tooltip struct {
-		Mode string `json:"mode"`
+func (m PanelCanvasDataSourceModel_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_Options struct {
+		InlineEditing     bool        `json:"inlineEditing"`
+		ShowAdvancedTypes bool        `json:"showAdvancedTypes"`
+		Root              interface{} `json:"root,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
+	attr_inlineediting := m.InlineEditing.ValueBool()
+	attr_showadvancedtypes := m.ShowAdvancedTypes.ValueBool()
+	var attr_root interface{}
+	if m.Root != nil {
+		attr_root = m.Root
+	}
 
-	model := &jsonPanelGeomapDataSourceModel_Options_Tooltip{
-		Mode: attr_mode,
+	model := &jsonPanelCanvasDataSourceModel_Options{
+		InlineEditing:     attr_inlineediting,
+		ShowAdvancedTypes: attr_showadvancedtypes,
+		Root:              attr_root,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_Options_Tooltip) ApplyDefaults() PanelGeomapDataSourceModel_Options_Tooltip {
-
+func (m PanelCanvasDataSourceModel_Options) ApplyDefaults() PanelCanvasDataSourceModel_Options {
+	if m.InlineEditing.IsNull() {
+		m.InlineEditing = types.BoolValue(true)
+	}
+	if m.ShowAdvancedTypes.IsNull() {
+		m.ShowAdvancedTypes = types.BoolValue(true)
+	}
 	return m
 }
 
-type PanelGeomapDataSourceModel_Options struct {
-	View     *PanelGeomapDataSourceModel_Options_View     `tfsdk:"view"`
-	Controls *PanelGeomapDataSourceModel_Options_Controls `tfsdk:"controls"`
-	Basemap  *PanelGeomapDataSourceModel_Options_Basemap  `tfsdk:"basemap"`
-	Layers   []PanelGeomapDataSourceModel_Options_Layers  `tfsdk:"layers"`
-	Tooltip  *PanelGeomapDataSourceModel_Options_Tooltip  `tfsdk:"tooltip"`
-}
-
-func (m PanelGeomapDataSourceModel_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_Options struct {
-		View     interface{}   `json:"view,omitempty"`
-		Controls interface{}   `json:"controls,omitempty"`
-		Basemap  interface{}   `json:"basemap,omitempty"`
-		Layers   []interface{} `json:"layers,omitempty"`
-		Tooltip  interface{}   `json:"tooltip,omitempty"`
-	}
-
-	m = m.ApplyDefaults()
-	var attr_view interface{}
-	if m.View != nil {
-		attr_view = m.View
-	}
-	var attr_controls interface{}
-	if m.Controls != nil {
-		attr_controls = m.Controls
-	}
-	var attr_basemap interface{}
-	if m.Basemap != nil {
-		attr_basemap = m.Basemap
-	}
-	attr_layers := []interface{}{}
-	for _, v := range m.Layers {
-		attr_layers = append(attr_layers, v)
-	}
-	var attr_tooltip interface{}
-	if m.Tooltip != nil {
-		attr_tooltip = m.Tooltip
-	}
-
-	model := &jsonPanelGeomapDataSourceModel_Options{
-		View:     attr_view,
-		Controls: attr_controls,
-		Basemap:  attr_basemap,
-		Layers:   attr_layers,
-		Tooltip:  attr_tooltip,
-	}
-	return json.Marshal(model)
-}
-
-func (m PanelGeomapDataSourceModel_Options) ApplyDefaults() PanelGeomapDataSourceModel_Options {
-
-	return m
-}
-
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -652,32 +816,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Option
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueStringPointer()
-	attr_color := m.Color.ValueStringPointer()
-	attr_icon := m.Icon.ValueStringPointer()
-	attr_index := m.Index.ValueInt64Pointer()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
-		Text:  attr_text,
-		Color: attr_color,
-		Icon:  attr_icon,
-		Index: attr_index,
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
 	Type    types.String                                                                          `tfsdk:"type"`
-	Options *map[string]PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options `tfsdk:"options"`
+	Options *map[string]PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options `tfsdk:"options"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -689,27 +853,27 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) Marsh
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -717,32 +881,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Option
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueStringPointer()
-	attr_color := m.Color.ValueStringPointer()
-	attr_icon := m.Icon.ValueStringPointer()
-	attr_index := m.Index.ValueInt64Pointer()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  attr_text,
-		Color: attr_color,
-		Icon:  attr_icon,
-		Index: attr_index,
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
 	From   types.String                                                                      `tfsdk:"from"`
 	To     types.String                                                                      `tfsdk:"to"`
-	Result *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result `tfsdk:"result"`
+	Result *PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result `tfsdk:"result"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrFrom() interface{} {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrFrom() interface{} {
 	var attr interface{}
 	var err error
 
@@ -758,7 +922,7 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Option
 	return m.From.ValueString()
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrTo() interface{} {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) GetAttrTo() interface{} {
 	var attr interface{}
 	var err error
 
@@ -774,8 +938,8 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Option
 	return m.To.ValueString()
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options struct {
 		From   interface{} `json:"from"`
 		To     interface{} `json:"to"`
 		Result interface{} `json:"result,omitempty"`
@@ -789,7 +953,7 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Option
 		attr_result = m.Result
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options{
 		From:   attr_from,
 		To:     attr_to,
 		Result: attr_result,
@@ -797,18 +961,18 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Option
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
 	Type    types.String                                                               `tfsdk:"type"`
-	Options *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options `tfsdk:"options"`
+	Options *PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options `tfsdk:"options"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -820,27 +984,27 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) Marsh
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -848,32 +1012,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Option
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueStringPointer()
-	attr_color := m.Color.ValueStringPointer()
-	attr_icon := m.Icon.ValueStringPointer()
-	attr_index := m.Index.ValueInt64Pointer()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  attr_text,
-		Color: attr_color,
-		Icon:  attr_icon,
-		Index: attr_index,
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
 	Pattern types.String                                                                      `tfsdk:"pattern"`
-	Result  *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result `tfsdk:"result"`
+	Result  *PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result `tfsdk:"result"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options struct {
 		Pattern string      `json:"pattern"`
 		Result  interface{} `json:"result,omitempty"`
 	}
@@ -885,25 +1049,25 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Option
 		attr_result = m.Result
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options{
 		Pattern: attr_pattern,
 		Result:  attr_result,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
 	Type    types.String                                                               `tfsdk:"type"`
-	Options *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options `tfsdk:"options"`
+	Options *PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options `tfsdk:"options"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -915,27 +1079,27 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) Marsh
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
 	Text  types.String `tfsdk:"text"`
 	Color types.String `tfsdk:"color"`
 	Icon  types.String `tfsdk:"icon"`
 	Index types.Int64  `tfsdk:"index"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result struct {
 		Text  *string `json:"text,omitempty"`
 		Color *string `json:"color,omitempty"`
 		Icon  *string `json:"icon,omitempty"`
@@ -943,32 +1107,32 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueStringPointer()
-	attr_color := m.Color.ValueStringPointer()
-	attr_icon := m.Icon.ValueStringPointer()
-	attr_index := m.Index.ValueInt64Pointer()
+	attr_text := m.Text.ValueString()
+	attr_color := m.Color.ValueString()
+	attr_icon := m.Icon.ValueString()
+	attr_index := m.Index.ValueInt64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  attr_text,
-		Color: attr_color,
-		Icon:  attr_icon,
-		Index: attr_index,
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
+		Text:  &attr_text,
+		Color: &attr_color,
+		Icon:  &attr_icon,
+		Index: &attr_index,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
 	Match  types.String                                                                             `tfsdk:"match"`
-	Result *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
+	Result *PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result `tfsdk:"result"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options struct {
 		Match  string      `json:"match"`
 		Result interface{} `json:"result,omitempty"`
 	}
@@ -980,25 +1144,25 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap
 		attr_result = m.Result
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options{
 		Match:  attr_match,
 		Result: attr_result,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
 	Type    types.String                                                                      `tfsdk:"type"`
-	Options *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options `tfsdk:"options"`
+	Options *PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options `tfsdk:"options"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap struct {
 		Type    string      `json:"type"`
 		Options interface{} `json:"options,omitempty"`
 	}
@@ -1010,55 +1174,55 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap
 		attr_options = m.Options
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap{
 		Type:    attr_type,
 		Options: attr_options,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings struct {
-	ValueMap        *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap        `tfsdk:"value_map"`
-	RangeMap        *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap        `tfsdk:"range_map"`
-	RegexMap        *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap        `tfsdk:"regex_map"`
-	SpecialValueMap *PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap `tfsdk:"special_value_map"`
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings struct {
+	ValueMap        *PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap        `tfsdk:"value_map"`
+	RangeMap        *PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap        `tfsdk:"range_map"`
+	RegexMap        *PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap        `tfsdk:"regex_map"`
+	SpecialValueMap *PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap `tfsdk:"special_value_map"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() ([]byte, error) {
-	var json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings interface{}
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings) MarshalJSON() ([]byte, error) {
+	var json_PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings interface{}
 	m = m.ApplyDefaults()
 	if m.ValueMap != nil {
-		json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings = m.ValueMap
+		json_PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings = m.ValueMap
 	}
 	if m.RangeMap != nil {
-		json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings = m.RangeMap
+		json_PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings = m.RangeMap
 	}
 	if m.RegexMap != nil {
-		json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings = m.RegexMap
+		json_PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings = m.RegexMap
 	}
 	if m.SpecialValueMap != nil {
-		json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings = m.SpecialValueMap
+		json_PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings = m.SpecialValueMap
 	}
 
-	return json.Marshal(json_PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings)
+	return json.Marshal(json_PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 	Value types.String `tfsdk:"value"`
 	Color types.String `tfsdk:"color"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) GetAttrValue() interface{} {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) GetAttrValue() interface{} {
 	var attr interface{}
 	var err error
 
@@ -1074,8 +1238,8 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) GetAtt
 	return m.Value.ValueString()
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds_Steps struct {
 		Value interface{} `json:"value"`
 		Color string      `json:"color"`
 	}
@@ -1084,25 +1248,25 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) Marsha
 	attr_value := m.GetAttrValue()
 	attr_color := m.Color.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds_Steps{
 		Value: attr_value,
 		Color: attr_color,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds_Steps) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds_Steps {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 	Mode  types.String                                                       `tfsdk:"mode"`
-	Steps []PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
+	Steps []PanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds_Steps `tfsdk:"steps"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds struct {
 		Mode  string        `json:"mode"`
 		Steps []interface{} `json:"steps,omitempty"`
 	}
@@ -1114,26 +1278,26 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds) MarshalJSON(
 		attr_steps = append(attr_steps, v)
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds{
 		Mode:  attr_mode,
 		Steps: attr_steps,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Color struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Color struct {
 	Mode       types.String `tfsdk:"mode"`
 	FixedColor types.String `tfsdk:"fixed_color"`
 	SeriesBy   types.String `tfsdk:"series_by"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Color struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Color struct {
 		Mode       string  `json:"mode"`
 		FixedColor *string `json:"fixedColor,omitempty"`
 		SeriesBy   *string `json:"seriesBy,omitempty"`
@@ -1141,85 +1305,85 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([]
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_fixedcolor := m.FixedColor.ValueStringPointer()
-	attr_seriesby := m.SeriesBy.ValueStringPointer()
+	attr_fixedcolor := m.FixedColor.ValueString()
+	attr_seriesby := m.SeriesBy.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Color{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
-		FixedColor: attr_fixedcolor,
-		SeriesBy:   attr_seriesby,
+		FixedColor: &attr_fixedcolor,
+		SeriesBy:   &attr_seriesby,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Color {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Color) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Color {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
 	Mode types.String `tfsdk:"mode"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle struct {
 		Mode string `json:"mode"`
 	}
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle{
 		Mode: attr_mode,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
 	Fill types.String `tfsdk:"fill"`
 	Dash types.List   `tfsdk:"dash"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_LineStyle struct {
 		Fill *string   `json:"fill,omitempty"`
 		Dash []float64 `json:"dash,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_fill := m.Fill.ValueStringPointer()
+	attr_fill := m.Fill.ValueString()
 	attr_dash := []float64{}
 	for _, v := range m.Dash.Elements() {
 		attr_dash = append(attr_dash, v.(types.Float64).ValueFloat64())
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle{
-		Fill: attr_fill,
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_LineStyle{
+		Fill: &attr_fill,
 		Dash: attr_dash,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_LineStyle {
 	if len(m.Dash.Elements()) == 0 {
 		m.Dash, _ = types.ListValue(types.Float64Type, []attr.Value{})
 	}
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
 	Type            types.String  `tfsdk:"type"`
 	Log             types.Float64 `tfsdk:"log"`
 	LinearThreshold types.Float64 `tfsdk:"linear_threshold"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution struct {
 		Type            string   `json:"type"`
 		Log             *float64 `json:"log,omitempty"`
 		LinearThreshold *float64 `json:"linearThreshold,omitempty"`
@@ -1227,57 +1391,57 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64Pointer()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64Pointer()
+	attr_log := m.Log.ValueFloat64()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
 		Type:            attr_type,
-		Log:             attr_log,
-		LinearThreshold: attr_linearthreshold,
+		Log:             &attr_log,
+		LinearThreshold: &attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
 	Mode  types.String `tfsdk:"mode"`
 	Group types.String `tfsdk:"group"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_Stacking) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_Stacking struct {
 		Mode  *string `json:"mode,omitempty"`
 		Group *string `json:"group,omitempty"`
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueStringPointer()
-	attr_group := m.Group.ValueStringPointer()
+	attr_mode := m.Mode.ValueString()
+	attr_group := m.Group.ValueString()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking{
-		Mode:  attr_mode,
-		Group: attr_group,
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_Stacking{
+		Mode:  &attr_mode,
+		Group: &attr_group,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_Stacking) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_Stacking {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
 	Tooltip types.Bool `tfsdk:"tooltip"`
 	Legend  types.Bool `tfsdk:"legend"`
 	Viz     types.Bool `tfsdk:"viz"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_HideFrom struct {
 		Tooltip bool `json:"tooltip"`
 		Legend  bool `json:"legend"`
 		Viz     bool `json:"viz"`
@@ -1288,7 +1452,7 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) Marshal
 	attr_legend := m.Legend.ValueBool()
 	attr_viz := m.Viz.ValueBool()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_HideFrom{
 		Tooltip: attr_tooltip,
 		Legend:  attr_legend,
 		Viz:     attr_viz,
@@ -1296,19 +1460,19 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) Marshal
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_HideFrom) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_HideFrom {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom struct {
 	DrawStyle         types.String                                                              `tfsdk:"draw_style"`
 	GradientMode      types.String                                                              `tfsdk:"gradient_mode"`
-	ThresholdsStyle   *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
+	ThresholdsStyle   *PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ThresholdsStyle   `tfsdk:"thresholds_style"`
 	LineColor         types.String                                                              `tfsdk:"line_color"`
 	LineWidth         types.Float64                                                             `tfsdk:"line_width"`
 	LineInterpolation types.String                                                              `tfsdk:"line_interpolation"`
-	LineStyle         *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_LineStyle         `tfsdk:"line_style"`
+	LineStyle         *PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_LineStyle         `tfsdk:"line_style"`
 	FillColor         types.String                                                              `tfsdk:"fill_color"`
 	FillOpacity       types.Float64                                                             `tfsdk:"fill_opacity"`
 	ShowPoints        types.String                                                              `tfsdk:"show_points"`
@@ -1321,11 +1485,11 @@ type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom struct {
 	AxisSoftMin       types.Float64                                                             `tfsdk:"axis_soft_min"`
 	AxisSoftMax       types.Float64                                                             `tfsdk:"axis_soft_max"`
 	AxisGridShow      types.Bool                                                                `tfsdk:"axis_grid_show"`
-	ScaleDistribution *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
+	ScaleDistribution *PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution `tfsdk:"scale_distribution"`
 	BarAlignment      types.Int64                                                               `tfsdk:"bar_alignment"`
 	BarWidthFactor    types.Float64                                                             `tfsdk:"bar_width_factor"`
-	Stacking          *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_Stacking          `tfsdk:"stacking"`
-	HideFrom          *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
+	Stacking          *PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_Stacking          `tfsdk:"stacking"`
+	HideFrom          *PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom_HideFrom          `tfsdk:"hide_from"`
 	Transform         types.String                                                              `tfsdk:"transform"`
 	SpanNulls         types.String                                                              `tfsdk:"span_nulls"`
 	FillBelowTo       types.String                                                              `tfsdk:"fill_below_to"`
@@ -1334,7 +1498,7 @@ type PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom struct {
 	BarMaxWidth       types.Float64                                                             `tfsdk:"bar_max_width"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) GetAttrSpanNulls() interface{} {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom) GetAttrSpanNulls() interface{} {
 	var attr interface{}
 	var err error
 
@@ -1350,8 +1514,8 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) GetAttrSpanNulls
 	return m.SpanNulls.ValueString()
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom struct {
 		DrawStyle         *string     `json:"drawStyle,omitempty"`
 		GradientMode      *string     `json:"gradientMode,omitempty"`
 		ThresholdsStyle   interface{} `json:"thresholdsStyle,omitempty"`
@@ -1385,37 +1549,37 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([
 	}
 
 	m = m.ApplyDefaults()
-	attr_drawstyle := m.DrawStyle.ValueStringPointer()
-	attr_gradientmode := m.GradientMode.ValueStringPointer()
+	attr_drawstyle := m.DrawStyle.ValueString()
+	attr_gradientmode := m.GradientMode.ValueString()
 	var attr_thresholdsstyle interface{}
 	if m.ThresholdsStyle != nil {
 		attr_thresholdsstyle = m.ThresholdsStyle
 	}
-	attr_linecolor := m.LineColor.ValueStringPointer()
-	attr_linewidth := m.LineWidth.ValueFloat64Pointer()
-	attr_lineinterpolation := m.LineInterpolation.ValueStringPointer()
+	attr_linecolor := m.LineColor.ValueString()
+	attr_linewidth := m.LineWidth.ValueFloat64()
+	attr_lineinterpolation := m.LineInterpolation.ValueString()
 	var attr_linestyle interface{}
 	if m.LineStyle != nil {
 		attr_linestyle = m.LineStyle
 	}
-	attr_fillcolor := m.FillColor.ValueStringPointer()
-	attr_fillopacity := m.FillOpacity.ValueFloat64Pointer()
-	attr_showpoints := m.ShowPoints.ValueStringPointer()
-	attr_pointsize := m.PointSize.ValueFloat64Pointer()
-	attr_pointcolor := m.PointColor.ValueStringPointer()
-	attr_axisplacement := m.AxisPlacement.ValueStringPointer()
-	attr_axiscolormode := m.AxisColorMode.ValueStringPointer()
-	attr_axislabel := m.AxisLabel.ValueStringPointer()
-	attr_axiswidth := m.AxisWidth.ValueFloat64Pointer()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64Pointer()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64Pointer()
-	attr_axisgridshow := m.AxisGridShow.ValueBoolPointer()
+	attr_fillcolor := m.FillColor.ValueString()
+	attr_fillopacity := m.FillOpacity.ValueFloat64()
+	attr_showpoints := m.ShowPoints.ValueString()
+	attr_pointsize := m.PointSize.ValueFloat64()
+	attr_pointcolor := m.PointColor.ValueString()
+	attr_axisplacement := m.AxisPlacement.ValueString()
+	attr_axiscolormode := m.AxisColorMode.ValueString()
+	attr_axislabel := m.AxisLabel.ValueString()
+	attr_axiswidth := m.AxisWidth.ValueFloat64()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
+	attr_axisgridshow := m.AxisGridShow.ValueBool()
 	var attr_scaledistribution interface{}
 	if m.ScaleDistribution != nil {
 		attr_scaledistribution = m.ScaleDistribution
 	}
-	attr_baralignment := m.BarAlignment.ValueInt64Pointer()
-	attr_barwidthfactor := m.BarWidthFactor.ValueFloat64Pointer()
+	attr_baralignment := m.BarAlignment.ValueInt64()
+	attr_barwidthfactor := m.BarWidthFactor.ValueFloat64()
 	var attr_stacking interface{}
 	if m.Stacking != nil {
 		attr_stacking = m.Stacking
@@ -1424,54 +1588,54 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() ([
 	if m.HideFrom != nil {
 		attr_hidefrom = m.HideFrom
 	}
-	attr_transform := m.Transform.ValueStringPointer()
+	attr_transform := m.Transform.ValueString()
 	attr_spannulls := m.GetAttrSpanNulls()
-	attr_fillbelowto := m.FillBelowTo.ValueStringPointer()
-	attr_pointsymbol := m.PointSymbol.ValueStringPointer()
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBoolPointer()
-	attr_barmaxwidth := m.BarMaxWidth.ValueFloat64Pointer()
+	attr_fillbelowto := m.FillBelowTo.ValueString()
+	attr_pointsymbol := m.PointSymbol.ValueString()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
+	attr_barmaxwidth := m.BarMaxWidth.ValueFloat64()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults_Custom{
-		DrawStyle:         attr_drawstyle,
-		GradientMode:      attr_gradientmode,
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults_Custom{
+		DrawStyle:         &attr_drawstyle,
+		GradientMode:      &attr_gradientmode,
 		ThresholdsStyle:   attr_thresholdsstyle,
-		LineColor:         attr_linecolor,
-		LineWidth:         attr_linewidth,
-		LineInterpolation: attr_lineinterpolation,
+		LineColor:         &attr_linecolor,
+		LineWidth:         &attr_linewidth,
+		LineInterpolation: &attr_lineinterpolation,
 		LineStyle:         attr_linestyle,
-		FillColor:         attr_fillcolor,
-		FillOpacity:       attr_fillopacity,
-		ShowPoints:        attr_showpoints,
-		PointSize:         attr_pointsize,
-		PointColor:        attr_pointcolor,
-		AxisPlacement:     attr_axisplacement,
-		AxisColorMode:     attr_axiscolormode,
-		AxisLabel:         attr_axislabel,
-		AxisWidth:         attr_axiswidth,
-		AxisSoftMin:       attr_axissoftmin,
-		AxisSoftMax:       attr_axissoftmax,
-		AxisGridShow:      attr_axisgridshow,
+		FillColor:         &attr_fillcolor,
+		FillOpacity:       &attr_fillopacity,
+		ShowPoints:        &attr_showpoints,
+		PointSize:         &attr_pointsize,
+		PointColor:        &attr_pointcolor,
+		AxisPlacement:     &attr_axisplacement,
+		AxisColorMode:     &attr_axiscolormode,
+		AxisLabel:         &attr_axislabel,
+		AxisWidth:         &attr_axiswidth,
+		AxisSoftMin:       &attr_axissoftmin,
+		AxisSoftMax:       &attr_axissoftmax,
+		AxisGridShow:      &attr_axisgridshow,
 		ScaleDistribution: attr_scaledistribution,
-		BarAlignment:      attr_baralignment,
-		BarWidthFactor:    attr_barwidthfactor,
+		BarAlignment:      &attr_baralignment,
+		BarWidthFactor:    &attr_barwidthfactor,
 		Stacking:          attr_stacking,
 		HideFrom:          attr_hidefrom,
-		Transform:         attr_transform,
+		Transform:         &attr_transform,
 		SpanNulls:         attr_spannulls,
-		FillBelowTo:       attr_fillbelowto,
-		PointSymbol:       attr_pointsymbol,
-		AxisCenteredZero:  attr_axiscenteredzero,
-		BarMaxWidth:       attr_barmaxwidth,
+		FillBelowTo:       &attr_fillbelowto,
+		PointSymbol:       &attr_pointsymbol,
+		AxisCenteredZero:  &attr_axiscenteredzero,
+		BarMaxWidth:       &attr_barmaxwidth,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Defaults struct {
+type PanelCanvasDataSourceModel_FieldConfig_Defaults struct {
 	DisplayName       types.String                                                `tfsdk:"display_name"`
 	DisplayNameFromDS types.String                                                `tfsdk:"display_name_from_ds"`
 	Description       types.String                                                `tfsdk:"description"`
@@ -1482,15 +1646,15 @@ type PanelGeomapDataSourceModel_FieldConfig_Defaults struct {
 	Decimals          types.Float64                                               `tfsdk:"decimals"`
 	Min               types.Float64                                               `tfsdk:"min"`
 	Max               types.Float64                                               `tfsdk:"max"`
-	Mappings          []PanelGeomapDataSourceModel_FieldConfig_Defaults_Mappings  `tfsdk:"mappings"`
-	Thresholds        *PanelGeomapDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
-	Color             *PanelGeomapDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
+	Mappings          []PanelCanvasDataSourceModel_FieldConfig_Defaults_Mappings  `tfsdk:"mappings"`
+	Thresholds        *PanelCanvasDataSourceModel_FieldConfig_Defaults_Thresholds `tfsdk:"thresholds"`
+	Color             *PanelCanvasDataSourceModel_FieldConfig_Defaults_Color      `tfsdk:"color"`
 	NoValue           types.String                                                `tfsdk:"no_value"`
-	Custom            *PanelGeomapDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
+	Custom            *PanelCanvasDataSourceModel_FieldConfig_Defaults_Custom     `tfsdk:"custom"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Defaults struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Defaults struct {
 		DisplayName       *string       `json:"displayName,omitempty"`
 		DisplayNameFromDS *string       `json:"displayNameFromDS,omitempty"`
 		Description       *string       `json:"description,omitempty"`
@@ -1509,16 +1673,16 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, 
 	}
 
 	m = m.ApplyDefaults()
-	attr_displayname := m.DisplayName.ValueStringPointer()
-	attr_displaynamefromds := m.DisplayNameFromDS.ValueStringPointer()
-	attr_description := m.Description.ValueStringPointer()
-	attr_path := m.Path.ValueStringPointer()
-	attr_writeable := m.Writeable.ValueBoolPointer()
-	attr_filterable := m.Filterable.ValueBoolPointer()
-	attr_unit := m.Unit.ValueStringPointer()
-	attr_decimals := m.Decimals.ValueFloat64Pointer()
-	attr_min := m.Min.ValueFloat64Pointer()
-	attr_max := m.Max.ValueFloat64Pointer()
+	attr_displayname := m.DisplayName.ValueString()
+	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
+	attr_description := m.Description.ValueString()
+	attr_path := m.Path.ValueString()
+	attr_writeable := m.Writeable.ValueBool()
+	attr_filterable := m.Filterable.ValueBool()
+	attr_unit := m.Unit.ValueString()
+	attr_decimals := m.Decimals.ValueFloat64()
+	attr_min := m.Min.ValueFloat64()
+	attr_max := m.Max.ValueFloat64()
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -1531,80 +1695,80 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte, 
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	attr_novalue := m.NoValue.ValueStringPointer()
+	attr_novalue := m.NoValue.ValueString()
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Defaults{
-		DisplayName:       attr_displayname,
-		DisplayNameFromDS: attr_displaynamefromds,
-		Description:       attr_description,
-		Path:              attr_path,
-		Writeable:         attr_writeable,
-		Filterable:        attr_filterable,
-		Unit:              attr_unit,
-		Decimals:          attr_decimals,
-		Min:               attr_min,
-		Max:               attr_max,
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Defaults{
+		DisplayName:       &attr_displayname,
+		DisplayNameFromDS: &attr_displaynamefromds,
+		Description:       &attr_description,
+		Path:              &attr_path,
+		Writeable:         &attr_writeable,
+		Filterable:        &attr_filterable,
+		Unit:              &attr_unit,
+		Decimals:          &attr_decimals,
+		Min:               &attr_min,
+		Max:               &attr_max,
 		Mappings:          attr_mappings,
 		Thresholds:        attr_thresholds,
 		Color:             attr_color,
-		NoValue:           attr_novalue,
+		NoValue:           &attr_novalue,
 		Custom:            attr_custom,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Defaults {
+func (m PanelCanvasDataSourceModel_FieldConfig_Defaults) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Defaults {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher struct {
+type PanelCanvasDataSourceModel_FieldConfig_Overrides_Matcher struct {
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Overrides_Matcher) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Overrides_Matcher struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher{}
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Overrides_Matcher{}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher {
+func (m PanelCanvasDataSourceModel_FieldConfig_Overrides_Matcher) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Overrides_Matcher {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties struct {
+type PanelCanvasDataSourceModel_FieldConfig_Overrides_Properties struct {
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Properties struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Overrides_Properties) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Overrides_Properties struct {
 	}
 
 	m = m.ApplyDefaults()
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Overrides_Properties{}
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Overrides_Properties{}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties {
+func (m PanelCanvasDataSourceModel_FieldConfig_Overrides_Properties) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Overrides_Properties {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig_Overrides struct {
-	Matcher    *PanelGeomapDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
-	Properties []PanelGeomapDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
+type PanelCanvasDataSourceModel_FieldConfig_Overrides struct {
+	Matcher    *PanelCanvasDataSourceModel_FieldConfig_Overrides_Matcher     `tfsdk:"matcher"`
+	Properties []PanelCanvasDataSourceModel_FieldConfig_Overrides_Properties `tfsdk:"properties"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig_Overrides struct {
+func (m PanelCanvasDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig_Overrides struct {
 		Matcher    interface{}   `json:"matcher,omitempty"`
 		Properties []interface{} `json:"properties,omitempty"`
 	}
@@ -1619,25 +1783,25 @@ func (m PanelGeomapDataSourceModel_FieldConfig_Overrides) MarshalJSON() ([]byte,
 		attr_properties = append(attr_properties, v)
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig_Overrides{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig_Overrides{
 		Matcher:    attr_matcher,
 		Properties: attr_properties,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig_Overrides {
+func (m PanelCanvasDataSourceModel_FieldConfig_Overrides) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig_Overrides {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel_FieldConfig struct {
-	Defaults  *PanelGeomapDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
-	Overrides []PanelGeomapDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
+type PanelCanvasDataSourceModel_FieldConfig struct {
+	Defaults  *PanelCanvasDataSourceModel_FieldConfig_Defaults   `tfsdk:"defaults"`
+	Overrides []PanelCanvasDataSourceModel_FieldConfig_Overrides `tfsdk:"overrides"`
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel_FieldConfig struct {
+func (m PanelCanvasDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel_FieldConfig struct {
 		Defaults  interface{}   `json:"defaults,omitempty"`
 		Overrides []interface{} `json:"overrides,omitempty"`
 	}
@@ -1652,19 +1816,19 @@ func (m PanelGeomapDataSourceModel_FieldConfig) MarshalJSON() ([]byte, error) {
 		attr_overrides = append(attr_overrides, v)
 	}
 
-	model := &jsonPanelGeomapDataSourceModel_FieldConfig{
+	model := &jsonPanelCanvasDataSourceModel_FieldConfig{
 		Defaults:  attr_defaults,
 		Overrides: attr_overrides,
 	}
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel_FieldConfig) ApplyDefaults() PanelGeomapDataSourceModel_FieldConfig {
+func (m PanelCanvasDataSourceModel_FieldConfig) ApplyDefaults() PanelCanvasDataSourceModel_FieldConfig {
 
 	return m
 }
 
-type PanelGeomapDataSourceModel struct {
+type PanelCanvasDataSourceModel struct {
 	RenderedJSON    types.String                                 `tfsdk:"rendered_json"`
 	Type            types.String                                 `tfsdk:"type"`
 	PluginVersion   types.String                                 `tfsdk:"plugin_version"`
@@ -1673,24 +1837,24 @@ type PanelGeomapDataSourceModel struct {
 	Title           types.String                                 `tfsdk:"title"`
 	Description     types.String                                 `tfsdk:"description"`
 	Transparent     types.Bool                                   `tfsdk:"transparent"`
-	Datasource      *PanelGeomapDataSourceModel_Datasource       `tfsdk:"datasource"`
-	GridPos         *PanelGeomapDataSourceModel_GridPos          `tfsdk:"grid_pos"`
-	Links           []PanelGeomapDataSourceModel_Links           `tfsdk:"links"`
+	Datasource      *PanelCanvasDataSourceModel_Datasource       `tfsdk:"datasource"`
+	GridPos         *PanelCanvasDataSourceModel_GridPos          `tfsdk:"grid_pos"`
+	Links           []PanelCanvasDataSourceModel_Links           `tfsdk:"links"`
 	Repeat          types.String                                 `tfsdk:"repeat"`
 	RepeatDirection types.String                                 `tfsdk:"repeat_direction"`
 	RepeatPanelId   types.Int64                                  `tfsdk:"repeat_panel_id"`
 	MaxDataPoints   types.Float64                                `tfsdk:"max_data_points"`
-	Transformations []PanelGeomapDataSourceModel_Transformations `tfsdk:"transformations"`
+	Transformations []PanelCanvasDataSourceModel_Transformations `tfsdk:"transformations"`
 	Interval        types.String                                 `tfsdk:"interval"`
 	TimeFrom        types.String                                 `tfsdk:"time_from"`
 	TimeShift       types.String                                 `tfsdk:"time_shift"`
-	LibraryPanel    *PanelGeomapDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
-	Options         *PanelGeomapDataSourceModel_Options          `tfsdk:"options"`
-	FieldConfig     *PanelGeomapDataSourceModel_FieldConfig      `tfsdk:"field_config"`
+	LibraryPanel    *PanelCanvasDataSourceModel_LibraryPanel     `tfsdk:"library_panel"`
+	Options         *PanelCanvasDataSourceModel_Options          `tfsdk:"options"`
+	FieldConfig     *PanelCanvasDataSourceModel_FieldConfig      `tfsdk:"field_config"`
 }
 
-func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
-	type jsonPanelGeomapDataSourceModel struct {
+func (m PanelCanvasDataSourceModel) MarshalJSON() ([]byte, error) {
+	type jsonPanelCanvasDataSourceModel struct {
 		Type            string        `json:"type"`
 		PluginVersion   *string       `json:"pluginVersion,omitempty"`
 		Tags            []string      `json:"tags,omitempty"`
@@ -1716,7 +1880,7 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_pluginversion := m.PluginVersion.ValueStringPointer()
+	attr_pluginversion := m.PluginVersion.ValueString()
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -1725,8 +1889,8 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	attr_title := m.Title.ValueStringPointer()
-	attr_description := m.Description.ValueStringPointer()
+	attr_title := m.Title.ValueString()
+	attr_description := m.Description.ValueString()
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -1740,17 +1904,17 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	attr_repeat := m.Repeat.ValueStringPointer()
-	attr_repeatdirection := m.RepeatDirection.ValueStringPointer()
-	attr_repeatpanelid := m.RepeatPanelId.ValueInt64Pointer()
-	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64Pointer()
+	attr_repeat := m.Repeat.ValueString()
+	attr_repeatdirection := m.RepeatDirection.ValueString()
+	attr_repeatpanelid := m.RepeatPanelId.ValueInt64()
+	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	attr_interval := m.Interval.ValueStringPointer()
-	attr_timefrom := m.TimeFrom.ValueStringPointer()
-	attr_timeshift := m.TimeShift.ValueStringPointer()
+	attr_interval := m.Interval.ValueString()
+	attr_timefrom := m.TimeFrom.ValueString()
+	attr_timeshift := m.TimeShift.ValueString()
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
@@ -1764,25 +1928,25 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 		attr_fieldconfig = m.FieldConfig
 	}
 
-	model := &jsonPanelGeomapDataSourceModel{
+	model := &jsonPanelCanvasDataSourceModel{
 		Type:            attr_type,
-		PluginVersion:   attr_pluginversion,
+		PluginVersion:   &attr_pluginversion,
 		Tags:            attr_tags,
 		Targets:         attr_targets,
-		Title:           attr_title,
-		Description:     attr_description,
+		Title:           &attr_title,
+		Description:     &attr_description,
 		Transparent:     attr_transparent,
 		Datasource:      attr_datasource,
 		GridPos:         attr_gridpos,
 		Links:           attr_links,
-		Repeat:          attr_repeat,
-		RepeatDirection: attr_repeatdirection,
-		RepeatPanelId:   attr_repeatpanelid,
-		MaxDataPoints:   attr_maxdatapoints,
+		Repeat:          &attr_repeat,
+		RepeatDirection: &attr_repeatdirection,
+		RepeatPanelId:   &attr_repeatpanelid,
+		MaxDataPoints:   &attr_maxdatapoints,
 		Transformations: attr_transformations,
-		Interval:        attr_interval,
-		TimeFrom:        attr_timefrom,
-		TimeShift:       attr_timeshift,
+		Interval:        &attr_interval,
+		TimeFrom:        &attr_timefrom,
+		TimeShift:       &attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
 		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,
@@ -1790,9 +1954,9 @@ func (m PanelGeomapDataSourceModel) MarshalJSON() ([]byte, error) {
 	return json.Marshal(model)
 }
 
-func (m PanelGeomapDataSourceModel) ApplyDefaults() PanelGeomapDataSourceModel {
+func (m PanelCanvasDataSourceModel) ApplyDefaults() PanelCanvasDataSourceModel {
 	if m.Type.IsNull() {
-		m.Type = types.StringValue(`geomap`)
+		m.Type = types.StringValue(`canvas`)
 	}
 	if len(m.Tags.Elements()) == 0 {
 		m.Tags, _ = types.ListValue(types.StringType, []attr.Value{})
@@ -1809,17 +1973,17 @@ func (m PanelGeomapDataSourceModel) ApplyDefaults() PanelGeomapDataSourceModel {
 	return m
 }
 
-func (d *PanelGeomapDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_panel_geomap"
+func (d *PanelCanvasDataSource) Metadata(ctx context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
+	resp.TypeName = req.ProviderTypeName + "_panel_canvas"
 }
 
-func (d *PanelGeomapDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
+func (d *PanelCanvasDataSource) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
 		// This description is used by the documentation generator and the language server.
 		MarkdownDescription: "",
 		Attributes: map[string]schema.Attribute{
 			"type": schema.StringAttribute{
-				MarkdownDescription: `The panel plugin type id. This is used to find the plugin to display the panel. Defaults to "geomap".`,
+				MarkdownDescription: `The panel plugin type id. This is used to find the plugin to display the panel. Defaults to "canvas".`,
 				Computed:            true,
 				Optional:            true,
 				Required:            false,
@@ -2097,299 +2261,336 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 				Optional:            true,
 				Required:            false,
 				Attributes: map[string]schema.Attribute{
-					"view": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
+					"inline_editing": schema.BoolAttribute{
+						MarkdownDescription: `Enable inline editing. Defaults to true.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"lat": schema.Int64Attribute{
-								MarkdownDescription: ` Defaults to 0.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"lon": schema.Int64Attribute{
-								MarkdownDescription: ` Defaults to 0.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"zoom": schema.Int64Attribute{
-								MarkdownDescription: ` Defaults to 1.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"min_zoom": schema.Int64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"max_zoom": schema.Int64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"padding": schema.Int64Attribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"all_layers": schema.BoolAttribute{
-								MarkdownDescription: ` Defaults to true.`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-							},
-							"last_only": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"layer": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"shared": schema.BoolAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
 					},
-					"controls": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
+					"show_advanced_types": schema.BoolAttribute{
+						MarkdownDescription: `Show all available element types. Defaults to true.`,
 						Computed:            true,
 						Optional:            true,
 						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"show_zoom": schema.BoolAttribute{
-								MarkdownDescription: `Zoom (upper left)`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"mouse_wheel_zoom": schema.BoolAttribute{
-								MarkdownDescription: `let the mouse wheel zoom`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_attribution": schema.BoolAttribute{
-								MarkdownDescription: `Lower right`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_scale": schema.BoolAttribute{
-								MarkdownDescription: `Scale options`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_debug": schema.BoolAttribute{
-								MarkdownDescription: `Show debug`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-							"show_measure": schema.BoolAttribute{
-								MarkdownDescription: `Show measure`,
-								Computed:            false,
-								Optional:            true,
-								Required:            false,
-							},
-						},
 					},
-					"basemap": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
+					"root": schema.SingleNestedAttribute{
+						MarkdownDescription: `The root element of canvas (frame), where all canvas elements are nested
+TODO: Figure out how to define a default value for this`,
+						Computed: true,
+						Optional: true,
+						Required: false,
 						Attributes: map[string]schema.Attribute{
-							"type": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
-							},
 							"name": schema.StringAttribute{
-								MarkdownDescription: `configured unique display name`,
+								MarkdownDescription: `Name of the root element`,
 								Computed:            false,
 								Optional:            false,
 								Required:            true,
 							},
-							"location": schema.SingleNestedAttribute{
-								MarkdownDescription: `Common method to define geometry fields`,
-								Computed:            true,
-								Optional:            true,
-								Required:            false,
-								Attributes: map[string]schema.Attribute{
-									"mode": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            false,
-										Required:            true,
-									},
-									"geohash": schema.StringAttribute{
-										MarkdownDescription: `Field mappings`,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"latitude": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"longitude": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"wkt": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"lookup": schema.StringAttribute{
-										MarkdownDescription: ``,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-									"gazetteer": schema.StringAttribute{
-										MarkdownDescription: `Path to Gazetteer`,
-										Computed:            false,
-										Optional:            true,
-										Required:            false,
-									},
-								},
+							"type": schema.StringAttribute{
+								MarkdownDescription: `Type of root element (frame)`,
+								Computed:            false,
+								Optional:            false,
+								Required:            true,
 							},
-							"opacity": schema.Int64Attribute{
-								MarkdownDescription: `Common properties:
-https://openlayers.org/en/latest/apidoc/module-ol_layer_Base-BaseLayer.html
-Layer opacity (0-1)`,
-								Computed: false,
-								Optional: true,
-								Required: false,
-							},
-							"tooltip": schema.BoolAttribute{
-								MarkdownDescription: `Check tooltip (defaults to true)`,
+							"elements": schema.ListNestedAttribute{
+								MarkdownDescription: `The list of canvas elements attached to the root element`,
 								Computed:            false,
 								Optional:            true,
 								Required:            false,
-							},
-						},
-					},
-					"layers": schema.ListNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            false,
-						Optional:            true,
-						Required:            false,
-						NestedObject: schema.NestedAttributeObject{
-							Attributes: map[string]schema.Attribute{
-								"type": schema.StringAttribute{
-									MarkdownDescription: ``,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
-								},
-								"name": schema.StringAttribute{
-									MarkdownDescription: `configured unique display name`,
-									Computed:            false,
-									Optional:            false,
-									Required:            true,
-								},
-								"location": schema.SingleNestedAttribute{
-									MarkdownDescription: `Common method to define geometry fields`,
-									Computed:            true,
-									Optional:            true,
-									Required:            false,
+								NestedObject: schema.NestedAttributeObject{
 									Attributes: map[string]schema.Attribute{
-										"mode": schema.StringAttribute{
+										"name": schema.StringAttribute{
 											MarkdownDescription: ``,
 											Computed:            false,
 											Optional:            false,
 											Required:            true,
 										},
-										"geohash": schema.StringAttribute{
-											MarkdownDescription: `Field mappings`,
+										"type": schema.StringAttribute{
+											MarkdownDescription: ``,
 											Computed:            false,
+											Optional:            false,
+											Required:            true,
+										},
+										"constraint": schema.SingleNestedAttribute{
+											MarkdownDescription: ``,
+											Computed:            true,
 											Optional:            true,
 											Required:            false,
+											Attributes: map[string]schema.Attribute{
+												"horizontal": schema.StringAttribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+												"vertical": schema.StringAttribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+											},
 										},
-										"latitude": schema.StringAttribute{
+										"placement": schema.SingleNestedAttribute{
+											MarkdownDescription: ``,
+											Computed:            true,
+											Optional:            true,
+											Required:            false,
+											Attributes: map[string]schema.Attribute{
+												"top": schema.Float64Attribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+												"left": schema.Float64Attribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+												"right": schema.Float64Attribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+												"bottom": schema.Float64Attribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+												"width": schema.Float64Attribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+												"height": schema.Float64Attribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+											},
+										},
+										"background": schema.SingleNestedAttribute{
+											MarkdownDescription: ``,
+											Computed:            true,
+											Optional:            true,
+											Required:            false,
+											Attributes: map[string]schema.Attribute{
+												"color": schema.SingleNestedAttribute{
+													MarkdownDescription: ``,
+													Computed:            true,
+													Optional:            true,
+													Required:            false,
+													Attributes: map[string]schema.Attribute{
+														"fixed": schema.StringAttribute{
+															MarkdownDescription: ``,
+															Computed:            false,
+															Optional:            true,
+															Required:            false,
+														},
+														"field": schema.StringAttribute{
+															MarkdownDescription: `fixed: T -- will be added by each element`,
+															Computed:            false,
+															Optional:            true,
+															Required:            false,
+														},
+													},
+												},
+												"image": schema.SingleNestedAttribute{
+													MarkdownDescription: ``,
+													Computed:            true,
+													Optional:            true,
+													Required:            false,
+													Attributes: map[string]schema.Attribute{
+														"mode": schema.StringAttribute{
+															MarkdownDescription: ``,
+															Computed:            false,
+															Optional:            false,
+															Required:            true,
+														},
+														"field": schema.StringAttribute{
+															MarkdownDescription: `fixed: T -- will be added by each element`,
+															Computed:            false,
+															Optional:            true,
+															Required:            false,
+														},
+														"fixed": schema.StringAttribute{
+															MarkdownDescription: ``,
+															Computed:            false,
+															Optional:            true,
+															Required:            false,
+														},
+													},
+												},
+												"size": schema.StringAttribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+											},
+										},
+										"border": schema.SingleNestedAttribute{
+											MarkdownDescription: ``,
+											Computed:            true,
+											Optional:            true,
+											Required:            false,
+											Attributes: map[string]schema.Attribute{
+												"color": schema.SingleNestedAttribute{
+													MarkdownDescription: ``,
+													Computed:            true,
+													Optional:            true,
+													Required:            false,
+													Attributes: map[string]schema.Attribute{
+														"fixed": schema.StringAttribute{
+															MarkdownDescription: ``,
+															Computed:            false,
+															Optional:            true,
+															Required:            false,
+														},
+														"field": schema.StringAttribute{
+															MarkdownDescription: `fixed: T -- will be added by each element`,
+															Computed:            false,
+															Optional:            true,
+															Required:            false,
+														},
+													},
+												},
+												"width": schema.Float64Attribute{
+													MarkdownDescription: ``,
+													Computed:            false,
+													Optional:            true,
+													Required:            false,
+												},
+											},
+										},
+										"connections": schema.ListNestedAttribute{
 											MarkdownDescription: ``,
 											Computed:            false,
 											Optional:            true,
 											Required:            false,
-										},
-										"longitude": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"wkt": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"lookup": schema.StringAttribute{
-											MarkdownDescription: ``,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
-										},
-										"gazetteer": schema.StringAttribute{
-											MarkdownDescription: `Path to Gazetteer`,
-											Computed:            false,
-											Optional:            true,
-											Required:            false,
+											NestedObject: schema.NestedAttributeObject{
+												Attributes: map[string]schema.Attribute{
+													"source": schema.SingleNestedAttribute{
+														MarkdownDescription: ``,
+														Computed:            true,
+														Optional:            true,
+														Required:            false,
+														Attributes: map[string]schema.Attribute{
+															"x": schema.Float64Attribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            false,
+																Required:            true,
+															},
+															"y": schema.Float64Attribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            false,
+																Required:            true,
+															},
+														},
+													},
+													"target": schema.SingleNestedAttribute{
+														MarkdownDescription: ``,
+														Computed:            true,
+														Optional:            true,
+														Required:            false,
+														Attributes: map[string]schema.Attribute{
+															"x": schema.Float64Attribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            false,
+																Required:            true,
+															},
+															"y": schema.Float64Attribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            false,
+																Required:            true,
+															},
+														},
+													},
+													"target_name": schema.StringAttribute{
+														MarkdownDescription: ``,
+														Computed:            false,
+														Optional:            true,
+														Required:            false,
+													},
+													"path": schema.StringAttribute{
+														MarkdownDescription: ``,
+														Computed:            false,
+														Optional:            false,
+														Required:            true,
+													},
+													"color": schema.SingleNestedAttribute{
+														MarkdownDescription: ``,
+														Computed:            true,
+														Optional:            true,
+														Required:            false,
+														Attributes: map[string]schema.Attribute{
+															"fixed": schema.StringAttribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+															"field": schema.StringAttribute{
+																MarkdownDescription: `fixed: T -- will be added by each element`,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+														},
+													},
+													"size": schema.SingleNestedAttribute{
+														MarkdownDescription: ``,
+														Computed:            true,
+														Optional:            true,
+														Required:            false,
+														Attributes: map[string]schema.Attribute{
+															"min": schema.Float64Attribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            false,
+																Required:            true,
+															},
+															"max": schema.Float64Attribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            false,
+																Required:            true,
+															},
+															"fixed": schema.Float64Attribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+															"field": schema.StringAttribute{
+																MarkdownDescription: `fixed: T -- will be added by each element`,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+															"mode": schema.StringAttribute{
+																MarkdownDescription: ``,
+																Computed:            false,
+																Optional:            true,
+																Required:            false,
+															},
+														},
+													},
+												},
+											},
 										},
 									},
 								},
-								"opacity": schema.Int64Attribute{
-									MarkdownDescription: `Common properties:
-https://openlayers.org/en/latest/apidoc/module-ol_layer_Base-BaseLayer.html
-Layer opacity (0-1)`,
-									Computed: false,
-									Optional: true,
-									Required: false,
-								},
-								"tooltip": schema.BoolAttribute{
-									MarkdownDescription: `Check tooltip (defaults to true)`,
-									Computed:            false,
-									Optional:            true,
-									Required:            false,
-								},
-							},
-						},
-					},
-					"tooltip": schema.SingleNestedAttribute{
-						MarkdownDescription: ``,
-						Computed:            true,
-						Optional:            true,
-						Required:            false,
-						Attributes: map[string]schema.Attribute{
-							"mode": schema.StringAttribute{
-								MarkdownDescription: ``,
-								Computed:            false,
-								Optional:            false,
-								Required:            true,
 							},
 						},
 					},
@@ -3099,11 +3300,11 @@ X axis that should be considered connected.  For timeseries, this is millisecond
 	}
 }
 
-func (d *PanelGeomapDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
+func (d *PanelCanvasDataSource) Configure(ctx context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
 }
 
-func (d *PanelGeomapDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
-	var data PanelGeomapDataSourceModel
+func (d *PanelCanvasDataSource) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
+	var data PanelCanvasDataSourceModel
 
 	// Read Terraform configuration data into the model
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)

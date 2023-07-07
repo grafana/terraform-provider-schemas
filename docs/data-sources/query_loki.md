@@ -34,7 +34,8 @@ the results from a hidden query may be used as the input to other queries (SSE e
 - `query_type` (String) Specify the query flavor
 TODO make this required and give it a default
 - `range` (Boolean, Deprecated) @deprecated, now use queryType.
-- `resolution` (Number) Used to scale the interval value.
+- `resolution` (Number, Deprecated) @deprecated, now use step.
+- `step` (String) Used to set step value for range queries.
 
 ### Read-Only
 

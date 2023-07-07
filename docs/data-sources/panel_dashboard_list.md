@@ -18,26 +18,24 @@ description: |-
 ### Optional
 
 - `datasource` (Attributes) The datasource used in all targets. (see [below for nested schema](#nestedatt--datasource))
-- `description` (String) Description.
-- `field_config` (Attributes) (see [below for nested schema](#nestedatt--field_config))
+- `description` (String) Panel description.
+- `field_config` (Attributes) Field options allow you to change how the data is displayed in your visualizations. (see [below for nested schema](#nestedatt--field_config))
 - `grid_pos` (Attributes) Grid position. (see [below for nested schema](#nestedatt--grid_pos))
 - `interval` (String) The min time interval setting defines a lower limit for the $__interval and $__interval_ms variables.
 This value must be formatted as a number followed by a valid time
 identifier like: "40s", "3d", etc.
 See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options
 - `library_panel` (Attributes) Dynamically load the panel (see [below for nested schema](#nestedatt--library_panel))
-- `links` (Attributes List) Panel links.
-TODO fill this out - seems there are a couple variants? (see [below for nested schema](#nestedatt--links))
+- `links` (Attributes List) Panel links. (see [below for nested schema](#nestedatt--links))
 - `max_data_points` (Number) The maximum number of data points that the panel queries are retrieving.
 - `options` (Attributes) (see [below for nested schema](#nestedatt--options))
-- `plugin_version` (String) FIXME this almost certainly has to be changed in favor of scuemata versions
+- `plugin_version` (String) The version of the plugin that is used for this panel. This is used to find the plugin to display the panel and to migrate old panel configs.
 - `repeat` (String) Name of template variable to repeat for.
 - `repeat_direction` (String) Direction to repeat in if 'repeat' is set.
-"h" for horizontal, "v" for vertical.
-TODO this is probably optional. Defaults to "h".
+h for horizontal, v for vertical. Defaults to "h".
 - `repeat_panel_id` (Number) Id of the repeating panel.
-- `tags` (List of String) TODO docs
-- `targets` (List of String) TODO docs
+- `tags` (List of String) Tags for the panel.
+- `targets` (List of String) Depends on the panel plugin. See the plugin documentation for details.
 - `time_from` (String) Overrides the relative time range for individual panels,
 which causes them to be different than what is selected in
 the dashboard time picker in the top-right corner of the dashboard. You can use this to show metrics from different
@@ -51,9 +49,11 @@ For example, you can shift the time range for the panel to be two hours earlier 
 Note: Panel time overrides have no effect when the dashboard’s time range is absolute.
 See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/#query-options
 - `title` (String) Panel title.
-- `transformations` (Attributes List) (see [below for nested schema](#nestedatt--transformations))
+- `transformations` (Attributes List) List of transformations that are applied to the panel data before rendering.
+When there are multiple transformations, Grafana applies them in the order they are listed.
+Each transformation creates a result set that then passes on to the next transformation in the processing pipeline. (see [below for nested schema](#nestedatt--transformations))
 - `transparent` (Boolean) Whether to display the panel without a background. Defaults to false.
-- `type` (String) The panel plugin type id. May not be empty. Defaults to "dashlist".
+- `type` (String) The panel plugin type id. This is used to find the plugin to display the panel. Defaults to "dashlist".
 
 ### Read-Only
 
@@ -64,8 +64,8 @@ See: https://grafana.com/docs/grafana/latest/panels-visualizations/query-transfo
 
 Optional:
 
-- `type` (String)
-- `uid` (String)
+- `type` (String) The plugin type-id
+- `uid` (String) Specific datasource instance
 
 
 <a id="nestedatt--field_config"></a>
@@ -73,25 +73,28 @@ Optional:
 
 Optional:
 
-- `defaults` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults))
-- `overrides` (Attributes List) (see [below for nested schema](#nestedatt--field_config--overrides))
+- `defaults` (Attributes) Defaults are the options applied to all fields. (see [below for nested schema](#nestedatt--field_config--defaults))
+- `overrides` (Attributes List) Overrides are the options applied to specific fields overriding the defaults. (see [below for nested schema](#nestedatt--field_config--overrides))
 
 <a id="nestedatt--field_config--defaults"></a>
 ### Nested Schema for `field_config.defaults`
 
 Optional:
 
-- `color` (Attributes) Map values to a display color (see [below for nested schema](#nestedatt--field_config--defaults--color))
+- `color` (Attributes) Panel color configuration (see [below for nested schema](#nestedatt--field_config--defaults--color))
 - `custom` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom))
-- `decimals` (Number) Significant digits (for display)
+- `decimals` (Number) Specify the number of decimals Grafana includes in the rendered value.
+If you leave this field blank, Grafana automatically truncates the number of decimals based on the value.
+For example 1.1234 will display as 1.12 and 100.456 will display as 100.
+To display all decimals, set the unit to String.
 - `description` (String) Human readable field metadata
 - `display_name` (String) The display value for this field.  This supports template variables blank is auto
 - `display_name_from_ds` (String) This can be used by data sources that return and explicit naming structure for values and labels
 When this property is configured, this value is used rather than the default naming strategy.
 - `filterable` (Boolean) True if data source field supports ad-hoc filters
 - `mappings` (Attributes List) Convert input values into a display string (see [below for nested schema](#nestedatt--field_config--defaults--mappings))
-- `max` (Number)
-- `min` (Number)
+- `max` (Number) The maximum value used in percentage threshold calculations. Leave blank for auto calculation based on all series and fields.
+- `min` (Number) The minimum value used in percentage threshold calculations. Leave blank for auto calculation based on all series and fields.
 - `no_value` (String) Alternative to empty string
 - `path` (String) An explicit path to the field in the datasource.  When the frame meta includes a path,
 This will default to ${frame.meta.path}/${field.name}
@@ -99,20 +102,29 @@ This will default to ${frame.meta.path}/${field.name}
 When defined, this value can be used as an identifier within the datasource scope, and
 may be used to update the results
 - `thresholds` (Attributes) Map numeric values to states (see [below for nested schema](#nestedatt--field_config--defaults--thresholds))
-- `unit` (String) Numeric Options
-- `writeable` (Boolean) True if data source can write a value to the path.  Auth/authz are supported separately
+- `unit` (String) Unit a field should use. The unit you select is applied to all fields except time.
+You can use the units ID availables in Grafana or a custom unit.
+Available units in Grafana: https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/valueFormats/categories.ts
+As custom unit, you can use the following formats:
+suffix:<suffix> for custom unit that should go after value.
+prefix:<prefix> for custom unit that should go before value.
+time:<format> For custom date time formats type for example time:YYYY-MM-DD.
+si:<base scale><unit characters> for custom SI units. For example: si: mF. This one is a bit more advanced as you can specify both a unit and the source data scale. So if your source data is represented as milli (thousands of) something prefix the unit with that SI scale character.
+count:<unit> for a custom count unit.
+currency:<unit> for custom a currency unit.
+- `writeable` (Boolean) True if data source can write a value to the path. Auth/authz are supported separately
 
 <a id="nestedatt--field_config--defaults--color"></a>
 ### Nested Schema for `field_config.defaults.color`
 
 Required:
 
-- `mode` (String) The main color scheme mode
+- `mode` (String) The main color scheme mode.
 
 Optional:
 
-- `fixed_color` (String) Stores the fixed color value if mode is fixed
-- `series_by` (String) Some visualizations need to know how to assign a series color from by value color schemes
+- `fixed_color` (String) The fixed color value for fixed or shades color modes.
+- `series_by` (String) Some visualizations need to know how to assign a series color from by value color schemes.
 
 
 <a id="nestedatt--field_config--defaults--custom"></a>
@@ -128,16 +140,33 @@ Optional:
 - `axis_soft_max` (Number)
 - `axis_soft_min` (Number)
 - `axis_width` (Number)
-- `fill_opacity` (Number) Controls the fill opacity of the bars. Defaults to 80.
-- `gradient_mode` (String) Set the mode of the gradient fill. Fill gradient is based on the line color. To change the color, use the standard color scheme field option.
-Gradient appearance is influenced by the Fill opacity setting. Defaults to "none".
+- `bar_alignment` (Number)
+- `bar_max_width` (Number)
+- `bar_width_factor` (Number)
+- `draw_style` (String)
+- `fill_below_to` (String)
+- `fill_color` (String)
+- `fill_opacity` (Number)
+- `gradient_mode` (String)
 - `hide_from` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--hide_from))
-- `line_width` (Number) Controls line width of the bars. Defaults to 1.
+- `line_color` (String)
+- `line_interpolation` (String)
+- `line_style` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--line_style))
+- `line_width` (Number)
+- `point_color` (String)
+- `point_size` (Number)
+- `point_symbol` (String)
 - `scale_distribution` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--scale_distribution))
-- `thresholds_style` (Attributes) Threshold rendering (see [below for nested schema](#nestedatt--field_config--defaults--custom--thresholds_style))
+- `show_points` (String)
+- `span_nulls` (String) Indicate if null values should be treated as gaps or connected.
+When the value is a number, it represents the maximum delta in the
+X axis that should be considered connected.  For timeseries, this is milliseconds
+- `stacking` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--stacking))
+- `thresholds_style` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--custom--thresholds_style))
+- `transform` (String)
 
 <a id="nestedatt--field_config--defaults--custom--hide_from"></a>
-### Nested Schema for `field_config.defaults.custom.thresholds_style`
+### Nested Schema for `field_config.defaults.custom.transform`
 
 Required:
 
@@ -146,8 +175,17 @@ Required:
 - `viz` (Boolean)
 
 
+<a id="nestedatt--field_config--defaults--custom--line_style"></a>
+### Nested Schema for `field_config.defaults.custom.transform`
+
+Optional:
+
+- `dash` (List of Number)
+- `fill` (String)
+
+
 <a id="nestedatt--field_config--defaults--custom--scale_distribution"></a>
-### Nested Schema for `field_config.defaults.custom.thresholds_style`
+### Nested Schema for `field_config.defaults.custom.transform`
 
 Required:
 
@@ -159,8 +197,17 @@ Optional:
 - `log` (Number)
 
 
+<a id="nestedatt--field_config--defaults--custom--stacking"></a>
+### Nested Schema for `field_config.defaults.custom.transform`
+
+Optional:
+
+- `group` (String)
+- `mode` (String)
+
+
 <a id="nestedatt--field_config--defaults--custom--thresholds_style"></a>
-### Nested Schema for `field_config.defaults.custom.thresholds_style`
+### Nested Schema for `field_config.defaults.custom.transform`
 
 Required:
 
@@ -187,29 +234,29 @@ Required:
 
 Optional:
 
-- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
+- `options` (Attributes) Range to match against and the result to apply when the value is within the range (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
 
 <a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
 ### Nested Schema for `field_config.defaults.mappings.value_map.options`
 
 Required:
 
-- `from` (Number) to and from are number | null in current ts, really not sure what to do
-- `to` (Number)
+- `from` (String) Min value of the range. It can be null which means -Infinity
+- `to` (String) Max value of the range. It can be null which means +Infinity
 
 Optional:
 
-- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
+- `result` (Attributes) Config to apply when the value is within the range (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
 
 <a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
 ### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
 
 Optional:
 
-- `color` (String)
-- `icon` (String)
-- `index` (Number)
-- `text` (String)
+- `color` (String) Text to use when the value matches
+- `icon` (String) Icon to display when the value matches. Only specific visualizations.
+- `index` (Number) Position in the mapping array. Only used internally.
+- `text` (String) Text to display when the value matches
 
 
 
@@ -223,28 +270,28 @@ Required:
 
 Optional:
 
-- `options` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
+- `options` (Attributes) Regular expression to match against and the result to apply when the value matches the regex (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
 
 <a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
 ### Nested Schema for `field_config.defaults.mappings.value_map.options`
 
 Required:
 
-- `pattern` (String)
+- `pattern` (String) Regular expression to match against
 
 Optional:
 
-- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
+- `result` (Attributes) Config to apply when the value matches the regex (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
 
 <a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
 ### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
 
 Optional:
 
-- `color` (String)
-- `icon` (String)
-- `index` (Number)
-- `text` (String)
+- `color` (String) Text to use when the value matches
+- `icon` (String) Icon to display when the value matches. Only specific visualizations.
+- `index` (Number) Position in the mapping array. Only used internally.
+- `text` (String) Text to display when the value matches
 
 
 
@@ -265,22 +312,21 @@ Optional:
 
 Required:
 
-- `match` (String)
-- `pattern` (String)
+- `match` (String) Special value to match against
 
 Optional:
 
-- `result` (Attributes) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
+- `result` (Attributes) Config to apply when the value matches the special value (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options--result))
 
 <a id="nestedatt--field_config--defaults--mappings--value_map--options--result"></a>
 ### Nested Schema for `field_config.defaults.mappings.value_map.options.result`
 
 Optional:
 
-- `color` (String)
-- `icon` (String)
-- `index` (Number)
-- `text` (String)
+- `color` (String) Text to use when the value matches
+- `icon` (String) Icon to display when the value matches. Only specific visualizations.
+- `index` (Number) Position in the mapping array. Only used internally.
+- `text` (String) Text to display when the value matches
 
 
 
@@ -294,17 +340,17 @@ Required:
 
 Optional:
 
-- `options` (Attributes Map) (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
+- `options` (Attributes Map) Map with <value_to_match>: ValueMappingResult. For example: { "10": { text: "Perfection!", color: "green" } } (see [below for nested schema](#nestedatt--field_config--defaults--mappings--value_map--options))
 
 <a id="nestedatt--field_config--defaults--mappings--value_map--options"></a>
 ### Nested Schema for `field_config.defaults.mappings.value_map.options`
 
 Optional:
 
-- `color` (String)
-- `icon` (String)
-- `index` (Number)
-- `text` (String)
+- `color` (String) Text to use when the value matches
+- `icon` (String) Icon to display when the value matches. Only specific visualizations.
+- `index` (Number) Position in the mapping array. Only used internally.
+- `text` (String) Text to display when the value matches
 
 
 
@@ -314,7 +360,7 @@ Optional:
 
 Required:
 
-- `mode` (String)
+- `mode` (String) Thresholds mode.
 
 Optional:
 
@@ -326,15 +372,8 @@ Optional:
 Required:
 
 - `color` (String) Color represents the color of the visual change that will occur in the dashboard when the threshold value is met or exceeded.
-
-Optional:
-
-- `index` (Number) Threshold index, an old property that is not needed an should only appear in older dashboards
-- `state` (String) TODO docs
-TODO are the values here enumerable into a disjunction?
-Some seem to be listed in typescript comment
-- `value` (Number) Value represents a specified metric for the threshold, which triggers a visual change in the dashboard when this value is met or exceeded.
-FIXME the corresponding typescript field is required/non-optional, but nulls currently appear here when serializing -Infinity to JSON
+- `value` (String) Value represents a specified metric for the threshold, which triggers a visual change in the dashboard when this value is met or exceeded.
+Nulls currently appear here when serializing -Infinity to JSON.
 
 
 
@@ -362,11 +401,11 @@ Optional:
 
 Optional:
 
-- `h` (Number) Panel. Defaults to 9.
-- `static` (Boolean) Whether the panel is fixed within the grid
-- `w` (Number) Panel. Defaults to 12.
-- `x` (Number) Panel x. Defaults to 0.
-- `y` (Number) Panel y. Defaults to 0.
+- `h` (Number) Panel height. The height is the number of rows from the top edge of the panel. Defaults to 9.
+- `static` (Boolean) Whether the panel is fixed within the grid. If true, the panel will not be affected by other panels' interactions
+- `w` (Number) Panel width. The width is the number of columns from the left edge of the panel. Defaults to 12.
+- `x` (Number) Panel x. The x coordinate is the number of columns from the left edge of the grid. Defaults to 0.
+- `y` (Number) Panel y. The y coordinate is the number of rows from the top edge of the grid. Defaults to 0.
 
 
 <a id="nestedatt--library_panel"></a>
@@ -374,8 +413,8 @@ Optional:
 
 Required:
 
-- `name` (String)
-- `uid` (String)
+- `name` (String) Library panel name
+- `uid` (String) Library panel uid
 
 
 <a id="nestedatt--links"></a>
@@ -421,7 +460,7 @@ Optional:
 Optional:
 
 - `disabled` (Boolean) Disabled transformations are skipped
-- `filter` (Attributes) Optional frame matcher.  When missing it will be applied to all results (see [below for nested schema](#nestedatt--transformations--filter))
+- `filter` (Attributes) Optional frame matcher. When missing it will be applied to all results (see [below for nested schema](#nestedatt--transformations--filter))
 
 <a id="nestedatt--transformations--filter"></a>
 ### Nested Schema for `transformations.filter`
