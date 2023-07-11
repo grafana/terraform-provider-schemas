@@ -6,15 +6,13 @@ description: |-
 
 # Schemas Provider
 
-This provider provides data sources to manage Grafana [dashboard](https://grafana.com/docs/grafana/latest/dashboards/). You should use it with the [Grafana Terraform Provider](https://registry.terraform.io/providers/grafana/grafana/latest). It is generated from the [CUE schemas](https://github.com/grafana/grafana/blob/main/kinds/dashboard/dashboard_kind.cue) defined in the Grafana repository to ensure it stays up-to-date.
+This provider provides data sources to manage Grafana [dashboards](https://grafana.com/docs/grafana/latest/dashboards/). You should use it with the [Grafana Terraform Provider](https://registry.terraform.io/providers/grafana/grafana/latest). It is generated from the [CUE schemas](https://github.com/grafana/grafana/blob/main/kinds/dashboard/dashboard_kind.cue) defined in the Grafana repository to ensure it stays up-to-date.
+
+The code in this repository should be considered experimental. It comes with no support, but we are keen to receive feedback on the product and suggestions on how to improve it, though we cannot commit to resolution of any particular issue. No SLAs are available. It is not meant to be used in production environments, and the risks are unknown/high. 
+
+Our goal is for these generated data sources to become a part of our official Grafana provider once this project becomes more mature. At this time, we are not planning to create a migration path for data sources created with the `schemas` provider when they are merged into the `grafana` provider. Also, this work is subject to signficant changes as we iterate towards that level of quality.
 
 ## Maturity
-
-> _The code in this repository should be considered experimental. Documentation is only
-available alongside the code. It comes with no support, but we are keen to receive
-feedback on the product and suggestions on how to improve it, though we cannot commit
-to resolution of any particular issue. No SLAs are available. It is not meant to be used
-in production environments, and the risks are unknown/high._
 
 Grafana Labs defines experimental features as follows:
 
