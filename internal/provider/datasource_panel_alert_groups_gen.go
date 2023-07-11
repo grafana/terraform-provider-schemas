@@ -52,12 +52,12 @@ func (m PanelAlertGroupsDataSourceModel_Datasource) MarshalJSON() ([]byte, error
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_uid := m.Uid.ValueString()
+	attr_type := m.Type.ValueStringPointer()
+	attr_uid := m.Uid.ValueStringPointer()
 
 	model := &jsonPanelAlertGroupsDataSourceModel_Datasource{
-		Type: &attr_type,
-		Uid:  &attr_uid,
+		Type: attr_type,
+		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
@@ -89,14 +89,14 @@ func (m PanelAlertGroupsDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	attr_static := m.Static.ValueBool()
+	attr_static := m.Static.ValueBoolPointer()
 
 	model := &jsonPanelAlertGroupsDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
 		Y:      attr_y,
-		Static: &attr_static,
+		Static: attr_static,
 	}
 	return json.Marshal(model)
 }
@@ -223,14 +223,14 @@ func (m PanelAlertGroupsDataSourceModel_Transformations) MarshalJSON() ([]byte, 
 	}
 
 	m = m.ApplyDefaults()
-	attr_disabled := m.Disabled.ValueBool()
+	attr_disabled := m.Disabled.ValueBoolPointer()
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
 	}
 
 	model := &jsonPanelAlertGroupsDataSourceModel_Transformations{
-		Disabled: &attr_disabled,
+		Disabled: attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
@@ -315,16 +315,16 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_O
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -380,16 +380,16 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_O
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -511,16 +511,16 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_O
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -606,16 +606,16 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Mappings_SpecialVal
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -804,13 +804,13 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON(
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_fixedcolor := m.FixedColor.ValueString()
-	attr_seriesby := m.SeriesBy.ValueString()
+	attr_fixedcolor := m.FixedColor.ValueStringPointer()
+	attr_seriesby := m.SeriesBy.ValueStringPointer()
 
 	model := &jsonPanelAlertGroupsDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
-		FixedColor: &attr_fixedcolor,
-		SeriesBy:   &attr_seriesby,
+		FixedColor: attr_fixedcolor,
+		SeriesBy:   attr_seriesby,
 	}
 	return json.Marshal(model)
 }
@@ -876,16 +876,16 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]b
 	}
 
 	m = m.ApplyDefaults()
-	attr_displayname := m.DisplayName.ValueString()
-	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
-	attr_description := m.Description.ValueString()
-	attr_path := m.Path.ValueString()
-	attr_writeable := m.Writeable.ValueBool()
-	attr_filterable := m.Filterable.ValueBool()
-	attr_unit := m.Unit.ValueString()
-	attr_decimals := m.Decimals.ValueFloat64()
-	attr_min := m.Min.ValueFloat64()
-	attr_max := m.Max.ValueFloat64()
+	attr_displayname := m.DisplayName.ValueStringPointer()
+	attr_displaynamefromds := m.DisplayNameFromDS.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
+	attr_path := m.Path.ValueStringPointer()
+	attr_writeable := m.Writeable.ValueBoolPointer()
+	attr_filterable := m.Filterable.ValueBoolPointer()
+	attr_unit := m.Unit.ValueStringPointer()
+	attr_decimals := m.Decimals.ValueFloat64Pointer()
+	attr_min := m.Min.ValueFloat64Pointer()
+	attr_max := m.Max.ValueFloat64Pointer()
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -898,27 +898,27 @@ func (m PanelAlertGroupsDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]b
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	attr_novalue := m.NoValue.ValueString()
+	attr_novalue := m.NoValue.ValueStringPointer()
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
 	}
 
 	model := &jsonPanelAlertGroupsDataSourceModel_FieldConfig_Defaults{
-		DisplayName:       &attr_displayname,
-		DisplayNameFromDS: &attr_displaynamefromds,
-		Description:       &attr_description,
-		Path:              &attr_path,
-		Writeable:         &attr_writeable,
-		Filterable:        &attr_filterable,
-		Unit:              &attr_unit,
-		Decimals:          &attr_decimals,
-		Min:               &attr_min,
-		Max:               &attr_max,
+		DisplayName:       attr_displayname,
+		DisplayNameFromDS: attr_displaynamefromds,
+		Description:       attr_description,
+		Path:              attr_path,
+		Writeable:         attr_writeable,
+		Filterable:        attr_filterable,
+		Unit:              attr_unit,
+		Decimals:          attr_decimals,
+		Min:               attr_min,
+		Max:               attr_max,
 		Mappings:          attr_mappings,
 		Thresholds:        attr_thresholds,
 		Color:             attr_color,
-		NoValue:           &attr_novalue,
+		NoValue:           attr_novalue,
 		Custom:            attr_custom,
 	}
 	return json.Marshal(model)
@@ -1083,7 +1083,7 @@ func (m PanelAlertGroupsDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_pluginversion := m.PluginVersion.ValueString()
+	attr_pluginversion := m.PluginVersion.ValueStringPointer()
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -1092,8 +1092,8 @@ func (m PanelAlertGroupsDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	attr_title := m.Title.ValueString()
-	attr_description := m.Description.ValueString()
+	attr_title := m.Title.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -1107,17 +1107,17 @@ func (m PanelAlertGroupsDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	attr_repeat := m.Repeat.ValueString()
-	attr_repeatdirection := m.RepeatDirection.ValueString()
-	attr_repeatpanelid := m.RepeatPanelId.ValueInt64()
-	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
+	attr_repeat := m.Repeat.ValueStringPointer()
+	attr_repeatdirection := m.RepeatDirection.ValueStringPointer()
+	attr_repeatpanelid := m.RepeatPanelId.ValueInt64Pointer()
+	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64Pointer()
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	attr_interval := m.Interval.ValueString()
-	attr_timefrom := m.TimeFrom.ValueString()
-	attr_timeshift := m.TimeShift.ValueString()
+	attr_interval := m.Interval.ValueStringPointer()
+	attr_timefrom := m.TimeFrom.ValueStringPointer()
+	attr_timeshift := m.TimeShift.ValueStringPointer()
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
@@ -1133,23 +1133,23 @@ func (m PanelAlertGroupsDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	model := &jsonPanelAlertGroupsDataSourceModel{
 		Type:            attr_type,
-		PluginVersion:   &attr_pluginversion,
+		PluginVersion:   attr_pluginversion,
 		Tags:            attr_tags,
 		Targets:         attr_targets,
-		Title:           &attr_title,
-		Description:     &attr_description,
+		Title:           attr_title,
+		Description:     attr_description,
 		Transparent:     attr_transparent,
 		Datasource:      attr_datasource,
 		GridPos:         attr_gridpos,
 		Links:           attr_links,
-		Repeat:          &attr_repeat,
-		RepeatDirection: &attr_repeatdirection,
-		RepeatPanelId:   &attr_repeatpanelid,
-		MaxDataPoints:   &attr_maxdatapoints,
+		Repeat:          attr_repeat,
+		RepeatDirection: attr_repeatdirection,
+		RepeatPanelId:   attr_repeatpanelid,
+		MaxDataPoints:   attr_maxdatapoints,
 		Transformations: attr_transformations,
-		Interval:        &attr_interval,
-		TimeFrom:        &attr_timefrom,
-		TimeShift:       &attr_timeshift,
+		Interval:        attr_interval,
+		TimeFrom:        attr_timefrom,
+		TimeShift:       attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
 		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,

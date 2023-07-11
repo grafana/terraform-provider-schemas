@@ -52,12 +52,12 @@ func (m PanelDatagridDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_uid := m.Uid.ValueString()
+	attr_type := m.Type.ValueStringPointer()
+	attr_uid := m.Uid.ValueStringPointer()
 
 	model := &jsonPanelDatagridDataSourceModel_Datasource{
-		Type: &attr_type,
-		Uid:  &attr_uid,
+		Type: attr_type,
+		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
@@ -89,14 +89,14 @@ func (m PanelDatagridDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	attr_static := m.Static.ValueBool()
+	attr_static := m.Static.ValueBoolPointer()
 
 	model := &jsonPanelDatagridDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
 		Y:      attr_y,
-		Static: &attr_static,
+		Static: attr_static,
 	}
 	return json.Marshal(model)
 }
@@ -223,14 +223,14 @@ func (m PanelDatagridDataSourceModel_Transformations) MarshalJSON() ([]byte, err
 	}
 
 	m = m.ApplyDefaults()
-	attr_disabled := m.Disabled.ValueBool()
+	attr_disabled := m.Disabled.ValueBoolPointer()
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
 	}
 
 	model := &jsonPanelDatagridDataSourceModel_Transformations{
-		Disabled: &attr_disabled,
+		Disabled: attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
@@ -309,16 +309,16 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Opti
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -374,16 +374,16 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Opti
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -505,16 +505,16 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Opti
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -600,16 +600,16 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueM
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -798,13 +798,13 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() (
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_fixedcolor := m.FixedColor.ValueString()
-	attr_seriesby := m.SeriesBy.ValueString()
+	attr_fixedcolor := m.FixedColor.ValueStringPointer()
+	attr_seriesby := m.SeriesBy.ValueStringPointer()
 
 	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
-		FixedColor: &attr_fixedcolor,
-		SeriesBy:   &attr_seriesby,
+		FixedColor: attr_fixedcolor,
+		SeriesBy:   attr_seriesby,
 	}
 	return json.Marshal(model)
 }
@@ -849,14 +849,14 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Custom_LineStyle) Mars
 	}
 
 	m = m.ApplyDefaults()
-	attr_fill := m.Fill.ValueString()
+	attr_fill := m.Fill.ValueStringPointer()
 	attr_dash := []float64{}
 	for _, v := range m.Dash.Elements() {
 		attr_dash = append(attr_dash, v.(types.Float64).ValueFloat64())
 	}
 
 	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Custom_LineStyle{
-		Fill: &attr_fill,
+		Fill: attr_fill,
 		Dash: attr_dash,
 	}
 	return json.Marshal(model)
@@ -884,13 +884,13 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistributi
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+	attr_log := m.Log.ValueFloat64Pointer()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64Pointer()
 
 	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
 		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
+		Log:             attr_log,
+		LinearThreshold: attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
@@ -912,12 +912,12 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Custom_Stacking) Marsh
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_group := m.Group.ValueString()
+	attr_mode := m.Mode.ValueStringPointer()
+	attr_group := m.Group.ValueStringPointer()
 
 	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Custom_Stacking{
-		Mode:  &attr_mode,
-		Group: &attr_group,
+		Mode:  attr_mode,
+		Group: attr_group,
 	}
 	return json.Marshal(model)
 }
@@ -1042,37 +1042,37 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() 
 	}
 
 	m = m.ApplyDefaults()
-	attr_drawstyle := m.DrawStyle.ValueString()
-	attr_gradientmode := m.GradientMode.ValueString()
+	attr_drawstyle := m.DrawStyle.ValueStringPointer()
+	attr_gradientmode := m.GradientMode.ValueStringPointer()
 	var attr_thresholdsstyle interface{}
 	if m.ThresholdsStyle != nil {
 		attr_thresholdsstyle = m.ThresholdsStyle
 	}
-	attr_linecolor := m.LineColor.ValueString()
-	attr_linewidth := m.LineWidth.ValueFloat64()
-	attr_lineinterpolation := m.LineInterpolation.ValueString()
+	attr_linecolor := m.LineColor.ValueStringPointer()
+	attr_linewidth := m.LineWidth.ValueFloat64Pointer()
+	attr_lineinterpolation := m.LineInterpolation.ValueStringPointer()
 	var attr_linestyle interface{}
 	if m.LineStyle != nil {
 		attr_linestyle = m.LineStyle
 	}
-	attr_fillcolor := m.FillColor.ValueString()
-	attr_fillopacity := m.FillOpacity.ValueFloat64()
-	attr_showpoints := m.ShowPoints.ValueString()
-	attr_pointsize := m.PointSize.ValueFloat64()
-	attr_pointcolor := m.PointColor.ValueString()
-	attr_axisplacement := m.AxisPlacement.ValueString()
-	attr_axiscolormode := m.AxisColorMode.ValueString()
-	attr_axislabel := m.AxisLabel.ValueString()
-	attr_axiswidth := m.AxisWidth.ValueFloat64()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
-	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	attr_fillcolor := m.FillColor.ValueStringPointer()
+	attr_fillopacity := m.FillOpacity.ValueFloat64Pointer()
+	attr_showpoints := m.ShowPoints.ValueStringPointer()
+	attr_pointsize := m.PointSize.ValueFloat64Pointer()
+	attr_pointcolor := m.PointColor.ValueStringPointer()
+	attr_axisplacement := m.AxisPlacement.ValueStringPointer()
+	attr_axiscolormode := m.AxisColorMode.ValueStringPointer()
+	attr_axislabel := m.AxisLabel.ValueStringPointer()
+	attr_axiswidth := m.AxisWidth.ValueFloat64Pointer()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64Pointer()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64Pointer()
+	attr_axisgridshow := m.AxisGridShow.ValueBoolPointer()
 	var attr_scaledistribution interface{}
 	if m.ScaleDistribution != nil {
 		attr_scaledistribution = m.ScaleDistribution
 	}
-	attr_baralignment := m.BarAlignment.ValueInt64()
-	attr_barwidthfactor := m.BarWidthFactor.ValueFloat64()
+	attr_baralignment := m.BarAlignment.ValueInt64Pointer()
+	attr_barwidthfactor := m.BarWidthFactor.ValueFloat64Pointer()
 	var attr_stacking interface{}
 	if m.Stacking != nil {
 		attr_stacking = m.Stacking
@@ -1081,44 +1081,44 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON() 
 	if m.HideFrom != nil {
 		attr_hidefrom = m.HideFrom
 	}
-	attr_transform := m.Transform.ValueString()
+	attr_transform := m.Transform.ValueStringPointer()
 	attr_spannulls := m.GetAttrSpanNulls()
-	attr_fillbelowto := m.FillBelowTo.ValueString()
-	attr_pointsymbol := m.PointSymbol.ValueString()
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
-	attr_barmaxwidth := m.BarMaxWidth.ValueFloat64()
+	attr_fillbelowto := m.FillBelowTo.ValueStringPointer()
+	attr_pointsymbol := m.PointSymbol.ValueStringPointer()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBoolPointer()
+	attr_barmaxwidth := m.BarMaxWidth.ValueFloat64Pointer()
 
 	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults_Custom{
-		DrawStyle:         &attr_drawstyle,
-		GradientMode:      &attr_gradientmode,
+		DrawStyle:         attr_drawstyle,
+		GradientMode:      attr_gradientmode,
 		ThresholdsStyle:   attr_thresholdsstyle,
-		LineColor:         &attr_linecolor,
-		LineWidth:         &attr_linewidth,
-		LineInterpolation: &attr_lineinterpolation,
+		LineColor:         attr_linecolor,
+		LineWidth:         attr_linewidth,
+		LineInterpolation: attr_lineinterpolation,
 		LineStyle:         attr_linestyle,
-		FillColor:         &attr_fillcolor,
-		FillOpacity:       &attr_fillopacity,
-		ShowPoints:        &attr_showpoints,
-		PointSize:         &attr_pointsize,
-		PointColor:        &attr_pointcolor,
-		AxisPlacement:     &attr_axisplacement,
-		AxisColorMode:     &attr_axiscolormode,
-		AxisLabel:         &attr_axislabel,
-		AxisWidth:         &attr_axiswidth,
-		AxisSoftMin:       &attr_axissoftmin,
-		AxisSoftMax:       &attr_axissoftmax,
-		AxisGridShow:      &attr_axisgridshow,
+		FillColor:         attr_fillcolor,
+		FillOpacity:       attr_fillopacity,
+		ShowPoints:        attr_showpoints,
+		PointSize:         attr_pointsize,
+		PointColor:        attr_pointcolor,
+		AxisPlacement:     attr_axisplacement,
+		AxisColorMode:     attr_axiscolormode,
+		AxisLabel:         attr_axislabel,
+		AxisWidth:         attr_axiswidth,
+		AxisSoftMin:       attr_axissoftmin,
+		AxisSoftMax:       attr_axissoftmax,
+		AxisGridShow:      attr_axisgridshow,
 		ScaleDistribution: attr_scaledistribution,
-		BarAlignment:      &attr_baralignment,
-		BarWidthFactor:    &attr_barwidthfactor,
+		BarAlignment:      attr_baralignment,
+		BarWidthFactor:    attr_barwidthfactor,
 		Stacking:          attr_stacking,
 		HideFrom:          attr_hidefrom,
-		Transform:         &attr_transform,
+		Transform:         attr_transform,
 		SpanNulls:         attr_spannulls,
-		FillBelowTo:       &attr_fillbelowto,
-		PointSymbol:       &attr_pointsymbol,
-		AxisCenteredZero:  &attr_axiscenteredzero,
-		BarMaxWidth:       &attr_barmaxwidth,
+		FillBelowTo:       attr_fillbelowto,
+		PointSymbol:       attr_pointsymbol,
+		AxisCenteredZero:  attr_axiscenteredzero,
+		BarMaxWidth:       attr_barmaxwidth,
 	}
 	return json.Marshal(model)
 }
@@ -1166,16 +1166,16 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte
 	}
 
 	m = m.ApplyDefaults()
-	attr_displayname := m.DisplayName.ValueString()
-	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
-	attr_description := m.Description.ValueString()
-	attr_path := m.Path.ValueString()
-	attr_writeable := m.Writeable.ValueBool()
-	attr_filterable := m.Filterable.ValueBool()
-	attr_unit := m.Unit.ValueString()
-	attr_decimals := m.Decimals.ValueFloat64()
-	attr_min := m.Min.ValueFloat64()
-	attr_max := m.Max.ValueFloat64()
+	attr_displayname := m.DisplayName.ValueStringPointer()
+	attr_displaynamefromds := m.DisplayNameFromDS.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
+	attr_path := m.Path.ValueStringPointer()
+	attr_writeable := m.Writeable.ValueBoolPointer()
+	attr_filterable := m.Filterable.ValueBoolPointer()
+	attr_unit := m.Unit.ValueStringPointer()
+	attr_decimals := m.Decimals.ValueFloat64Pointer()
+	attr_min := m.Min.ValueFloat64Pointer()
+	attr_max := m.Max.ValueFloat64Pointer()
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -1188,27 +1188,27 @@ func (m PanelDatagridDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	attr_novalue := m.NoValue.ValueString()
+	attr_novalue := m.NoValue.ValueStringPointer()
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
 	}
 
 	model := &jsonPanelDatagridDataSourceModel_FieldConfig_Defaults{
-		DisplayName:       &attr_displayname,
-		DisplayNameFromDS: &attr_displaynamefromds,
-		Description:       &attr_description,
-		Path:              &attr_path,
-		Writeable:         &attr_writeable,
-		Filterable:        &attr_filterable,
-		Unit:              &attr_unit,
-		Decimals:          &attr_decimals,
-		Min:               &attr_min,
-		Max:               &attr_max,
+		DisplayName:       attr_displayname,
+		DisplayNameFromDS: attr_displaynamefromds,
+		Description:       attr_description,
+		Path:              attr_path,
+		Writeable:         attr_writeable,
+		Filterable:        attr_filterable,
+		Unit:              attr_unit,
+		Decimals:          attr_decimals,
+		Min:               attr_min,
+		Max:               attr_max,
 		Mappings:          attr_mappings,
 		Thresholds:        attr_thresholds,
 		Color:             attr_color,
-		NoValue:           &attr_novalue,
+		NoValue:           attr_novalue,
 		Custom:            attr_custom,
 	}
 	return json.Marshal(model)
@@ -1373,7 +1373,7 @@ func (m PanelDatagridDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_pluginversion := m.PluginVersion.ValueString()
+	attr_pluginversion := m.PluginVersion.ValueStringPointer()
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -1382,8 +1382,8 @@ func (m PanelDatagridDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	attr_title := m.Title.ValueString()
-	attr_description := m.Description.ValueString()
+	attr_title := m.Title.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -1397,17 +1397,17 @@ func (m PanelDatagridDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	attr_repeat := m.Repeat.ValueString()
-	attr_repeatdirection := m.RepeatDirection.ValueString()
-	attr_repeatpanelid := m.RepeatPanelId.ValueInt64()
-	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
+	attr_repeat := m.Repeat.ValueStringPointer()
+	attr_repeatdirection := m.RepeatDirection.ValueStringPointer()
+	attr_repeatpanelid := m.RepeatPanelId.ValueInt64Pointer()
+	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64Pointer()
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	attr_interval := m.Interval.ValueString()
-	attr_timefrom := m.TimeFrom.ValueString()
-	attr_timeshift := m.TimeShift.ValueString()
+	attr_interval := m.Interval.ValueStringPointer()
+	attr_timefrom := m.TimeFrom.ValueStringPointer()
+	attr_timeshift := m.TimeShift.ValueStringPointer()
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
@@ -1423,23 +1423,23 @@ func (m PanelDatagridDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	model := &jsonPanelDatagridDataSourceModel{
 		Type:            attr_type,
-		PluginVersion:   &attr_pluginversion,
+		PluginVersion:   attr_pluginversion,
 		Tags:            attr_tags,
 		Targets:         attr_targets,
-		Title:           &attr_title,
-		Description:     &attr_description,
+		Title:           attr_title,
+		Description:     attr_description,
 		Transparent:     attr_transparent,
 		Datasource:      attr_datasource,
 		GridPos:         attr_gridpos,
 		Links:           attr_links,
-		Repeat:          &attr_repeat,
-		RepeatDirection: &attr_repeatdirection,
-		RepeatPanelId:   &attr_repeatpanelid,
-		MaxDataPoints:   &attr_maxdatapoints,
+		Repeat:          attr_repeat,
+		RepeatDirection: attr_repeatdirection,
+		RepeatPanelId:   attr_repeatpanelid,
+		MaxDataPoints:   attr_maxdatapoints,
 		Transformations: attr_transformations,
-		Interval:        &attr_interval,
-		TimeFrom:        &attr_timefrom,
-		TimeShift:       &attr_timeshift,
+		Interval:        attr_interval,
+		TimeFrom:        attr_timefrom,
+		TimeShift:       attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
 		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,

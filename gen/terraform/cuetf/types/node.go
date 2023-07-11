@@ -101,7 +101,12 @@ func (n *Node) terraformFunc() string {
 		return ""
 	}
 
-	return kindMappings[n.Kind].terraformFunc
+	terraformFunc := kindMappings[n.Kind].terraformFunc
+	if n.Optional {
+		return terraformFunc + "Pointer()"
+	}
+
+	return terraformFunc + "()"
 }
 
 func (n *Node) subTerraformFunc() string {
@@ -109,7 +114,7 @@ func (n *Node) subTerraformFunc() string {
 		return ""
 	}
 
-	return kindMappings[n.SubKind].terraformFunc
+	return kindMappings[n.SubKind].terraformFunc + "()"
 }
 
 func (n *Node) IsGenerated() bool {

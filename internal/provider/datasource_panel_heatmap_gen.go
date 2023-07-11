@@ -52,12 +52,12 @@ func (m PanelHeatmapDataSourceModel_Datasource) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_uid := m.Uid.ValueString()
+	attr_type := m.Type.ValueStringPointer()
+	attr_uid := m.Uid.ValueStringPointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_Datasource{
-		Type: &attr_type,
-		Uid:  &attr_uid,
+		Type: attr_type,
+		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
@@ -89,14 +89,14 @@ func (m PanelHeatmapDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	attr_static := m.Static.ValueBool()
+	attr_static := m.Static.ValueBoolPointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
 		Y:      attr_y,
-		Static: &attr_static,
+		Static: attr_static,
 	}
 	return json.Marshal(model)
 }
@@ -223,14 +223,14 @@ func (m PanelHeatmapDataSourceModel_Transformations) MarshalJSON() ([]byte, erro
 	}
 
 	m = m.ApplyDefaults()
-	attr_disabled := m.Disabled.ValueBool()
+	attr_disabled := m.Disabled.ValueBoolPointer()
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
 	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Transformations{
-		Disabled: &attr_disabled,
+		Disabled: attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
@@ -283,13 +283,13 @@ func (m PanelHeatmapDataSourceModel_Options_Calculation_XBuckets_Scale) MarshalJ
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+	attr_log := m.Log.ValueFloat64Pointer()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64Pointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_XBuckets_Scale{
 		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
+		Log:             attr_log,
+		LinearThreshold: attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
@@ -313,16 +313,16 @@ func (m PanelHeatmapDataSourceModel_Options_Calculation_XBuckets) MarshalJSON() 
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_value := m.Value.ValueString()
+	attr_mode := m.Mode.ValueStringPointer()
+	attr_value := m.Value.ValueStringPointer()
 	var attr_scale interface{}
 	if m.Scale != nil {
 		attr_scale = m.Scale
 	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_XBuckets{
-		Mode:  &attr_mode,
-		Value: &attr_value,
+		Mode:  attr_mode,
+		Value: attr_value,
 		Scale: attr_scale,
 	}
 	return json.Marshal(model)
@@ -348,13 +348,13 @@ func (m PanelHeatmapDataSourceModel_Options_Calculation_YBuckets_Scale) MarshalJ
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+	attr_log := m.Log.ValueFloat64Pointer()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64Pointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_YBuckets_Scale{
 		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
+		Log:             attr_log,
+		LinearThreshold: attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
@@ -378,16 +378,16 @@ func (m PanelHeatmapDataSourceModel_Options_Calculation_YBuckets) MarshalJSON() 
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_value := m.Value.ValueString()
+	attr_mode := m.Mode.ValueStringPointer()
+	attr_value := m.Value.ValueStringPointer()
 	var attr_scale interface{}
 	if m.Scale != nil {
 		attr_scale = m.Scale
 	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_Calculation_YBuckets{
-		Mode:  &attr_mode,
-		Value: &attr_value,
+		Mode:  attr_mode,
+		Value: attr_value,
 		Scale: attr_scale,
 	}
 	return json.Marshal(model)
@@ -457,26 +457,26 @@ func (m PanelHeatmapDataSourceModel_Options_Color_HeatmapColorOptions) MarshalJS
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
+	attr_mode := m.Mode.ValueStringPointer()
 	attr_scheme := m.Scheme.ValueString()
 	attr_fill := m.Fill.ValueString()
-	attr_scale := m.Scale.ValueString()
+	attr_scale := m.Scale.ValueStringPointer()
 	attr_exponent := m.Exponent.ValueFloat64()
 	attr_steps := m.Steps.ValueInt64()
 	attr_reverse := m.Reverse.ValueBool()
-	attr_min := m.Min.ValueFloat64()
-	attr_max := m.Max.ValueFloat64()
+	attr_min := m.Min.ValueFloat64Pointer()
+	attr_max := m.Max.ValueFloat64Pointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_Color_HeatmapColorOptions{
-		Mode:     &attr_mode,
+		Mode:     attr_mode,
 		Scheme:   attr_scheme,
 		Fill:     attr_fill,
-		Scale:    &attr_scale,
+		Scale:    attr_scale,
 		Exponent: attr_exponent,
 		Steps:    attr_steps,
 		Reverse:  attr_reverse,
-		Min:      &attr_min,
-		Max:      &attr_max,
+		Min:      attr_min,
+		Max:      attr_max,
 	}
 	return json.Marshal(model)
 }
@@ -517,12 +517,12 @@ func (m PanelHeatmapDataSourceModel_Options_FilterValues_FilterValueRange) Marsh
 	}
 
 	m = m.ApplyDefaults()
-	attr_le := m.Le.ValueFloat64()
-	attr_ge := m.Ge.ValueFloat64()
+	attr_le := m.Le.ValueFloat64Pointer()
+	attr_ge := m.Ge.ValueFloat64Pointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_FilterValues_FilterValueRange{
-		Le: &attr_le,
-		Ge: &attr_ge,
+		Le: attr_le,
+		Ge: attr_ge,
 	}
 	return json.Marshal(model)
 }
@@ -563,12 +563,12 @@ func (m PanelHeatmapDataSourceModel_Options_RowsFrame) MarshalJSON() ([]byte, er
 	}
 
 	m = m.ApplyDefaults()
-	attr_value := m.Value.ValueString()
-	attr_layout := m.Layout.ValueString()
+	attr_value := m.Value.ValueStringPointer()
+	attr_layout := m.Layout.ValueStringPointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_RowsFrame{
-		Value:  &attr_value,
-		Layout: &attr_layout,
+		Value:  attr_value,
+		Layout: attr_layout,
 	}
 	return json.Marshal(model)
 }
@@ -590,12 +590,12 @@ func (m PanelHeatmapDataSourceModel_Options_CellValues_CellValues) MarshalJSON()
 	}
 
 	m = m.ApplyDefaults()
-	attr_unit := m.Unit.ValueString()
-	attr_decimals := m.Decimals.ValueFloat64()
+	attr_unit := m.Unit.ValueStringPointer()
+	attr_decimals := m.Decimals.ValueFloat64Pointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_CellValues_CellValues{
-		Unit:     &attr_unit,
-		Decimals: &attr_decimals,
+		Unit:     attr_unit,
+		Decimals: attr_decimals,
 	}
 	return json.Marshal(model)
 }
@@ -639,13 +639,13 @@ func (m PanelHeatmapDataSourceModel_Options_YAxis_ScaleDistribution) MarshalJSON
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+	attr_log := m.Log.ValueFloat64Pointer()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64Pointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_YAxis_ScaleDistribution{
 		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
+		Log:             attr_log,
+		LinearThreshold: attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
@@ -691,39 +691,39 @@ func (m PanelHeatmapDataSourceModel_Options_YAxis) MarshalJSON() ([]byte, error)
 	}
 
 	m = m.ApplyDefaults()
-	attr_unit := m.Unit.ValueString()
-	attr_reverse := m.Reverse.ValueBool()
-	attr_decimals := m.Decimals.ValueFloat64()
-	attr_min := m.Min.ValueFloat64()
-	attr_axisplacement := m.AxisPlacement.ValueString()
-	attr_axiscolormode := m.AxisColorMode.ValueString()
-	attr_axislabel := m.AxisLabel.ValueString()
-	attr_axiswidth := m.AxisWidth.ValueFloat64()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
-	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	attr_unit := m.Unit.ValueStringPointer()
+	attr_reverse := m.Reverse.ValueBoolPointer()
+	attr_decimals := m.Decimals.ValueFloat64Pointer()
+	attr_min := m.Min.ValueFloat64Pointer()
+	attr_axisplacement := m.AxisPlacement.ValueStringPointer()
+	attr_axiscolormode := m.AxisColorMode.ValueStringPointer()
+	attr_axislabel := m.AxisLabel.ValueStringPointer()
+	attr_axiswidth := m.AxisWidth.ValueFloat64Pointer()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64Pointer()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64Pointer()
+	attr_axisgridshow := m.AxisGridShow.ValueBoolPointer()
 	var attr_scaledistribution interface{}
 	if m.ScaleDistribution != nil {
 		attr_scaledistribution = m.ScaleDistribution
 	}
-	attr_max := m.Max.ValueFloat64()
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
+	attr_max := m.Max.ValueFloat64Pointer()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBoolPointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_Options_YAxis{
-		Unit:              &attr_unit,
-		Reverse:           &attr_reverse,
-		Decimals:          &attr_decimals,
-		Min:               &attr_min,
-		AxisPlacement:     &attr_axisplacement,
-		AxisColorMode:     &attr_axiscolormode,
-		AxisLabel:         &attr_axislabel,
-		AxisWidth:         &attr_axiswidth,
-		AxisSoftMin:       &attr_axissoftmin,
-		AxisSoftMax:       &attr_axissoftmax,
-		AxisGridShow:      &attr_axisgridshow,
+		Unit:              attr_unit,
+		Reverse:           attr_reverse,
+		Decimals:          attr_decimals,
+		Min:               attr_min,
+		AxisPlacement:     attr_axisplacement,
+		AxisColorMode:     attr_axiscolormode,
+		AxisLabel:         attr_axislabel,
+		AxisWidth:         attr_axiswidth,
+		AxisSoftMin:       attr_axissoftmin,
+		AxisSoftMax:       attr_axissoftmax,
+		AxisGridShow:      attr_axisgridshow,
 		ScaleDistribution: attr_scaledistribution,
-		Max:               &attr_max,
-		AxisCenteredZero:  &attr_axiscenteredzero,
+		Max:               attr_max,
+		AxisCenteredZero:  attr_axiscenteredzero,
 	}
 	return json.Marshal(model)
 }
@@ -840,7 +840,7 @@ func (m PanelHeatmapDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_calculate := m.Calculate.ValueBool()
+	attr_calculate := m.Calculate.ValueBoolPointer()
 	var attr_calculation interface{}
 	if m.Calculation != nil {
 		attr_calculation = m.Calculation
@@ -858,8 +858,8 @@ func (m PanelHeatmapDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 		attr_rowsframe = m.RowsFrame
 	}
 	attr_showvalue := m.ShowValue.ValueString()
-	attr_cellgap := m.CellGap.ValueInt64()
-	attr_cellradius := m.CellRadius.ValueFloat64()
+	attr_cellgap := m.CellGap.ValueInt64Pointer()
+	attr_cellradius := m.CellRadius.ValueFloat64Pointer()
 	var attr_cellvalues interface{}
 	if m.CellValues != nil {
 		attr_cellvalues = m.CellValues
@@ -882,14 +882,14 @@ func (m PanelHeatmapDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	}
 
 	model := &jsonPanelHeatmapDataSourceModel_Options{
-		Calculate:    &attr_calculate,
+		Calculate:    attr_calculate,
 		Calculation:  attr_calculation,
 		Color:        attr_color,
 		FilterValues: attr_filtervalues,
 		RowsFrame:    attr_rowsframe,
 		ShowValue:    attr_showvalue,
-		CellGap:      &attr_cellgap,
-		CellRadius:   &attr_cellradius,
+		CellGap:      attr_cellgap,
+		CellRadius:   attr_cellradius,
 		CellValues:   attr_cellvalues,
 		YAxis:        attr_yaxis,
 		Legend:       attr_legend,
@@ -928,16 +928,16 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Optio
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -993,16 +993,16 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Optio
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -1124,16 +1124,16 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Optio
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -1219,16 +1219,16 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMa
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -1417,13 +1417,13 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() ([
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_fixedcolor := m.FixedColor.ValueString()
-	attr_seriesby := m.SeriesBy.ValueString()
+	attr_fixedcolor := m.FixedColor.ValueStringPointer()
+	attr_seriesby := m.SeriesBy.ValueStringPointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
-		FixedColor: &attr_fixedcolor,
-		SeriesBy:   &attr_seriesby,
+		FixedColor: attr_fixedcolor,
+		SeriesBy:   attr_seriesby,
 	}
 	return json.Marshal(model)
 }
@@ -1448,13 +1448,13 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistributio
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+	attr_log := m.Log.ValueFloat64Pointer()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64Pointer()
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
 		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
+		Log:             attr_log,
+		LinearThreshold: attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
@@ -1566,16 +1566,16 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte,
 	}
 
 	m = m.ApplyDefaults()
-	attr_displayname := m.DisplayName.ValueString()
-	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
-	attr_description := m.Description.ValueString()
-	attr_path := m.Path.ValueString()
-	attr_writeable := m.Writeable.ValueBool()
-	attr_filterable := m.Filterable.ValueBool()
-	attr_unit := m.Unit.ValueString()
-	attr_decimals := m.Decimals.ValueFloat64()
-	attr_min := m.Min.ValueFloat64()
-	attr_max := m.Max.ValueFloat64()
+	attr_displayname := m.DisplayName.ValueStringPointer()
+	attr_displaynamefromds := m.DisplayNameFromDS.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
+	attr_path := m.Path.ValueStringPointer()
+	attr_writeable := m.Writeable.ValueBoolPointer()
+	attr_filterable := m.Filterable.ValueBoolPointer()
+	attr_unit := m.Unit.ValueStringPointer()
+	attr_decimals := m.Decimals.ValueFloat64Pointer()
+	attr_min := m.Min.ValueFloat64Pointer()
+	attr_max := m.Max.ValueFloat64Pointer()
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -1588,27 +1588,27 @@ func (m PanelHeatmapDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byte,
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	attr_novalue := m.NoValue.ValueString()
+	attr_novalue := m.NoValue.ValueStringPointer()
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
 	}
 
 	model := &jsonPanelHeatmapDataSourceModel_FieldConfig_Defaults{
-		DisplayName:       &attr_displayname,
-		DisplayNameFromDS: &attr_displaynamefromds,
-		Description:       &attr_description,
-		Path:              &attr_path,
-		Writeable:         &attr_writeable,
-		Filterable:        &attr_filterable,
-		Unit:              &attr_unit,
-		Decimals:          &attr_decimals,
-		Min:               &attr_min,
-		Max:               &attr_max,
+		DisplayName:       attr_displayname,
+		DisplayNameFromDS: attr_displaynamefromds,
+		Description:       attr_description,
+		Path:              attr_path,
+		Writeable:         attr_writeable,
+		Filterable:        attr_filterable,
+		Unit:              attr_unit,
+		Decimals:          attr_decimals,
+		Min:               attr_min,
+		Max:               attr_max,
 		Mappings:          attr_mappings,
 		Thresholds:        attr_thresholds,
 		Color:             attr_color,
-		NoValue:           &attr_novalue,
+		NoValue:           attr_novalue,
 		Custom:            attr_custom,
 	}
 	return json.Marshal(model)
@@ -1773,7 +1773,7 @@ func (m PanelHeatmapDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_pluginversion := m.PluginVersion.ValueString()
+	attr_pluginversion := m.PluginVersion.ValueStringPointer()
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -1782,8 +1782,8 @@ func (m PanelHeatmapDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	attr_title := m.Title.ValueString()
-	attr_description := m.Description.ValueString()
+	attr_title := m.Title.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -1797,17 +1797,17 @@ func (m PanelHeatmapDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	attr_repeat := m.Repeat.ValueString()
-	attr_repeatdirection := m.RepeatDirection.ValueString()
-	attr_repeatpanelid := m.RepeatPanelId.ValueInt64()
-	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
+	attr_repeat := m.Repeat.ValueStringPointer()
+	attr_repeatdirection := m.RepeatDirection.ValueStringPointer()
+	attr_repeatpanelid := m.RepeatPanelId.ValueInt64Pointer()
+	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64Pointer()
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	attr_interval := m.Interval.ValueString()
-	attr_timefrom := m.TimeFrom.ValueString()
-	attr_timeshift := m.TimeShift.ValueString()
+	attr_interval := m.Interval.ValueStringPointer()
+	attr_timefrom := m.TimeFrom.ValueStringPointer()
+	attr_timeshift := m.TimeShift.ValueStringPointer()
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
@@ -1823,23 +1823,23 @@ func (m PanelHeatmapDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	model := &jsonPanelHeatmapDataSourceModel{
 		Type:            attr_type,
-		PluginVersion:   &attr_pluginversion,
+		PluginVersion:   attr_pluginversion,
 		Tags:            attr_tags,
 		Targets:         attr_targets,
-		Title:           &attr_title,
-		Description:     &attr_description,
+		Title:           attr_title,
+		Description:     attr_description,
 		Transparent:     attr_transparent,
 		Datasource:      attr_datasource,
 		GridPos:         attr_gridpos,
 		Links:           attr_links,
-		Repeat:          &attr_repeat,
-		RepeatDirection: &attr_repeatdirection,
-		RepeatPanelId:   &attr_repeatpanelid,
-		MaxDataPoints:   &attr_maxdatapoints,
+		Repeat:          attr_repeat,
+		RepeatDirection: attr_repeatdirection,
+		RepeatPanelId:   attr_repeatpanelid,
+		MaxDataPoints:   attr_maxdatapoints,
 		Transformations: attr_transformations,
-		Interval:        &attr_interval,
-		TimeFrom:        &attr_timefrom,
-		TimeShift:       &attr_timeshift,
+		Interval:        attr_interval,
+		TimeFrom:        attr_timefrom,
+		TimeShift:       attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
 		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,

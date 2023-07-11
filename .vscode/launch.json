@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Run provider",
+        "type": "go",
+        "request": "launch",
+        "mode": "auto",
+        "program": "${workspaceFolder}/main.go",
+        "args": ["--debug"],
+      },
+      {
+        "name": "Run generate",
+        "type": "go",
+        "request": "launch",
+        "mode": "auto",
+        "program": "${workspaceFolder}/gen/gen.go",
+        "env": {
+          "MIN_MATURITY": "merged",
+        },
+        "cwd": "${workspaceFolder}"
+      },
+    ]
+  }
+  

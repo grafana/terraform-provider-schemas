@@ -63,16 +63,16 @@ func (m QueryTestDataDataSourceModel_Stream) MarshalJSON() ([]byte, error) {
 	attr_speed := m.Speed.ValueInt64()
 	attr_spread := m.Spread.ValueInt64()
 	attr_noise := m.Noise.ValueInt64()
-	attr_bands := m.Bands.ValueInt64()
-	attr_url := m.Url.ValueString()
+	attr_bands := m.Bands.ValueInt64Pointer()
+	attr_url := m.Url.ValueStringPointer()
 
 	model := &jsonQueryTestDataDataSourceModel_Stream{
 		Type:   attr_type,
 		Speed:  attr_speed,
 		Spread: attr_spread,
 		Noise:  attr_noise,
-		Bands:  &attr_bands,
-		Url:    &attr_url,
+		Bands:  attr_bands,
+		Url:    attr_url,
 	}
 	return json.Marshal(model)
 }
@@ -100,18 +100,18 @@ func (m QueryTestDataDataSourceModel_PulseWave) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_timestep := m.TimeStep.ValueInt64()
-	attr_oncount := m.OnCount.ValueInt64()
-	attr_offcount := m.OffCount.ValueInt64()
-	attr_onvalue := m.OnValue.ValueFloat64()
-	attr_offvalue := m.OffValue.ValueFloat64()
+	attr_timestep := m.TimeStep.ValueInt64Pointer()
+	attr_oncount := m.OnCount.ValueInt64Pointer()
+	attr_offcount := m.OffCount.ValueInt64Pointer()
+	attr_onvalue := m.OnValue.ValueFloat64Pointer()
+	attr_offvalue := m.OffValue.ValueFloat64Pointer()
 
 	model := &jsonQueryTestDataDataSourceModel_PulseWave{
-		TimeStep: &attr_timestep,
-		OnCount:  &attr_oncount,
-		OffCount: &attr_offcount,
-		OnValue:  &attr_onvalue,
-		OffValue: &attr_offvalue,
+		TimeStep: attr_timestep,
+		OnCount:  attr_oncount,
+		OffCount: attr_offcount,
+		OnValue:  attr_onvalue,
+		OffValue: attr_offvalue,
 	}
 	return json.Marshal(model)
 }
@@ -137,12 +137,12 @@ func (m QueryTestDataDataSourceModel_Sim_Key) MarshalJSON() ([]byte, error) {
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
 	attr_tick := m.Tick.ValueFloat64()
-	attr_uid := m.Uid.ValueString()
+	attr_uid := m.Uid.ValueStringPointer()
 
 	model := &jsonQueryTestDataDataSourceModel_Sim_Key{
 		Type: attr_type,
 		Tick: attr_tick,
-		Uid:  &attr_uid,
+		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
@@ -194,14 +194,14 @@ func (m QueryTestDataDataSourceModel_Sim) MarshalJSON() ([]byte, error) {
 	if m.Config != nil {
 		attr_config = m.Config
 	}
-	attr_stream := m.Stream.ValueBool()
-	attr_last := m.Last.ValueBool()
+	attr_stream := m.Stream.ValueBoolPointer()
+	attr_last := m.Last.ValueBoolPointer()
 
 	model := &jsonQueryTestDataDataSourceModel_Sim{
 		Key:    attr_key,
 		Config: attr_config,
-		Stream: &attr_stream,
-		Last:   &attr_last,
+		Stream: attr_stream,
+		Last:   attr_last,
 	}
 	return json.Marshal(model)
 }
@@ -227,16 +227,16 @@ func (m QueryTestDataDataSourceModel_CsvWave) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_timestep := m.TimeStep.ValueInt64()
-	attr_name := m.Name.ValueString()
-	attr_valuescsv := m.ValuesCSV.ValueString()
-	attr_labels := m.Labels.ValueString()
+	attr_timestep := m.TimeStep.ValueInt64Pointer()
+	attr_name := m.Name.ValueStringPointer()
+	attr_valuescsv := m.ValuesCSV.ValueStringPointer()
+	attr_labels := m.Labels.ValueStringPointer()
 
 	model := &jsonQueryTestDataDataSourceModel_CsvWave{
-		TimeStep:  &attr_timestep,
-		Name:      &attr_name,
-		ValuesCSV: &attr_valuescsv,
-		Labels:    &attr_labels,
+		TimeStep:  attr_timestep,
+		Name:      attr_name,
+		ValuesCSV: attr_valuescsv,
+		Labels:    attr_labels,
 	}
 	return json.Marshal(model)
 }
@@ -258,12 +258,12 @@ func (m QueryTestDataDataSourceModel_Nodes) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_count := m.Count.ValueInt64()
+	attr_type := m.Type.ValueStringPointer()
+	attr_count := m.Count.ValueInt64Pointer()
 
 	model := &jsonQueryTestDataDataSourceModel_Nodes{
-		Type:  &attr_type,
-		Count: &attr_count,
+		Type:  attr_type,
+		Count: attr_count,
 	}
 	return json.Marshal(model)
 }
@@ -289,8 +289,8 @@ func (m QueryTestDataDataSourceModel_Usa) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_mode := m.Mode.ValueString()
-	attr_period := m.Period.ValueString()
+	attr_mode := m.Mode.ValueStringPointer()
+	attr_period := m.Period.ValueStringPointer()
 	attr_fields := []string{}
 	for _, v := range m.Fields.Elements() {
 		attr_fields = append(attr_fields, v.(types.String).ValueString())
@@ -301,8 +301,8 @@ func (m QueryTestDataDataSourceModel_Usa) MarshalJSON() ([]byte, error) {
 	}
 
 	model := &jsonQueryTestDataDataSourceModel_Usa{
-		Mode:   &attr_mode,
-		Period: &attr_period,
+		Mode:   attr_mode,
+		Period: attr_period,
 		Fields: attr_fields,
 		States: attr_states,
 	}
@@ -374,9 +374,9 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_alias := m.Alias.ValueString()
-	attr_scenarioid := m.ScenarioId.ValueString()
-	attr_stringinput := m.StringInput.ValueString()
+	attr_alias := m.Alias.ValueStringPointer()
+	attr_scenarioid := m.ScenarioId.ValueStringPointer()
+	attr_stringinput := m.StringInput.ValueStringPointer()
 	var attr_stream interface{}
 	if m.Stream != nil {
 		attr_stream = m.Stream
@@ -393,53 +393,53 @@ func (m QueryTestDataDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.CsvWave {
 		attr_csvwave = append(attr_csvwave, v)
 	}
-	attr_labels := m.Labels.ValueString()
-	attr_lines := m.Lines.ValueInt64()
-	attr_levelcolumn := m.LevelColumn.ValueBool()
-	attr_channel := m.Channel.ValueString()
+	attr_labels := m.Labels.ValueStringPointer()
+	attr_lines := m.Lines.ValueInt64Pointer()
+	attr_levelcolumn := m.LevelColumn.ValueBoolPointer()
+	attr_channel := m.Channel.ValueStringPointer()
 	var attr_nodes interface{}
 	if m.Nodes != nil {
 		attr_nodes = m.Nodes
 	}
-	attr_csvfilename := m.CsvFileName.ValueString()
-	attr_csvcontent := m.CsvContent.ValueString()
-	attr_rawframecontent := m.RawFrameContent.ValueString()
-	attr_seriescount := m.SeriesCount.ValueInt64()
+	attr_csvfilename := m.CsvFileName.ValueStringPointer()
+	attr_csvcontent := m.CsvContent.ValueStringPointer()
+	attr_rawframecontent := m.RawFrameContent.ValueStringPointer()
+	attr_seriescount := m.SeriesCount.ValueInt64Pointer()
 	var attr_usa interface{}
 	if m.Usa != nil {
 		attr_usa = m.Usa
 	}
-	attr_errortype := m.ErrorType.ValueString()
-	attr_spancount := m.SpanCount.ValueInt64()
-	attr_droppercent := m.DropPercent.ValueFloat64()
+	attr_errortype := m.ErrorType.ValueStringPointer()
+	attr_spancount := m.SpanCount.ValueInt64Pointer()
+	attr_droppercent := m.DropPercent.ValueFloat64Pointer()
 	attr_refid := m.RefId.ValueString()
-	attr_hide := m.Hide.ValueBool()
-	attr_querytype := m.QueryType.ValueString()
+	attr_hide := m.Hide.ValueBoolPointer()
+	attr_querytype := m.QueryType.ValueStringPointer()
 
 	model := &jsonQueryTestDataDataSourceModel{
-		Alias:           &attr_alias,
-		ScenarioId:      &attr_scenarioid,
-		StringInput:     &attr_stringinput,
+		Alias:           attr_alias,
+		ScenarioId:      attr_scenarioid,
+		StringInput:     attr_stringinput,
 		Stream:          attr_stream,
 		PulseWave:       attr_pulsewave,
 		Sim:             attr_sim,
 		CsvWave:         attr_csvwave,
-		Labels:          &attr_labels,
-		Lines:           &attr_lines,
-		LevelColumn:     &attr_levelcolumn,
-		Channel:         &attr_channel,
+		Labels:          attr_labels,
+		Lines:           attr_lines,
+		LevelColumn:     attr_levelcolumn,
+		Channel:         attr_channel,
 		Nodes:           attr_nodes,
-		CsvFileName:     &attr_csvfilename,
-		CsvContent:      &attr_csvcontent,
-		RawFrameContent: &attr_rawframecontent,
-		SeriesCount:     &attr_seriescount,
+		CsvFileName:     attr_csvfilename,
+		CsvContent:      attr_csvcontent,
+		RawFrameContent: attr_rawframecontent,
+		SeriesCount:     attr_seriescount,
 		Usa:             attr_usa,
-		ErrorType:       &attr_errortype,
-		SpanCount:       &attr_spancount,
-		DropPercent:     &attr_droppercent,
+		ErrorType:       attr_errortype,
+		SpanCount:       attr_spancount,
+		DropPercent:     attr_droppercent,
 		RefId:           attr_refid,
-		Hide:            &attr_hide,
-		QueryType:       &attr_querytype,
+		Hide:            attr_hide,
+		QueryType:       attr_querytype,
 	}
 	return json.Marshal(model)
 }

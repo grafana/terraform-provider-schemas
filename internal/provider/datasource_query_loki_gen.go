@@ -71,29 +71,29 @@ func (m QueryLokiDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_expr := m.Expr.ValueString()
-	attr_legendformat := m.LegendFormat.ValueString()
-	attr_maxlines := m.MaxLines.ValueInt64()
-	attr_resolution := m.Resolution.ValueInt64()
-	attr_editormode := m.EditorMode.ValueString()
-	attr_range := m.Range.ValueBool()
-	attr_instant := m.Instant.ValueBool()
-	attr_step := m.Step.ValueString()
+	attr_legendformat := m.LegendFormat.ValueStringPointer()
+	attr_maxlines := m.MaxLines.ValueInt64Pointer()
+	attr_resolution := m.Resolution.ValueInt64Pointer()
+	attr_editormode := m.EditorMode.ValueStringPointer()
+	attr_range := m.Range.ValueBoolPointer()
+	attr_instant := m.Instant.ValueBoolPointer()
+	attr_step := m.Step.ValueStringPointer()
 	attr_refid := m.RefId.ValueString()
-	attr_hide := m.Hide.ValueBool()
-	attr_querytype := m.QueryType.ValueString()
+	attr_hide := m.Hide.ValueBoolPointer()
+	attr_querytype := m.QueryType.ValueStringPointer()
 
 	model := &jsonQueryLokiDataSourceModel{
 		Expr:         attr_expr,
-		LegendFormat: &attr_legendformat,
-		MaxLines:     &attr_maxlines,
-		Resolution:   &attr_resolution,
-		EditorMode:   &attr_editormode,
-		Range:        &attr_range,
-		Instant:      &attr_instant,
-		Step:         &attr_step,
+		LegendFormat: attr_legendformat,
+		MaxLines:     attr_maxlines,
+		Resolution:   attr_resolution,
+		EditorMode:   attr_editormode,
+		Range:        attr_range,
+		Instant:      attr_instant,
+		Step:         attr_step,
 		RefId:        attr_refid,
-		Hide:         &attr_hide,
-		QueryType:    &attr_querytype,
+		Hide:         attr_hide,
+		QueryType:    attr_querytype,
 	}
 	return json.Marshal(model)
 }

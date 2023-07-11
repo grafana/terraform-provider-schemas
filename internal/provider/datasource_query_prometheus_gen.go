@@ -71,29 +71,29 @@ func (m QueryPrometheusDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_expr := m.Expr.ValueString()
-	attr_instant := m.Instant.ValueBool()
-	attr_range := m.Range.ValueBool()
-	attr_exemplar := m.Exemplar.ValueBool()
-	attr_editormode := m.EditorMode.ValueString()
-	attr_format := m.Format.ValueString()
-	attr_legendformat := m.LegendFormat.ValueString()
-	attr_intervalfactor := m.IntervalFactor.ValueFloat64()
+	attr_instant := m.Instant.ValueBoolPointer()
+	attr_range := m.Range.ValueBoolPointer()
+	attr_exemplar := m.Exemplar.ValueBoolPointer()
+	attr_editormode := m.EditorMode.ValueStringPointer()
+	attr_format := m.Format.ValueStringPointer()
+	attr_legendformat := m.LegendFormat.ValueStringPointer()
+	attr_intervalfactor := m.IntervalFactor.ValueFloat64Pointer()
 	attr_refid := m.RefId.ValueString()
-	attr_hide := m.Hide.ValueBool()
-	attr_querytype := m.QueryType.ValueString()
+	attr_hide := m.Hide.ValueBoolPointer()
+	attr_querytype := m.QueryType.ValueStringPointer()
 
 	model := &jsonQueryPrometheusDataSourceModel{
 		Expr:           attr_expr,
-		Instant:        &attr_instant,
-		Range:          &attr_range,
-		Exemplar:       &attr_exemplar,
-		EditorMode:     &attr_editormode,
-		Format:         &attr_format,
-		LegendFormat:   &attr_legendformat,
-		IntervalFactor: &attr_intervalfactor,
+		Instant:        attr_instant,
+		Range:          attr_range,
+		Exemplar:       attr_exemplar,
+		EditorMode:     attr_editormode,
+		Format:         attr_format,
+		LegendFormat:   attr_legendformat,
+		IntervalFactor: attr_intervalfactor,
 		RefId:          attr_refid,
-		Hide:           &attr_hide,
-		QueryType:      &attr_querytype,
+		Hide:           attr_hide,
+		QueryType:      attr_querytype,
 	}
 	return json.Marshal(model)
 }

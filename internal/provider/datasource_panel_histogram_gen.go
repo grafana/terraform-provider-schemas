@@ -52,12 +52,12 @@ func (m PanelHistogramDataSourceModel_Datasource) MarshalJSON() ([]byte, error) 
 	}
 
 	m = m.ApplyDefaults()
-	attr_type := m.Type.ValueString()
-	attr_uid := m.Uid.ValueString()
+	attr_type := m.Type.ValueStringPointer()
+	attr_uid := m.Uid.ValueStringPointer()
 
 	model := &jsonPanelHistogramDataSourceModel_Datasource{
-		Type: &attr_type,
-		Uid:  &attr_uid,
+		Type: attr_type,
+		Uid:  attr_uid,
 	}
 	return json.Marshal(model)
 }
@@ -89,14 +89,14 @@ func (m PanelHistogramDataSourceModel_GridPos) MarshalJSON() ([]byte, error) {
 	attr_w := m.W.ValueInt64()
 	attr_x := m.X.ValueInt64()
 	attr_y := m.Y.ValueInt64()
-	attr_static := m.Static.ValueBool()
+	attr_static := m.Static.ValueBoolPointer()
 
 	model := &jsonPanelHistogramDataSourceModel_GridPos{
 		H:      attr_h,
 		W:      attr_w,
 		X:      attr_x,
 		Y:      attr_y,
-		Static: &attr_static,
+		Static: attr_static,
 	}
 	return json.Marshal(model)
 }
@@ -223,14 +223,14 @@ func (m PanelHistogramDataSourceModel_Transformations) MarshalJSON() ([]byte, er
 	}
 
 	m = m.ApplyDefaults()
-	attr_disabled := m.Disabled.ValueBool()
+	attr_disabled := m.Disabled.ValueBoolPointer()
 	var attr_filter interface{}
 	if m.Filter != nil {
 		attr_filter = m.Filter
 	}
 
 	model := &jsonPanelHistogramDataSourceModel_Transformations{
-		Disabled: &attr_disabled,
+		Disabled: attr_disabled,
 		Filter:   attr_filter,
 	}
 	return json.Marshal(model)
@@ -297,11 +297,11 @@ func (m PanelHistogramDataSourceModel_Options_Legend) MarshalJSON() ([]byte, err
 	attr_displaymode := m.DisplayMode.ValueString()
 	attr_placement := m.Placement.ValueString()
 	attr_showlegend := m.ShowLegend.ValueBool()
-	attr_astable := m.AsTable.ValueBool()
-	attr_isvisible := m.IsVisible.ValueBool()
-	attr_sortby := m.SortBy.ValueString()
-	attr_sortdesc := m.SortDesc.ValueBool()
-	attr_width := m.Width.ValueFloat64()
+	attr_astable := m.AsTable.ValueBoolPointer()
+	attr_isvisible := m.IsVisible.ValueBoolPointer()
+	attr_sortby := m.SortBy.ValueStringPointer()
+	attr_sortdesc := m.SortDesc.ValueBoolPointer()
+	attr_width := m.Width.ValueFloat64Pointer()
 	attr_calcs := []string{}
 	for _, v := range m.Calcs.Elements() {
 		attr_calcs = append(attr_calcs, v.(types.String).ValueString())
@@ -311,11 +311,11 @@ func (m PanelHistogramDataSourceModel_Options_Legend) MarshalJSON() ([]byte, err
 		DisplayMode: attr_displaymode,
 		Placement:   attr_placement,
 		ShowLegend:  attr_showlegend,
-		AsTable:     &attr_astable,
-		IsVisible:   &attr_isvisible,
-		SortBy:      &attr_sortby,
-		SortDesc:    &attr_sortdesc,
-		Width:       &attr_width,
+		AsTable:     attr_astable,
+		IsVisible:   attr_isvisible,
+		SortBy:      attr_sortby,
+		SortDesc:    attr_sortdesc,
+		Width:       attr_width,
 		Calcs:       attr_calcs,
 	}
 	return json.Marshal(model)
@@ -373,8 +373,8 @@ func (m PanelHistogramDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	}
 
 	m = m.ApplyDefaults()
-	attr_bucketsize := m.BucketSize.ValueInt64()
-	attr_bucketoffset := m.BucketOffset.ValueInt64()
+	attr_bucketsize := m.BucketSize.ValueInt64Pointer()
+	attr_bucketoffset := m.BucketOffset.ValueInt64Pointer()
 	var attr_legend interface{}
 	if m.Legend != nil {
 		attr_legend = m.Legend
@@ -383,14 +383,14 @@ func (m PanelHistogramDataSourceModel_Options) MarshalJSON() ([]byte, error) {
 	if m.Tooltip != nil {
 		attr_tooltip = m.Tooltip
 	}
-	attr_combine := m.Combine.ValueBool()
+	attr_combine := m.Combine.ValueBoolPointer()
 
 	model := &jsonPanelHistogramDataSourceModel_Options{
-		BucketSize:   &attr_bucketsize,
-		BucketOffset: &attr_bucketoffset,
+		BucketSize:   attr_bucketsize,
+		BucketOffset: attr_bucketoffset,
 		Legend:       attr_legend,
 		Tooltip:      attr_tooltip,
-		Combine:      &attr_combine,
+		Combine:      attr_combine,
 	}
 	return json.Marshal(model)
 }
@@ -418,16 +418,16 @@ func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Opt
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Mappings_ValueMap_Options{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -483,16 +483,16 @@ func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Opt
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Mappings_RangeMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -614,16 +614,16 @@ func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Opt
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Mappings_RegexMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -709,16 +709,16 @@ func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValue
 	}
 
 	m = m.ApplyDefaults()
-	attr_text := m.Text.ValueString()
-	attr_color := m.Color.ValueString()
-	attr_icon := m.Icon.ValueString()
-	attr_index := m.Index.ValueInt64()
+	attr_text := m.Text.ValueStringPointer()
+	attr_color := m.Color.ValueStringPointer()
+	attr_icon := m.Icon.ValueStringPointer()
+	attr_index := m.Index.ValueInt64Pointer()
 
 	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Mappings_SpecialValueMap_Options_Result{
-		Text:  &attr_text,
-		Color: &attr_color,
-		Icon:  &attr_icon,
-		Index: &attr_index,
+		Text:  attr_text,
+		Color: attr_color,
+		Icon:  attr_icon,
+		Index: attr_index,
 	}
 	return json.Marshal(model)
 }
@@ -907,13 +907,13 @@ func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Color) MarshalJSON() 
 
 	m = m.ApplyDefaults()
 	attr_mode := m.Mode.ValueString()
-	attr_fixedcolor := m.FixedColor.ValueString()
-	attr_seriesby := m.SeriesBy.ValueString()
+	attr_fixedcolor := m.FixedColor.ValueStringPointer()
+	attr_seriesby := m.SeriesBy.ValueStringPointer()
 
 	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Color{
 		Mode:       attr_mode,
-		FixedColor: &attr_fixedcolor,
-		SeriesBy:   &attr_seriesby,
+		FixedColor: attr_fixedcolor,
+		SeriesBy:   attr_seriesby,
 	}
 	return json.Marshal(model)
 }
@@ -938,13 +938,13 @@ func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribut
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_log := m.Log.ValueFloat64()
-	attr_linearthreshold := m.LinearThreshold.ValueFloat64()
+	attr_log := m.Log.ValueFloat64Pointer()
+	attr_linearthreshold := m.LinearThreshold.ValueFloat64Pointer()
 
 	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Custom_ScaleDistribution{
 		Type:            attr_type,
-		Log:             &attr_log,
-		LinearThreshold: &attr_linearthreshold,
+		Log:             attr_log,
+		LinearThreshold: attr_linearthreshold,
 	}
 	return json.Marshal(model)
 }
@@ -1019,15 +1019,15 @@ func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON()
 	}
 
 	m = m.ApplyDefaults()
-	attr_linewidth := m.LineWidth.ValueInt64()
-	attr_fillopacity := m.FillOpacity.ValueInt64()
-	attr_axisplacement := m.AxisPlacement.ValueString()
-	attr_axiscolormode := m.AxisColorMode.ValueString()
-	attr_axislabel := m.AxisLabel.ValueString()
-	attr_axiswidth := m.AxisWidth.ValueFloat64()
-	attr_axissoftmin := m.AxisSoftMin.ValueFloat64()
-	attr_axissoftmax := m.AxisSoftMax.ValueFloat64()
-	attr_axisgridshow := m.AxisGridShow.ValueBool()
+	attr_linewidth := m.LineWidth.ValueInt64Pointer()
+	attr_fillopacity := m.FillOpacity.ValueInt64Pointer()
+	attr_axisplacement := m.AxisPlacement.ValueStringPointer()
+	attr_axiscolormode := m.AxisColorMode.ValueStringPointer()
+	attr_axislabel := m.AxisLabel.ValueStringPointer()
+	attr_axiswidth := m.AxisWidth.ValueFloat64Pointer()
+	attr_axissoftmin := m.AxisSoftMin.ValueFloat64Pointer()
+	attr_axissoftmax := m.AxisSoftMax.ValueFloat64Pointer()
+	attr_axisgridshow := m.AxisGridShow.ValueBoolPointer()
 	var attr_scaledistribution interface{}
 	if m.ScaleDistribution != nil {
 		attr_scaledistribution = m.ScaleDistribution
@@ -1036,23 +1036,23 @@ func (m PanelHistogramDataSourceModel_FieldConfig_Defaults_Custom) MarshalJSON()
 	if m.HideFrom != nil {
 		attr_hidefrom = m.HideFrom
 	}
-	attr_gradientmode := m.GradientMode.ValueString()
-	attr_axiscenteredzero := m.AxisCenteredZero.ValueBool()
+	attr_gradientmode := m.GradientMode.ValueStringPointer()
+	attr_axiscenteredzero := m.AxisCenteredZero.ValueBoolPointer()
 
 	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults_Custom{
-		LineWidth:         &attr_linewidth,
-		FillOpacity:       &attr_fillopacity,
-		AxisPlacement:     &attr_axisplacement,
-		AxisColorMode:     &attr_axiscolormode,
-		AxisLabel:         &attr_axislabel,
-		AxisWidth:         &attr_axiswidth,
-		AxisSoftMin:       &attr_axissoftmin,
-		AxisSoftMax:       &attr_axissoftmax,
-		AxisGridShow:      &attr_axisgridshow,
+		LineWidth:         attr_linewidth,
+		FillOpacity:       attr_fillopacity,
+		AxisPlacement:     attr_axisplacement,
+		AxisColorMode:     attr_axiscolormode,
+		AxisLabel:         attr_axislabel,
+		AxisWidth:         attr_axiswidth,
+		AxisSoftMin:       attr_axissoftmin,
+		AxisSoftMax:       attr_axissoftmax,
+		AxisGridShow:      attr_axisgridshow,
 		ScaleDistribution: attr_scaledistribution,
 		HideFrom:          attr_hidefrom,
-		GradientMode:      &attr_gradientmode,
-		AxisCenteredZero:  &attr_axiscenteredzero,
+		GradientMode:      attr_gradientmode,
+		AxisCenteredZero:  attr_axiscenteredzero,
 	}
 	return json.Marshal(model)
 }
@@ -1108,16 +1108,16 @@ func (m PanelHistogramDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byt
 	}
 
 	m = m.ApplyDefaults()
-	attr_displayname := m.DisplayName.ValueString()
-	attr_displaynamefromds := m.DisplayNameFromDS.ValueString()
-	attr_description := m.Description.ValueString()
-	attr_path := m.Path.ValueString()
-	attr_writeable := m.Writeable.ValueBool()
-	attr_filterable := m.Filterable.ValueBool()
-	attr_unit := m.Unit.ValueString()
-	attr_decimals := m.Decimals.ValueFloat64()
-	attr_min := m.Min.ValueFloat64()
-	attr_max := m.Max.ValueFloat64()
+	attr_displayname := m.DisplayName.ValueStringPointer()
+	attr_displaynamefromds := m.DisplayNameFromDS.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
+	attr_path := m.Path.ValueStringPointer()
+	attr_writeable := m.Writeable.ValueBoolPointer()
+	attr_filterable := m.Filterable.ValueBoolPointer()
+	attr_unit := m.Unit.ValueStringPointer()
+	attr_decimals := m.Decimals.ValueFloat64Pointer()
+	attr_min := m.Min.ValueFloat64Pointer()
+	attr_max := m.Max.ValueFloat64Pointer()
 	attr_mappings := []interface{}{}
 	for _, v := range m.Mappings {
 		attr_mappings = append(attr_mappings, v)
@@ -1130,27 +1130,27 @@ func (m PanelHistogramDataSourceModel_FieldConfig_Defaults) MarshalJSON() ([]byt
 	if m.Color != nil {
 		attr_color = m.Color
 	}
-	attr_novalue := m.NoValue.ValueString()
+	attr_novalue := m.NoValue.ValueStringPointer()
 	var attr_custom interface{}
 	if m.Custom != nil {
 		attr_custom = m.Custom
 	}
 
 	model := &jsonPanelHistogramDataSourceModel_FieldConfig_Defaults{
-		DisplayName:       &attr_displayname,
-		DisplayNameFromDS: &attr_displaynamefromds,
-		Description:       &attr_description,
-		Path:              &attr_path,
-		Writeable:         &attr_writeable,
-		Filterable:        &attr_filterable,
-		Unit:              &attr_unit,
-		Decimals:          &attr_decimals,
-		Min:               &attr_min,
-		Max:               &attr_max,
+		DisplayName:       attr_displayname,
+		DisplayNameFromDS: attr_displaynamefromds,
+		Description:       attr_description,
+		Path:              attr_path,
+		Writeable:         attr_writeable,
+		Filterable:        attr_filterable,
+		Unit:              attr_unit,
+		Decimals:          attr_decimals,
+		Min:               attr_min,
+		Max:               attr_max,
 		Mappings:          attr_mappings,
 		Thresholds:        attr_thresholds,
 		Color:             attr_color,
-		NoValue:           &attr_novalue,
+		NoValue:           attr_novalue,
 		Custom:            attr_custom,
 	}
 	return json.Marshal(model)
@@ -1315,7 +1315,7 @@ func (m PanelHistogramDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	m = m.ApplyDefaults()
 	attr_type := m.Type.ValueString()
-	attr_pluginversion := m.PluginVersion.ValueString()
+	attr_pluginversion := m.PluginVersion.ValueStringPointer()
 	attr_tags := []string{}
 	for _, v := range m.Tags.Elements() {
 		attr_tags = append(attr_tags, v.(types.String).ValueString())
@@ -1324,8 +1324,8 @@ func (m PanelHistogramDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Targets.Elements() {
 		attr_targets = append(attr_targets, v.(types.String).ValueString())
 	}
-	attr_title := m.Title.ValueString()
-	attr_description := m.Description.ValueString()
+	attr_title := m.Title.ValueStringPointer()
+	attr_description := m.Description.ValueStringPointer()
 	attr_transparent := m.Transparent.ValueBool()
 	var attr_datasource interface{}
 	if m.Datasource != nil {
@@ -1339,17 +1339,17 @@ func (m PanelHistogramDataSourceModel) MarshalJSON() ([]byte, error) {
 	for _, v := range m.Links {
 		attr_links = append(attr_links, v)
 	}
-	attr_repeat := m.Repeat.ValueString()
-	attr_repeatdirection := m.RepeatDirection.ValueString()
-	attr_repeatpanelid := m.RepeatPanelId.ValueInt64()
-	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64()
+	attr_repeat := m.Repeat.ValueStringPointer()
+	attr_repeatdirection := m.RepeatDirection.ValueStringPointer()
+	attr_repeatpanelid := m.RepeatPanelId.ValueInt64Pointer()
+	attr_maxdatapoints := m.MaxDataPoints.ValueFloat64Pointer()
 	attr_transformations := []interface{}{}
 	for _, v := range m.Transformations {
 		attr_transformations = append(attr_transformations, v)
 	}
-	attr_interval := m.Interval.ValueString()
-	attr_timefrom := m.TimeFrom.ValueString()
-	attr_timeshift := m.TimeShift.ValueString()
+	attr_interval := m.Interval.ValueStringPointer()
+	attr_timefrom := m.TimeFrom.ValueStringPointer()
+	attr_timeshift := m.TimeShift.ValueStringPointer()
 	var attr_librarypanel interface{}
 	if m.LibraryPanel != nil {
 		attr_librarypanel = m.LibraryPanel
@@ -1365,23 +1365,23 @@ func (m PanelHistogramDataSourceModel) MarshalJSON() ([]byte, error) {
 
 	model := &jsonPanelHistogramDataSourceModel{
 		Type:            attr_type,
-		PluginVersion:   &attr_pluginversion,
+		PluginVersion:   attr_pluginversion,
 		Tags:            attr_tags,
 		Targets:         attr_targets,
-		Title:           &attr_title,
-		Description:     &attr_description,
+		Title:           attr_title,
+		Description:     attr_description,
 		Transparent:     attr_transparent,
 		Datasource:      attr_datasource,
 		GridPos:         attr_gridpos,
 		Links:           attr_links,
-		Repeat:          &attr_repeat,
-		RepeatDirection: &attr_repeatdirection,
-		RepeatPanelId:   &attr_repeatpanelid,
-		MaxDataPoints:   &attr_maxdatapoints,
+		Repeat:          attr_repeat,
+		RepeatDirection: attr_repeatdirection,
+		RepeatPanelId:   attr_repeatpanelid,
+		MaxDataPoints:   attr_maxdatapoints,
 		Transformations: attr_transformations,
-		Interval:        &attr_interval,
-		TimeFrom:        &attr_timefrom,
-		TimeShift:       &attr_timeshift,
+		Interval:        attr_interval,
+		TimeFrom:        attr_timefrom,
+		TimeShift:       attr_timeshift,
 		LibraryPanel:    attr_librarypanel,
 		Options:         attr_options,
 		FieldConfig:     attr_fieldconfig,
