@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/grafana/thema v0.0.0-20230615161902-b6e21996aef8
 	github.com/hashicorp/terraform-plugin-docs v0.16.0
-	github.com/hashicorp/terraform-plugin-framework v1.3.2
+	github.com/hashicorp/terraform-plugin-framework v1.3.3
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 )
 
@@ -36,7 +36,7 @@ require (
 	github.com/hashicorp/hc-install v0.5.2 // indirect
 	github.com/hashicorp/terraform-exec v0.18.1 // indirect
 	github.com/hashicorp/terraform-json v0.17.1 // indirect
-	github.com/hashicorp/terraform-plugin-go v0.17.0 // indirect
+	github.com/hashicorp/terraform-plugin-go v0.18.0 // indirect
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.13 // indirect
 	github.com/invopop/yaml v0.2.0 // indirect
