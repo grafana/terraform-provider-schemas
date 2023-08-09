@@ -18,6 +18,7 @@ require (
 	github.com/armon/go-radix v1.0.0 // indirect
 	github.com/bgentry/speakeasy v0.1.0 // indirect
 	github.com/cloudflare/circl v1.3.3 // indirect
+	github.com/cockroachdb/apd/v3 v3.2.0 // indirect
 	github.com/cockroachdb/errors v1.9.1 // indirect
 	github.com/cockroachdb/logtags v0.0.0-20211118104740-dabe8e521a4f // indirect
 	github.com/cockroachdb/redact v1.1.3 // indirect
@@ -85,8 +86,7 @@ require (
 )
 
 require (
-	cuelang.org/go v0.6.0-0.dev
-	github.com/cockroachdb/apd/v2 v2.0.2 // indirect
+	cuelang.org/go v0.6.0
 	github.com/emicklei/proto v1.11.2 // indirect
 	github.com/fatih/color v1.15.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
