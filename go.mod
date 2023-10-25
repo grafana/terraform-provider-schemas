@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/grafana/thema v0.0.0-20230615161902-b6e21996aef8
 	github.com/hashicorp/terraform-plugin-docs v0.16.0
-	github.com/hashicorp/terraform-plugin-framework v1.4.1
+	github.com/hashicorp/terraform-plugin-framework v1.4.2
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 )
 
@@ -78,7 +78,7 @@ require (
 )
 
 require (
-	github.com/google/go-cmp v0.5.9 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/grafana/grafana v1.9.2-0.20230706143427-a8d2a9ae2ba1
 	github.com/yalue/merged_fs v1.2.3 // indirect
 	golang.org/x/sync v0.4.0 // indirect
@@ -115,7 +115,7 @@ require (
 	github.com/rogpeppe/go-internal v1.10.0 // indirect
 	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/mod v0.13.0 // indirect
-	golang.org/x/net v0.16.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.13.0
 	golang.org/x/tools v0.14.0
