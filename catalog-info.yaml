@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: terraform-provider-schemas
+  title: Grafana Schemas Terraform Provider 
+  annotations:
+    github.com/project-slug: grafana/terraform-provider-schemas
+  links:
+    - title: Slack Channel
+      url: https://raintank-corp.slack.com/archives/C018SLDD5MW
+  description: |
+    Generated Terraform provider to manage Grafana dashboards
+spec:
+  type: library
+  owner: group:default/platform-monitoring
+  lifecycle: experimental
