@@ -36,7 +36,7 @@ terraform {
   required_providers {
     schemas = {
       source  = "grafana/schemas"
-      version = "0.1.0"
+      version = "0.2.0"
     }
     grafana = {
       source  = "grafana/grafana"
@@ -78,7 +78,7 @@ resource "grafana_dashboard" "example" {
 }
 ```
 
-More examples are available in the ["examples"](https://github.com/grafana/terraform-provider-schemas/tree/main/examples/data-sources/schemas_core_dashboard) folder.
+More examples are available in the ["examples"](https://github.com/grafana/terraform-provider-schemas/tree/main/examples/schemas_core_dashboard) folder.
 
 ## Development
 
